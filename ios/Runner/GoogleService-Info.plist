@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>943777131734-16koululu3i9f1l7kto5vqmj7qk7gmhv.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.943777131734-16koululu3i9f1l7kto5vqmj7qk7gmhv</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC3oXy5aRmokXSiXkK56Q7j7AT05N93bQk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>943777131734</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.skladappka</string>
+	<key>PROJECT_ID</key>
+	<string>bazappka</string>
+	<key>STORAGE_BUCKET</key>
+	<string>bazappka.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:943777131734:ios:c43e02a60f9b867ecfad77</string>
+</dict>
+</plist>

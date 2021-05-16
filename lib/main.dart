@@ -1,5 +1,5 @@
 import 'dart:ui';
-
+import 'package:firebase_core/firebase_core.dart';
 /// Flutter code sample for BottomNavigationBar
 
 // This example shows a [BottomNavigationBar] as it is used within a [Scaffold]
@@ -10,8 +10,12 @@ import 'dart:ui';
 // and displays a corresponding message in the center of the [Scaffold].
 //import 'dart:html';
 import 'package:flutter/material.dart';
-
-void main() => runApp(const MyApp());
+import 'homepage.dart';
+Future<void> main() async { 
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const MyApp());
+}
 
 /// This is the main application widget.
 class MyApp extends StatelessWidget {
@@ -41,20 +45,21 @@ class MyStatefulWidget extends StatefulWidget {
 /// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 2;
- 
   
+ 
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30,fontFamily: 'Lobster-1.4');
   static const List<Widget> _widgetOptions = <Widget>[
-    Text('yeeee',
-    style: optionStyle,
-    ),
     Text(
       'Index 1: Dodawanie',
       style: optionStyle,
-    ),
+    ),  
     Text(
       'Index 2: Wczytywanie',
+      style: optionStyle,
+    ),
+    Text(
+      'Home page',
       style: optionStyle,
     ),
     Text(
@@ -62,7 +67,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       style: optionStyle,
     ),
     Text(
-      'Index 4: Logowanie',
+      'Index 4:  Logowanie',
       style: optionStyle,
     )
   ];
@@ -84,6 +89,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         style: TextStyle(fontFamily: 'Lobster-1.4',fontWeight: FontWeight.w400,fontSize: 34),),       
       ),
       body: Center(
+        
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(

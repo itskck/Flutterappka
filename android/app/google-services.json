@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "943777131734",
+    "project_id": "bazappka",
+    "storage_bucket": "bazappka.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:943777131734:android:4db3e08e652634e2cfad77",
+        "android_client_info": {
+          "package_name": "com.example.skladappka"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "943777131734-i9e4pmcdsnmq85rp1814jki28d0mnpkf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAroaHIaliz6XlDP0y0wlv1s5AlCky2WRo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "943777131734-i9e4pmcdsnmq85rp1814jki28d0mnpkf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
