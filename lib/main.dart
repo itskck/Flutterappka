@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 /// Flutter code sample for BottomNavigationBar
 
 // This example shows a [BottomNavigationBar] as it is used within a [Scaffold]
@@ -16,7 +17,8 @@ Future<void> main() async {
   await Firebase.initializeApp();
   runApp(const MyApp());
 }
-
+Homepage homepage = new Homepage(); 
+String tekst = homepage.printdb();
 /// This is the main application widget.
 class MyApp extends StatelessWidget {
   const MyApp({Key key}) : super(key: key);
@@ -44,12 +46,12 @@ class MyStatefulWidget extends StatefulWidget {
 
 /// This is the private State class that goes with MyStatefulWidget.
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 2;  
   
- 
+  
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30,fontFamily: 'Lobster-1.4');
-  static const List<Widget> _widgetOptions = <Widget>[
+  static List<Widget> _widgetOptions = <Widget>[
     Text(
       'Index 1: Dodawanie',
       style: optionStyle,
@@ -58,8 +60,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       'Index 2: Wczytywanie',
       style: optionStyle,
     ),
-    Text(
-      'Home page',
+   Text(
+      "$tekst",
       style: optionStyle,
     ),
     Text(
@@ -80,8 +82,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      
+   
+    return Scaffold(     
       appBar: AppBar(        
         backgroundColor:Color.fromRGBO(102, 7, 8, 100),
         //leading: Icon(Icons.computer),
