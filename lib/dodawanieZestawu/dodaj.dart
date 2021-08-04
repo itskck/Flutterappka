@@ -10,10 +10,22 @@ class dodaj extends StatefulWidget {
 }
 class _dodaj extends State<dodaj>{
   int _selectedIndex=0;
+  Widget itemFrame(String name, {Image photo}){
+    if(photo == null) photo = Image.asset('assets/placeholder.png');     
+    return Container(
+      child:Column(mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,children: [
+        photo,
+        Text(name)
+      ],),
+    );
+  }
+
   void _onItemTapped(int index){
     ktoro=index;
     main();
   }
+
+
   @override
   Widget build(BuildContext context) { //build context gives the layout, when you build widget it will always have this line
     return Scaffold( //entry point to your app scaffold blank display
@@ -24,7 +36,14 @@ class _dodaj extends State<dodaj>{
           style: TextStyle(fontFamily: 'Lobster-1.4',fontWeight: FontWeight.w400,fontSize: 34),),
       ),
       body: Center(
-        child: Text("Dodawanko"),
+        child: GridView.count(
+          crossAxisCount: 2,
+          children: [
+            itemFrame('name'),
+            itemFrame('name'),
+            itemFrame('name'),
+            itemFrame('name')
+          ],),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
