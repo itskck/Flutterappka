@@ -10,14 +10,33 @@ class dodaj extends StatefulWidget {
 }
 class _dodaj extends State<dodaj>{
   int _selectedIndex=0;
-  Widget itemFrame(String name, {Image photo}){
-    if(photo == null) photo = Image.asset('assets/placeholder.png');     
+
+
+  Widget addButton(String component)
+  {
     return Container(
-      child:Column(mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,children: [
-        photo,
-        Text(name)
-      ],),
+      padding: EdgeInsets.all(15),
+      
+      child:ElevatedButton(
+        style:ButtonStyle(),
+        child: new Icon(          
+          Icons.add,
+          color: Colors.white,
+          size: 40.0,
+          ),
+        onPressed: null ),
     );
+  }
+  Widget itemFrame(String name, {Image photo}){
+    if(photo == null) photo = Image.asset('assets/placeholder.png',fit: BoxFit.cover);         
+    return Container(      
+      padding: EdgeInsets.all(15),
+      child:Column(
+         children:[   
+         photo,
+         Text(name)
+      ],
+    ));
   }
 
   void _onItemTapped(int index){
@@ -40,9 +59,8 @@ class _dodaj extends State<dodaj>{
           crossAxisCount: 2,
           children: [
             itemFrame('name'),
-            itemFrame('name'),
-            itemFrame('name'),
-            itemFrame('name')
+            addButton('')
+            
           ],),
       ),
       bottomNavigationBar: BottomNavigationBar(
