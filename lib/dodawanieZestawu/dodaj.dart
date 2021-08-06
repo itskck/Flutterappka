@@ -27,7 +27,7 @@ class _dodaj extends State<dodaj>{
         onPressed: null ),
     );
   }
-  Widget itemFrame(String model, {Image photo}){        
+  Widget itemFrame(String model, String name ,{Image photo}){        
     return Container(
       decoration: BoxDecoration(
         border: Border.all(width: 1),
@@ -38,8 +38,9 @@ class _dodaj extends State<dodaj>{
       padding: EdgeInsets.all(15),
       child:Column(
          children:[
+        Text(name),
         AspectRatio(          
-          aspectRatio: 487 / 436,
+          aspectRatio: 487 / 386,
           child: Container(
            decoration: BoxDecoration(
              border: Border.all(width: 1),
@@ -80,12 +81,12 @@ class _dodaj extends State<dodaj>{
       ),
       body: Center(
         child: GridView.count(
-          padding: EdgeInsets.all(10),
+          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
           crossAxisCount: 2,
           children: [            
-            itemFrame('name'),
-            itemFrame('name'),            
-            itemFrame('name'),
+            itemFrame('name','CPU:'),
+            itemFrame('name','GPU:'),            
+            itemFrame('name','RAM:'),
             addButton('component'),
             addButton('component'),
             addButton('component')
