@@ -49,6 +49,7 @@ flutter:
   assets:
   - assets/logo.png
   - assets/placeholder.png
+  - assets/placeholder2.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   fonts:  

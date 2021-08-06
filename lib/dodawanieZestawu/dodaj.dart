@@ -27,14 +27,31 @@ class _dodaj extends State<dodaj>{
         onPressed: null ),
     );
   }
-  Widget itemFrame(String name, {Image photo}){
-    if(photo == null) photo = Image.asset('assets/placeholder.png',fit: BoxFit.cover);         
-    return Container(      
+  Widget itemFrame(String name, {Image photo}){        
+    return Container(   
+      height: MediaQuery.of(context).size.width / 2,
+      width: MediaQuery.of(context).size.width / 2,   
       padding: EdgeInsets.all(15),
       child:Column(
-         children:[   
-         photo,
-         Text(name)
+         children:[
+        AspectRatio(          
+          aspectRatio: 487 / 440,
+          child: Container(
+           decoration: BoxDecoration(
+             image: DecorationImage(
+               fit: BoxFit.fitWidth,
+               alignment: FractionalOffset.topCenter,
+               image: new AssetImage('assets/placeholder.png')
+             ),
+
+           ),
+         )),
+         Text(
+           name,
+           style: TextStyle(
+             
+           ),
+         )
       ],
     ));
   }
@@ -57,7 +74,7 @@ class _dodaj extends State<dodaj>{
       body: Center(
         child: GridView.count(
           crossAxisCount: 2,
-          children: [
+          children: [            
             itemFrame('name'),
             addButton('')
             
