@@ -27,28 +27,35 @@ class _dodaj extends State<dodaj>{
         onPressed: null ),
     );
   }
-  Widget itemFrame(String name, {Image photo}){        
-    return Container(   
+  Widget itemFrame(String model, {Image photo}){        
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(width: 1),
+        borderRadius: BorderRadius.all(Radius.circular(5))
+      ),   
       height: MediaQuery.of(context).size.width / 2,
       width: MediaQuery.of(context).size.width / 2,   
       padding: EdgeInsets.all(15),
       child:Column(
          children:[
         AspectRatio(          
-          aspectRatio: 487 / 440,
+          aspectRatio: 487 / 436,
           child: Container(
            decoration: BoxDecoration(
-             image: DecorationImage(
+             border: Border.all(width: 1),
+        borderRadius: BorderRadius.all(Radius.circular(5)),
+             image: DecorationImage(                
                fit: BoxFit.fitWidth,
-               alignment: FractionalOffset.topCenter,
+               alignment: FractionalOffset.center,
                image: new AssetImage('assets/placeholder.png')
              ),
 
            ),
          )),
          Text(
-           name,
+           model,           
            style: TextStyle(
+             
              
            ),
          )
@@ -73,10 +80,15 @@ class _dodaj extends State<dodaj>{
       ),
       body: Center(
         child: GridView.count(
+          padding: EdgeInsets.all(10),
           crossAxisCount: 2,
           children: [            
             itemFrame('name'),
-            addButton('')
+            itemFrame('name'),            
+            itemFrame('name'),
+            addButton('component'),
+            addButton('component'),
+            addButton('component')
             
           ],),
       ),
