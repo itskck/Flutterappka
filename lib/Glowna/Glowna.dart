@@ -12,7 +12,7 @@ class _Glowna extends State<Glowna>{
   int _selectedIndex=2;
   void _onItemTapped(int index){
     ktoro=index;
-    main();
+    inicjalizuj();
   }
   @override
   Widget build(BuildContext context) { //build context gives the layout, when you build widget it will always have this line

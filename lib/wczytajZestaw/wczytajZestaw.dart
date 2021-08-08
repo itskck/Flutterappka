@@ -12,7 +12,7 @@ class _wczytajZestaw extends State<wczytajZestaw>{
   int _selectedIndex=1;
   void _onItemTapped(int index){
     ktoro=index;
-    main();
+    inicjalizuj();
   }
   @override
   Widget build(BuildContext context) { //build context gives the layout, when you build widget it will always have this line

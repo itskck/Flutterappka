@@ -66,7 +66,7 @@ class _dodaj extends State<dodaj>{
 
   void _onItemTapped(int index){
     ktoro=index;
-    main();
+    inicjalizuj();
   }
 
 
