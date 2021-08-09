@@ -14,7 +14,10 @@ class _dodaj extends State<dodaj>{
 
   Widget addButton(String component)
   {
-    return Container(
+    return Column(
+      children:[
+        Text(component),
+       Container(
       padding: EdgeInsets.all(15),
       
       child:ElevatedButton(
@@ -25,22 +28,27 @@ class _dodaj extends State<dodaj>{
           size: 40.0,
           ),
         onPressed: null ),
-    );
+    )]);
   }
   Widget itemFrame(String model, String name ,{Image photo}){        
-    return Container(
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children:[
+        Text(name),
+      Container(
       decoration: BoxDecoration(
         border: Border.all(width: 1),
         borderRadius: BorderRadius.all(Radius.circular(5))
-      ),   
-      height: MediaQuery.of(context).size.width / 2,
+      ), 
       width: MediaQuery.of(context).size.width / 2,   
       padding: EdgeInsets.all(15),
+      margin: EdgeInsets.all(10),
       child:Column(
          children:[
-        Text(name),
+        //Text(name),
         AspectRatio(          
-          aspectRatio: 487 / 386,
+         // aspectRatio: 487 / 386,
+         aspectRatio: 4/3,
           child: Container(
            decoration: BoxDecoration(
              border: Border.all(width: 1),
@@ -61,7 +69,7 @@ class _dodaj extends State<dodaj>{
            ),
          )
       ],
-    ));
+    ))]);
   }
 
   void _onItemTapped(int index){
