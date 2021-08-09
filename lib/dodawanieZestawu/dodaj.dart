@@ -89,11 +89,18 @@ class _dodaj extends State<dodaj> {
         backgroundColor: Color.fromRGBO(240, 84, 84, 1),
         //leading: Icon(Icons.computer),
         title: Text(
-          'Składappka',
+          
+          'składappka',
           style: TextStyle(
-              fontFamily: 'Lobster-1.4',
-              fontWeight: FontWeight.w400,
-              fontSize: 34),
+              
+              fontFamily: 'coolvetica',
+              fontWeight: FontWeight.normal,
+              fontSize: 34,
+              letterSpacing: 2,
+              foreground: Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 1
+                ..color = Colors.white),
         ),
       ),
       body: Center(

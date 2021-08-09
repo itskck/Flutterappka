@@ -63,6 +63,9 @@ flutter:
     - family: Lobster-1.4
       fonts:
       - asset: fonts/Lobster-1.4.ttf
+    - family: coolvetica
+      fonts:
+      - asset: fonts/coolvetica rg.ttf
         
       
   # An image asset can refer to one or more resolution-specific "variants", see
