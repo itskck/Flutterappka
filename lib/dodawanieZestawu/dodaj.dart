@@ -14,62 +14,54 @@ class _dodaj extends State<dodaj>{
 
   Widget addButton(String component)
   {
-    return Column(
-      children:[
-        Text(component),
-       Container(
-      padding: EdgeInsets.all(15),
-      
-      child:ElevatedButton(
-        style:ButtonStyle(),
-        child: new Icon(          
-          Icons.add,
-          color: Colors.white,
-          size: 40.0,
+    return GestureDetector(
+      onTap: (){
+        print('tapped');
+      },      
+      child: Container(
+        margin: EdgeInsets.all(15),
+         width: 500,
+         height: 500,
+         decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          border: Border.all(color: Color.fromRGBO(240, 84, 84, 1), width: 2) ,
+          color: Color.fromRGBO(48, 71, 94, 170)
+        ),        
+        child: Text(
+          '$component '*150,
+          
+          overflow: TextOverflow.fade,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 21,
+            fontWeight: FontWeight.w800,
+            foreground: Paint()
+              ..style= PaintingStyle.stroke
+              ..strokeWidth = 1
+              ..color = Color.fromRGBO(255, 255, 255, 50)
+
           ),
-        onPressed: null ),
-    )]);
+        ),
+      )        
+    );
   }
   Widget itemFrame(String model, String name ,{Image photo}){        
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children:[
-        Text(name),
-      Container(
-      decoration: BoxDecoration(
-        border: Border.all(width: 1),
-        borderRadius: BorderRadius.all(Radius.circular(5))
-      ), 
-      width: MediaQuery.of(context).size.width / 2,   
-      padding: EdgeInsets.all(15),
-      margin: EdgeInsets.all(10),
-      child:Column(
-         children:[
-        //Text(name),
-        AspectRatio(          
-         // aspectRatio: 487 / 386,
-         aspectRatio: 4/3,
-          child: Container(
-           decoration: BoxDecoration(
-             border: Border.all(width: 1),
-        borderRadius: BorderRadius.all(Radius.circular(5)),
-             image: DecorationImage(                
-               fit: BoxFit.fitWidth,
-               alignment: FractionalOffset.center,
-               image: new AssetImage('assets/placeholder.png')
-             ),
-
-           ),
-         )),
-         Text(
-           model,           
-           style: TextStyle(
-             
-             
-           ),
-         )
-      ],
-    ))]);
+    return Container(
+      constraints: BoxConstraints.expand(),
+      margin: EdgeInsets.all(15),
+      width: 500,
+     
+      child: Column(
+      
+      
+      children: [
+        Container(
+          //height:  
+          margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
+          decoration: BoxDecoration(border: Border.all(), borderRadius: BorderRadius.all(Radius.circular(10)) ),
+        ),
+        Text(model)
+      ]));
   }
 
   void _onItemTapped(int index){
@@ -82,7 +74,7 @@ class _dodaj extends State<dodaj>{
   Widget build(BuildContext context) { //build context gives the layout, when you build widget it will always have this line
     return Scaffold( //entry point to your app scaffold blank display
       appBar: AppBar(
-        backgroundColor:Color.fromRGBO(102, 7, 8, 100),
+        backgroundColor:Color.fromRGBO(240, 84, 84, 1),
         //leading: Icon(Icons.computer),
         title: Text('Składappka',
           style: TextStyle(fontFamily: 'Lobster-1.4',fontWeight: FontWeight.w400,fontSize: 34),),
@@ -92,12 +84,13 @@ class _dodaj extends State<dodaj>{
           padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
           crossAxisCount: 2,
           children: [            
-            itemFrame('name','CPU:'),
-            itemFrame('name','GPU:'),            
-            itemFrame('name','RAM:'),
-            addButton('component'),
-            addButton('component'),
-            addButton('component')
+            addButton('CPU'),
+            addButton('MTBD'),
+            addButton('RAM'),
+            addButton('PSU'),
+            addButton('DRIVE'),
+            addButton('CASE'),
+            
             
           ],),
       ),
@@ -124,7 +117,7 @@ class _dodaj extends State<dodaj>{
         ],
         currentIndex: _selectedIndex,
         unselectedItemColor: Colors.grey,
-        selectedItemColor: Color.fromRGBO(102, 7, 8,100) ,
+        selectedItemColor: Color.fromRGBO(61, 25, 91, 100) ,
         onTap: _onItemTapped,
       ),
     );

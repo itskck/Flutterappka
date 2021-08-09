@@ -16,11 +16,11 @@ class Logowanie extends StatefulWidget {
 }
 class _Logowanie extends State<Logowanie>{
   int _selectedIndex=4;
-  String tekst;
+  String tekst; 
 
 
   void _onItemTapped(int index){
-    ktoro=index;
+    ktoro=index; 
     inicjalizuj();
   }
   @override
