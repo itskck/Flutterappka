@@ -29,7 +29,7 @@ class _Logowanie extends State<Logowanie>{
       value: FireBase().gpus,
       child: Scaffold(//entry point to your app scaffold blank display
       appBar: AppBar(
-        backgroundColor:Color.fromRGBO(102, 7, 8, 100),
+        backgroundColor:Color.fromRGBO(240, 84, 84, 1),
         //leading: Icon(Icons.computer),
         title: Text('Składappka',
           style: TextStyle(fontFamily: 'Lobster-1.4',fontWeight: FontWeight.w400,fontSize: 34),),
@@ -58,7 +58,7 @@ class _Logowanie extends State<Logowanie>{
         ],
         currentIndex: _selectedIndex,
         unselectedItemColor: Colors.grey,
-        selectedItemColor: Color.fromRGBO(102, 7, 8,100) ,
+        selectedItemColor: Color.fromRGBO(240, 84, 84, 1) ,
         onTap: _onItemTapped,
       ),
     )
