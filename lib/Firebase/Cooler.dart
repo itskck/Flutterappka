@@ -1,37 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class GpuList extends StatefulWidget{
+class CoolerList extends StatefulWidget{
   @override
-  _GpuListState createState() => _GpuListState();
+  _CoolerListState createState() => _CoolerListState();
 }
-class _GpuListState extends State<GpuList>{
+class _CoolerListState extends State<CoolerList>{
   @override
   Widget build(BuildContext context) {
-    final gpus = Provider.of<List<Gpu>>(context)??[];
+    final coolers = Provider.of<List<Cooler>>(context)??[];
     return ListView.builder(
-      itemCount: gpus.length,
+      itemCount: coolers.length,
       itemBuilder: (context, index) {
-        return GpuTile(gpu: gpus[index]);
+        return CoolerTile(cooler: coolers[index]);
       },
     );
   }
 }
 
-class Gpu{
+class Cooler{
 
-  final String VRAM;
+  final String socket;
   final String manufacturer;
   final String model;
-  final String year;
-  final String series;
-  final String tdp;
-  Gpu({this.tdp, this.manufacturer, this.model, this.year,this.series,this.VRAM});
+  Cooler({this.manufacturer, this.model, this.socket});
 }
 
-class GpuTile extends StatelessWidget{
-  final Gpu gpu;
-  GpuTile({this.gpu});
+class CoolerTile extends StatelessWidget{
+  final Cooler cooler;
+  CoolerTile({this.cooler});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -43,8 +40,8 @@ class GpuTile extends StatelessWidget{
             radius: 25.0,
             backgroundColor: Colors.red,
           ),
-          title: Text(gpu.manufacturer),
-          subtitle: Text(gpu.VRAM),
+          title: Text(cooler.manufacturer),
+          subtitle: Text(cooler.model),
         ),
       ),
     );

@@ -1,37 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class GpuList extends StatefulWidget{
+class PsuList extends StatefulWidget{
   @override
-  _GpuListState createState() => _GpuListState();
+  _PsuListState createState() => _PsuListState();
 }
-class _GpuListState extends State<GpuList>{
+class _PsuListState extends State<PsuList>{
   @override
   Widget build(BuildContext context) {
-    final gpus = Provider.of<List<Gpu>>(context)??[];
+    final psus = Provider.of<List<Psu>>(context)??[];
     return ListView.builder(
-      itemCount: gpus.length,
+      itemCount: psus.length,
       itemBuilder: (context, index) {
-        return GpuTile(gpu: gpus[index]);
+        return PsuTile(psu: psus[index]);
       },
     );
   }
 }
 
-class Gpu{
+class Psu{
 
-  final String VRAM;
+  final String power;
   final String manufacturer;
   final String model;
-  final String year;
-  final String series;
-  final String tdp;
-  Gpu({this.tdp, this.manufacturer, this.model, this.year,this.series,this.VRAM});
+
+  Psu({this.power, this.manufacturer, this.model});
 }
 
-class GpuTile extends StatelessWidget{
-  final Gpu gpu;
-  GpuTile({this.gpu});
+class PsuTile extends StatelessWidget{
+  final Psu psu;
+  PsuTile({this.psu});
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -43,8 +41,8 @@ class GpuTile extends StatelessWidget{
             radius: 25.0,
             backgroundColor: Colors.red,
           ),
-          title: Text(gpu.manufacturer),
-          subtitle: Text(gpu.VRAM),
+          title: Text(psu.manufacturer),
+          subtitle: Text(psu.power),
         ),
       ),
     );

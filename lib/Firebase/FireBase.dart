@@ -9,10 +9,12 @@ class FireBase{
   List<Gpu> gpuListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc){
       return Gpu(
-        gen: doc.data().toString().contains('gen') ? doc.get('gen') : '',
+        VRAM: doc.data().toString().contains('VRAM') ? doc.get('VRAM') : '',
         manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : '',
         model: doc.data().toString().contains('model') ? doc.get('model') : '',
-          year: doc.data().toString().contains('year') ? doc.get('year') : ''
+        year: doc.data().toString().contains('year') ? doc.get('year') : '',
+        series: doc.data().toString().contains('series') ? doc.get('series') : '',
+        tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : ''
       );
     }).toList();
   }
