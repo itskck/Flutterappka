@@ -14,8 +14,8 @@ class dodaj extends StatefulWidget {
 }
 
 class _dodaj extends State<dodaj> {
-  int _selectedIndex = 0;
-  
+  int _selectedIndex = 0;  
+  List<Widget> panelsGrid;
 
   Widget popupWindow(BuildContext context, String component){
     return AlertDialog(
@@ -67,7 +67,7 @@ class _dodaj extends State<dodaj> {
             ])));
   }
 
-  Widget itemFrame(String model, String component, {Image photo}) {
+  Widget itemFrame(String model, String component, String photoURL) {
     return Container(
         margin: EdgeInsets.all(15),
         width: 500,
@@ -83,7 +83,7 @@ class _dodaj extends State<dodaj> {
           Container(
             margin: EdgeInsets.fromLTRB(15, 0, 15, 10),
             child: Image(
-              image: AssetImage('assets/placeholder.png'),
+              image: AssetImage(photoURL),
             ),
           ),
           Align(
@@ -136,11 +136,13 @@ class _dodaj extends State<dodaj> {
           crossAxisCount: 2,
           children: [
             addButton('CPU'),
-            addButton('MTBD'),
-            addButton('RAM'),
-            addButton('PSU'),
-            addButton('DRIVE'),
-            itemFrame('Generic Case 505', 'CASE'),
+             addButton('PSU'),
+              addButton('MTBRD'),
+               addButton('DRIVE'),
+                addButton('RAM'),
+                itemFrame('Generic case 5000', 'CASE', 'assets/placeholder.png')
+
+           
           ],
         ),
       ),
