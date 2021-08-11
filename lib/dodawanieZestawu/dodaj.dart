@@ -15,6 +15,16 @@ class dodaj extends StatefulWidget {
 
 class _dodaj extends State<dodaj> {
   int _selectedIndex = 0;
+  
+
+  Widget popupWindow(BuildContext context, String component){
+    return AlertDialog(
+      title: Text('Choose your $component: '),
+      content: ListView(
+        children: [Text('data'),Text('data'),Text('data'),Text('data'),Text('data'),Text('data'),],
+      ),
+    );
+  }
 
   Widget addButton(String component) {
     return GestureDetector(
@@ -26,7 +36,7 @@ class _dodaj extends State<dodaj> {
             width: 500,
             height: 500,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                 borderRadius: BorderRadius.all(Radius.circular(5)),
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -36,20 +46,19 @@ class _dodaj extends State<dodaj> {
                 blur: 0.8,
                 blurColor: Colors.transparent,
                 colorOpacity: 0,
-                child:Text(
-                '$component ' * 150,
-                overflow: TextOverflow.fade,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontSize: 21,
-                    fontWeight: FontWeight.w800,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 1
-                      ..color = Color.fromRGBO(255, 255, 255, 50)),
-              ), 
+                child: Text(
+                  '$component ' * 150,
+                  overflow: TextOverflow.fade,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontSize: 21,
+                      fontWeight: FontWeight.w800,
+                      foreground: Paint()
+                        ..style = PaintingStyle.stroke
+                        ..strokeWidth = 1
+                        ..color = Color.fromRGBO(255, 255, 255, 50)),
+                ),
               ),
-              
               Icon(
                 Icons.add,
                 size: 100,
@@ -58,20 +67,40 @@ class _dodaj extends State<dodaj> {
             ])));
   }
 
-  Widget itemFrame(String model, String name, {Image photo}) {
+  Widget itemFrame(String model, String component, {Image photo}) {
     return Container(
-        constraints: BoxConstraints.expand(),
         margin: EdgeInsets.all(15),
         width: 500,
-        child: Column(children: [
+        height: 500,
+        decoration: BoxDecoration(
+             borderRadius: BorderRadius.all(Radius.circular(5)),
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Colors.grey, Colors.redAccent])),
+        child: Stack(fit: StackFit.passthrough, children: <Widget>[
+          
           Container(
-            //height:
-            margin: EdgeInsets.fromLTRB(5, 0, 5, 0),
-            decoration: BoxDecoration(
-                border: Border.all(),
-                borderRadius: BorderRadius.all(Radius.circular(10))),
+            margin: EdgeInsets.fromLTRB(15, 0, 15, 10),
+            child: Image(
+              image: AssetImage('assets/placeholder.png'),
+            ),
           ),
-          Text(model)
+          Align(
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                model,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+              fontFamily: 'coolvetica',
+              fontWeight: FontWeight.normal,
+              fontSize: 15,
+              letterSpacing: 2,
+              foreground: Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 1
+                ..color = Colors.white),
+              ))
         ]));
   }
 
@@ -89,10 +118,8 @@ class _dodaj extends State<dodaj> {
         backgroundColor: Color.fromRGBO(240, 84, 84, 1),
         //leading: Icon(Icons.computer),
         title: Text(
-          
           'składappka',
           style: TextStyle(
-              
               fontFamily: 'coolvetica',
               fontWeight: FontWeight.normal,
               fontSize: 34,
@@ -113,7 +140,7 @@ class _dodaj extends State<dodaj> {
             addButton('RAM'),
             addButton('PSU'),
             addButton('DRIVE'),
-            addButton('CASE'),
+            itemFrame('Generic Case 505', 'CASE'),
           ],
         ),
       ),
