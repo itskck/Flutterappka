@@ -20,7 +20,7 @@ class _CpuListState extends State<CpuList>{
 
 class Cpu{
 
-  final String clock;
+  final String socket;
   final String manufacturer;
   final String model;
   final String year;
@@ -31,7 +31,7 @@ class Cpu{
   final bool isCoolerIncluded;
   final bool isUnlocked;
   final String threads;
-  Cpu({this.clock, this.manufacturer, this.model, this.year,this.tdp,this.clocker,this.cores,this.hasGpu,this.isCoolerIncluded,this.isUnlocked,this.threads});
+  Cpu({this.socket, this.manufacturer, this.model, this.year,this.tdp,this.clocker,this.cores,this.hasGpu,this.isCoolerIncluded,this.isUnlocked,this.threads});
 }
 
 class CpuTile extends StatelessWidget{
