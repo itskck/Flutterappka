@@ -14,14 +14,21 @@ class dodaj extends StatefulWidget {
 }
 
 class _dodaj extends State<dodaj> {
-  int _selectedIndex = 0;  
-  List<Widget> panelsGrid;
-
-  Widget popupWindow(BuildContext context, String component){
+  int _selectedIndex = 0;
+  List<Widget> panelsGrid1;
+  List<Widget> panelsGrid2;
+  Widget popupWindow(BuildContext context, String component) {
     return AlertDialog(
       title: Text('Choose your $component: '),
       content: ListView(
-        children: [Text('data'),Text('data'),Text('data'),Text('data'),Text('data'),Text('data'),],
+        children: [
+          Text('data'),
+          Text('data'),
+          Text('data'),
+          Text('data'),
+          Text('data'),
+          Text('data'),
+        ],
       ),
     );
   }
@@ -36,7 +43,7 @@ class _dodaj extends State<dodaj> {
             width: 500,
             height: 500,
             decoration: BoxDecoration(
-                 borderRadius: BorderRadius.all(Radius.circular(5)),
+                borderRadius: BorderRadius.all(Radius.circular(5)),
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
@@ -73,13 +80,12 @@ class _dodaj extends State<dodaj> {
         width: 500,
         height: 500,
         decoration: BoxDecoration(
-             borderRadius: BorderRadius.all(Radius.circular(5)),
+            borderRadius: BorderRadius.all(Radius.circular(5)),
             gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [Colors.grey, Colors.redAccent])),
         child: Stack(fit: StackFit.passthrough, children: <Widget>[
-          
           Container(
             margin: EdgeInsets.fromLTRB(15, 0, 15, 10),
             child: Image(
@@ -92,14 +98,14 @@ class _dodaj extends State<dodaj> {
                 model,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-              fontFamily: 'coolvetica',
-              fontWeight: FontWeight.normal,
-              fontSize: 15,
-              letterSpacing: 2,
-              foreground: Paint()
-                ..style = PaintingStyle.stroke
-                ..strokeWidth = 1
-                ..color = Colors.white),
+                    fontFamily: 'coolvetica',
+                    fontWeight: FontWeight.normal,
+                    fontSize: 15,
+                    letterSpacing: 2,
+                    foreground: Paint()
+                      ..style = PaintingStyle.stroke
+                      ..strokeWidth = 1
+                      ..color = Colors.white),
               ))
         ]));
   }
@@ -111,6 +117,18 @@ class _dodaj extends State<dodaj> {
 
   @override
   Widget build(BuildContext context) {
+    panelsGrid1 = [
+      addButton('CPU'),
+      addButton('PSU'),
+      addButton('MTBRD'),
+      addButton('DRIVE'),
+      addButton('RAM'),
+      addButton('CASE'),      
+    ];
+    panelsGrid2 = [
+      addButton('GPU'),
+      addButton('COOLER')
+    ];
     //build context gives the layout, when you build widget it will always have this line
     return Scaffold(
       //entry point to your app scaffold blank display
@@ -130,22 +148,18 @@ class _dodaj extends State<dodaj> {
                 ..color = Colors.white),
         ),
       ),
-      body: Center(
-        child: GridView.count(
-          padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-          crossAxisCount: 2,
-          children: [
-            addButton('CPU'),
-             addButton('PSU'),
-              addButton('MTBRD'),
-               addButton('DRIVE'),
-                addButton('RAM'),
-                itemFrame('Generic case 5000', 'CASE', 'assets/placeholder.png')
-
-           
-          ],
-        ),
+      body: Column(        
+        children:[
+          Text('↓ Niezbędniki ↓'),
+          Expanded(child: 
+          GridView.count(crossAxisCount: 2,
+          children: panelsGrid1 ),
       ),
+        Text('↓ Dobrze mieć ↓'),
+        Expanded(child: 
+          GridView.count(crossAxisCount: 2,
+          children: panelsGrid2 )),
+      ]),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
