@@ -16,12 +16,52 @@ class _wczytajZestaw extends State<wczytajZestaw>{
   }
   @override
   Widget build(BuildContext context) { //build context gives the layout, when you build widget it will always have this line
-    return Scaffold( //entry point to your app scaffold blank display
+    Icon moonIcon;
+    if (currentTheme == 0)
+      moonIcon = Icon(
+        Icons.brightness_2_outlined,
+        color: Colors.white,
+      );
+    else
+      moonIcon = Icon(
+        Icons.brightness_2,
+        color: Colors.white,
+      );
+    //build context gives the layout, when you build widget it will always have this line
+    return Scaffold(
+      //entry point to your app scaffold blank display
       appBar: AppBar(
-        backgroundColor:Color.fromRGBO(240, 84, 84, 1),
+        backgroundColor: Color.fromRGBO(240, 84, 84, 1),
         //leading: Icon(Icons.computer),
-        title: Text('Składappka',
-          style: TextStyle(fontFamily: 'Lobster-1.4',fontWeight: FontWeight.w400,fontSize: 34),),
+        title:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Text(
+            'składappka',
+            style: TextStyle(
+                fontFamily: 'coolvetica',
+                fontWeight: FontWeight.normal,
+                fontSize: 34,
+                letterSpacing: 2,
+                foreground: Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = 1
+                  ..color = Colors.white),
+          ),
+          Container(
+              child: IconButton(
+            padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+            icon: moonIcon,
+            onPressed: () {
+              setState(() {
+                if (currentTheme == 1)
+                  currentTheme = 0;
+                else
+                  currentTheme = 1;
+                inicjalizuj();
+              });
+            },
+          ))
+        ]),
       ),
       body: Center(
         child: Text("wczytanko"),

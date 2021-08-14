@@ -40,14 +40,17 @@ class _dodaj extends State<dodaj> {
         },
         child: Container(
             margin: EdgeInsets.all(15),
-            width: 500,
-            height: 500,
+            width: MediaQuery.of(context).size.width * 0.4,
+            height: MediaQuery.of(context).size.width * 0.4,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(5)),
                 gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
-                    colors: [Color.fromRGBO(240, 84, 84, 1), Colors.grey])),
+                    colors: [
+                      Color.fromRGBO(240, 84, 84, 1),
+                      Theme.of(context).shadowColor
+                    ])),
             child: Stack(fit: StackFit.passthrough, children: <Widget>[
               Blur(
                 blur: 0.8,
@@ -74,11 +77,37 @@ class _dodaj extends State<dodaj> {
             ])));
   }
 
+  Widget emptyBar() {
+    return Opacity(
+        opacity: 0,
+        child: Container(height: 50, width: MediaQuery.of(context).size.width));
+  }
+
+  Widget styledTextBar(String content) {
+    return Container(
+      height: 50,
+      width: MediaQuery.of(context).size.width,
+      child: Align(
+          alignment: Alignment.center,
+          child: Text(content,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  fontFamily: 'coolvetica',
+                  fontWeight: FontWeight.normal,
+                  fontSize: 25,
+                  letterSpacing: 2,
+                  foreground: Paint()
+                    ..style = PaintingStyle.stroke
+                    ..strokeWidth = 0.8
+                    ..color = Colors.red))),
+    );
+  }
+
   Widget itemFrame(String model, String component, String photoURL) {
     return Container(
         margin: EdgeInsets.all(15),
-        width: 500,
-        height: 500,
+        width: MediaQuery.of(context).size.width * 0.4,
+        height: MediaQuery.of(context).size.width * 0.4,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(5)),
             gradient: LinearGradient(
@@ -123,43 +152,69 @@ class _dodaj extends State<dodaj> {
       addButton('MTBRD'),
       addButton('DRIVE'),
       addButton('RAM'),
-      addButton('CASE'),      
+      addButton('CASE'),
     ];
-    panelsGrid2 = [
-      addButton('GPU'),
-      addButton('COOLER')
-    ];
+    panelsGrid2 = [addButton('GPU'), addButton('CSTM COOLER')];
+    Icon moonIcon;
+    if (currentTheme == 0)
+      moonIcon = Icon(
+        Icons.brightness_2_outlined,
+        color: Colors.white,
+      );
+    else
+      moonIcon = Icon(
+        Icons.brightness_2,
+        color: Colors.white,
+      );
     //build context gives the layout, when you build widget it will always have this line
     return Scaffold(
       //entry point to your app scaffold blank display
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(240, 84, 84, 1),
         //leading: Icon(Icons.computer),
-        title: Text(
-          'składappka',
-          style: TextStyle(
-              fontFamily: 'coolvetica',
-              fontWeight: FontWeight.normal,
-              fontSize: 34,
-              letterSpacing: 2,
-              foreground: Paint()
-                ..style = PaintingStyle.stroke
-                ..strokeWidth = 1
-                ..color = Colors.white),
-        ),
+        title:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Text(
+            'składappka',
+            style: TextStyle(
+                fontFamily: 'coolvetica',
+                fontWeight: FontWeight.normal,
+                fontSize: 34,
+                letterSpacing: 2,
+                foreground: Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = 1
+                  ..color = Colors.white),
+          ),
+          Container(
+              child: IconButton(
+            padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+            icon: moonIcon,
+            onPressed: () {
+              setState(() {
+                if (currentTheme == 1)
+                  currentTheme = 0;
+                else
+                  currentTheme = 1;
+                inicjalizuj();
+              });
+            },
+          ))
+        ]),
       ),
-      body: Column(        
-        children:[
-          Text('↓ Niezbędniki ↓'),
-          Expanded(child: 
-          GridView.count(crossAxisCount: 2,
-          children: panelsGrid1 ),
-      ),
-        Text('↓ Dobrze mieć ↓'),
-        Expanded(child: 
-          GridView.count(crossAxisCount: 2,
-          children: panelsGrid2 )),
-      ]),
+      body: SingleChildScrollView(
+          child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Wrap(
+                  crossAxisAlignment: WrapCrossAlignment.center,
+                  alignment: WrapAlignment.center,
+                  direction: Axis.horizontal,
+                  children: [
+                    styledTextBar('↓ Niezbędniki ↓'),
+                    ...panelsGrid1,
+                    styledTextBar('↓ Dobrze mieć ↓'),
+                    ...panelsGrid2,
+                  ]))),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

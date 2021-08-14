@@ -6,7 +6,7 @@ import 'Porownywarka/Porownywarka.dart';
 import 'wczytajZestaw/wczytajZestaw.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-
+int currentTheme=0;
 int ktoro=2;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,27 +20,63 @@ void inicjalizuj(){
   ));
 }
 
+
+
+ThemeData chooseTheme(int which){
+    if(which == 1) return ThemeData(
+    primarySwatch: Colors.grey,
+    primaryColor: Colors.black,
+    brightness: Brightness.dark,
+    backgroundColor: const Color(0xFF212121),
+    accentColor: Colors.white,
+    accentIconTheme: IconThemeData(color: Colors.black),
+    dividerColor: Colors.black12,
+    shadowColor: Colors.black
+  );
+  else if(which == 0)return ThemeData(
+    primarySwatch: Colors.grey,
+    primaryColor: Colors.white,
+    brightness: Brightness.light,
+    backgroundColor: const Color(0xFFE5E5E5),
+    accentColor: Colors.black,
+    accentIconTheme: IconThemeData(color: Colors.white),
+    dividerColor: Colors.white54,
+    shadowColor:  Colors.grey[200]
+  );
+  else return ThemeData();
+
+
+}
+
 class Skladapka extends StatelessWidget {
-  // This widget is the root of your application.
+  // This widget is the root of your application.  
+  ThemeData chosenTheme = new ThemeData();
+  
   @override
   Widget build(BuildContext context) {
+    chosenTheme = chooseTheme(currentTheme);
     if(ktoro==0) return MaterialApp(
+      theme: chosenTheme,
       title: 'Skladapka',
       home: dodaj(title: 'dodawanie'),
     );
     if(ktoro==1) return MaterialApp(
+      theme: chosenTheme,
       title: 'Skladapka',
       home: wczytajZestaw(title: 'dodawanie'),
     );
     if(ktoro==2) return MaterialApp(
+      theme: chosenTheme,
       title: 'Skladapka',
       home: Glowna(title: 'dodawanie'),
     );
     if(ktoro==3) return MaterialApp(
+      theme: chosenTheme,
       title: 'Skladapka',
       home: Porownywarka(title: 'dodawanie'),
     );
     if(ktoro==4) return MaterialApp(
+      theme: chosenTheme,
       title: 'Skladapka',
       home: Logowanie(title: 'dodawanie'),
     );
