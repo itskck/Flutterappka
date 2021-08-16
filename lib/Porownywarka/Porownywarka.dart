@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skladappka/main.dart';
+import 'package:skladappka/Globalne.dart' as globalna;
+
 class Porownywarka extends StatefulWidget {
   Porownywarka({Key key, this.title}) : super(key: key);
 
@@ -11,13 +13,13 @@ class Porownywarka extends StatefulWidget {
 class _Porownywarka extends State<Porownywarka>{
   int _selectedIndex=3;
   void _onItemTapped(int index){
-    ktoro=index;
+    globalna.ktoro=index;
     inicjalizuj();
   }
   @override
   Widget build(BuildContext context) { //build context gives the layout, when you build widget it will always have this line
     Icon moonIcon;
-    if (currentTheme == 0)
+    if (globalna.currentTheme == 0)
       moonIcon = Icon(
         Icons.brightness_2_outlined,
         color: Colors.white,
@@ -53,10 +55,10 @@ class _Porownywarka extends State<Porownywarka>{
             icon: moonIcon,
             onPressed: () {
               setState(() {
-                if (currentTheme == 1)
-                  currentTheme = 0;
+                if (globalna.currentTheme == 1)
+                  globalna.currentTheme = 0;
                 else
-                  currentTheme = 1;
+                  globalna.currentTheme = 1;
                 inicjalizuj();
               });
             },

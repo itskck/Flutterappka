@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skladappka/main.dart';
+import 'package:skladappka/Globalne.dart' as globalna;
+
 class wczytajZestaw extends StatefulWidget {
   wczytajZestaw({Key key, this.title}) : super(key: key);
 
@@ -10,14 +12,25 @@ class wczytajZestaw extends StatefulWidget {
 }
 class _wczytajZestaw extends State<wczytajZestaw>{
   int _selectedIndex=1;
+  //final ThemeData chosen=choos;
   void _onItemTapped(int index){
-    ktoro=index;
+    globalna.ktoro=index;
     inicjalizuj();
   }
+  void changeTheme(){
+    setState(() {
+      chooseTheme(globalna.currentTheme);
+      if (globalna.currentTheme == 1)
+        globalna.currentTheme = 0;
+      else
+        globalna.currentTheme = 1;
+    });
+  }
+
   @override
   Widget build(BuildContext context) { //build context gives the layout, when you build widget it will always have this line
     Icon moonIcon;
-    if (currentTheme == 0)
+    if (globalna.currentTheme == 0)
       moonIcon = Icon(
         Icons.brightness_2_outlined,
         color: Colors.white,
@@ -52,13 +65,7 @@ class _wczytajZestaw extends State<wczytajZestaw>{
             padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
             icon: moonIcon,
             onPressed: () {
-              setState(() {
-                if (currentTheme == 1)
-                  currentTheme = 0;
-                else
-                  currentTheme = 1;
-                inicjalizuj();
-              });
+              changeTheme();
             },
           ))
         ]),

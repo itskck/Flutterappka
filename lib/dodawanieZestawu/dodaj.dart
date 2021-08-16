@@ -1,5 +1,5 @@
 import 'dart:ui';
-
+import 'package:skladappka/Globalne.dart' as globalna;
 import 'package:flutter/material.dart';
 import 'package:skladappka/main.dart';
 import 'package:blur/blur.dart';
@@ -140,7 +140,7 @@ class _dodaj extends State<dodaj> {
   }
 
   void _onItemTapped(int index) {
-    ktoro = index;
+    globalna.ktoro = index;
     inicjalizuj();
   }
 
@@ -156,7 +156,7 @@ class _dodaj extends State<dodaj> {
     ];
     panelsGrid2 = [addButton('GPU'), addButton('CSTM COOLER')];
     Icon moonIcon;
-    if (currentTheme == 0)
+    if (globalna.currentTheme == 0)
       moonIcon = Icon(
         Icons.brightness_2_outlined,
         color: Colors.white,
@@ -192,10 +192,10 @@ class _dodaj extends State<dodaj> {
             icon: moonIcon,
             onPressed: () {
               setState(() {
-                if (currentTheme == 1)
-                  currentTheme = 0;
+                if (globalna.currentTheme == 1)
+                  globalna.currentTheme = 0;
                 else
-                  currentTheme = 1;
+                  globalna.currentTheme = 1;
                 inicjalizuj();
               });
             },

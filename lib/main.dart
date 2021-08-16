@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skladappka/Firebase/doLogowanie/doLogowanie.dart';
 import 'dodawanieZestawu/dodaj.dart';
 import 'Glowna/Glowna.dart';
 import 'Logowanie/Logowanie.dart';
@@ -6,11 +7,12 @@ import 'Porownywarka/Porownywarka.dart';
 import 'wczytajZestaw/wczytajZestaw.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-int currentTheme=0;
-int ktoro=2;
+import 'Globalne.dart' as globalna;
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  final doLogowanie _anonim=doLogowanie();
+  await _anonim.Anonim();
   inicjalizuj();
 }
 
@@ -54,28 +56,28 @@ class Skladapka extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    chosenTheme = chooseTheme(currentTheme);
-    if(ktoro==0) return MaterialApp(
+    chosenTheme = chooseTheme(globalna.currentTheme);
+    if(globalna.ktoro==0) return MaterialApp(
       theme: chosenTheme,
       title: 'Skladapka',
       home: dodaj(title: 'dodawanie'),
     );
-    if(ktoro==1) return MaterialApp(
+    if(globalna.ktoro==1) return MaterialApp(
       theme: chosenTheme,
       title: 'Skladapka',
       home: wczytajZestaw(title: 'dodawanie'),
     );
-    if(ktoro==2) return MaterialApp(
+    if(globalna.ktoro==2) return MaterialApp(
       theme: chosenTheme,
       title: 'Skladapka',
       home: Glowna(title: 'dodawanie'),
     );
-    if(ktoro==3) return MaterialApp(
+    if(globalna.ktoro==3) return MaterialApp(
       theme: chosenTheme,
       title: 'Skladapka',
       home: Porownywarka(title: 'dodawanie'),
     );
-    if(ktoro==4) return MaterialApp(
+    if(globalna.ktoro==4) return MaterialApp(
       theme: chosenTheme,
       title: 'Skladapka',
       home: Logowanie(title: 'dodawanie'),

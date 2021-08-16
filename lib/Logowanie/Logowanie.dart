@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:skladappka/Globalne.dart' as globalna;
 import 'package:flutter/material.dart';
 import 'package:skladappka/main.dart';
 import 'package:skladappka/Firebase/FireBase.dart';
@@ -20,13 +20,13 @@ class _Logowanie extends State<Logowanie>{
 
 
   void _onItemTapped(int index){
-    ktoro=index; 
+    globalna.ktoro=index;
     inicjalizuj();
   }
   @override
   Widget build(BuildContext context) { //build context gives the layout, when you build widget it will always have this line
     Icon moonIcon;
-    if (currentTheme == 0)
+    if (globalna.currentTheme == 0)
       moonIcon = Icon(
         Icons.brightness_2_outlined,
         color: Colors.white,
@@ -36,18 +36,13 @@ class _Logowanie extends State<Logowanie>{
         Icons.brightness_2,
         color: Colors.white,
       );
-    return StreamProvider<List<Gpu>>.value(
-      
-      value: FireBase().gpus,
-      child: 
-    //build context gives the layout, when you build widget it will always have this line
-     Scaffold(
+    return Scaffold(
       //entry point to your app scaffold blank display
       appBar: AppBar(
         backgroundColor: Color.fromRGBO(240, 84, 84, 1),
         //leading: Icon(Icons.computer),
         title:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
             'składappka',
             style: TextStyle(
@@ -62,21 +57,26 @@ class _Logowanie extends State<Logowanie>{
           ),
           Container(
               child: IconButton(
-            padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-            icon: moonIcon,
-            onPressed: () {
-              setState(() {
-                if (currentTheme == 1)
-                  currentTheme = 0;
-                else
-                  currentTheme = 1;
-                inicjalizuj();
-              });
-            },
-          ))
+                padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                icon: moonIcon,
+                onPressed: () {
+                  setState(() {
+                    if (globalna.currentTheme == 1)
+                      globalna.currentTheme = 0;
+                    else
+                      globalna.currentTheme = 1;
+                    inicjalizuj();
+                  });
+                },
+              ))
         ]),
       ),
-      body: GpuList(),
+      body: Container(
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: 50),
+        child: RaisedButton(
+          child: Text(""),
+        )
+      ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -103,7 +103,6 @@ class _Logowanie extends State<Logowanie>{
         selectedItemColor: Color.fromRGBO(240, 84, 84, 1) ,
         onTap: _onItemTapped,
       ),
-    )
     );
   }
 }
