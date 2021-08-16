@@ -10,6 +10,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'Globalne.dart' as globalna;
 
 Future<void> main() async {
+  
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   final doLogowanie _anonim = doLogowanie();
@@ -22,6 +23,11 @@ void inicjalizuj() {
     home: Skladapka(),
   ));
 }
+
+void _onItemTapped(int index) {
+    globalna.ktoro = index;
+    inicjalizuj();
+  }
 
 ThemeData chooseTheme(int which) {
   if (which == 1)
@@ -50,6 +56,7 @@ ThemeData chooseTheme(int which) {
 
 class Skladapka extends StatelessWidget {
   // This widget is the root of your application.
+  
   ThemeData chosenTheme = new ThemeData();
   List<Widget> Views = [
     dodaj(title: 'dodawanie'),
@@ -62,10 +69,83 @@ class Skladapka extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     chosenTheme = chooseTheme(globalna.currentTheme);
+    Icon moonIcon;
+    if (globalna.currentTheme == 0)
+      moonIcon = Icon(
+        Icons.brightness_2_outlined,
+        color: Colors.white,
+      );
+    else
+      moonIcon = Icon(
+        Icons.brightness_2,
+        color: Colors.white,
+      );
+    
     return MaterialApp(
         theme: chosenTheme,
         title: 'Skladapka', 
-        home: Views[globalna.ktoro]
-      );
+        home: Scaffold(
+      //entry point to your app scaffold blank display
+      appBar: AppBar(
+        backgroundColor: Color.fromRGBO(240, 84, 84, 1),
+        //leading: Icon(Icons.computer),
+        title:
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Text(
+            'składappka',
+            style: TextStyle(
+                fontFamily: 'coolvetica',
+                fontWeight: FontWeight.normal,
+                fontSize: 34,
+                letterSpacing: 2,
+                foreground: Paint()
+                  ..style = PaintingStyle.stroke
+                  ..strokeWidth = 1
+                  ..color = Colors.white),
+          ),
+          Container(
+              child: IconButton(
+            padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+            icon: moonIcon,
+            onPressed: () {              
+                if (globalna.currentTheme == 1)
+                  globalna.currentTheme = 0;
+                else
+                  globalna.currentTheme = 1;
+                inicjalizuj();              
+            },
+          ))
+        ]),
+      ),
+      body: Views[globalna.ktoro],      
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.add),
+            label: 'Dodaj zestaw',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.file_download),
+            label: 'Wczytaj zestaw',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Strona główna',
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.leaderboard),
+              label: 'Porównywarka'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.login),
+              label: 'Zaloguj')
+        ],
+        currentIndex: globalna.ktoro,
+        unselectedItemColor: Colors.grey,
+        selectedItemColor: Color.fromRGBO(240, 84, 84, 1) ,
+        onTap: _onItemTapped,
+      ),
+    )
+        
+  );
   }
 }
