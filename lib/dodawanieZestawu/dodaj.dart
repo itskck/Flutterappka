@@ -3,7 +3,7 @@ import 'package:skladappka/Globalne.dart' as globalna;
 import 'package:flutter/material.dart';
 import 'package:skladappka/main.dart';
 import 'package:blur/blur.dart';
-
+import 'package:animations/animations.dart';
 class dodaj extends StatefulWidget {
   dodaj({Key key, this.title}) : super(key: key);
 
@@ -162,10 +162,31 @@ class _dodaj extends State<dodaj> {
                   alignment: WrapAlignment.center,
                   direction: Axis.horizontal,
                   children: [
+                    
                     styledTextBar('↓ Niezbędniki ↓'),
-                    ...panelsGrid1,
+                    
+                    for(var i in panelsGrid1)
+                    OpenContainer(
+                      closedElevation: 0,
+                      closedBuilder:(context,action){
+                         return i;
+                         }, 
+                      openBuilder: (context,action){
+                        return Text('lolo');
+                      }
+                      ),
                     styledTextBar('↓ Dobrze mieć ↓'),
-                    ...panelsGrid2,
+                    for(var i in panelsGrid2)
+                    OpenContainer(
+                      
+                      closedElevation: 0 ,
+                      closedBuilder:(context,action){
+                         return i;
+                         }, 
+                      openBuilder: (context,action){
+                        return Text('lolo');
+                      }
+                      ),
                   ])));
   }
 }
