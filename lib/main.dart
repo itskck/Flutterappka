@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:skladappka/Firebase/doLogowanie/doLogowanie.dart';
 import 'dodawanieZestawu/dodaj.dart';
@@ -6,15 +7,26 @@ import 'Logowanie/Logowanie.dart';
 import 'Porownywarka/Porownywarka.dart';
 import 'wczytajZestaw/wczytajZestaw.dart';
 import 'package:flutter/material.dart';
+import 'package:skladappka/Firebase/doLogowanie/doRejestracji.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'Firebase/doLogowanie/doLogowanie.dart';
 import 'Globalne.dart' as globalna;
 
 Future<void> main() async {
   
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  final doLogowanie _anonim = doLogowanie();
-  await _anonim.Anonim();
+  User _firebaseUser=FirebaseAuth.instance.currentUser;
+  if(_firebaseUser==null) {
+    final doLogowanie _anonim = doLogowanie();
+    dynamic result = await _anonim.Anonim();
+    if (result == null)
+      print('Nie jestes w bazie');
+    else
+      print(result.uid);
+    globalna.czyZalogowany=false;
+  }
+  else print(_firebaseUser.uid);
   inicjalizuj();
 }
 
