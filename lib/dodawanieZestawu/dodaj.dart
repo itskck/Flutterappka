@@ -14,6 +14,7 @@ class dodaj extends StatefulWidget {
 }
 
 class _dodaj extends State<dodaj> {
+  String chosenCPU,chosenPSU,chosenMTB,chosenDrive,chosenRAM,chosenCase,chosenGPU,chosenCooler;
   
   List<Widget> panelsGrid1;
   List<Widget> panelsGrid2;
@@ -30,6 +31,13 @@ class _dodaj extends State<dodaj> {
           Text('data'),
         ],
       ),
+    );
+  }
+
+  Widget componentsList(String component){
+    return Container(
+      width: MediaQuery.of(context).size.width * 0.8,
+      height: MediaQuery.of(context).size.height * 0.8,
     );
   }
 
@@ -161,32 +169,11 @@ class _dodaj extends State<dodaj> {
                   crossAxisAlignment: WrapCrossAlignment.center,
                   alignment: WrapAlignment.center,
                   direction: Axis.horizontal,
-                  children: [
-                    
+                  children: [                    
                     styledTextBar('↓ Niezbędniki ↓'),
-                    
-                    for(var i in panelsGrid1)
-                    OpenContainer(
-                      closedElevation: 0,
-                      closedBuilder:(context,action){
-                         return i;
-                         }, 
-                      openBuilder: (context,action){
-                        return Text('lolo');
-                      }
-                      ),
+                    ...panelsGrid1,                   
                     styledTextBar('↓ Dobrze mieć ↓'),
-                    for(var i in panelsGrid2)
-                    OpenContainer(
-                      
-                      closedElevation: 0 ,
-                      closedBuilder:(context,action){
-                         return i;
-                         }, 
-                      openBuilder: (context,action){
-                        return Text('lolo');
-                      }
-                      ),
+                    ...panelsGrid2,                   
                   ])));
   }
 }
