@@ -10,7 +10,7 @@ class fileReader{
     f.writeAsString(data);
   }
 
-  Future<String> read() async{
+   Future<String> read() async{
     Directory appDocDir = await getExternalStorageDirectory();
     String filePath = appDocDir.path + '/file.txt';
     File f = File(filePath);

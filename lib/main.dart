@@ -23,22 +23,20 @@ Future<void> main() async {
   final file=fileReader();
   List<String> data;
   data=new List<String>();
-  file.save("czyZalogowany=false");
-  file.read().then((String tekst){
-    data.add(tekst);
-  });
-
   if(_firebaseUser==null) {
-    print('niezalogowany');
+    file.save("czyZalogowany=false");
     final doLogowanie _anonim = doLogowanie();
     dynamic result = await _anonim.Anonim();
     if (result == null)
       print('Nie jestes w bazie');
     else
       print(result.uid);
-    globalna.czyZalogowany=false;
   }
   else print(_firebaseUser.uid);
+  await file.read().then((String tekst){
+    data.add(tekst);
+  });
+  globalna.czyZalogowany=data[0];
   inicjalizuj();
 }
 
