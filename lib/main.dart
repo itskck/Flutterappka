@@ -86,7 +86,7 @@ class Skladapka extends StatelessWidget {
   ThemeData chosenTheme = new ThemeData();
   List<Widget> Views = [
     dodaj(title: 'dodawanie'),
-    wczytajZestaw(title: 'dodawanie'),
+    wczytajZestaw(),
     Glowna(title: 'dodawanie'),
     Porownywarka(title: 'dodawanie'),
     Logowanie(title: 'dodawanie'),

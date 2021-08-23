@@ -3,15 +3,7 @@ import 'package:skladappka/main.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
 import 'package:skladappka/wczytajZestaw/choices.dart';
 
-class wczytajZestaw extends StatefulWidget {
-  wczytajZestaw({Key key, this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _wczytajZestaw createState() => _wczytajZestaw();
-}
-class _wczytajZestaw extends State<wczytajZestaw>{    
+class wczytajZestaw extends StatelessWidget{    
   
   int currentScreen = 0;
   //widoki: guziki, wypisywanie z kodu, wybieranie z konta, wyswietlanie

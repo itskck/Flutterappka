@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skladappka/main.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
+import 'wczytajZestaw.dart';
 class choices extends StatefulWidget {
   choices({Key key, this.title}) : super(key: key);
 
@@ -11,32 +12,71 @@ class choices extends StatefulWidget {
 }
 class _choices extends State<choices>{
   int nextPage=0;   
+  final wczytajzestaw = wczytajZestaw();
+  String code;  
+  int currentChild = 0;
+  List<Widget> children = [
+      Text('Wczytaj zestaw z kodu',
+      style: TextStyle(
+        fontFamily: 'coolvetica',
+        fontSize: 17,
+        fontWeight: FontWeight.w100,        
+      ),
+      ),
+      TextField(
+        onSubmitted: (String value) {
+          //switch page
+        } ,
+        textAlign: TextAlign.center,
+        decoration: InputDecoration(hintText: 'Wpisz kod zestawu',
+        counterText: "",
+        ),
+        autofocus: true,
+        enableInteractiveSelection: false,
+        maxLines: 1,
+        maxLength: 5,
+      )
+    ];
+  
 
-  
-  
-  Widget optionButton(String text,int next)
-  {
-    
+  Widget codeOptionButton()
+  {    
     return GestureDetector(
-      onTap: (){
-        
+      onTap: (){        
+        setState(() {
+          currentChild=1;
+        });
       },
-      child: Container(
-      
+      child: Container(      
       height: 50,
       width: 200,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        border: Border.all(color: Color.fromRGBO(240, 84, 84, 1)),
+        border: Border.all(color: Color.fromRGBO(240, 84, 84, 1),width: 2),
       ),
-      child: Text(text,
+      child: children[currentChild],
+    ));
+  }
+
+   Widget savedButton()
+  {    
+    return GestureDetector(
+      onTap: (){        
+        
+      },
+      child: Container(      
+      height: 50,
+      width: 200,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        border: Border.all(color: Color.fromRGBO(240, 84, 84, 1),width: 2),
+      ),
+      child: Text('Wczytaj zapisany zestaw',
       style: TextStyle(
-        foreground: Paint()
-                    ..style = PaintingStyle.stroke
-                    ..strokeWidth = 0.8
-                    ..color = Colors.red
-      ),
-      ),
+        fontFamily: 'coolvetica',
+        fontSize: 17,
+        fontWeight: FontWeight.w100
+      ),),
     ));
   }
   @override
@@ -45,9 +85,9 @@ class _choices extends State<choices>{
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-              optionButton('Wczytaj zapisany zestaw',1),
+              codeOptionButton(),
               SizedBox(height: 20,),
-              optionButton('Wczytaj z kodu',2)
+              savedButton(),
           ],
         ),
       );
