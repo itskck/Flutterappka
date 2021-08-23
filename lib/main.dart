@@ -140,7 +140,7 @@ class Skladapka extends StatelessWidget {
                   globalna.currentTheme = 0;
                 else
                   globalna.currentTheme = 1;
-                inicjalizuj();              
+                inicjalizuj();
             },
           ))
         ]),
