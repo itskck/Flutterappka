@@ -11,13 +11,24 @@ import 'package:skladappka/Firebase/doLogowanie/doRejestracji.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'Firebase/doLogowanie/doLogowanie.dart';
 import 'Globalne.dart' as globalna;
+import 'config/fileOperations.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 Future<void> main() async {
   
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   User _firebaseUser=FirebaseAuth.instance.currentUser;
+  final file=fileReader();
+  List<String> data;
+  data=new List<String>();
+  file.save("czyZalogowany=false");
+  file.read().then((String tekst){
+    data.add(tekst);
+  });
+
   if(_firebaseUser==null) {
+    print('niezalogowany');
     final doLogowanie _anonim = doLogowanie();
     dynamic result = await _anonim.Anonim();
     if (result == null)

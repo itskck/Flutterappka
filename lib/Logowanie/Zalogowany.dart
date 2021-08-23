@@ -16,7 +16,7 @@ class _Zalogowany extends State<Zalogowany>{
     return Container(
       child: Scaffold(
         backgroundColor: Colors.brown[50],
-        appBar: AppBar(
+        body: AppBar(
           title: Text('Brew Crew'),
           backgroundColor: Colors.brown[400],
           elevation: 0.0,
