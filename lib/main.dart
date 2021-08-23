@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:skladappka/Firebase/doLogowanie/doLogowanie.dart';
@@ -55,20 +56,22 @@ void _onItemTapped(int index) {
 ThemeData chooseTheme(int which) {
   if (which == 1)
     return ThemeData(
+        canvasColor: Color(0xFF212121),
         primarySwatch: Colors.grey,
         primaryColor: Colors.black,
         brightness: Brightness.dark,
-        backgroundColor: const Color(0xFF212121),
+        backgroundColor: Color(0xFF212121),
         accentColor: Colors.white,
         accentIconTheme: IconThemeData(color: Colors.black),
         dividerColor: Colors.black12,
         shadowColor: Colors.black);
   else if (which == 0)
     return ThemeData(
+        canvasColor: Color(0xFFE5E5E5),
         primarySwatch: Colors.grey,
         primaryColor: Colors.white,
         brightness: Brightness.light,
-        backgroundColor: const Color(0xFFE5E5E5),
+        backgroundColor: Color(0xFFE5E5E5),
         accentColor: Colors.black,
         accentIconTheme: IconThemeData(color: Colors.white),
         dividerColor: Colors.white54,
@@ -91,6 +94,7 @@ class Skladapka extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     chosenTheme = chooseTheme(globalna.currentTheme);
     Icon moonIcon;
     if (globalna.currentTheme == 0)
@@ -103,6 +107,7 @@ class Skladapka extends StatelessWidget {
         Icons.brightness_2,
         color: Colors.white,
       );
+      print(Theme.of(context).primaryColor);
     
     return MaterialApp(
         theme: chosenTheme,
@@ -141,30 +146,20 @@ class Skladapka extends StatelessWidget {
         ]),
       ),
       body: Views[globalna.ktoro],      
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: 'Dodaj zestaw',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.file_download),
-            label: 'Wczytaj zestaw',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Strona główna',
-          ),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.leaderboard),
-              label: 'Porównywarka'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.login),
-              label: 'Zaloguj')
-        ],
-        currentIndex: globalna.ktoro,
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: Color.fromRGBO(240, 84, 84, 1) ,
+      bottomNavigationBar: CurvedNavigationBar(
+        index: 2,
+        color:Color.fromRGBO(240, 84, 84, 1),
+        backgroundColor: chosenTheme.canvasColor,
+        animationDuration: Duration(milliseconds: 300),
+        height: 55,
+        items: <Widget>[
+          Icon(Icons.add,color: chosenTheme.backgroundColor),      
+          Icon(Icons.file_download,color: chosenTheme.backgroundColor),
+          Icon(Icons.home,color:  chosenTheme.backgroundColor),
+          Icon(Icons.leaderboard,color:  chosenTheme.backgroundColor),
+          Icon(Icons.login,color:  chosenTheme.backgroundColor)
+          ],
+        
         onTap: _onItemTapped,
       ),
     )

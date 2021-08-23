@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:skladappka/main.dart';
 import 'package:blur/blur.dart';
 import 'package:animations/animations.dart';
+import 'dialogWidget.dart';
 class dodaj extends StatefulWidget {
   dodaj({Key key, this.title}) : super(key: key);
 
@@ -15,24 +16,12 @@ class dodaj extends StatefulWidget {
 
 class _dodaj extends State<dodaj> {
   String chosenCPU,chosenPSU,chosenMTB,chosenDrive,chosenRAM,chosenCase,chosenGPU,chosenCooler;
-  
+  dialogWidget dialogwidget = new dialogWidget();
   List<Widget> panelsGrid1;
   List<Widget> panelsGrid2;
-  Widget popupWindow(BuildContext context, String component) {
-    return AlertDialog(
-      title: Text('Choose your $component: '),
-      content: ListView(
-        children: [
-          Text('data'),
-          Text('data'),
-          Text('data'),
-          Text('data'),
-          Text('data'),
-          Text('data'),
-        ],
-      ),
-    );
-  }
+
+  
+  
 
   Widget componentsList(String component){
     return Container(
@@ -44,7 +33,8 @@ class _dodaj extends State<dodaj> {
   Widget addButton(String component) {
     return GestureDetector(
         onTap: () {
-          print('tapped');
+          dialogwidget.showPopup(context, component);
+            
         },
         child: Container(
             margin: EdgeInsets.all(15),
