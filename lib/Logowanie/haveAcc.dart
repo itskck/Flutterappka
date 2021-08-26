@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:skladappka/Firebase/doLogowanie/doLogowanie.dart';
+import 'package:skladappka/main.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
-
+import 'package:skladappka/Firebase/doLogowanie/doLogowanie.dart';
+import 'package:skladappka/config/fileOperations.dart';
 class haveAcc extends StatefulWidget {
 
+  final Function toggleView;
+  haveAcc({ this.toggleView });
+
   @override
-  _haveAccState createState() => _haveAccState();
+  _haveAcc createState() => _haveAcc();
 }
 
-class _haveAccState extends State<haveAcc> {
+class _haveAcc extends State<haveAcc>{
   String email = '';
   String password = '';
   final doLogowanie _auth = doLogowanie();
@@ -46,16 +50,12 @@ class _haveAccState extends State<haveAcc> {
             ),
             SizedBox(height: 20.0),
             RaisedButton(
-                color: Colors.pink[400],
-                child: Text(
-                  'Nie mam konta',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () async {
-                  setState(() {
-                    globalna.haveAcc=false;
-                  });
-                }
+              color: Colors.pink[400],
+              child: Text(
+                'Nie mam konta',
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () => widget.toggleView(),
             ),
           ],
         ),

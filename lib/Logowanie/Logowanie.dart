@@ -10,6 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:skladappka/Firebase/Gpu.dart';
 import 'dart:core';
 import 'package:skladappka/Logowanie/Status.dart';
+import 'package:skladappka/Logowanie/isLogged.dart';
 class Logowanie extends StatefulWidget {
   Logowanie({Key key, this.title}) : super(key: key);
 
@@ -23,7 +24,8 @@ class _Logowanie extends State<Logowanie>{
     return StreamProvider<doRejestracji>.value(
       value: doLogowanie().user,
       child: MaterialApp(
-        home: Status(),
+        debugShowCheckedModeBanner: false,
+        home: isLogged(),
       ),
     );
   }

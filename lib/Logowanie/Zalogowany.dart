@@ -21,7 +21,6 @@ class _Zalogowany extends State<Zalogowany>{
     globalna.czyZalogowany="czyZalogowany=false";
     dynamic result = await _auth.Anonim();
     print(result);
-
   }
   Widget build(BuildContext context) {
     return Center(
