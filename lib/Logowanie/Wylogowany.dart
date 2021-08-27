@@ -3,6 +3,7 @@ import 'package:skladappka/main.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
 import 'package:skladappka/Firebase/doLogowanie/doLogowanie.dart';
 import 'package:skladappka/config/fileOperations.dart';
+
 class Wylogowany extends StatefulWidget {
 
   final Function toggleView;
@@ -16,6 +17,7 @@ class _Wylogowany extends State<Wylogowany>{
   final doLogowanie _auth = doLogowanie();
   final _formKey = GlobalKey<FormState>();
   String error = '';
+  final file=fileReader();
 
   String email = '';
   String password = '';
@@ -53,13 +55,17 @@ class _Wylogowany extends State<Wylogowany>{
                     if(_formKey.currentState.validate()){
                       await _auth.wylogui();
                       dynamic result = await _auth.registerWithEmailAndPassword(email, password);
-                      print(result);
-                      globalna.czyZalogowany="czyZalogowany=true";
                       if(result == null) {
                         setState(() {
-                        error = 'Please supply a valid email';
-                      });
-                    }
+                          error = 'Please supply a valid email';
+                        });
+                        result = await _auth.Anonim();
+                        globalna.czyZalogowany="czyZalogowany=false";
+                      }
+                      else {
+                        file.save("czyZalogowany=true");
+                        globalna.czyZalogowany = "czyZalogowany=true";
+                      }
                   }
                 }
               ),

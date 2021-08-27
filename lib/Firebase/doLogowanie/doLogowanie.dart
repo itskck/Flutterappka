@@ -48,4 +48,15 @@ class doLogowanie{
       return null;
     }
   }
+
+  Future signInWithEmailAndPassword(String email, String password) async {
+    try {
+      UserCredential result = await _autoryzacja.signInWithEmailAndPassword(email: email, password: password);
+      User user = result.user;
+      return user;
+    } catch (error) {
+      print(error.toString());
+      return null;
+    }
+  }
 }
