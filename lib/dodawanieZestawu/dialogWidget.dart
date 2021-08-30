@@ -3,7 +3,7 @@ import 'package:skladappka/Firebase/Cpu.dart';
 import 'package:provider/provider.dart';
 import 'package:skladappka/Firebase/FireBase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'pomysluNieMam.dart';
+import 'dialogBuilder.dart';
 import 'dart:core';
 class dialogWidget{
   final pomysl=pomyslXD();
@@ -23,7 +23,7 @@ class dialogWidget{
   Widget popupWindow(BuildContext context, String component) {
     return StreamProvider<List<Cpu>>.value(
       value: FireBase().cpus,
-      child: pomyslXD(),
+      child: dialogBuilder(),
     );
   }
 }

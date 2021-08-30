@@ -5,14 +5,12 @@ import 'package:skladappka/Firebase/FireBase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:core';
 import 'package:skladappka/dodawanieZestawu/dialogWidget.dart';
-class pomyslXD extends StatefulWidget {
-
-    
+class dialogBuilder extends StatefulWidget {
   @override
-  _pomyslXDState createState() => _pomyslXDState();
+  _dialogBuilderState createState() => _dialogBuilderState();
 }
 
-class _pomyslXDState extends State<pomyslXD> {
+class _dialogBuilderState extends State<dialogBuilder> {
 
   @override
   Widget build(BuildContext context) {
