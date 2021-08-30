@@ -6,22 +6,26 @@ import 'package:blur/blur.dart';
 import 'package:animations/animations.dart';
 import 'dialogWidget.dart';
 class dodaj extends StatefulWidget {
-  dodaj({Key key, this.title}) : super(key: key);
-
+  static var chosenCPU,chosenPSU,chosenMTB,chosenDrive,chosenRAM,chosenCase,chosenGPU,chosenCooler;
+  dodaj({Key key, this.title,chosenCPU}) : super(key: key);
+  
   final String title;
-
+  
   @override
   _dodaj createState() => _dodaj();
 }
 
 class _dodaj extends State<dodaj> {
-  String chosenCPU,chosenPSU,chosenMTB,chosenDrive,chosenRAM,chosenCase,chosenGPU,chosenCooler;
+
+  @override
+  initState(){
+    super.initState();    
+  }
+  
   dialogWidget dialogwidget = new dialogWidget();
   List<Widget> panelsGrid1;
   List<Widget> panelsGrid2;
-
-  
-  
+ 
 
   Widget componentsList(String component){
     return Container(
@@ -33,8 +37,7 @@ class _dodaj extends State<dodaj> {
   Widget addButton(String component) {
     return GestureDetector(
         onTap: () {
-          dialogwidget.showPopup(context, component);
-            
+          dialogwidget.showPopup(context, component);          
         },
         child: Container(
             margin: EdgeInsets.all(15),
@@ -141,6 +144,7 @@ class _dodaj extends State<dodaj> {
 
   @override
   Widget build(BuildContext context) {
+
     panelsGrid1 = [
       addButton('CPU'),
       addButton('PSU'),
@@ -150,6 +154,9 @@ class _dodaj extends State<dodaj> {
       addButton('CASE'),
     ];
     panelsGrid2 = [addButton('GPU'), addButton('CSTM COOLER')];
+    if(dodaj.chosenCPU !=null) setState(() {
+          panelsGrid1[0]=itemFrame(dodaj.chosenCPU.toString(), 'CPU', '/assets/placeholder.png');
+        });
    
     //build context gives the layout, when you build widget it will always have this line
     return SingleChildScrollView(
