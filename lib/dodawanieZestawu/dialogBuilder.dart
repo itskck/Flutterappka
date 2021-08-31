@@ -4,14 +4,16 @@ import 'package:provider/provider.dart';
 import 'package:skladappka/Firebase/FireBase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:core';
-import 'dodaj.dart';
-import 'dialogBuilder.dart';
-class dialogWidget{
+import 'package:skladappka/dodawanieZestawu/dialogWidget.dart';
 
-  /* Widget builder(String component,BuildContext context){
+class dialogBuilder extends StatelessWidget{
+  String component;
+  dialogBuilder({this.component});
+  @override
+  Widget build(BuildContext context) {
     final cpus = Provider.of<List<Cpu>>(context)??[];
     return SimpleDialog(
-      title: Text('Choose your'),
+      title: Text('Choose your $component'),
       children: [
         for(int i=0;i<cpus.length ; i++)
           SimpleDialogOption(
@@ -19,27 +21,11 @@ class dialogWidget{
             child: Text('gruszka'),
             onPressed: (){
               Navigator.pop(context);
-              dodaj(chosenCPU: 'tramwaj.pptx');
-              
+
             },
           )
       ],
 
-    );
-  } */
-  void showPopup(BuildContext context,String component) {
-    showDialog(    
-    context: context,
-    builder: (BuildContext c) => popupWindow(c, component)
-  );}
-
-  
-  Widget popupWindow(BuildContext context, String component) {
-
-    return StreamProvider<List<Cpu>>.value(
-      value: FireBase().cpus,
-      initialData: [],
-      child: dialogBuilder(component:component),
     );
   }
 }
