@@ -5,9 +5,11 @@ import 'package:skladappka/Firebase/FireBase.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:core';
 import 'package:skladappka/dodawanieZestawu/dialogWidget.dart';
-
+import 'dodaj.dart';
 class dialogBuilder extends StatelessWidget{
   String component;
+  
+  dodaj d = new dodaj();
   dialogBuilder({this.component});
   @override
   Widget build(BuildContext context) {
@@ -18,10 +20,11 @@ class dialogBuilder extends StatelessWidget{
         for(int i=0;i<cpus.length ; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25,vertical: 25),
-            child: Text('gruszka'),
+            child: Text(cpus[i].model.toString()),
             onPressed: (){
-              Navigator.pop(context);
-
+              dodaj.chosenCpu = cpus[i];
+              Navigator.pop(context);            
+                 
             },
           )
       ],

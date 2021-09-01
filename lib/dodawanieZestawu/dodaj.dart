@@ -1,33 +1,45 @@
 import 'dart:ui';
-import 'package:skladappka/Globalne.dart' as globalna;
+import 'package:skladappka/Firebase/Case.dart';
+import 'package:skladappka/Firebase/Cooler.dart';
+import 'package:skladappka/Firebase/Cpu.dart';
+import 'package:skladappka/Firebase/Drive.dart';
+import 'package:skladappka/Firebase/Gpu.dart';
+import 'package:skladappka/Firebase/Motherboard.dart';
+import 'package:skladappka/Firebase/Psu.dart';
+import 'package:skladappka/Firebase/Ram.dart';
 import 'package:flutter/material.dart';
-import 'package:skladappka/main.dart';
 import 'package:blur/blur.dart';
-import 'package:animations/animations.dart';
 import 'dialogWidget.dart';
-class dodaj extends StatefulWidget {
-  static var chosenCPU,chosenPSU,chosenMTB,chosenDrive,chosenRAM,chosenCase,chosenGPU,chosenCooler;
-  dodaj({Key key, this.title,chosenCPU}) : super(key: key);
-  
+
+class dodaj extends StatefulWidget with ChangeNotifier {
+  dodaj({Key key, this.title}) : super(key: key);
+
+  static Cpu chosenCpu;
+  static Psu chosenPsu;
+  static Motherboard chosenMtb;
+  static Drive chosenDrive;
+  static Ram chosenRam;
+  static Case chosenCase;
+  static Gpu chosenGpu;
+  static Cooler chosenCooler;
+  static List<Widget> panelsGrid;
+
   final String title;
-  
+
   @override
   _dodaj createState() => _dodaj();
 }
 
 class _dodaj extends State<dodaj> {
-
   @override
-  initState(){
-    super.initState();    
+  initState() {
+    super.initState();
+    
   }
-  
-  dialogWidget dialogwidget = new dialogWidget();
-  List<Widget> panelsGrid1;
-  List<Widget> panelsGrid2;
- 
 
-  Widget componentsList(String component){
+  dialogWidget dialogwidget = new dialogWidget();
+
+  Widget componentsList(String component) {
     return Container(
       width: MediaQuery.of(context).size.width * 0.8,
       height: MediaQuery.of(context).size.height * 0.8,
@@ -37,7 +49,7 @@ class _dodaj extends State<dodaj> {
   Widget addButton(String component) {
     return GestureDetector(
         onTap: () {
-          dialogwidget.showPopup(context, component);          
+          dialogwidget.showPopup(context, component);
         },
         child: Container(
             margin: EdgeInsets.all(15),
@@ -140,37 +152,57 @@ class _dodaj extends State<dodaj> {
         ]));
   }
 
- 
+  List<Widget> firstPanels;
 
   @override
   Widget build(BuildContext context) {
-
-    panelsGrid1 = [
+    firstPanels = [
       addButton('CPU'),
       addButton('PSU'),
       addButton('MTBRD'),
       addButton('DRIVE'),
       addButton('RAM'),
       addButton('CASE'),
+      addButton('GPU'),
+      addButton('CSTM COOLER')
     ];
-    panelsGrid2 = [addButton('GPU'), addButton('CSTM COOLER')];
-    if(dodaj.chosenCPU !=null) setState(() {
-          panelsGrid1[0]=itemFrame(dodaj.chosenCPU.toString(), 'CPU', '/assets/placeholder.png');
-        });
-   
+
+    dodaj.panelsGrid = [
+      addButton('CPU'),
+      addButton('PSU'),
+      addButton('MTBRD'),
+      addButton('DRIVE'),
+      addButton('RAM'),
+      addButton('CASE'),
+      addButton('GPU'),
+      addButton('CSTM COOLER')
+    ];
+
+    if (dodaj.chosenCpu != null) {
+      setState(() {
+        dodaj.panelsGrid[0] =
+            itemFrame(dodaj.chosenCpu.model, 'CPU', 'assets/placeholder.png');
+      });
+    }
+
+    if (dodaj.panelsGrid != firstPanels)
+      setState(() {
+        print('co jest');
+      });
+
     //build context gives the layout, when you build widget it will always have this line
     return SingleChildScrollView(
-          child: Container(
-              width: MediaQuery.of(context).size.width,
-              child: Wrap(
-                  crossAxisAlignment: WrapCrossAlignment.center,
-                  alignment: WrapAlignment.center,
-                  direction: Axis.horizontal,
-                  children: [                    
-                    styledTextBar('↓ Niezbędniki ↓'),
-                    ...panelsGrid1,                   
-                    styledTextBar('↓ Dobrze mieć ↓'),
-                    ...panelsGrid2,                   
-                  ])));
+        child: Container(
+            width: MediaQuery.of(context).size.width,
+            child: Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                alignment: WrapAlignment.center,
+                direction: Axis.horizontal,
+                children: [
+                  styledTextBar('↓ Niezbędniki ↓'),
+                  for (var i = 0; i < 6; i++) dodaj.panelsGrid[i],
+                  styledTextBar('↓ Dobrze mieć ↓'),
+                  for (var i = 6; i < 8; i++) dodaj.panelsGrid[i]
+                ])));
   }
 }
