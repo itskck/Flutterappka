@@ -3,6 +3,7 @@ import 'package:skladappka/main.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:skladappka/Firebase/Gpu.dart';
+import 'package:skladappka/Firebase/addToDatabase/addToDatabase.dart';
 class Glowna extends StatefulWidget {
   Glowna({Key key, this.title}) : super(key: key);
 
@@ -23,8 +24,8 @@ class _Glowna extends State<Glowna>{
               'Kim jestem',
               style: TextStyle(color: Colors.white),
             ),
-              onPressed: (){
-                print(_firebaseUser.uid);
+              onPressed:() async{
+                await addToDatabase(uid: _firebaseUser.uid).addBuildData("Tomek", "cpuId", "caseId", "coolerId", "driveId", "gpuId", "motherboardId", "psuId", "ramId", "code");
               }
           ),
         ],
