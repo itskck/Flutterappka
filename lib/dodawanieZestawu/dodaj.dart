@@ -48,8 +48,9 @@ class _dodaj extends State<dodaj> {
 
   Widget addButton(String component) {
     return GestureDetector(
-        onTap: () {
-          dialogwidget.showPopup(context, component);
+        onTap: () async {
+          await dialogwidget.showPopup(context, component);
+          setState(() {});
         },
         child: Container(
             margin: EdgeInsets.all(15),
@@ -185,10 +186,8 @@ class _dodaj extends State<dodaj> {
       });
     }
 
-    if (dodaj.panelsGrid != firstPanels)
-      setState(() {
-        print('co jest');
-      });
+    //if (dodaj.panelsGrid != firstPanels)
+
 
     //build context gives the layout, when you build widget it will always have this line
     return SingleChildScrollView(

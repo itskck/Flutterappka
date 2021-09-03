@@ -9,7 +9,7 @@ import 'dodaj.dart';
 class dialogBuilder extends StatelessWidget{
   String component;
   
-  dodaj d = new dodaj();
+  final d = new dodaj();
   dialogBuilder({this.component});
   @override
   Widget build(BuildContext context) {
@@ -23,8 +23,7 @@ class dialogBuilder extends StatelessWidget{
             child: Text(cpus[i].model.toString()),
             onPressed: (){
               dodaj.chosenCpu = cpus[i];
-              Navigator.pop(context);            
-                 
+              Navigator.pop(context);
             },
           )
       ],

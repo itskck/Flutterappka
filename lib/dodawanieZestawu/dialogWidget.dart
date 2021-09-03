@@ -27,8 +27,8 @@ class dialogWidget{
 
     );
   } */
-  void showPopup(BuildContext context,String component) {
-    showDialog(    
+  Future<void> showPopup(BuildContext context,String component) async {
+    await showDialog(
     context: context,
     builder: (BuildContext c) => popupWindow(c, component)
   );}
