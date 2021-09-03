@@ -248,6 +248,62 @@ class _dodaj extends State<dodaj> {
       });
     } else
       dodaj.panelsGrid[0] = addButton('CPU');
+////////////////////////////////////////////////////////////
+      if (dodaj.chosenPsu != null) {
+      setState(() {
+        dodaj.panelsGrid[1] =
+            itemFrame(dodaj.chosenPsu.model, 'PSU', 'assets/placeholder.png');
+      });
+    } else
+      dodaj.panelsGrid[1] = addButton('PSU');
+////////////////////////////////////////////////////
+      if (dodaj.chosenMtb != null) {
+      setState(() {
+        dodaj.panelsGrid[2] =
+            itemFrame(dodaj.chosenMtb.model, 'MTBRD', 'assets/placeholder.png');
+      });
+    } else
+      dodaj.panelsGrid[2] = addButton('MTBRD');
+      ///////////////////////////////////////////////////////
+      if (dodaj.chosenDrive != null) {
+      setState(() {
+        dodaj.panelsGrid[3] =
+            itemFrame(dodaj.chosenDrive.model, 'DRIVE', 'assets/placeholder.png');
+      });
+    } else
+      dodaj.panelsGrid[3] = addButton('DRIVE');
+      ////////////////////////////////////////////////////
+      if (dodaj.chosenRam != null) {
+      setState(() {
+        dodaj.panelsGrid[4] =
+            itemFrame(dodaj.chosenRam.model, 'RAM', 'assets/placeholder.png');
+      });
+    } else
+      dodaj.panelsGrid[4] = addButton('RAM');
+      ////////////////////////////////////////////////////
+      if (dodaj.chosenCase != null) {
+      setState(() {
+        dodaj.panelsGrid[5] =
+            itemFrame(dodaj.chosenCase.model, 'CASE', 'assets/placeholder.png');
+      });
+    } else
+      dodaj.panelsGrid[5] = addButton('CASE');
+      ///////////////////////////////////////////////////
+      if (dodaj.chosenGpu != null) {
+      setState(() {
+        dodaj.panelsGrid[6] =
+            itemFrame(dodaj.chosenGpu.model, 'GPU', 'assets/placeholder.png');
+      });
+    } else
+      dodaj.panelsGrid[6] = addButton('GPU');
+      //////////////////////////////////////////////////////
+      if (dodaj.chosenCooler != null) {
+      setState(() {
+        dodaj.panelsGrid[7] =
+            itemFrame(dodaj.chosenCooler.model, 'CSTM COOLER', 'assets/placeholder.png');
+      });
+    } else
+      dodaj.panelsGrid[7] = addButton('CSTM COOLER');    
 
     //if (dodaj.panelsGrid != firstPanels)
 

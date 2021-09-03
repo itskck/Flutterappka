@@ -15,19 +15,29 @@ import 'package:skladappka/dodawanieZestawu/dialogWidget.dart';
 import 'dodaj.dart';
 class dialogBuilder extends StatelessWidget{
   String component;
-  
+  var cpus,psus,gpus,coolers,mtbs,drives,cases,rams;
   final d = new dodaj();
   dialogBuilder({this.component});
   @override
   Widget build(BuildContext context) {
-    final cpus = Provider.of<List<Cpu>>(context)??[];
-    final psus = Provider.of<List<Psu>>(context)??[];
-    final gpus = Provider.of<List<Gpu>>(context)??[];
-    final coolers = Provider.of<List<Cooler>>(context)??[];
-    final mtbs = Provider.of<List<Motherboard>>(context)??[];
-    final drives = Provider.of<List<Drive>>(context)??[];
-    final cases = Provider.of<List<Case>>(context)??[];
-    final rams = Provider.of<List<Ram>>(context)??[];
+    
+    if(component=='CPU')
+    cpus = Provider.of<List<Cpu>>(context)??[];
+    if(component=='PSU')
+    psus = Provider.of<List<Psu>>(context)??[];
+    if(component=='GPU')
+    gpus = Provider.of<List<Gpu>>(context)??[];
+    if(component=='CSTM COOLER')
+    coolers = Provider.of<List<Cooler>>(context)??[];
+    if(component=='MTBRD')
+    mtbs = Provider.of<List<Motherboard>>(context)??[];
+    if(component=='DRIVE')
+    drives = Provider.of<List<Drive>>(context)??[];
+    if(component=='CASE')
+    cases = Provider.of<List<Case>>(context)??[];
+    if(component=='RAM')
+    rams = Provider.of<List<Ram>>(context)??[];
+    
     
     return SimpleDialog(
       title: Text('Choose your $component'),
