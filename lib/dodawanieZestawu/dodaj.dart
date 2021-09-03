@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flutter/painting.dart';
 import 'package:skladappka/Firebase/Case.dart';
 import 'package:skladappka/Firebase/Cooler.dart';
 import 'package:skladappka/Firebase/Cpu.dart';
@@ -34,7 +35,6 @@ class _dodaj extends State<dodaj> {
   @override
   initState() {
     super.initState();
-    
   }
 
   dialogWidget dialogwidget = new dialogWidget();
@@ -130,7 +130,8 @@ class _dodaj extends State<dodaj> {
                 colors: [Colors.grey, Colors.redAccent])),
         child: Stack(fit: StackFit.passthrough, children: <Widget>[
           Container(
-            margin: EdgeInsets.fromLTRB(15, 0, 15, 10),
+            margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
+            padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
             child: Image(
               image: AssetImage(photoURL),
             ),
@@ -149,7 +150,68 @@ class _dodaj extends State<dodaj> {
                       ..style = PaintingStyle.stroke
                       ..strokeWidth = 1
                       ..color = Colors.white),
-              ))
+              )),
+          GestureDetector(
+            onTap: (){
+              switch (component) {
+                  case 'CPU':                    
+                      setState(() {
+                        dodaj.chosenCpu = null;
+                      });                    
+                    break;
+                    case 'PSU':                    
+                      setState(() {
+                        dodaj.chosenPsu = null;
+                      });                    
+                    break;
+                    case 'GPU':                    
+                      setState(() {
+                        dodaj.chosenGpu = null;
+                      });                    
+                    break;
+                    case 'CSTM COOLER':                    
+                      setState(() {
+                        dodaj.chosenCooler = null;
+                      });                    
+                    break;
+                    case 'MTBRD':                    
+                      setState(() {
+                        dodaj.chosenMtb=null;
+                      });                    
+                    break;
+                    case 'DRIVE':                    
+                      setState(() {
+                        dodaj.chosenDrive = null;
+                      });                    
+                    break;
+                    case 'CASE':                    
+                      setState(() {
+                        dodaj.chosenCase = null;
+                      });                    
+                    break;
+                    case 'RAM':                    
+                      setState(() {
+                        dodaj.chosenRam = null;
+                      });                    
+                    break;
+                }
+            },
+            child: Align(
+              alignment: Alignment(1.55,-1.55),
+              child: Container(
+                margin: EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: Colors.white
+                  
+                ),
+                child: Icon(
+                  Icons.cancel,
+                  color: Color.fromRGBO(240, 84, 84, 1),
+                ),
+              ),
+            ),
+          ),
         ]));
   }
 
@@ -184,10 +246,10 @@ class _dodaj extends State<dodaj> {
         dodaj.panelsGrid[0] =
             itemFrame(dodaj.chosenCpu.model, 'CPU', 'assets/placeholder.png');
       });
-    }
+    } else
+      dodaj.panelsGrid[0] = addButton('CPU');
 
     //if (dodaj.panelsGrid != firstPanels)
-
 
     //build context gives the layout, when you build widget it will always have this line
     return SingleChildScrollView(
