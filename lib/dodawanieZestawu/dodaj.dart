@@ -152,59 +152,57 @@ class _dodaj extends State<dodaj> {
                       ..color = Colors.white),
               )),
           GestureDetector(
-            onTap: (){
+            onTap: () {
               switch (component) {
-                  case 'CPU':                    
-                      setState(() {
-                        dodaj.chosenCpu = null;
-                      });                    
-                    break;
-                    case 'PSU':                    
-                      setState(() {
-                        dodaj.chosenPsu = null;
-                      });                    
-                    break;
-                    case 'GPU':                    
-                      setState(() {
-                        dodaj.chosenGpu = null;
-                      });                    
-                    break;
-                    case 'CSTM COOLER':                    
-                      setState(() {
-                        dodaj.chosenCooler = null;
-                      });                    
-                    break;
-                    case 'MTBRD':                    
-                      setState(() {
-                        dodaj.chosenMtb=null;
-                      });                    
-                    break;
-                    case 'DRIVE':                    
-                      setState(() {
-                        dodaj.chosenDrive = null;
-                      });                    
-                    break;
-                    case 'CASE':                    
-                      setState(() {
-                        dodaj.chosenCase = null;
-                      });                    
-                    break;
-                    case 'RAM':                    
-                      setState(() {
-                        dodaj.chosenRam = null;
-                      });                    
-                    break;
-                }
+                case 'CPU':
+                  setState(() {
+                    dodaj.chosenCpu = null;
+                  });
+                  break;
+                case 'PSU':
+                  setState(() {
+                    dodaj.chosenPsu = null;
+                  });
+                  break;
+                case 'GPU':
+                  setState(() {
+                    dodaj.chosenGpu = null;
+                  });
+                  break;
+                case 'CSTM COOLER':
+                  setState(() {
+                    dodaj.chosenCooler = null;
+                  });
+                  break;
+                case 'MTBRD':
+                  setState(() {
+                    dodaj.chosenMtb = null;
+                  });
+                  break;
+                case 'DRIVE':
+                  setState(() {
+                    dodaj.chosenDrive = null;
+                  });
+                  break;
+                case 'CASE':
+                  setState(() {
+                    dodaj.chosenCase = null;
+                  });
+                  break;
+                case 'RAM':
+                  setState(() {
+                    dodaj.chosenRam = null;
+                  });
+                  break;
+              }
             },
             child: Align(
-              alignment: Alignment(1.55,-1.55),
+              alignment: Alignment(1.55, -1.55),
               child: Container(
                 margin: EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(100),
-                  color: Colors.white
-                  
-                ),
+                    borderRadius: BorderRadius.circular(100),
+                    color: Colors.white),
                 child: Icon(
                   Icons.cancel,
                   color: Color.fromRGBO(240, 84, 84, 1),
@@ -249,7 +247,7 @@ class _dodaj extends State<dodaj> {
     } else
       dodaj.panelsGrid[0] = addButton('CPU');
 ////////////////////////////////////////////////////////////
-      if (dodaj.chosenPsu != null) {
+    if (dodaj.chosenPsu != null) {
       setState(() {
         dodaj.panelsGrid[1] =
             itemFrame(dodaj.chosenPsu.model, 'PSU', 'assets/placeholder.png');
@@ -257,70 +255,101 @@ class _dodaj extends State<dodaj> {
     } else
       dodaj.panelsGrid[1] = addButton('PSU');
 ////////////////////////////////////////////////////
-      if (dodaj.chosenMtb != null) {
+    if (dodaj.chosenMtb != null) {
       setState(() {
         dodaj.panelsGrid[2] =
             itemFrame(dodaj.chosenMtb.model, 'MTBRD', 'assets/placeholder.png');
       });
     } else
       dodaj.panelsGrid[2] = addButton('MTBRD');
-      ///////////////////////////////////////////////////////
-      if (dodaj.chosenDrive != null) {
+    ///////////////////////////////////////////////////////
+    if (dodaj.chosenDrive != null) {
       setState(() {
-        dodaj.panelsGrid[3] =
-            itemFrame(dodaj.chosenDrive.model, 'DRIVE', 'assets/placeholder.png');
+        dodaj.panelsGrid[3] = itemFrame(
+            dodaj.chosenDrive.model, 'DRIVE', 'assets/placeholder.png');
       });
     } else
       dodaj.panelsGrid[3] = addButton('DRIVE');
-      ////////////////////////////////////////////////////
-      if (dodaj.chosenRam != null) {
+    ////////////////////////////////////////////////////
+    if (dodaj.chosenRam != null) {
       setState(() {
         dodaj.panelsGrid[4] =
             itemFrame(dodaj.chosenRam.model, 'RAM', 'assets/placeholder.png');
       });
     } else
       dodaj.panelsGrid[4] = addButton('RAM');
-      ////////////////////////////////////////////////////
-      if (dodaj.chosenCase != null) {
+    ////////////////////////////////////////////////////
+    if (dodaj.chosenCase != null) {
       setState(() {
         dodaj.panelsGrid[5] =
             itemFrame(dodaj.chosenCase.model, 'CASE', 'assets/placeholder.png');
       });
     } else
       dodaj.panelsGrid[5] = addButton('CASE');
-      ///////////////////////////////////////////////////
-      if (dodaj.chosenGpu != null) {
+    ///////////////////////////////////////////////////
+    if (dodaj.chosenGpu != null) {
       setState(() {
         dodaj.panelsGrid[6] =
             itemFrame(dodaj.chosenGpu.model, 'GPU', 'assets/placeholder.png');
       });
     } else
       dodaj.panelsGrid[6] = addButton('GPU');
-      //////////////////////////////////////////////////////
-      if (dodaj.chosenCooler != null) {
+    //////////////////////////////////////////////////////
+    if (dodaj.chosenCooler != null) {
       setState(() {
-        dodaj.panelsGrid[7] =
-            itemFrame(dodaj.chosenCooler.model, 'CSTM COOLER', 'assets/placeholder.png');
+        dodaj.panelsGrid[7] = itemFrame(
+            dodaj.chosenCooler.model, 'CSTM COOLER', 'assets/placeholder.png');
       });
     } else
-      dodaj.panelsGrid[7] = addButton('CSTM COOLER');    
+      dodaj.panelsGrid[7] = addButton('CSTM COOLER');
 
     //if (dodaj.panelsGrid != firstPanels)
 
     //build context gives the layout, when you build widget it will always have this line
-    return SingleChildScrollView(
-        child: Container(
-            width: MediaQuery.of(context).size.width,
-            child: Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                alignment: WrapAlignment.center,
-                direction: Axis.horizontal,
-                children: [
-                  styledTextBar('↓ Niezbędniki ↓'),
-                  for (var i = 0; i < 6; i++) dodaj.panelsGrid[i],
-                  styledTextBar('↓ Dobrze mieć ↓'),
-                  for (var i = 6; i < 8; i++) dodaj.panelsGrid[i],
-                  
-                ])));
+    return Stack(children: [
+      SingleChildScrollView(
+          child: Stack(children: [
+        Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            alignment: WrapAlignment.center,
+            direction: Axis.horizontal,
+            children: [
+              styledTextBar('↓ Niezbędniki ↓'),
+              for (var i = 0; i < 6; i++) dodaj.panelsGrid[i],
+              styledTextBar('↓ Dobrze mieć ↓'),
+              for (var i = 6; i < 8; i++) dodaj.panelsGrid[i],
+            ]),
+      ])),
+      Align(
+          alignment: Alignment(0.95, 0.95),
+          child: FloatingActionButton(
+            onPressed: () {
+              print('elo');
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Dodawanie zestawu'),
+                      content:
+                          Text('Czy chcesz zapisać zestaw na swoim koncie?'),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Tak')),
+                        TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('Anuluj'))
+                      ],
+                    );
+                  });
+            },
+            child: Icon(Icons.save),
+            backgroundColor: Color.fromRGBO(240, 84, 84, 1),
+          )),
+    ]);
   }
 }
