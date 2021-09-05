@@ -12,7 +12,7 @@ class addToDatabase{
     });
   }
 
-  Future<void> addBuildData(String nick, String cpuId, String caseId, String coolerId, String driveId, String gpuId, String motherboardId, String psuId, String ramId) async{
+  Future<void> addBuildData(String nick, String cpuId, String caseId, String coolerId, String driveId, String gpuId, String motherboardId, String psuId, String ramId,String code) async{
     String code;
     const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
     Random _rnd = Random();

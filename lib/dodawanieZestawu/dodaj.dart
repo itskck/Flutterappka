@@ -319,7 +319,8 @@ class _dodaj extends State<dodaj> {
                   styledTextBar('↓ Niezbędniki ↓'),
                   for (var i = 0; i < 6; i++) dodaj.panelsGrid[i],
                   styledTextBar('↓ Dobrze mieć ↓'),
-                  for (var i = 6; i < 8; i++) dodaj.panelsGrid[i]
+                  for (var i = 6; i < 8; i++) dodaj.panelsGrid[i],
+                  
                 ])));
   }
 }
