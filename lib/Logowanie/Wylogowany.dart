@@ -3,6 +3,7 @@ import 'package:skladappka/main.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
 import 'package:skladappka/Firebase/doLogowanie/doLogowanie.dart';
 import 'package:skladappka/config/fileOperations.dart';
+import 'package:skladappka/Firebase/addToDatabase/addToDatabase.dart';
 
 class Wylogowany extends StatefulWidget {
 
@@ -16,6 +17,8 @@ class Wylogowany extends StatefulWidget {
 class _Wylogowany extends State<Wylogowany>{
   final doLogowanie _auth = doLogowanie();
   final _formKey = GlobalKey<FormState>();
+  final addToDatabase _add=addToDatabase();
+  String nick='';
   String error = '';
   final file=fileReader();
 
@@ -64,6 +67,15 @@ class _Wylogowany extends State<Wylogowany>{
                       }
                       else {
                         file.save("czyZalogowany=true");
+                        email.runes.forEach((int element) {
+                          var character=new String.fromCharCode(element);
+                          if(character=='@'){
+                            _add.updateUserData(nick);
+                          }
+                          else{
+                            nick+=character;
+                          }
+                        });
                         globalna.czyZalogowany = "czyZalogowany=true";
                       }
                   }

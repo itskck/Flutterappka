@@ -12,11 +12,8 @@ class addToDatabase{
     });
   }
 
-  Future<void> addBuildData(String nick, String cpuId, String caseId, String coolerId, String driveId, String gpuId, String motherboardId, String psuId, String ramId,String code) async{
-    String code;
-    const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-    Random _rnd = Random();
-    //code=String.fromCharCode(Iterable.generate(5,() => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+  Future<void> addBuildData(String nick, String cpuId, String caseId, String coolerId, String driveId, String gpuId, String motherboardId, String psuId, String ramId, String code) async{
+
     String pom=uid+" "+code;
     return await buildCollection.doc(pom).set({
       "nick": nick,

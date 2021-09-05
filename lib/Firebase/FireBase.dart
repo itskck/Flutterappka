@@ -8,6 +8,7 @@ import 'package:skladappka/Firebase/Motherboard.dart';
 import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Ram.dart';
 import 'dart:core';
+import 'package:skladappka/Firebase/Code.dart';
 
 class FireBase{
   final String uid;
@@ -20,6 +21,20 @@ class FireBase{
   final CollectionReference motherboardCollection= FirebaseFirestore.instance.collection('motherboard');
   final CollectionReference psuCollection= FirebaseFirestore.instance.collection('psus');
   final CollectionReference ramuCollection= FirebaseFirestore.instance.collection('rams');
+  final CollectionReference codeCollection=FirebaseFirestore.instance.collection('generatedCodes');
+
+  List<Code> codeListFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.docs.map((doc){
+      return Code(
+        genCode: doc.data().toString().contains('genCode') ? doc.get('genCode') : 'Error not found'
+      );
+    }).toList();
+  }
+  Stream<List<Code>> get codes {
+    return codeCollection.snapshots()
+        .map(codeListFromSnapshot);
+  }
+
   List<Gpu> gpuListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc){
       return Gpu(
