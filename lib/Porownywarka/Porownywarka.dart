@@ -13,8 +13,10 @@ class Porownywarka extends StatefulWidget {
 
 class _Porownywarka extends State<Porownywarka> {
 
-  static List<Object> cpus,psus,mtbs,drives,rams,cases,gpus,coolers;
-  static List<double> ranking1,ranking2;
+ // static List<Object> cpus,rams,gpus,psus,drive;
+  List<Object> components;
+  List<double> ranking;
+  List<Widget> list1,list2; 
   String code;
   int currentChild = 0;
   List<Widget> children = [
@@ -42,9 +44,21 @@ class _Porownywarka extends State<Porownywarka> {
     )
   ];
 
-  Widget score(int index,int side){
+  Future<void>generateLists(){
+    //czekasz az po lewo i po prawo w porównywarce będzie wybrany zestaw albo wpisany kod
+    //w sumie trzeba jakiś zrobić ✓ że wybrany został do porównania zestaw pomyślnie
 
-    
+    //GENERACJA LISTY
+    //generujesz po jednym indexie z list1 i list2,
+    //np. index 0 to cpu w list1 i w list 2,
+    //sprawdzasz ktory jest lepszy, czy ten z list1 czy z list2,
+    //ustawiasz widget score() zeby sie wyswietlal albo też nie,
+    //generujesz tak całą liste, wyświetlasz, profit.
+  }
+
+  Widget score(int gud){
+
+    if(gud==1)
     return Container(
       child: Icon(
       Icons.arrow_upward,
@@ -54,14 +68,25 @@ class _Porownywarka extends State<Porownywarka> {
         width: 2
       ) ),
     );
+    else if(gud==0) return Container();
+    else if(gud==2) return Container(
+      child: Icon(
+      Icons.switch_right,
+      color: Colors.yellow,
+      ),
+      decoration: BoxDecoration(border: Border.all(
+        width: 2
+      ) ),
+    );
   }
 
-  Widget componentBar(String componentName, String bottomText,int index){
+  Widget componentBar(String componentName, String bottomText,int gud){
+
     return Row(children: [
       Column(
         children: [Text(componentName),Text(bottomText)],
       ),
-      
+      score(gud)
     ],);
   }
 
