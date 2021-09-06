@@ -12,6 +12,9 @@ class Porownywarka extends StatefulWidget {
 }
 
 class _Porownywarka extends State<Porownywarka> {
+
+  static List<Object> cpus,psus,mtbs,drives,rams,cases,gpus,coolers;
+  static List<double> ranking1,ranking2;
   String code;
   int currentChild = 0;
   List<Widget> children = [
@@ -38,6 +41,29 @@ class _Porownywarka extends State<Porownywarka> {
       maxLength: 5,
     )
   ];
+
+  Widget score(int index,int side){
+
+    
+    return Container(
+      child: Icon(
+      Icons.arrow_upward,
+      color: Colors.green,
+      ),
+      decoration: BoxDecoration(border: Border.all(
+        width: 2
+      ) ),
+    );
+  }
+
+  Widget componentBar(String componentName, String bottomText,int index){
+    return Row(children: [
+      Column(
+        children: [Text(componentName),Text(bottomText)],
+      ),
+      
+    ],);
+  }
 
   Widget codeOptionButton() {
     return GestureDetector(
@@ -87,15 +113,6 @@ class _Porownywarka extends State<Porownywarka> {
       ],
     ));
   }
-
-  Widget leftChild() {
-    return Container();
-  }
-
-  Widget rightChild() {
-    return Container();
-  }
-
   
   @override
   Widget build(BuildContext context) {
@@ -110,7 +127,7 @@ class _Porownywarka extends State<Porownywarka> {
           child: buttons(),
         ),
         SizedBox(
-            height: MediaQuery.of(context).size.height - 170,
+            height: MediaQuery.of(context).size.height *0.8,
             width: 1,
             child: Container(
               color: Colors.red,
