@@ -17,7 +17,7 @@ class Wylogowany extends StatefulWidget {
 class _Wylogowany extends State<Wylogowany>{
   final doLogowanie _auth = doLogowanie();
   final _formKey = GlobalKey<FormState>();
-  final addToDatabase _add=addToDatabase();
+  final addNickToDatabase _add=addNickToDatabase();
   String nick='';
   String error = '';
   final file=fileReader();

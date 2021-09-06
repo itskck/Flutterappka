@@ -11,6 +11,7 @@ import 'package:skladappka/Firebase/Ram.dart';
 import 'package:flutter/material.dart';
 import 'package:blur/blur.dart';
 import 'dialogWidget.dart';
+import 'package:skladappka/Firebase/addToDatabase/addToDatabase.dart';
 
 class dodaj extends StatefulWidget with ChangeNotifier {
   dodaj({Key key, this.title}) : super(key: key);
@@ -335,6 +336,7 @@ class _dodaj extends State<dodaj> {
                       actions: [
                         TextButton(
                             onPressed: () {
+                              addBuildToDatabse(chosenCase: dodaj.chosenCase,chosenCooler: dodaj.chosenCooler,chosenCpu: dodaj.chosenCpu,chosenDrive: dodaj.chosenDrive,chosenGpu: dodaj.chosenGpu,chosenMtb: dodaj.chosenMtb,chosenPsu: dodaj.chosenPsu,chosenRam: dodaj.chosenRam).addBuildData();
                               Navigator.of(context).pop();
                             },
                             child: Text('Tak')),

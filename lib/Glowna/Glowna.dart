@@ -25,7 +25,7 @@ class _Glowna extends State<Glowna>{
               style: TextStyle(color: Colors.white),
             ),
               onPressed:() async{
-                await addToDatabase(uid: _firebaseUser.uid).addBuildData("Tomek", "cpuId", "caseId", "coolerId", "driveId", "gpuId", "motherboardId", "psuId", "ramId", "code");
+              //  await addToDatabase(uid: _firebaseUser.uid).addBuildData("Tomek", "cpuId", "caseId", "coolerId", "driveId", "gpuId", "motherboardId", "psuId", "ramId", "code");
               }
           ),
         ],
