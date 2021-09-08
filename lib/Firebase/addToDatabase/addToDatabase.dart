@@ -14,13 +14,12 @@ import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Ram.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+
 class addNickToDatabase{
-  //var _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 
   final String uid;
   addNickToDatabase({this.uid});
   final CollectionReference userCollection = FirebaseFirestore.instance.collection("users");
-
 
   Future<void> updateUserData(String nick) async {
     return await userCollection.doc(uid).set({
@@ -32,6 +31,7 @@ class addNickToDatabase{
 
 class addBuildToDatabse{
   Random _rnd = Random();
+  final _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
   int a=0;
   String pom;
   final Cpu chosenCpu;
@@ -49,20 +49,29 @@ class addBuildToDatabse{
   final CollectionReference buildCollection = FirebaseFirestore.instance.collection("builds");
 
   Future<String> generateRandomString() async{
-    String randomString =String.fromCharCodes(List.generate(5, (index)=> _rnd.nextInt(33) + 89));
+    String randomString =String.fromCharCodes(List.generate(5, (index)=> _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
     return randomString;
   }
+
+  Future<bool> checkexist() async{
+    final QuerySnapshot result=await FirebaseFirestore.instance
+        .collection("builds")
+        .where("generatedCode", isEqualTo: pom)
+        .limit(1)
+        .get();
+    final List<DocumentSnapshot> documents=result.docs;
+  if(documents.length==1) return true;
+  else return false;
+  }
+
   Future<void> addBuildData() async{
-    pom="pcqxs"+" "+uid;
-    var canI=FirebaseFirestore.instance.doc('builds/$pom').get();
-    while(canI==null){
-      print("elo");
-      if(a>10)
-        canI=FirebaseFirestore.instance.doc('builds/$pom').get();
-      a++;
+    pom="pcqxs";
+    while(await checkexist()==true){
+      print("cos tam");
+      pom=await generateRandomString();
     }
-    pom=pom+" "+uid;
-    return await buildCollection.doc(pom).set({
+
+    return await buildCollection.doc(pom+" "+uid).set({
       "cpuId": chosenCpu.model,
       "caseId": chosenCase.model,
       "coolerId": chosenCooler.model,
@@ -71,6 +80,7 @@ class addBuildToDatabse{
       "motherboardId": chosenMtb.model,
       "psuId": chosenPsu.model,
       "ramId": chosenRam.model,
+      "generatedCode": pom,
     });
   }
 }

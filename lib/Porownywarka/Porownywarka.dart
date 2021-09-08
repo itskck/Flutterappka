@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:skladappka/main.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
-
+import 'package:skladappka/Firebase/getFromDatabase/getFromCode.dart';
 class Porownywarka extends StatefulWidget {
   Porownywarka({Key key, this.title}) : super(key: key);
 
@@ -29,8 +29,13 @@ class _Porownywarka extends State<Porownywarka> {
       ),
     ),
     TextField(
-      onSubmitted: (String value) {
-        //switch page
+      onSubmitted: (String value) async{
+        if(await getFromCode(code: value).corrCode()==false){
+          print("Slaby kodzik");
+        }
+        else{
+          print("git kodzik");
+        }
       },
       textAlign: TextAlign.center,
       decoration: InputDecoration(

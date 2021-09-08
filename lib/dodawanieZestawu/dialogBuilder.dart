@@ -31,8 +31,11 @@ class dialogBuilder extends StatelessWidget{
               Navigator.pop(context);
             },
           )]);}
-    else if(component=='PSU'){
+    if(component=='PSU'){
     psus = Provider.of<List<Psu>>(context)??[];
+    return SimpleDialog(
+        title: Text('Choose your $component'),
+        children: [
     for(int i=0;i<psus.length ; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25,vertical: 25),
@@ -41,7 +44,7 @@ class dialogBuilder extends StatelessWidget{
               dodaj.chosenPsu = psus[i];
               Navigator.pop(context);
             },
-          );}
+          )]);}
 
     if(component=='GPU'){
     gpus = Provider.of<List<Gpu>>(context)??[];
