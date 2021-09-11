@@ -67,6 +67,7 @@ class dialogBuilder extends StatelessWidget{
       title: Text('Choose your $component'),
       children: [             
         for(int i=0;i<coolers.length ; i++)
+          if(dodaj.chosenCpu==null || (coolers[i].socket.contains(dodaj.chosenCpu.socket)))
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25,vertical: 25),
             child: Text(coolers[i].model.toString()),
@@ -97,6 +98,7 @@ class dialogBuilder extends StatelessWidget{
       title: Text('Choose your $component'),
       children: [             
         for(int i=0;i<drives.length ; i++)
+          if( dodaj.chosenMtb==null || (drives[i].connectionType=="SATA") || (drives[i].connectionType=="NVMe" && dodaj.chosenMtb.hasNvmeSlot==true))
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25,vertical: 25),
             child: Text(drives[i].model.toString()),
@@ -104,7 +106,7 @@ class dialogBuilder extends StatelessWidget{
               dodaj.chosenDrive = drives[i];
               Navigator.pop(context);
             },
-          )]);}
+              )]);}
 
     if(component=='CASE'){
     cases = Provider.of<List<Case>>(context)??[];
@@ -112,6 +114,7 @@ class dialogBuilder extends StatelessWidget{
       title: Text('Choose your $component'),
       children: [             
         for(int i=0;i<cases.length ; i++)
+          if(dodaj.chosenMtb==null || (cases[i].standard.contains(dodaj.chosenMtb.standard)))
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25,vertical: 25),
             child: Text(cases[i].model.toString()),

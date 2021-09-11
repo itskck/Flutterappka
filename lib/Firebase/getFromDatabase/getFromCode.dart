@@ -14,6 +14,7 @@ import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Ram.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:skladappka/Porownywarka/Porownywarka.dart';
 
 class getFromCode {
   String code;
@@ -29,4 +30,17 @@ class getFromCode {
     if(documents.length==1) return true;
     else return false;
   }
+
+  Future<Cpu> getCpu() async{
+    final QuerySnapshot result=await FirebaseFirestore.instance.
+    collection("builds")
+        .where("generatedCode", isEqualTo: code)
+        .get();
+    final List<DocumentSnapshot> ours=result.docs;
+    /*
+    Porownywarka.chosenCpu=await FirebaseFirestore.instance
+        .collection("cpus")
+        .where("model",isEqualTo: ours.) */
+  }
+
 }

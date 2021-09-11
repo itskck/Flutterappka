@@ -2,16 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:skladappka/main.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
 import 'package:skladappka/Firebase/getFromDatabase/getFromCode.dart';
+import 'package:skladappka/Firebase/Case.dart';
+import 'package:skladappka/Firebase/Cooler.dart';
+import 'package:skladappka/Firebase/Cpu.dart';
+import 'package:skladappka/Firebase/Drive.dart';
+import 'package:skladappka/Firebase/Gpu.dart';
+import 'package:skladappka/Firebase/Motherboard.dart';
+import 'package:skladappka/Firebase/Psu.dart';
+import 'package:skladappka/Firebase/Ram.dart';
+
 class Porownywarka extends StatefulWidget {
   Porownywarka({Key key, this.title}) : super(key: key);
 
   final String title;
+
+  static Cpu chosenCpu;
+  static Psu chosenPsu;
+  static Motherboard chosenMtb;
+  static Drive chosenDrive;
+  static Ram chosenRam;
+  static Case chosenCase;
+  static Gpu chosenGpu;
+  static Cooler chosenCooler;
 
   @override
   _Porownywarka createState() => _Porownywarka();
 }
 
 class _Porownywarka extends State<Porownywarka> {
+
 
  // static List<Object> cpus,rams,gpus,psus,drive;
   List<Object> components;
