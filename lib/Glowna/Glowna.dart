@@ -18,16 +18,8 @@ class _Glowna extends State<Glowna>{
   Widget build(BuildContext context) {
     return  Center(
       child: Column(
-        children: <Widget>[
-          RaisedButton(
-            child: Text(
-              'Kim jestem',
-              style: TextStyle(color: Colors.white),
-            ),
-              onPressed:() async{
-              //  await addToDatabase(uid: _firebaseUser.uid).addBuildData("Tomek", "cpuId", "caseId", "coolerId", "driveId", "gpuId", "motherboardId", "psuId", "ramId", "code");
-              }
-          ),
+        children: [
+          
         ],
 
       ),

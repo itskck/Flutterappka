@@ -1,0 +1,31 @@
+>>>porównywarka page
+>popup przy wybieraniu z konta
+>guzik "porównaj który uruchamia system"
+>widok z CPU,GPU,PSU,RAM,?DRIVE?
+>szczegółowe widoki z poszczególnymi kompoenetami
+
+
+>>>dodawanie page
+>opcja dodawania kolejnych dysków?
+>opcja restartu widoku, aka. usunięcie paneli wszystkch
+
+>>>Edytuj page
+>wczytywanie jak w porwównywarce,
+>floating button "zapisz", "usuń"
+
+>>>Głowna
+>tutorial jak używać appki
+>przypomnienie o polaczeniu sie z internetem chyba że zrobimy cachowanie.
+
+>>>main
+>listener połączenia z internetem chyba że cachowanie
+
+>>>user page
+>personal data, wyswietlanie, mozliwosc modyfikacji
+>zapisane zestawy, mozliwosc usunięcia i modyfikacji
+
+>>>baza danych
+>dorzucenie troche danych
+>dorzucenie dokumentu z dodatkowymi dyskami
+>dorzucenie integrated GPU
+
