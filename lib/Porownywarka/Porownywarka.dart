@@ -160,7 +160,9 @@ class _Porownywarka extends State<Porownywarka> {
             print("uzytkownik niezalogowany");
           }
           else {
+            print("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
             await compare.getUserBuilds();
+            print("ggggggggggggggggggggggggggggggggggggggggggggg");
             await dialogWidgetForCompare().showPopup(context);
           }
           setState(() {});

@@ -28,8 +28,9 @@ class dialogBuilderForCompare extends StatelessWidget{
 
     print(snapshot.size.toString());
     snapshot.docs.map((doc){
-      for(var i=0;i<snapshot.size;i++)
-      Porownywarka.chosenBuild[i]=Builds(
+      for(int i=0;i<snapshot.size;i++){
+        print(i);
+      Porownywarka.chosenBuild[0]=Builds(
         cpuId: doc.data().toString().contains('cpuId') ? doc.get('cpuId') : 'Error not found',
         caseId: doc.data().toString().contains('caseId') ? doc.get('caseId') : 'Error not found',
         coolerId: doc.data().toString().contains('coolerId') ? doc.get('coolerId') : 'Error not found',
@@ -39,9 +40,11 @@ class dialogBuilderForCompare extends StatelessWidget{
         motherboardId: doc.data().toString().contains('motherboardId') ? doc.get('motherboardId') : 'Error not found',
         psuId: doc.data().toString().contains('psuId') ? doc.get('psuId') : 'Error not found',
         ramId: doc.data().toString().contains('ramId') ? doc.get('ramId') : 'Error not found',
-        timestamp: doc.data().toString().contains('timestamp') ? doc.get('timestamp') : 'error',
+        //timestamp: doc.data().toString().contains('timestamp') ? doc.get('timestamp') : 'error',
         uid: doc.data().toString().contains('uid') ? doc.get('uid') : 'Error not found',
       );
+
+      }
     }).toList();
 
     
