@@ -23,17 +23,6 @@ class FireBase{
   final CollectionReference ramuCollection= FirebaseFirestore.instance.collection('rams');
   final CollectionReference codeCollection=FirebaseFirestore.instance.collection('generatedCodes');
 
-  List<Code> codeListFromSnapshot(QuerySnapshot snapshot){
-    return snapshot.docs.map((doc){
-      return Code(
-        genCode: doc.data().toString().contains('genCode') ? doc.get('genCode') : 'Error not found'
-      );
-    }).toList();
-  }
-  Stream<List<Code>> get codes {
-    return codeCollection.snapshots()
-        .map(codeListFromSnapshot);
-  }
 
   List<Gpu> gpuListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc){

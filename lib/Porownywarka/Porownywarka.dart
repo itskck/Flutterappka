@@ -31,7 +31,6 @@ class Porownywarka extends StatefulWidget {
 
 class _Porownywarka extends State<Porownywarka> {
 
-
  // static List<Object> cpus,rams,gpus,psus,drive;
   List<Object> components;
   List<double> ranking;
@@ -53,7 +52,23 @@ class _Porownywarka extends State<Porownywarka> {
           print("Slaby kodzik");
         }
         else{
-          print("git kodzik");
+          Porownywarka.chosenCpu=await getFromCode(code: value).getCpu();
+          Porownywarka.chosenPsu=await getFromCode(code: value).getPsu();
+          Porownywarka.chosenMtb=await getFromCode(code: value).getMotherboard();
+          Porownywarka.chosenDrive=await getFromCode(code: value).getDrive();
+          Porownywarka.chosenRam=await getFromCode(code: value).getRam();
+          Porownywarka.chosenCase=await getFromCode(code: value).getCase();
+          Porownywarka.chosenGpu=await getFromCode(code: value).getGpu();
+          Porownywarka.chosenCooler=await getFromCode(code: value).getCooler();
+
+          print(Porownywarka.chosenCooler.model);
+          print(Porownywarka.chosenCpu.model);
+          print(Porownywarka.chosenPsu.model);
+          print(Porownywarka.chosenMtb.model);
+          print(Porownywarka.chosenDrive.model);
+          print(Porownywarka.chosenRam.model);
+          print(Porownywarka.chosenCase.model);
+          print(Porownywarka.chosenGpu.model);
         }
       },
       textAlign: TextAlign.center,
