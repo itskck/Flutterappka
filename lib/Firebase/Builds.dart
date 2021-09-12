@@ -1,6 +1,8 @@
 
 
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Builds{
 
   final String caseId;
@@ -12,7 +14,7 @@ class Builds{
   final String motherboardId;
   final String psuId;
   final String ramId;
-  final DateTime timestamp;
+  final Timestamp timestamp;
   final String uid;
   Builds({this.coolerId,this.caseId,this.cpuId,this.driveId,this.generatedCode,this.gpuId,this.motherboardId,this.psuId,this.ramId,this.timestamp,this.uid});
 }

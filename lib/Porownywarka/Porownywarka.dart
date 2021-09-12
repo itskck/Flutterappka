@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:skladappka/main.dart';
+import 'package:skladappka/Firebase/Builds.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
 import 'package:skladappka/Firebase/getFromDatabase/getFromCode.dart';
 import 'package:skladappka/Firebase/Case.dart';
@@ -26,6 +27,7 @@ class Porownywarka extends StatefulWidget {
   static Case chosenCase;
   static Gpu chosenGpu;
   static Cooler chosenCooler;
+  static List<Builds> chosenBuild;
 
   @override
   _Porownywarka createState() => _Porownywarka();
@@ -38,6 +40,7 @@ class _Porownywarka extends State<Porownywarka> {
   List<double> ranking;
   List<Widget> list1,list2; 
   String code;
+
   final dialogBuilderForCompare compare=dialogBuilderForCompare();
   int currentChild = 0;
   List<Widget> children = [
