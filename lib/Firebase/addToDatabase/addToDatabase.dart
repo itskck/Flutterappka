@@ -43,6 +43,7 @@ class addBuildToDatabse{
   final Gpu chosenGpu;
   final Cooler chosenCooler;
   String uid=FirebaseAuth.instance.currentUser.uid;
+  DateTime now=new DateTime.now();
 
   addBuildToDatabse({this.chosenCpu,this.chosenRam,this.chosenPsu,this.chosenMtb,this.chosenGpu,this.chosenDrive,this.chosenCooler,this.chosenCase});
 
@@ -81,6 +82,8 @@ class addBuildToDatabse{
       "psuId": chosenPsu.model,
       "ramId": chosenRam.model,
       "generatedCode": pom,
+      "timestamp": new DateTime(now.year, now.month, now.day, now.hour, now.minute).toString(),
+      "uid": uid,
     });
   }
 }

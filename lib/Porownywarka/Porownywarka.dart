@@ -10,6 +10,8 @@ import 'package:skladappka/Firebase/Gpu.dart';
 import 'package:skladappka/Firebase/Motherboard.dart';
 import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Ram.dart';
+import 'package:skladappka/Porownywarka/dialogBuilderForCompare.dart';
+import 'package:skladappka/Porownywarka/dialogWidgetForCompare.dart';
 
 class Porownywarka extends StatefulWidget {
   Porownywarka({Key key, this.title}) : super(key: key);
@@ -36,6 +38,7 @@ class _Porownywarka extends State<Porownywarka> {
   List<double> ranking;
   List<Widget> list1,list2; 
   String code;
+  final dialogBuilderForCompare compare=dialogBuilderForCompare();
   int currentChild = 0;
   List<Widget> children = [
     Text(
@@ -147,9 +150,18 @@ class _Porownywarka extends State<Porownywarka> {
         ));
   }
 
-  Widget savedButton() {
+  Widget savedButton(BuildContext context) {
     return GestureDetector(
-        onTap: () {},
+        onTap: () async{
+          if(globalna.czyZalogowany=="czyZalogowany=false"){
+            print("uzytkownik niezalogowany");
+          }
+          else {
+            await compare.getUserBuilds();
+            await dialogWidgetForCompare().showPopup(context);
+          }
+          setState(() {});
+        },
         child: Container(
           height: 50,
           width: 200,
@@ -166,14 +178,14 @@ class _Porownywarka extends State<Porownywarka> {
           ),
         ));
   }
-  Widget buttons(){
+  Widget buttons(BuildContext context){
     return Container(margin: EdgeInsets.fromLTRB(10, 0, 10, 0),child:Column(
       mainAxisAlignment: MainAxisAlignment.center,
       
       children: [
         codeOptionButton(),
         SizedBox(height: 20,),
-        savedButton(),
+        savedButton(context),
       ],
     ));
   }
@@ -188,7 +200,7 @@ class _Porownywarka extends State<Porownywarka> {
         Container(
           alignment: Alignment.center,
           width: MediaQuery.of(context).size.width / 2 - 0.5,
-          child: buttons(),
+          child: buttons(context),
         ),
         SizedBox(
             height: MediaQuery.of(context).size.height *0.8,
@@ -199,7 +211,7 @@ class _Porownywarka extends State<Porownywarka> {
         Container(
           alignment: Alignment.center,
           width: MediaQuery.of(context).size.width / 2 - 0.5,
-          child: buttons(),
+          child: buttons(context),
         )
       ],
     ));

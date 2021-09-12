@@ -16,7 +16,6 @@ import 'config/fileOperations.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 Future<void> main() async {
-  print(null.toString());
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   User _firebaseUser=FirebaseAuth.instance.currentUser;
