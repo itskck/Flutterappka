@@ -15,8 +15,6 @@ import 'dart:async';
 import 'Builds.dart';
 
 class FireBase{
-  final String uid;
-  FireBase({ this.uid });
   final CollectionReference gpuCollection= FirebaseFirestore.instance.collection('gpus');
   final CollectionReference caseCollection= FirebaseFirestore.instance.collection('cases');
   final CollectionReference coolerCollection= FirebaseFirestore.instance.collection('coolers');
