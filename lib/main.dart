@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:connectivity/connectivity.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -77,10 +80,45 @@ ThemeData chooseTheme(int which) {
     return ThemeData();
 }
 
-class Skladapka extends StatelessWidget {
+class Skladapka extends StatefulWidget {
   // This widget is the root of your application.
+  static Connectivity _connectivity = Connectivity();
+  static StreamSubscription<ConnectivityResult> connectivitySubscription;
+  static ConnectivityResult connectivityResult= ConnectivityResult.none;
+
+  @override
+  _SkladapkaState createState() => _SkladapkaState();
+}
+
+class _SkladapkaState extends State<Skladapka> {
   
+
+  @override
+  void initState() {
+    super.initState();
+    print('ao');
+    Skladapka.connectivitySubscription = Skladapka._connectivity.onConnectivityChanged.listen(updateConnectionStatus);
+        print('object');
+        
+  }
+
+  void updateConnectionStatus(ConnectivityResult result){
+    setState(() {
+      print(result);
+      Skladapka.connectivityResult = result;
+     
+    });
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+    Skladapka.connectivitySubscription.cancel();
+  }
+
+
   ThemeData chosenTheme = new ThemeData();
+
   List<Widget> Views = [
     dodaj(title: 'dodawanie'),
     wczytajZestaw(),

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:skladappka/main.dart';
 
 
 class Glowna extends StatefulWidget {
@@ -14,41 +15,21 @@ class Glowna extends StatefulWidget {
 }
 
 class _Glowna extends State<Glowna> {
-  final Connectivity _connectivity = Connectivity();
-  StreamSubscription<ConnectivityResult> connectivitySubscription;
-  ConnectivityResult connectivityResult;
-
-  @override
-  void initState() {
-    super.initState();
-    print('ao');
-    connectivitySubscription = _connectivity.onConnectivityChanged.listen(updateConnectionStatus);
-        print('object');
-  }
-
-  @override
-  dispose() {
-    super.dispose();
-    connectivitySubscription.cancel();
-  }
-
-  void updateConnectionStatus(ConnectivityResult result){
-    setState(() {
-      print(result);
-      connectivityResult = result;
-    });
-  }
+  
+  
+  var connectivityResult = Skladapka.connectivityResult;
 
   User _firebaseUser = FirebaseAuth.instance.currentUser;
 
   Widget internetIcon() {
-    if (connectivityResult == ConnectivityResult.none)
+    
+    if (connectivityResult == ConnectivityResult.none){
       return Icon(
         Icons.wifi,
         color: Colors.red,
-      );
-    else
-      return Icon(Icons.wifi, color: Colors.green);
+      );}
+    else{
+      return Icon(Icons.wifi, color: Colors.green);}
   }
 
   @override
@@ -59,6 +40,7 @@ class _Glowna extends State<Glowna> {
         children: [
           Text("Witaj w składappce!"),
           internetIcon(),
+          
           Text(connectivityResult.toString()),
         ],
       ),
