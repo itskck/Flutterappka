@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:skladappka/Firebase/Gpu.dart';
 import 'package:skladappka/Firebase/Case.dart';
 import 'package:skladappka/Firebase/Cooler.dart';
@@ -9,6 +10,9 @@ import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Ram.dart';
 import 'dart:core';
 import 'package:skladappka/Firebase/Code.dart';
+
+import 'dart:async';
+import 'Builds.dart';
 
 class FireBase{
   final String uid;
@@ -22,6 +26,7 @@ class FireBase{
   final CollectionReference psuCollection= FirebaseFirestore.instance.collection('psus');
   final CollectionReference ramuCollection= FirebaseFirestore.instance.collection('rams');
   final CollectionReference codeCollection=FirebaseFirestore.instance.collection('generatedCodes');
+  User _firebaseUser = FirebaseAuth.instance.currentUser;
 
 
   List<Gpu> gpuListFromSnapshot(QuerySnapshot snapshot){
@@ -154,6 +159,29 @@ class FireBase{
   Stream<List<Ram>> get rams {
     return ramuCollection.snapshots()
         .map(ramListFromSnapshot);
+  }
+
+  List<Builds> buildsListFromSnapshot(QuerySnapshot snapshot){
+     print(snapshot.docs.length);
+    return snapshot.docs.map((doc){
+      return Builds(
+        cpuId: doc.data().toString().contains('cpuId') ? doc.get('cpuId') : 'Error not found',
+        caseId: doc.data().toString().contains('caseId') ? doc.get('caseId') : 'Error not found',
+        coolerId: doc.data().toString().contains('coolerId') ? doc.get('coolerId') : 'Error not found',
+        driveId: doc.data().toString().contains('driveId') ? doc.get('driveId') : 'Error not found',
+        generatedCode: doc.data().toString().contains('generatedCode') ? doc.get('generatedCode') : 'Error not found',
+        gpuId: doc.data().toString().contains('gpuId') ? doc.get('gpuId') : 'Error not found',
+        motherboardId: doc.data().toString().contains('motherboardId') ? doc.get('motherboardId') : 'Error not found',
+        psuId: doc.data().toString().contains('psuId') ? doc.get('psuId') : 'Error not found',
+        ramId: doc.data().toString().contains('ramId') ? doc.get('ramId') : 'Error not found',
+        timestamp: "NIE",
+        uid: doc.data().toString().contains('uid') ? doc.get('uid') : 'Error not found',
+      );
+    }).toList();
+  }
+  Stream<List<Builds>> get builds {
+    return FirebaseFirestore.instance.collection('builds').where("uid",isEqualTo: _firebaseUser.uid).snapshots()
+        .map(buildsListFromSnapshot);
   }
 }
 

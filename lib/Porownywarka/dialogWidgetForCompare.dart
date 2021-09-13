@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:skladappka/Firebase/Builds.dart';
 import 'package:skladappka/Firebase/Case.dart';
 import 'package:skladappka/Firebase/Cooler.dart';
 import 'package:skladappka/Firebase/Cpu.dart';
@@ -22,6 +23,10 @@ class dialogWidgetForCompare {
   }
 
   Widget popupWindow(BuildContext context) {
-    return dialogBuilderForCompare();
+    return StreamProvider<List<Builds>>.value(
+      value: FireBase().builds,
+      initialData: [],
+      child: dialogBuilderForCompare(),
+    );
   }
 }

@@ -14,7 +14,7 @@ class Builds{
   final String motherboardId;
   final String psuId;
   final String ramId;
-  final Timestamp timestamp;
+  final String timestamp;
   final String uid;
   Builds({this.coolerId,this.caseId,this.cpuId,this.driveId,this.generatedCode,this.gpuId,this.motherboardId,this.psuId,this.ramId,this.timestamp,this.uid});
 }

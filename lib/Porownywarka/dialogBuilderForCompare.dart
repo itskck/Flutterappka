@@ -15,51 +15,19 @@ import 'dart:core';
 import 'package:skladappka/Porownywarka/Porownywarka.dart';
 
 class dialogBuilderForCompare extends StatelessWidget{
-
-  User _firebaseUser=FirebaseAuth.instance.currentUser;
-
-  Future<void> getUserBuilds() async{
-    String uid=_firebaseUser.uid;
-    print('hello');
-    var snapshot=await FirebaseFirestore.instance
-    .collection("builds")
-    .where("uid", isEqualTo: uid)
-    .get();
-
-    print(snapshot.size.toString());
-    snapshot.docs.map((doc){
-      for(int i=0;i<snapshot.size;i++){
-        print(i);
-      Porownywarka.chosenBuild[0]=Builds(
-        cpuId: doc.data().toString().contains('cpuId') ? doc.get('cpuId') : 'Error not found',
-        caseId: doc.data().toString().contains('caseId') ? doc.get('caseId') : 'Error not found',
-        coolerId: doc.data().toString().contains('coolerId') ? doc.get('coolerId') : 'Error not found',
-        driveId: doc.data().toString().contains('driveId') ? doc.get('driveId') : 'Error not found',
-        generatedCode: doc.data().toString().contains('generatedCode') ? doc.get('generatedCode') : 'Error not found',
-        gpuId: doc.data().toString().contains('gpuId') ? doc.get('gpuId') : 'Error not found',
-        motherboardId: doc.data().toString().contains('motherboardId') ? doc.get('motherboardId') : 'Error not found',
-        psuId: doc.data().toString().contains('psuId') ? doc.get('psuId') : 'Error not found',
-        ramId: doc.data().toString().contains('ramId') ? doc.get('ramId') : 'Error not found',
-        //timestamp: doc.data().toString().contains('timestamp') ? doc.get('timestamp') : 'error',
-        uid: doc.data().toString().contains('uid') ? doc.get('uid') : 'Error not found',
-      );
-
-      }
-    }).toList();
-
-    
-  }
+  var builds;
   @override
   Widget build(BuildContext context) {
+    builds = Provider.of<List<Builds>>(context)??[];
     return SimpleDialog(
         title: Text('Choose your build'),
         children: [
-          for(int i=0;i<Porownywarka.chosenBuild.length ; i++)
+          for(int i=0;i<builds.length ; i++)
             SimpleDialogOption(
               padding: EdgeInsets.symmetric(horizontal: 25,vertical: 25),
-              child: Text(Porownywarka.chosenBuild[i].cpuId.toString()),
+              child: Text(builds[i].cpuId.toString()),
               onPressed: (){
-
+                Navigator.pop(context);
               },
             )]);
 

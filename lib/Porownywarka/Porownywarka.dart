@@ -27,7 +27,6 @@ class Porownywarka extends StatefulWidget {
   static Case chosenCase;
   static Gpu chosenGpu;
   static Cooler chosenCooler;
-  static List<Builds> chosenBuild;
 
   @override
   _Porownywarka createState() => _Porownywarka();
@@ -161,7 +160,6 @@ class _Porownywarka extends State<Porownywarka> {
           }
           else {
             print("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
-            await compare.getUserBuilds();
             print("ggggggggggggggggggggggggggggggggggggggggggggg");
             await dialogWidgetForCompare().showPopup(context);
           }
