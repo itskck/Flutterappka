@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:skladappka/main.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
@@ -70,7 +71,7 @@ class _Wylogowany extends State<Wylogowany>{
                         email.runes.forEach((int element) {
                           var character=new String.fromCharCode(element);
                           if(character=='@'){
-                            _add.updateUserData(nick);
+                            _add.updateUserData(nick,FirebaseAuth.instance.currentUser.uid);
                           }
                           else{
                             nick+=character;

@@ -1,9 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:skladappka/Firebase/doLogowanie/doLogowanie.dart';
 import 'package:skladappka/config/fileOperations.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 class Zalogowany extends StatefulWidget {
   Zalogowany({Key key, this.title}) : super(key: key);
 
@@ -16,6 +17,12 @@ class Zalogowany extends StatefulWidget {
 class _Zalogowany extends State<Zalogowany> {
   final doLogowanie _auth = doLogowanie();
   final file = fileReader();
+  List<String> nicknames;
+  @override
+    void initState() {      
+      super.initState();
+      
+    }
   void logout() async {
     await _auth.wylogui();
     file.save("czyZalogowany=false");
@@ -23,8 +30,22 @@ class _Zalogowany extends State<Zalogowany> {
     dynamic result = await _auth.Anonim();
     print(result);
   }
+  Future<String> getUsername()async{
+    var username;
+    print (FirebaseAuth.instance.currentUser.uid);
+    await FirebaseFirestore.instance.
+    collection("users")
+        .where("uid", isEqualTo: FirebaseAuth.instance.currentUser.uid)
+        .get().then((QuerySnapshot result) => {
+          result.docs.forEach((element) {
+            print(FirebaseAuth.instance.currentUser.uid);
+           username=element['nick'];
+          })});
+    
+    return username;
+  }
 
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    
     return Center(
       child: Column(children: [
         Align(
@@ -59,12 +80,21 @@ class _Zalogowany extends State<Zalogowany> {
                 ),
                 Container(
                   margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                  child: Text(
-                    'Witaj, twoja_stara8',
-                    style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.w300,
-                        color: Theme.of(context).accentColor),
+                  child: FutureBuilder<String>(
+                    future: getUsername(),
+                    builder: (context, snapshot) {                                            
+                      if(snapshot.connectionState==ConnectionState.done){
+                      print(snapshot.data);
+                      final username=snapshot.data;
+                      return Text(
+                        'Witaj, $username',
+                        style: TextStyle(
+                            fontSize: 25,
+                            fontWeight: FontWeight.w300,
+                            color: Theme.of(context).accentColor),
+                      );}
+                      else return CircularProgressIndicator();
+                    }
                   ),
                 ),
               ],
@@ -89,7 +119,10 @@ class _Zalogowany extends State<Zalogowany> {
 
           margin: EdgeInsets.symmetric(horizontal: 20),
           child: Container()
-        )
+        ),
+        TextButton(onPressed: () async{
+          logout();
+        }, child: Text('Wyloguj'))
       ]),
     );
   }

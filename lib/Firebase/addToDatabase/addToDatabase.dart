@@ -17,13 +17,15 @@ import 'package:firebase_database/firebase_database.dart';
 
 class addNickToDatabase{
 
-  final String uid;
-  addNickToDatabase({this.uid});
+  
+  
   final CollectionReference userCollection = FirebaseFirestore.instance.collection("users");
 
-  Future<void> updateUserData(String nick) async {
+  Future<void> updateUserData(String nick,String uid) async {
+    print('id zarejstrowanego: ' + uid);
     return await userCollection.doc(uid).set({
       'nick': nick,
+      'uid': uid
     });
   }
 
