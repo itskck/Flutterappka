@@ -30,7 +30,7 @@ class _Zalogowany extends State<Zalogowany> {
         Align(
           alignment: Alignment.topLeft,
           child: Container(
-            margin: EdgeInsets.fromLTRB(20, 10, 0, 0),
+            margin: EdgeInsets.fromLTRB(30, 20, 0, 50),
             child: Row(
               children: [
                 Container(
@@ -43,12 +43,10 @@ class _Zalogowany extends State<Zalogowany> {
                       child: Align(
                         alignment: Alignment(1.2, 1.2),
                         child: Container(
-                          
                           padding: EdgeInsets.all(3),
                           decoration: BoxDecoration(
-                            color: Color.fromRGBO(240, 84, 84, 1),
-                            borderRadius: BorderRadius.circular(100))
-                          ,
+                              color: Color.fromRGBO(240, 84, 84, 1),
+                              borderRadius: BorderRadius.circular(100)),
                           child: Icon(
                             Icons.edit,
                             color: Colors.white,
@@ -64,7 +62,7 @@ class _Zalogowany extends State<Zalogowany> {
                   child: Text(
                     'Witaj, twoja_stara8',
                     style: TextStyle(
-                        fontSize: 20,
+                        fontSize: 25,
                         fontWeight: FontWeight.w300,
                         color: Theme.of(context).accentColor),
                   ),
@@ -72,6 +70,25 @@ class _Zalogowany extends State<Zalogowany> {
               ],
             ),
           ),
+        ),
+        Align(
+          alignment: Alignment(-0.80,0),
+            child: Text(
+            'Twoje zestawy: ',
+            style: TextStyle(
+                fontSize: 21,
+                fontWeight: FontWeight.w300,
+                color: Theme.of(context).accentColor),
+          ),
+        ),
+        Container(
+          decoration: BoxDecoration(
+              border: Border.all(width: 1.5,color:Color.fromRGBO(240, 84, 84, 1) ),
+              borderRadius: BorderRadius.circular(10)),
+          height: MediaQuery.of(context).size.height * 0.5,
+
+          margin: EdgeInsets.symmetric(horizontal: 20),
+          child: Container()
         )
       ]),
     );
