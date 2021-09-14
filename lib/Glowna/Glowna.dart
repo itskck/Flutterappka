@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:skladappka/main.dart';
 
-
 class Glowna extends StatefulWidget {
   Glowna({Key key, this.title}) : super(key: key);
 
@@ -16,20 +15,17 @@ class Glowna extends StatefulWidget {
 
 class _Glowna extends State<Glowna> {
   
-  
-  var connectivityResult = Skladapka.connectivityResult;
 
   User _firebaseUser = FirebaseAuth.instance.currentUser;
 
   Widget internetIcon() {
-    
-    if (connectivityResult == ConnectivityResult.none){
+    if (Skladapka.connectivityResult == ConnectivityResult.none)
       return Icon(
         Icons.wifi,
         color: Colors.red,
-      );}
-    else{
-      return Icon(Icons.wifi, color: Colors.green);}
+      );
+    else
+      return Icon(Icons.wifi, color: Colors.green);
   }
 
   @override
@@ -40,8 +36,7 @@ class _Glowna extends State<Glowna> {
         children: [
           Text("Witaj w składappce!"),
           internetIcon(),
-          
-          Text(connectivityResult.toString()),
+          Text(Skladapka.connectivityResult.toString()),
         ],
       ),
     );

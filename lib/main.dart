@@ -67,7 +67,7 @@ ThemeData chooseTheme(int which) {
         shadowColor: Colors.black);
   else if (which == 0)
     return ThemeData(
-        canvasColor: Color(0xFFE5E5E5),
+        canvasColor: Colors.white,
         primarySwatch: Colors.grey,
         primaryColor: Colors.white,
         brightness: Brightness.light,
@@ -102,7 +102,7 @@ class _SkladapkaState extends State<Skladapka> {
         
   }
 
-  void updateConnectionStatus(ConnectivityResult result){
+  void updateConnectionStatus(ConnectivityResult result){    
     setState(() {
       print(result);
       Skladapka.connectivityResult = result;
