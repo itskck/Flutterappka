@@ -16,17 +16,17 @@ import 'dialogBuilderForCompare.dart';
 
 class dialogWidgetForCompare {
 
-  Future<void> showPopup(BuildContext context) async {
+  Future<void> showPopup(BuildContext context, int ktoro) async {
     await showDialog(
         context: context,
-        builder: (BuildContext c) => popupWindow(c));
+        builder: (BuildContext c) => popupWindow(c, ktoro));
   }
 
-  Widget popupWindow(BuildContext context) {
+  Widget popupWindow(BuildContext context, int ktoro) {
     return StreamProvider<List<Builds>>.value(
       value: FireBase().builds,
       initialData: [],
-      child: dialogBuilderForCompare(),
+      child: dialogBuilderForCompare(ktoro: ktoro),
     );
   }
 }

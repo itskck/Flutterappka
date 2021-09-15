@@ -172,8 +172,8 @@ class FireBase{
         motherboardId: doc.data().toString().contains('motherboardId') ? doc.get('motherboardId') : 'Error not found',
         psuId: doc.data().toString().contains('psuId') ? doc.get('psuId') : 'Error not found',
         ramId: doc.data().toString().contains('ramId') ? doc.get('ramId') : 'Error not found',
-        timestamp: "NIE",
-        uid: doc.data().toString().contains('uid') ? doc.get('uid') : 'Error not found',
+        timestamp: doc.data().toString().contains('timestamp') ? doc.get('timestamp') : 'Error not found',
+        uid: doc.data().toString().contains('uid') ? doc.get('uid') : 'Error not found'
       );
     }).toList();
   }

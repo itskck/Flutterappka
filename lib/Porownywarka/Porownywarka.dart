@@ -19,14 +19,14 @@ class Porownywarka extends StatefulWidget {
 
   final String title;
 
-  static Cpu chosenCpu;
-  static Psu chosenPsu;
-  static Motherboard chosenMtb;
-  static Drive chosenDrive;
-  static Ram chosenRam;
-  static Case chosenCase;
-  static Gpu chosenGpu;
-  static Cooler chosenCooler;
+  static Cpu chosenCpu, chosenCpu2;
+  static Psu chosenPsu, chosenPsu2;
+  static Motherboard chosenMtb, chosenMtb2;
+  static Drive chosenDrive, chosenDrive2;
+  static Ram chosenRam, chosenRam2;
+  static Case chosenCase, chosenCase2;
+  static Gpu chosenGpu, chosenGpu2;
+  static Cooler chosenCooler, chosenCooler2;
 
   @override
   _Porownywarka createState() => _Porownywarka();
@@ -66,14 +66,6 @@ class _Porownywarka extends State<Porownywarka> {
           Porownywarka.chosenGpu=await getFromCode(code: value).getGpu();
           Porownywarka.chosenCooler=await getFromCode(code: value).getCooler();
 
-          print(Porownywarka.chosenCooler.model);
-          print(Porownywarka.chosenCpu.model);
-          print(Porownywarka.chosenPsu.model);
-          print(Porownywarka.chosenMtb.model);
-          print(Porownywarka.chosenDrive.model);
-          print(Porownywarka.chosenRam.model);
-          print(Porownywarka.chosenCase.model);
-          print(Porownywarka.chosenGpu.model);
         }
       },
       textAlign: TextAlign.center,
@@ -159,9 +151,8 @@ class _Porownywarka extends State<Porownywarka> {
             print("uzytkownik niezalogowany");
           }
           else {
-            print("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj");
-            print("ggggggggggggggggggggggggggggggggggggggggggggg");
-            await dialogWidgetForCompare().showPopup(context);
+            await dialogWidgetForCompare().showPopup(context, 0);//W zaleznosci czy bedzie wybrana lewa czy prawa wartosc bedzie sie zmieniala z 0 na 1
+           // print(Porownywarka.chosenCpu[0]);
           }
           setState(() {});
         },

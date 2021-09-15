@@ -23,6 +23,7 @@ class _Logowanie extends State<Logowanie>{
   Widget build(BuildContext context) { //build context gives the layout, when you build widget it will always have this line
     return StreamProvider<doRejestracji>.value(
       value: doLogowanie().user,
+      initialData: null,
       child: Container(
         
         child: isLogged(),
