@@ -17,12 +17,33 @@ class Zalogowany extends StatefulWidget {
 class _Zalogowany extends State<Zalogowany> {
   final doLogowanie _auth = doLogowanie();
   final file = fileReader();
+ 
+  
+  final List<Image> avatarList = [Image.asset('assets/avatars/1.png'),
+  Image.asset('assets/avatars/2.png'),
+  Image.asset('assets/avatars/3.png'),
+  Image.asset('assets/avatars/4.png'),
+  Image.asset('assets/avatars/5.png'),];
+
   List<String> nicknames;
   @override
     void initState() {      
       super.initState();
       
     }
+  Future<int> getAvatarNumber() async{
+    var chosenAvatar;
+    await FirebaseFirestore.instance
+     .collection("users")
+     .where('uid', isEqualTo: FirebaseAuth.instance.currentUser.uid ).get().then((QuerySnapshot result) => {
+          result.docs.forEach((element) {          
+            if(element['aid']!=null)  
+            chosenAvatar = element['aid'];
+            else chosenAvatar=0;
+          })});
+    print(chosenAvatar.toString()+"yooooooooooooo");
+    return chosenAvatar;
+  }
   void logout() async {
     await _auth.wylogui();
     file.save("czyZalogowany=false");
@@ -44,7 +65,31 @@ class _Zalogowany extends State<Zalogowany> {
     
     return username;
   }
-
+  Widget chooseAvatar(BuildContext c){
+    return SimpleDialog(
+      title: Text('Wybierz swój awatar:'),
+      children: [        
+        for(int i=0;i<avatarList.length;i++)
+        SimpleDialogOption(
+          child:Container(
+            height: 50,
+            width: 50,
+            child: avatarList[i]) ,
+            onPressed: ()async {
+              await FirebaseFirestore.instance
+              .collection('users').doc(FirebaseAuth.instance.currentUser.uid)
+              .update({'aid': i});             
+              setState(() {
+                              
+                            });
+              Navigator.pop(c);
+            },
+        )
+        
+      ],
+      
+    );
+  }
   Widget build(BuildContext context) {    
     return Center(
       child: Column(children: [
@@ -56,27 +101,42 @@ class _Zalogowany extends State<Zalogowany> {
               children: [
                 Container(
                   height: 70,
-                  child: Stack(fit: StackFit.passthrough, children: [
-                    ClipRRect(
-                        child: Image.asset('assets/avatars/1.png'),
-                        borderRadius: BorderRadius.circular(100)),
-                    Positioned.fill(
-                      child: Align(
-                        alignment: Alignment(1.2, 1.2),
-                        child: Container(
-                          padding: EdgeInsets.all(3),
-                          decoration: BoxDecoration(
-                              color: Color.fromRGBO(240, 84, 84, 1),
-                              borderRadius: BorderRadius.circular(100)),
-                          child: Icon(
-                            Icons.edit,
-                            color: Colors.white,
-                            size: 18,
+                  child: GestureDetector(
+                    onTap: () async {
+                      await showDialog(
+                        context: context,
+                        builder: (BuildContext c) => chooseAvatar(c)
+                      );
+                    },
+                    child: Stack(fit: StackFit.passthrough, children: [
+                      ClipRRect(
+                          child: FutureBuilder<int>(
+                            future: getAvatarNumber(),
+                            builder: (context,snapshot){
+                              if(snapshot.connectionState==ConnectionState.done)
+                              return avatarList[snapshot.data];
+                              else return Container();
+                            },
+                          ),
+                          borderRadius: BorderRadius.circular(100)),
+                      Positioned.fill(
+                        child: Align(
+                          alignment: Alignment(1.2, 1.2),
+                          child: Container(
+                            padding: EdgeInsets.all(3),
+                            decoration: BoxDecoration(
+                                color: Color.fromRGBO(240, 84, 84, 1),
+                                borderRadius: BorderRadius.circular(100)),
+                            child: Icon(
+                              Icons.edit,
+                              color: Colors.white,
+                              size: 18,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ]),
+                    ]),
+                  ),
                 ),
                 Container(
                   margin: EdgeInsets.fromLTRB(20, 0, 0, 0),

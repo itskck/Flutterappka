@@ -22,8 +22,10 @@ class addNickToDatabase{
   final CollectionReference userCollection = FirebaseFirestore.instance.collection("users");
 
   Future<void> updateUserData(String nick,String uid) async {
+    var aid= Random().nextInt(5);
     print('id zarejstrowanego: ' + uid);
     return await userCollection.doc(uid).set({
+      'aid': aid,
       'nick': nick,
       'uid': uid
     });
