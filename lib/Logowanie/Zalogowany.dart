@@ -178,7 +178,15 @@ class _Zalogowany extends State<Zalogowany> {
           height: MediaQuery.of(context).size.height * 0.5,
 
           margin: EdgeInsets.symmetric(horizontal: 20),
-          child: Container()
+          child: Container(
+            child: ListView(
+              children: [
+                Container(
+
+                )
+              ],
+            ),
+          )
         ),
         TextButton(onPressed: () async{
           logout();

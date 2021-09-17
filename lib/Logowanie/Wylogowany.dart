@@ -57,7 +57,7 @@ class _Wylogowany extends State<Wylogowany>{
                   ),
                   onPressed: () async {
                     if(_formKey.currentState.validate()){
-                      await _auth.wylogui();
+                      await _auth.deleteAnonym();
                       dynamic result = await _auth.registerWithEmailAndPassword(email, password);
                       if(result == null) {
                         setState(() {

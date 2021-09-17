@@ -53,6 +53,7 @@ class _haveAcc extends State<haveAcc>{
                 ),
                 onPressed: () async {
                   if(_formKey.currentState.validate()){
+                    await _auth.deleteAnonym();
                     dynamic result = await _auth.signInWithEmailAndPassword(email, password);
                     if(result == null) {
                       setState(() {

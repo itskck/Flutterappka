@@ -29,3 +29,9 @@
 >dorzucenie dokumentu z dodatkowymi dyskami
 >dorzucenie integrated GPU
 
+>>Dodaj
+>Sprawdzanie czy jest zintegrowana karta graficzna
+>Opcjonalne rzeczy maja byc opcjonalne (zeby nie zwracały null)
+
+>>Main
+>ma cie nie wpuszczac na strony jesli nie masz polaczenia

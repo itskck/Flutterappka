@@ -1,9 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:skladappka/Firebase/doLogowanie/doRejestracji.dart';
 
 class doLogowanie{
 
   final FirebaseAuth _autoryzacja=FirebaseAuth.instance;
+  final CollectionReference userCollection = FirebaseFirestore.instance.collection('users');
 
   //anon
   Future Anonim() async {
@@ -49,6 +51,7 @@ class doLogowanie{
     }
   }
 
+
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential result = await _autoryzacja.signInWithEmailAndPassword(email: email, password: password);
@@ -58,5 +61,29 @@ class doLogowanie{
       print(error.toString());
       return null;
     }
+  }
+
+  Future deleteAccFromUsers() async{
+    return userCollection.doc(_autoryzacja.currentUser.uid).delete();
+  }
+
+  /*Future deleteUser(String email, String password) async {
+    try {
+      User user =  _autoryzacja.currentUser;
+      AuthCredential credentials =
+      EmailAuthProvider.credential(email: email, password: password);
+      print(user);
+      AuthResult result = await user.reauthenticateWithCredential(credentials);
+      await DatabaseService(uid: result.user.uid).deleteuser(); // called from database class
+      await result.user.delete();
+      return true;
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
+  } */
+
+Future deleteAnonym()async {
+   return await _autoryzacja.currentUser.delete();
   }
 }
