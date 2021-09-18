@@ -15,17 +15,32 @@ import 'dart:async';
 import 'Builds.dart';
 
 class FireBase{
-  final CollectionReference gpuCollection= FirebaseFirestore.instance.collection('gpus');
-  final CollectionReference caseCollection= FirebaseFirestore.instance.collection('cases');
-  final CollectionReference coolerCollection= FirebaseFirestore.instance.collection('coolers');
-  final CollectionReference cpuCollection= FirebaseFirestore.instance.collection('cpus');
-  final CollectionReference driveCollection= FirebaseFirestore.instance.collection('drives');
-  final CollectionReference motherboardCollection= FirebaseFirestore.instance.collection('motherboard');
-  final CollectionReference psuCollection= FirebaseFirestore.instance.collection('psus');
-  final CollectionReference ramuCollection= FirebaseFirestore.instance.collection('rams');
-  final CollectionReference codeCollection=FirebaseFirestore.instance.collection('generatedCodes');
+
+  //Cooler
+  String cpuSocket; //Mtb
+
+  //Case
+  String mtbStandard;
+
+  //Drive
+  bool mtbNvmeSlot;
+
+  //Ram
+  String mtbRamType;
+
+  //Cpu
+  String mtbSocket;
+  List <dynamic> coolerSocket;
+
+  //Motherboard
+  //20 linika
+  String ramRamType;
+  String driveConnectionType;
+  List <dynamic> caseStandard;
+
   User _firebaseUser = FirebaseAuth.instance.currentUser;
 
+  final CollectionReference gpuCollection= FirebaseFirestore.instance.collection('gpus');
 
   List<Gpu> gpuListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc){
@@ -54,8 +69,11 @@ class FireBase{
     }).toList();
   }
   Stream<List<Case>> get cases {
-    return caseCollection.snapshots()
-    .map(caseListFromSnapshot);
+    if(mtbStandard==null)
+      return FirebaseFirestore.instance.collection('cases').snapshots().map(caseListFromSnapshot);
+    else
+      return FirebaseFirestore.instance.collection('cases').where('standard', arrayContains: mtbStandard).snapshots()
+          .map(caseListFromSnapshot);
   }
 
   List<Cooler> coolerListFromSnapshot(QuerySnapshot snapshot){
@@ -68,8 +86,11 @@ class FireBase{
     }).toList();
   }
   Stream<List<Cooler>> get coolers {
-    return coolerCollection.snapshots()
-        .map(coolerListFromSnapshot);
+    if(cpuSocket==null)
+      return FirebaseFirestore.instance.collection('coolers').snapshots().map(coolerListFromSnapshot);
+    else
+      return FirebaseFirestore.instance.collection('coolers').where('socket', isEqualTo: cpuSocket).snapshots()
+          .map(coolerListFromSnapshot);
   }
 
   List<Cpu> cpuListFromSnapshot(QuerySnapshot snapshot){
@@ -90,8 +111,16 @@ class FireBase{
     }).toList();
   }
   Stream<List<Cpu>> get cpus {
-    return cpuCollection.snapshots()
-        .map(cpuListFromSnapshot);
+    if(coolerSocket!=null){
+        return FirebaseFirestore.instance.collection('cpus')
+            .where('socket', arrayContainsAny: [coolerSocket]).where('socket', isEqualTo: mtbSocket)
+            .snapshots().map(cpuListFromSnapshot);
+
+    }
+    else
+      return FirebaseFirestore.instance.collection('cpus')
+          .where('socket', isEqualTo: mtbSocket)
+          .snapshots().map(cpuListFromSnapshot);
   }
 
   List<Drive> driveListFromSnapshot(QuerySnapshot snapshot){
@@ -106,8 +135,11 @@ class FireBase{
     }).toList();
   }
   Stream<List<Drive>> get drives {
-    return driveCollection.snapshots()
-        .map(driveListFromSnapshot);
+    if(mtbNvmeSlot==null || mtbNvmeSlot==true)
+      return FirebaseFirestore.instance.collection('drives').snapshots().map(driveListFromSnapshot);
+    else if(mtbNvmeSlot==false)
+      return FirebaseFirestore.instance.collection('drives').where('connectionType', isEqualTo: 'SATA')
+          .snapshots().map(driveListFromSnapshot);
   }
 
   List<Motherboard> motherboardListFromSnapshot(QuerySnapshot snapshot){
@@ -125,8 +157,40 @@ class FireBase{
     }).toList();
   }
   Stream<List<Motherboard>> get motherboards {
-    return motherboardCollection.snapshots()
-        .map(motherboardListFromSnapshot);
+    print("oooooooooooooo");
+    print(ramRamType);
+    print("ppppppppppppppppp");
+    if((driveConnectionType==null || driveConnectionType=="SATA") && caseStandard!=null) {
+      print("o1o");
+      return FirebaseFirestore.instance.collection('motherboard')
+          .where('standard', arrayContainsAny: [caseStandard])
+          .where('ramType', isEqualTo: ramRamType).where(
+          'socket', isEqualTo: cpuSocket)
+          .snapshots().map(motherboardListFromSnapshot);
+    }
+    else if((driveConnectionType==null || driveConnectionType=="SATA") && caseStandard==null) {
+      print(ramRamType);
+      return FirebaseFirestore.instance.collection('motherboard')
+          .where('ramType', isEqualTo: ramRamType)
+          .snapshots().map(motherboardListFromSnapshot);
+    }
+    else if(caseStandard!=null) {
+      print("o3o");
+      return FirebaseFirestore.instance
+          .collection('motherboard')
+          .where('standard', arrayContainsAny: [caseStandard])
+          .where('ramType', isEqualTo: ramRamType)
+          .where('socket', isEqualTo: cpuSocket)
+          .where('hasNvmeSlot', isEqualTo: true)
+          .snapshots()
+          .map(motherboardListFromSnapshot);
+    } else
+      print("o4o");
+      return FirebaseFirestore.instance.collection('motherboard')
+          .where('ramType', isEqualTo: ramRamType).where('socket', isEqualTo: cpuSocket)
+          .where('hasNvmeSlot', isEqualTo: true)
+          .snapshots().map(motherboardListFromSnapshot);
+
   }
 
   List<Psu> psuListFromSnapshot(QuerySnapshot snapshot){
@@ -139,8 +203,7 @@ class FireBase{
     }).toList();
   }
   Stream<List<Psu>> get psus {
-    return psuCollection.snapshots()
-        .map(psuListFromSnapshot);
+    return FirebaseFirestore.instance.collection('psus').snapshots().map(psuListFromSnapshot);
   }
 
   List<Ram> ramListFromSnapshot(QuerySnapshot snapshot){
@@ -155,8 +218,8 @@ class FireBase{
     }).toList();
   }
   Stream<List<Ram>> get rams {
-    return ramuCollection.snapshots()
-        .map(ramListFromSnapshot);
+    return FirebaseFirestore.instance.collection('rams').where('type',isEqualTo: mtbRamType)
+        .snapshots().map(ramListFromSnapshot);
   }
 
   List<Builds> buildsListFromSnapshot(QuerySnapshot snapshot){
