@@ -33,54 +33,17 @@ class Porownywarka extends StatefulWidget {
 }
 
 class _Porownywarka extends State<Porownywarka> {
-
- // static List<Object> cpus,rams,gpus,psus,drive;
+  // static List<Object> cpus,rams,gpus,psus,drive;
   List<Object> components;
   List<double> ranking;
-  List<Widget> list1,list2; 
+  List<Widget> list1, list2;
+  bool isLeftChosen = false, isRightChosen = false;
   String code;
 
-  final dialogBuilderForCompare compare=dialogBuilderForCompare();
+  final dialogBuilderForCompare compare = dialogBuilderForCompare();
   int currentChild = 0;
-  List<Widget> children = [
-    Text(
-      'Wczytaj zestaw z kodu',
-      style: TextStyle(
-        fontFamily: 'coolvetica',
-        fontSize: 17,
-        fontWeight: FontWeight.w100,
-      ),
-    ),
-    TextField(
-      onSubmitted: (String value) async{
-        if(await getFromCode(code: value).corrCode()==false){
-          print("Slaby kodzik");
-        }
-        else{
-          Porownywarka.chosenCpu=await getFromCode(code: value).getCpu();
-          Porownywarka.chosenPsu=await getFromCode(code: value).getPsu();
-          Porownywarka.chosenMtb=await getFromCode(code: value).getMotherboard();
-          Porownywarka.chosenDrive=await getFromCode(code: value).getDrive();
-          Porownywarka.chosenRam=await getFromCode(code: value).getRam();
-          Porownywarka.chosenCase=await getFromCode(code: value).getCase();
-          Porownywarka.chosenGpu=await getFromCode(code: value).getGpu();
-          Porownywarka.chosenCooler=await getFromCode(code: value).getCooler();
 
-        }
-      },
-      textAlign: TextAlign.center,
-      decoration: InputDecoration(
-        hintText: 'Wpisz kod zestawu',
-        counterText: "",
-      ),
-      autofocus: true,
-      enableInteractiveSelection: false,
-      maxLines: 1,
-      maxLength: 5,
-    )
-  ];
-
-  Future<void>generateLists(){
+  Future<void> generateLists() {
     //czekasz az po lewo i po prawo w porównywarce będzie wybrany zestaw albo wpisany kod
     //w sumie trzeba jakiś zrobić ✓ że wybrany został do porównania zestaw pomyślnie
 
@@ -92,98 +55,256 @@ class _Porownywarka extends State<Porownywarka> {
     //generujesz tak całą liste, wyświetlasz, profit.
   }
 
-  Widget score(int gud){
-
-    if(gud==1)
-    return Container(
-      child: Icon(
-      Icons.arrow_upward,
-      color: Colors.green,
+  Widget left(bool isLeftChoosen) {
+    List<Widget> children = [
+      Text(
+        'Wczytaj zestaw z kodu',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontFamily: 'coolvetica',
+          fontSize: 17,
+          fontWeight: FontWeight.w100,
+        ),
       ),
-      decoration: BoxDecoration(border: Border.all(
-        width: 2
-      ) ),
-    );
-    else if(gud==0) return Container();
-    else if(gud==2) return Container(
-      child: Icon(
-      Icons.switch_right,
-      color: Colors.yellow,
-      ),
-      decoration: BoxDecoration(border: Border.all(
-        width: 2
-      ) ),
-    );
-  }
-
-  Widget componentBar(String componentName, String bottomText,int gud){
-
-    return Row(children: [
-      Column(
-        children: [Text(componentName),Text(bottomText)],
-      ),
-      score(gud)
-    ],);
-  }
-
-  Widget codeOptionButton() {
-    return GestureDetector(
-        onTap: () {
-          setState(() {
-            currentChild = 1;
-          });
-        },
-        child: Container(
-          height: 50,
-          width: 200,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            border: Border.all(color: Color.fromRGBO(240, 84, 84, 1), width: 2),
-          ),
-          child: children[currentChild],
-        ));
-  }
-
-  Widget savedButton(BuildContext context) {
-    return GestureDetector(
-        onTap: () async{
-          if(globalna.czyZalogowany=="czyZalogowany=false"){
-            print("uzytkownik niezalogowany");
+      TextField(
+        onSubmitted: (String value) async {
+          if (await getFromCode(code: value).corrCode() == false) {
+            print("Slaby kodzik");
+          } else {
+            print('dobry kodzik lewo');
+            setState(() {
+                   isLeftChosen=true;       
+                        });
+            
+            Porownywarka.chosenCpu = await getFromCode(code: value).getCpu();
+            Porownywarka.chosenPsu = await getFromCode(code: value).getPsu();
+            Porownywarka.chosenMtb =
+                await getFromCode(code: value).getMotherboard();
+            Porownywarka.chosenDrive =
+                await getFromCode(code: value).getDrive();
+            Porownywarka.chosenRam = await getFromCode(code: value).getRam();
+            Porownywarka.chosenCase = await getFromCode(code: value).getCase();
+            Porownywarka.chosenGpu = await getFromCode(code: value).getGpu();
+            Porownywarka.chosenCooler =
+                await getFromCode(code: value).getCooler();
           }
-          else {
-            await dialogWidgetForCompare().showPopup(context, 0);//W zaleznosci czy bedzie wybrana lewa czy prawa wartosc bedzie sie zmieniala z 0 na 1
-           // print(Porownywarka.chosenCpu[0]);
-          }
-          setState(() {});
         },
-        child: Container(
-          height: 50,
-          width: 200,
-          alignment: Alignment.center,
+        textAlign: TextAlign.center,
+        decoration: InputDecoration(
+          hintText: 'Wpisz kod zestawu',
+          counterText: "",
+        ),
+        autofocus: true,
+        enableInteractiveSelection: false,
+        maxLines: 1,
+        maxLength: 5,
+      )
+    ];
+
+    Widget child() {
+      if (!isLeftChoosen)
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      currentChild = 1;
+                    });
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 150,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Color.fromRGBO(240, 84, 84, 1), width: 2),
+                    ),
+                    child: children[currentChild],
+                  )),
+              SizedBox(
+                height: 20,
+              ),
+              GestureDetector(
+                  onTap: () async {
+                    if (globalna.czyZalogowany == "czyZalogowany=false") {
+                      print("uzytkownik niezalogowany");
+                    } else {
+                      await dialogWidgetForCompare().showPopup(context,
+                          0); //W zaleznosci czy bedzie wybrana lewa czy prawa wartosc bedzie sie zmieniala z 0 na 1
+                      // print(Porownywarka.chosenCpu[0]);
+                    }
+                    setState(() {});
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 150,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Color.fromRGBO(240, 84, 84, 1), width: 2),
+                    ),
+                    child: Text(
+                      
+                      'Wczytaj zapisany zestaw',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        
+                          fontFamily: 'coolvetica',
+                          fontSize: 17,
+                          fontWeight: FontWeight.w100),
+                    ),
+                  )),
+            ],
+          ),
+        );
+      else
+        return  Container(
+          width: 150,
+          height: 150,
           decoration: BoxDecoration(
-            border: Border.all(color: Color.fromRGBO(240, 84, 84, 1), width: 2),
+            borderRadius: BorderRadius.circular(100),
+            border: Border.all(
+              width: 1
+            )
           ),
-          child: Text(
-            'Wczytaj zapisany zestaw',
-            style: TextStyle(
-                fontFamily: 'coolvetica',
-                fontSize: 17,
-                fontWeight: FontWeight.w100),
+          child: Icon(
+            Icons.check,
+            size: 70,
+            
           ),
-        ));
+        );
+    }
+
+    ;
+    setState(() {});
+    return Container(margin: EdgeInsets.fromLTRB(10, 0, 10, 0), child: child());
   }
-  Widget buttons(BuildContext context){
-    return Container(margin: EdgeInsets.fromLTRB(10, 0, 10, 0),child:Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      
-      children: [
-        codeOptionButton(),
-        SizedBox(height: 20,),
-        savedButton(context),
-      ],
-    ));
+
+    Widget right(bool isRightChoosen) {
+    List<Widget> children = [
+      Text(
+        'Wczytaj zestaw z kodu',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontFamily: 'coolvetica',
+          fontSize: 17,
+          fontWeight: FontWeight.w100,
+        ),
+      ),
+      TextField(
+        onSubmitted: (String value) async {
+          if (await getFromCode(code: value).corrCode() == false) {
+            print("Slaby kodzik");
+          } else {
+            setState(() {
+                   isRightChosen=true;       
+                        });
+            Porownywarka.chosenCpu2 = await getFromCode(code: value).getCpu();
+            Porownywarka.chosenPsu2 = await getFromCode(code: value).getPsu();
+            Porownywarka.chosenMtb2 =
+                await getFromCode(code: value).getMotherboard();
+            Porownywarka.chosenDrive2 =
+                await getFromCode(code: value).getDrive();
+            Porownywarka.chosenRam2 = await getFromCode(code: value).getRam();
+            Porownywarka.chosenCase2 = await getFromCode(code: value).getCase();
+            Porownywarka.chosenGpu2 = await getFromCode(code: value).getGpu();
+            Porownywarka.chosenCooler2 =
+                await getFromCode(code: value).getCooler();
+          }
+        },
+        textAlign: TextAlign.center,
+        decoration: InputDecoration(
+          hintText: 'Wpisz kod zestawu',
+          counterText: "",
+        ),
+        autofocus: true,
+        enableInteractiveSelection: false,
+        maxLines: 1,
+        maxLength: 5,
+      )
+    ];
+
+    Widget child() {
+      if (!isRightChosen)
+        return Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      currentChild = 1;
+                    });
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 150,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Color.fromRGBO(240, 84, 84, 1), width: 2),
+                    ),
+                    child: children[currentChild],
+                  )),
+              SizedBox(
+                height: 20,
+              ),
+              GestureDetector(
+                  onTap: () async {
+                    if (globalna.czyZalogowany == "czyZalogowany=false") {
+                      print("uzytkownik niezalogowany");
+                    } else {
+                      await dialogWidgetForCompare().showPopup(context,
+                          1); //W zaleznosci czy bedzie wybrana lewa czy prawa wartosc bedzie sie zmieniala z 0 na 1
+                      // print(Porownywarka.chosenCpu[0]);
+                    }
+                    setState(() {});
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 150,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Color.fromRGBO(240, 84, 84, 1), width: 2),
+                    ),
+                    child: Text(
+                      'Wczytaj zapisany zestaw',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'coolvetica',
+                          fontSize: 17,
+                          fontWeight: FontWeight.w100),
+                    ),
+                  )),
+            ],
+          ),
+        );
+      else
+        return  Container(
+          width: 150,
+          height: 150,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(100),
+            border: Border.all(
+              width: 1
+            )
+          ),
+          child: Icon(
+            Icons.check,
+            size: 70,
+            
+          ),
+        );
+    }
+
+    ;
+    setState(() {});
+    return Container(margin: EdgeInsets.fromLTRB(10, 0, 10, 0), child: child());
   }
-  
+
   @override
   Widget build(BuildContext context) {
     //build context gives the layout, when you build widget it will always have this line
@@ -191,22 +312,14 @@ class _Porownywarka extends State<Porownywarka> {
         child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Container(
-          alignment: Alignment.center,
-          width: MediaQuery.of(context).size.width / 2 - 0.5,
-          child: buttons(context),
-        ),
+        left(isLeftChosen),
         SizedBox(
-            height: MediaQuery.of(context).size.height *0.8,
+            height: MediaQuery.of(context).size.height * 0.2,
             width: 1,
             child: Container(
               color: Colors.red,
             )),
-        Container(
-          alignment: Alignment.center,
-          width: MediaQuery.of(context).size.width / 2 - 0.5,
-          child: buttons(context),
-        )
+        right(isRightChosen),
       ],
     ));
   }
