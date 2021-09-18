@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:blur/blur.dart';
 import 'dialogWidget.dart';
 import 'package:skladappka/Firebase/addToDatabase/addToDatabase.dart';
+import 'package:skladappka/Firebase/FireBase.dart';
 
 class dodaj extends StatefulWidget with ChangeNotifier {
   dodaj({Key key, this.title}) : super(key: key);
@@ -33,6 +34,7 @@ class dodaj extends StatefulWidget with ChangeNotifier {
 }
 
 class _dodaj extends State<dodaj> {
+  final FireBase base=FireBase();
   @override
   initState() {
     super.initState();
@@ -50,7 +52,36 @@ class _dodaj extends State<dodaj> {
   Widget addButton(String component) {
     return GestureDetector(
         onTap: () async {
-          await dialogwidget.showPopup(context, component);
+          await dialogwidget.showPopup(context, component, base);
+          if (component == 'CPU')
+            base.cpuSocket=dodaj.chosenCpu.socket;
+
+          else if (component == 'CSTM COOLER')
+            base.coolerSocket=dodaj.chosenCooler.socket;
+
+          if (component == 'MTBRD'){
+            print("hhhhhhhhhhhhhhhhh");
+            print(base.ramRamType);
+            print("gggggggggggggggggggggggg");
+            base.mtbRamType=dodaj.chosenMtb.ramType;
+            base.mtbNvmeSlot=dodaj.chosenMtb.hasNvmeSlot;
+            base.mtbSocket=dodaj.chosenMtb.socket;
+            base.mtbStandard=dodaj.chosenMtb.standard;
+          }
+
+          if (component == 'DRIVE')
+            base.driveConnectionType=dodaj.chosenDrive.connectionType;
+
+          if (component == 'CASE')
+            base.caseStandard=dodaj.chosenCase.standard;
+
+          if (component == 'RAM') {
+            base.ramRamType = dodaj.chosenRam.type;
+            print("uuuuuuuuuuuuuuuuu");
+            print(base.ramRamType);
+            print("wwwwwwwwwwwwww");
+          }
+
           setState(() {});
         },
         child: Container(
@@ -157,6 +188,7 @@ class _dodaj extends State<dodaj> {
               switch (component) {
                 case 'CPU':
                   setState(() {
+                    base.cpuSocket=null;
                     dodaj.chosenCpu = null;
                   });
                   break;
@@ -172,26 +204,34 @@ class _dodaj extends State<dodaj> {
                   break;
                 case 'CSTM COOLER':
                   setState(() {
+                    base.coolerSocket=null;
                     dodaj.chosenCooler = null;
                   });
                   break;
                 case 'MTBRD':
                   setState(() {
+                    base.mtbRamType=null;
+                    base.mtbNvmeSlot=null;
+                    base.mtbStandard=null;
+                    base.caseStandard=null;
                     dodaj.chosenMtb = null;
                   });
                   break;
                 case 'DRIVE':
                   setState(() {
+                    base.driveConnectionType=null;
                     dodaj.chosenDrive = null;
                   });
                   break;
                 case 'CASE':
                   setState(() {
+                    base.caseStandard=null;
                     dodaj.chosenCase = null;
                   });
                   break;
                 case 'RAM':
                   setState(() {
+                    base.ramRamType=null;
                     dodaj.chosenRam = null;
                   });
                   break;

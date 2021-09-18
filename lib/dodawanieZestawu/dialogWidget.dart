@@ -15,6 +15,7 @@ import 'dodaj.dart';
 import 'dialogBuilder.dart';
 
 class dialogWidget {
+
   /* Widget builder(String component,BuildContext context){
     final cpus = Provider.of<List<Cpu>>(context)??[];
     return SimpleDialog(
@@ -34,65 +35,68 @@ class dialogWidget {
 
     );
   } */
-  Future<void> showPopup(BuildContext context, String component) async {
+  Future<void> showPopup(BuildContext context, String component, FireBase base) async {
     await showDialog(
         context: context,
-        builder: (BuildContext c) => popupWindow(c, component));
+        builder: (BuildContext c) => popupWindow(c, component, base));
   }
 
-  Widget popupWindow(BuildContext context, String component) {
+  Widget popupWindow(BuildContext context, String component, FireBase base) {
     if (component == 'CPU')
       return StreamProvider<List<Cpu>>.value(
-        value: FireBase().cpus,
+        value: base.cpus,
         initialData: [],
         child: dialogBuilder(component: component),
       );
 
     if (component == 'PSU')
       return StreamProvider<List<Psu>>.value(
-        value: FireBase().psus,
+        value: base.psus,
         initialData: [],
         child: dialogBuilder(component: component),
       );
 
     if (component == 'GPU')
       return StreamProvider<List<Gpu>>.value(
-        value: FireBase().gpus,
+        value: base.gpus,
         initialData: [],
         child: dialogBuilder(component: component),
       );
 
     if (component == 'CSTM COOLER')
       return StreamProvider<List<Cooler>>.value(
-        value: FireBase().coolers,
+        value: base.coolers,
         initialData: [],
         child: dialogBuilder(component: component),
       );
 
-    if (component == 'MTBRD')
+    if (component == 'MTBRD') {
+      print(",,,,,,,,,,,,,,,,,");
+      print(base.ramRamType);
+      print(".....................");
       return StreamProvider<List<Motherboard>>.value(
-        value: FireBase().motherboards,
+        value: base.motherboards,
         initialData: [],
         child: dialogBuilder(component: component),
       );
-
+    }
     if (component == 'DRIVE')
       return StreamProvider<List<Drive>>.value(
-        value: FireBase().drives,
+        value: base.drives,
         initialData: [],
         child: dialogBuilder(component: component),
       );
 
     if (component == 'CASE')
       return StreamProvider<List<Case>>.value(
-        value: FireBase().cases,
+        value: base.cases,
         initialData: [],
         child: dialogBuilder(component: component),
       );
 
     if (component == 'RAM')
       return StreamProvider<List<Ram>>.value(
-        value: FireBase().rams,
+        value: base.rams,
         initialData: [],
         child: dialogBuilder(component: component),
       );
