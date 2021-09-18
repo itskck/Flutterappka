@@ -299,9 +299,7 @@ class _Porownywarka extends State<Porownywarka> {
             
           ),
         );
-    }
-
-    ;
+    };
     setState(() {});
     return Container(margin: EdgeInsets.fromLTRB(10, 0, 10, 0), child: child());
   }
