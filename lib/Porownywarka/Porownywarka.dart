@@ -13,6 +13,7 @@ import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Ram.dart';
 import 'package:skladappka/Porownywarka/dialogBuilderForCompare.dart';
 import 'package:skladappka/Porownywarka/dialogWidgetForCompare.dart';
+import 'package:skladappka/Porownywarka/comparison.dart';
 
 class Porownywarka extends StatefulWidget {
   Porownywarka({Key key, this.title}) : super(key: key);
@@ -307,6 +308,7 @@ class _Porownywarka extends State<Porownywarka> {
 
   @override
   Widget build(BuildContext context) {
+    if(isLeftChosen&&isRightChosen) return Comparison();
     //build context gives the layout, when you build widget it will always have this line
     return Center(
         child: Row(

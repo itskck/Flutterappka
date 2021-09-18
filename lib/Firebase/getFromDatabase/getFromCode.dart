@@ -57,6 +57,7 @@ class getFromCode {
     .get();
     snapshot.docs.map((doc){
       chosenCpu=Cpu(
+          benchScore: doc.data().toString().contains('benchScore') ? doc.get('benchScore') : 'Error not found',
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
           model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
           clocker: doc.data().toString().contains('clock') ? doc.get('clock') : 'Error not found',
@@ -90,6 +91,7 @@ class getFromCode {
         .get();
     snapshot.docs.map((doc){
       chosenGpu=Gpu(
+          benchScore: doc.data().toString().contains('benchScore') ? doc.get('benchScore') : 'Error not found',
           VRAM: doc.data().toString().contains('VRAM') ? doc.get('VRAM') : 'Error not found',
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
           model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
@@ -250,6 +252,7 @@ class getFromCode {
         .get();
     snapshot.docs.map((doc){
       chosenRam=Ram(
+          benchScore: doc.data().toString().contains('benchScore') ? doc.get('benchScore') : 'Error not found',
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
           model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
           capacity: doc.data().toString().contains('capacity') ? doc.get('capacity') : 'Error not found',

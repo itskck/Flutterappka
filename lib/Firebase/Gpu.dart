@@ -19,14 +19,14 @@ class _GpuListState extends State<GpuList>{
 }
 
 class Gpu{
-
+  final String benchScore;
   final String VRAM;
   final String manufacturer;
   final String model;
   final String year;
   final String series;
   final String tdp;
-  Gpu({this.tdp, this.manufacturer, this.model, this.year,this.series,this.VRAM});
+  Gpu({this.benchScore,this.tdp, this.manufacturer, this.model, this.year,this.series,this.VRAM});
 }
 
 class GpuTile extends StatelessWidget{

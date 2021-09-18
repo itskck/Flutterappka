@@ -19,14 +19,14 @@ class _RamListState extends State<RamList>{
 }
 
 class Ram{
-
+  final String benchScore;
   final String capacity;
   final String manufacturer;
   final String model;
   final String speed;
   final String type;
 
-  Ram({this.type, this.manufacturer, this.model, this.capacity,this.speed});
+  Ram({this.benchScore,this.type, this.manufacturer, this.model, this.capacity,this.speed});
 }
 
 class RamTile extends StatelessWidget{
