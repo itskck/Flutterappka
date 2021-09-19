@@ -18,14 +18,18 @@ class dialogBuilder extends StatelessWidget{
   Widget build(BuildContext context) {
     
     if(component=='CPU'){
+
     cpus = Provider.of<List<Cpu>>(context)??[];
+    print("44444444444");
+    print(cpus.length);
+    print("44444444444");
     return SimpleDialog(
       title: Text('Choose your $component'),
       children: [             
         for(int i=0;i<cpus.length ; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25,vertical: 25),
-            child: Text(cpus[i].model.toString()),
+            child: Text(cpus[i].model),
             onPressed: (){
               dodaj.chosenCpu = cpus[i];
               Navigator.pop(context);

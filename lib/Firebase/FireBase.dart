@@ -40,7 +40,9 @@ class FireBase{
 
   User _firebaseUser = FirebaseAuth.instance.currentUser;
 
-  final CollectionReference gpuCollection= FirebaseFirestore.instance.collection('gpus');
+
+
+
 
   List<Gpu> gpuListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc){
@@ -50,13 +52,14 @@ class FireBase{
         model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
         year: doc.data().toString().contains('year') ? doc.get('year') : 'Error not found',
         series: doc.data().toString().contains('series') ? doc.get('series') : 'Error not found',
-        tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : 'Error not found'
+        tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : 'Error not found',
+        integra: doc.data().toString().contains('integra') ? doc.get('integra') : 'Error not found'
       );
     }).toList();
   }
   Stream<List<Gpu>> get gpus {
-    return gpuCollection.snapshots()
-        .map(gpuListFromSnapshot);
+     return FirebaseFirestore.instance.collection('gpus').where("integra",isEqualTo: false)
+         .snapshots().map(gpuListFromSnapshot);
   }
 
   List<Case> caseListFromSnapshot(QuerySnapshot snapshot){
@@ -89,11 +92,12 @@ class FireBase{
     if(cpuSocket==null)
       return FirebaseFirestore.instance.collection('coolers').snapshots().map(coolerListFromSnapshot);
     else
-      return FirebaseFirestore.instance.collection('coolers').where('socket', isEqualTo: cpuSocket).snapshots()
+      return FirebaseFirestore.instance.collection('coolers').where('socket', arrayContains: cpuSocket).snapshots()
           .map(coolerListFromSnapshot);
   }
 
   List<Cpu> cpuListFromSnapshot(QuerySnapshot snapshot){
+
     return snapshot.docs.map((doc){
       return Cpu(
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
@@ -106,7 +110,8 @@ class FireBase{
           socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Error not found',
           tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : 'Error not found',
           threads: doc.data().toString().contains('threads') ? doc.get('threads') : 'Error not found',
-          year: doc.data().toString().contains('year') ? doc.get('year') : 'Error not found'
+          year: doc.data().toString().contains('year') ? doc.get('year') : 'Error not found',
+          benchScore: doc.data().toString().contains('benchScore') ? doc.get('benchScore') : 'Error not found'
       );
     }).toList();
   }
@@ -157,9 +162,7 @@ class FireBase{
     }).toList();
   }
   Stream<List<Motherboard>> get motherboards {
-    print("oooooooooooooo");
-    print(ramRamType);
-    print("ppppppppppppppppp");
+
     if((driveConnectionType==null || driveConnectionType=="SATA") && caseStandard!=null) {
       print("o1o");
       return FirebaseFirestore.instance.collection('motherboard')
@@ -171,7 +174,8 @@ class FireBase{
     else if((driveConnectionType==null || driveConnectionType=="SATA") && caseStandard==null) {
       print(ramRamType);
       return FirebaseFirestore.instance.collection('motherboard')
-          .where('ramType', isEqualTo: ramRamType)
+          .where('ramType', isEqualTo: ramRamType).where(
+          'socket', isEqualTo: cpuSocket)
           .snapshots().map(motherboardListFromSnapshot);
     }
     else if(caseStandard!=null) {
@@ -243,6 +247,34 @@ class FireBase{
   Stream<List<Builds>> get builds {
     return FirebaseFirestore.instance.collection('builds').where("uid",isEqualTo: _firebaseUser.uid).snapshots()
         .map(buildsListFromSnapshot);
+  }
+  Future<Gpu> addGpu(String model) async {
+    Gpu chosenGpu;
+    var snapshot=await FirebaseFirestore.instance
+        .collection("gpus")
+        .where('model', isEqualTo: model).get();
+    snapshot.docs.map((doc){
+      chosenGpu=Gpu(
+          VRAM: doc.data().toString().contains('VRAM') ? doc.get('VRAM') : 'Error not found',
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
+          year: doc.data().toString().contains('year') ? doc.get('year') : 'Error not found',
+          series: doc.data().toString().contains('series') ? doc.get('series') : 'Error not found',
+          tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : 'Error not found',
+          integra: doc.data().toString().contains('integra') ? doc.get('integra') : 'Error not found'
+      );
+    }).toList();
+    return chosenGpu;
+  }
+  Future<Cooler> addCooler() async{
+    List<String> cool;
+    cool=new List<String>();
+    cool.add("null");
+    return Cooler(
+        manufacturer: "null",
+        model: "null",
+        socket: cool
+    );
   }
 }
 

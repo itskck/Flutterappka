@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/painting.dart';
 import 'package:skladappka/Firebase/Case.dart';
 import 'package:skladappka/Firebase/Cooler.dart';
@@ -41,6 +42,8 @@ class _dodaj extends State<dodaj> {
   }
 
   dialogWidget dialogwidget = new dialogWidget();
+
+
 
   Widget componentsList(String component) {
     return Container(
@@ -189,6 +192,9 @@ class _dodaj extends State<dodaj> {
                 case 'CPU':
                   setState(() {
                     base.cpuSocket=null;
+                    if(dodaj.chosenGpu!=null)
+                    if(dodaj.chosenCpu.hasGpu!="none" && dodaj.chosenGpu.integra==true)
+                      dodaj.chosenGpu=null;
                     dodaj.chosenCpu = null;
                   });
                   break;
@@ -364,8 +370,27 @@ class _dodaj extends State<dodaj> {
       Align(
           alignment: Alignment(0.95, 0.95),
           child: FloatingActionButton(
-            onPressed: () {
-              print('elo');
+            onPressed: () async{
+              if(dodaj.chosenGpu==null && dodaj.chosenCpu!=null)
+                 dodaj.chosenGpu= await base.addGpu(dodaj.chosenCpu.hasGpu);
+              if(dodaj.chosenCpu==null || dodaj.chosenRam==null || dodaj.chosenCase==null || dodaj.chosenDrive==null || dodaj.chosenMtb==null || dodaj.chosenPsu==null || dodaj.chosenGpu==null )
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Blad'),
+                        content:
+                        Text('Nie wybrano ktoregos z niezbednych komponentow lub wybrany procesor '
+                            'nie posiada zintegrowanej karty graficznej'),
+                          actions: [
+                          TextButton(
+                            onPressed: () {
+                            Navigator.of(context).pop();
+                            },
+                            child: Text('Ok')),
+                      ]);
+                    });
+              else
               showDialog(
                   context: context,
                   builder: (BuildContext context) {
@@ -375,7 +400,9 @@ class _dodaj extends State<dodaj> {
                           Text('Czy chcesz zapisać zestaw na swoim koncie?'),
                       actions: [
                         TextButton(
-                            onPressed: () {
+                            onPressed: () async{
+                              if(dodaj.chosenCooler==null)
+                                dodaj.chosenCooler=await base.addCooler();
                               addBuildToDatabse(chosenCase: dodaj.chosenCase,chosenCooler: dodaj.chosenCooler,chosenCpu: dodaj.chosenCpu,chosenDrive: dodaj.chosenDrive,chosenGpu: dodaj.chosenGpu,chosenMtb: dodaj.chosenMtb,chosenPsu: dodaj.chosenPsu,chosenRam: dodaj.chosenRam).addBuildData();
                               Navigator.of(context).pop();
                             },

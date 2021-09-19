@@ -26,7 +26,8 @@ class Gpu{
   final String year;
   final String series;
   final String tdp;
-  Gpu({this.benchScore,this.tdp, this.manufacturer, this.model, this.year,this.series,this.VRAM});
+  final bool integra;
+  Gpu({this.benchScore,this.tdp, this.manufacturer, this.model, this.year,this.series,this.VRAM,this.integra});
 }
 
 class GpuTile extends StatelessWidget{

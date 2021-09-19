@@ -11,7 +11,7 @@ class Cpu{
   final String tdp;
   final String clocker;
   final String cores;
-  final bool hasGpu;
+  final String hasGpu;
   final bool isCoolerIncluded;
   final bool isUnlocked;
   final String threads;
