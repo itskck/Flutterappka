@@ -55,6 +55,9 @@ class _dodaj extends State<dodaj> {
   Widget addButton(String component) {
     return GestureDetector(
         onTap: () async {
+          if(dodaj.chosenGpu!=null)
+            if(dodaj.chosenGpu.integra==true)
+              dodaj.chosenGpu=null;
           await dialogwidget.showPopup(context, component, base);
           if (component == 'CPU')
             base.cpuSocket=dodaj.chosenCpu.socket;

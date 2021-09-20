@@ -142,7 +142,7 @@ class FireBase{
   Stream<List<Drive>> get drives {
     if(mtbNvmeSlot==null || mtbNvmeSlot==true)
       return FirebaseFirestore.instance.collection('drives').snapshots().map(driveListFromSnapshot);
-    else if(mtbNvmeSlot==false)
+    else
       return FirebaseFirestore.instance.collection('drives').where('connectionType', isEqualTo: 'SATA')
           .snapshots().map(driveListFromSnapshot);
   }
@@ -267,14 +267,19 @@ class FireBase{
     return chosenGpu;
   }
   Future<Cooler> addCooler() async{
-    List<String> cool;
-    cool=new List<String>();
-    cool.add("null");
-    return Cooler(
-        manufacturer: "null",
-        model: "null",
-        socket: cool
-    );
+    Cooler chosenCooler;
+    var snapshot= await FirebaseFirestore.instance
+        .collection("coolers")
+        .where("model", isEqualTo: "domyślne chłodzenie")
+        .get();
+    snapshot.docs.map((doc){
+      chosenCooler=Cooler(
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
+          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Error not found'
+      );
+    }).toList();
+    return chosenCooler;
   }
 }
 
