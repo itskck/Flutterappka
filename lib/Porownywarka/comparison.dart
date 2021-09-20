@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:skladappka/dodawanieZestawu/dodaj.dart';
 import 'Porownywarka.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'dart:math';
+
 class Comparison extends StatefulWidget {
   const Comparison({Key key}) : super(key: key);
 
@@ -10,138 +13,205 @@ class Comparison extends StatefulWidget {
 }
 
 class _Comparison extends State<Comparison> {
-   var cpuScore1,cpuScore2,gpuScore1,gpuScore2,ramScore1,ramScore2,driveScore1,driveScore2,psuScore1,psuScore2;
-  List<dynamic> build1 = [
-    Porownywarka.chosenCpu,
-    Porownywarka.chosenGpu,
-    Porownywarka.chosenRam,
-    Porownywarka.chosenPsu,
-    Porownywarka.chosenDrive,
-    Porownywarka.chosenMtb,   
-    Porownywarka.chosenCase,    
-    Porownywarka.chosenCooler
-  ];
+  var cpuScore1,
+      cpuScore2,
+      gpuScore1,
+      gpuScore2,
+      ramScore1,
+      ramScore2,
+      driveScore1,
+      driveScore2,
+      psuScore1,
+      psuScore2;
 
-  List<dynamic> build2=[
-   Porownywarka.chosenCpu2,
-    Porownywarka.chosenGpu2,
-    Porownywarka.chosenRam2,
-    Porownywarka.chosenPsu2,
-    Porownywarka.chosenDrive2,
-    Porownywarka.chosenMtb2,   
-    Porownywarka.chosenCase2,    
-    Porownywarka.chosenCooler2
-  ];
-
-  double bigger(double a, double b){
-    if(a>b) return a;
-    if(b>a) return b;
-    else return 0;
-  }
-  double lower(double a,double b){
-    if(a>b) return b;
-    if(b>a) return a;
-    else return 1;  
+  double bigger(double a, double b) {
+    if (a > b) return a;
+    if (b > a)
+      return b;
+    else
+      return 0;
   }
 
-  void setScores(){
-    if(build1[0]>build2[0]){
-      
+  double lower(double a, double b) {
+    if (a > b) return b;
+    if (b > a)
+      return a;
+    else
+      return 1;
+  }
+
+  void setScores() {
+    print('start');
+    var cpu = int.parse(Porownywarka.chosenCpu.benchScore) /
+        int.parse(Porownywarka.chosenCpu2.benchScore) *
+        100;
+    cpuScore1 = cpu;
+    cpuScore2 = (-1) * cpu;
+    if (int.parse(Porownywarka.chosenCpu.benchScore) <
+        int.parse(Porownywarka.chosenCpu2.benchScore)) {
+      cpuScore2 = cpu;
+      cpuScore1 = (-1) * cpu;
+    }
+    if (cpuScore1 / cpuScore2== -1) {
+      cpuScore1 = 0;
+      cpuScore2 = 0;
+    }
+
+    var gpu = int.parse(Porownywarka.chosenGpu.benchScore) /
+        int.parse(Porownywarka.chosenGpu2.benchScore) *
+        100;
+    gpuScore1 = gpu;
+    gpuScore2 = (-1) * gpu;
+    if (int.parse(Porownywarka.chosenGpu.benchScore) <
+        int.parse(Porownywarka.chosenGpu2.benchScore)) {
+      gpuScore2 = gpu;
+      gpuScore1 = (-1) * gpu;
+    }
+    if (gpuScore1 / gpuScore2 == -1) {
+      gpuScore1 = 0;
+      gpuScore2 = 0;
+    }
+
+    var ram = int.parse(Porownywarka.chosenRam.benchScore) /
+        int.parse(Porownywarka.chosenRam2.benchScore) *
+        100;
+    ramScore1 = ram;
+    ramScore2 = (-1) * ram;
+    if (int.parse(Porownywarka.chosenRam.benchScore) <
+        int.parse(Porownywarka.chosenRam2.benchScore)) {
+      ramScore2 = ram;
+      ramScore1 = (-1) * ram;
+    }
+    if (ramScore1 / ramScore2 == -1) {
+      ramScore1 = 0;
+      ramScore2 = 0;
+    }
+
+    var psu = int.parse(Porownywarka.chosenPsu.power) /
+        int.parse(Porownywarka.chosenPsu2.power) *
+        100;
+    psuScore1 = psu;
+    psuScore2 = (-1) * psu;
+    if (int.parse(Porownywarka.chosenPsu.power) <
+        int.parse(Porownywarka.chosenPsu2.power)) {
+      psuScore2 = psu;
+      psuScore1 = (-1) * psu;
+    }
+    if (psuScore1 / psuScore2 == -1) {
+      psuScore1 = 0;
+      psuScore2 = 0;
+    }
+
+    var drive = int.parse(Porownywarka.chosenDrive.capacity) /
+        int.parse(Porownywarka.chosenDrive.capacity) *
+        100;
+    driveScore1 = drive;
+    driveScore2 = (-1) * drive;
+    if (int.parse(Porownywarka.chosenDrive.capacity) <
+        int.parse(Porownywarka.chosenDrive2.capacity)) {
+      driveScore2 = drive;
+      driveScore1 = (-1) * drive;
+    }
+    if (driveScore1 / driveScore2 == -1) {
+      driveScore1 = 0;
+      driveScore2 = 0;
     }
   }
-  Widget componentBar(String component,Image placeholder,double width,String side,bool isThere) {
+
+  Widget componentBar(String component, Image placeholder, double width,
+      String side, bool isThere) {
     TextDirection td;
     Alignment al;
     CrossAxisAlignment crossAxisAlignment;
-    width=double.parse(width.toStringAsFixed(1));
-    
-    var pixelWidth =width;
-    if(pixelWidth>100)pixelWidth=100;
-    if(side=='left') {
-      td=TextDirection.ltr;
-      al=Alignment.centerLeft;
-      crossAxisAlignment=CrossAxisAlignment.start;
-      }
-    else{
-      td=TextDirection.rtl;
-      al=Alignment.centerRight;
-      crossAxisAlignment=CrossAxisAlignment.end;
-      }
+    width = double.parse(width.toStringAsFixed(1));
 
+    var pixelWidth = width;
+    if (pixelWidth < 0) pixelWidth = pixelWidth * (-1);
+    if (pixelWidth > 100) pixelWidth = 100;
+    Color color;
+    if (width > 0) color = Colors.green;
+    if (width < 0) color = Colors.red;
+    if (width == 0) color = Colors.grey;
 
-    if(isThere==false) return Container(
-      width: MediaQuery.of(context).size.width /2,
-      height: 60,
+    if (side == 'left') {
+      td = TextDirection.ltr;
+      al = Alignment.centerLeft;
+      crossAxisAlignment = CrossAxisAlignment.start;
+    } else {
+      td = TextDirection.rtl;
+      al = Alignment.centerRight;
+      crossAxisAlignment = CrossAxisAlignment.end;
+    }
 
-    );
+    if (isThere == false)
+      return Container(
+        width: MediaQuery.of(context).size.width / 2,
+        height: 60,
+      );
     else
-    return Container(
-      width: MediaQuery.of(context).size.width /2,
-      height: 70,
-      child: Row(
-        textDirection: td,
-        children: [
-          SizedBox(
-            height: 40,
-            width: 40,
-            child: placeholder),
-          LimitedBox(
-            maxWidth: MediaQuery.of(context).size.width/2 -40,
-            
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: crossAxisAlignment,
-              children: [
-                AutoSizeText(component,  
-                    
-                maxLines: 1,
-                overflow: TextOverflow.clip,
-          
-                ),
-                Row(
-                  textDirection: td,
-                  children: [
-                    Container(
-                      alignment: al,
-                      child: SizedBox(              
-                        
-                        width: pixelWidth,
-                        height: 5 ,
-                        child: Container(
-                          
-                          color: Colors.green,
+      return Container(
+        width: MediaQuery.of(context).size.width / 2,
+        height: 70,
+        child: Row(
+          textDirection: td,
+          children: [
+            SizedBox(height: 40, width: 40, child: placeholder),
+            LimitedBox(
+              maxWidth: MediaQuery.of(context).size.width / 2 - 40,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: crossAxisAlignment,
+                children: [
+                  AutoSizeText(
+                    component,
+                    maxLines: 1,
+                    overflow: TextOverflow.clip,
+                  ),
+                  Row(
+                    textDirection: td,
+                    children: [
+                      Container(
+                        alignment: al,
+                        child: SizedBox(
+                          width: pixelWidth,
+                          height: 5,
+                          child: Container(
+                            color: color,
+                          ),
                         ),
                       ),
-                    ),
-                    if(width!=0)
-                    Text(
-                      '+$width%',
-                      style: TextStyle(color: Colors.green),
-                    )
-                  ],
-                ),
-              ],
+                      if (width > 0)
+                        Text(
+                          '+$width%',
+                          style: TextStyle(color: Colors.green),
+                        )
+                      else if (width < 0)
+                        Text(
+                          '-$width%',
+                          style: TextStyle(color: Colors.red),
+                        )
+                      else
+                        Text(
+                          '+$width%',
+                          style: TextStyle(color: Colors.grey),
+                        )
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-           
-               
-             
-          
-          
-        ],
-      ),
-    );
+          ],
+        ),
+      );
   }
 
   Widget buildColumn(String side, List<Widget> children) {
-
     CrossAxisAlignment ca;
     if (side == "lewo")
       ca = CrossAxisAlignment.start;
     else
       ca = CrossAxisAlignment.end;
     return Column(
-      
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: ca,
       children: children,
@@ -151,35 +221,63 @@ class _Comparison extends State<Comparison> {
   @override
   Widget build(BuildContext context) {
     Image placeholder = Image.asset('assets/placeholder.png');
-    
-   
-    
+    List<dynamic> build1 = [
+      Porownywarka.chosenCpu,
+      Porownywarka.chosenGpu,
+      Porownywarka.chosenRam,
+      Porownywarka.chosenPsu,
+      Porownywarka.chosenDrive,
+      Porownywarka.chosenMtb,
+      Porownywarka.chosenCase,
+      Porownywarka.chosenCooler
+    ];
+
+    List<dynamic> build2 = [
+      Porownywarka.chosenCpu2,
+      Porownywarka.chosenGpu2,
+      Porownywarka.chosenRam2,
+      Porownywarka.chosenPsu2,
+      Porownywarka.chosenDrive2,
+      Porownywarka.chosenMtb2,
+      Porownywarka.chosenCase2,
+      Porownywarka.chosenCooler2
+    ];
+
+    setScores();
+
+    print(cpuScore1.toString() +
+        cpuScore2.toString() +
+        gpuScore1.toString() +
+        gpuScore2.toString() +
+        ramScore1.toString() +
+        ramScore2.toString());
 
     return Row(
       children: [
-      buildColumn('left', [
-        componentBar(build1[0].model, placeholder, cpuScore1, 'left', true),
-        componentBar(build1[1].model, placeholder, gpuScore1, 'left', true),
-        componentBar(build1[2].model, placeholder, ramScore1, 'left', true),
-        componentBar(build1[3].model, placeholder, psuScore1, 'left', true),
-        componentBar(build1[4].model, placeholder, driveScore1, 'left', true),
-        componentBar(build1[5].model, placeholder, 0, 'left', true),
-        componentBar(build1[6].model, placeholder, 0, 'left', true),
-        componentBar(build1[7]!=null?build1[7].model:"nope", placeholder, 0, 'left', build1[7]!=null? true:false),
-        
-
-      ]),
-      
-      buildColumn('right', [
-        componentBar(build2[0].model, placeholder, cpuScore2, 'right', true),
-        componentBar(build2[1].model, placeholder, gpuScore2, 'right', true),
-        componentBar(build2[2].model, placeholder, ramScore2, 'right', true),
-        componentBar(build2[3].model, placeholder, psuScore2, 'right', true),
-        componentBar(build2[4].model, placeholder, driveScore2, 'right', true),
-        componentBar(build2[5].model, placeholder, 0, 'right', true),
-        componentBar(build2[6].model, placeholder, 0, 'right', true),
-        componentBar(build2[7]!=null?build2[7].model:"nope", placeholder, 0, 'right', build2[7]!=null? true:false),
-      ])],
+        buildColumn('left', [
+          componentBar(build1[0].model, placeholder, cpuScore1, 'left', true),
+          componentBar(build1[1].model, placeholder, gpuScore1, 'left', true),
+          componentBar(build1[2].model, placeholder, ramScore1, 'left', true),
+          componentBar(build1[3].model, placeholder, psuScore1, 'left', true),
+          componentBar(build1[4].model, placeholder, driveScore1, 'left', true),
+          componentBar(build1[5].model, placeholder, 0, 'left', true),
+          componentBar(build1[6].model, placeholder, 0, 'left', true),
+          componentBar(build1[7] != null ? build1[7].model : "nope",
+              placeholder, 0, 'left', build1[7] != null ? true : false),
+        ]),
+        buildColumn('right', [
+          componentBar(build2[0].model, placeholder, cpuScore2, 'right', true),
+          componentBar(build2[1].model, placeholder, gpuScore2, 'right', true),
+          componentBar(build2[2].model, placeholder, ramScore2, 'right', true),
+          componentBar(build2[3].model, placeholder, psuScore2, 'right', true),
+          componentBar(
+              build2[4].model, placeholder, driveScore2, 'right', true),
+          componentBar(build2[5].model, placeholder, 0, 'right', true),
+          componentBar(build2[6].model, placeholder, 0, 'right', true),
+          componentBar(build2[7] != null ? build2[7].model : "nope",
+              placeholder, 0, 'right', build2[7] != null ? true : false),
+        ])
+      ],
     );
   }
 }
