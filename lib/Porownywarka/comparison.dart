@@ -13,7 +13,7 @@ class Comparison extends StatefulWidget {
 }
 
 class _Comparison extends State<Comparison> {
-  var cpuScore1,
+  double cpuScore1,
       cpuScore2,
       gpuScore1,
       gpuScore2,
@@ -42,89 +42,100 @@ class _Comparison extends State<Comparison> {
 
   void setScores() {
     print('start');
-    var cpu = int.parse(Porownywarka.chosenCpu.benchScore) /
-        int.parse(Porownywarka.chosenCpu2.benchScore) *
+    var cpu = num.parse(Porownywarka.chosenCpu.benchScore) /
+        num.parse(Porownywarka.chosenCpu2.benchScore) *
         100;
+    print(cpu);
     cpuScore1 = cpu;
     cpuScore2 = (-1) * cpu;
-    if (int.parse(Porownywarka.chosenCpu.benchScore) <
-        int.parse(Porownywarka.chosenCpu2.benchScore)) {
+    if (num.parse(Porownywarka.chosenCpu.benchScore) <
+        num.parse(Porownywarka.chosenCpu2.benchScore)) {
       cpuScore2 = cpu;
       cpuScore1 = (-1) * cpu;
     }
-    if (cpuScore1 / cpuScore2== -1) {
+    if (num.parse(Porownywarka.chosenCpu.benchScore) ==
+        num.parse(Porownywarka.chosenCpu2.benchScore)) {
+      print('if');
+     
       cpuScore1 = 0;
       cpuScore2 = 0;
     }
-
-    var gpu = int.parse(Porownywarka.chosenGpu.benchScore) /
-        int.parse(Porownywarka.chosenGpu2.benchScore) *
+    print('cpu git');
+        var gpu = num.parse(Porownywarka.chosenGpu.benchScore) /
+        num.parse(Porownywarka.chosenGpu2.benchScore) *
         100;
     gpuScore1 = gpu;
     gpuScore2 = (-1) * gpu;
-    if (int.parse(Porownywarka.chosenGpu.benchScore) <
-        int.parse(Porownywarka.chosenGpu2.benchScore)) {
+    if (num.parse(Porownywarka.chosenGpu.benchScore) <
+        num.parse(Porownywarka.chosenGpu2.benchScore)) {
       gpuScore2 = gpu;
       gpuScore1 = (-1) * gpu;
     }
-    if (gpuScore1 / gpuScore2 == -1) {
+    if (num.parse(Porownywarka.chosenGpu.benchScore) ==
+        num.parse(Porownywarka.chosenGpu2.benchScore)) {
       gpuScore1 = 0;
       gpuScore2 = 0;
     }
-
-    var ram = int.parse(Porownywarka.chosenRam.benchScore) /
-        int.parse(Porownywarka.chosenRam2.benchScore) *
+    print('gpu git');
+    var ram = num.parse(Porownywarka.chosenRam.benchScore) /
+        num.parse(Porownywarka.chosenRam2.benchScore) *
         100;
     ramScore1 = ram;
     ramScore2 = (-1) * ram;
-    if (int.parse(Porownywarka.chosenRam.benchScore) <
-        int.parse(Porownywarka.chosenRam2.benchScore)) {
+    if (num.parse(Porownywarka.chosenRam.benchScore) <
+        num.parse(Porownywarka.chosenRam2.benchScore)) {
       ramScore2 = ram;
       ramScore1 = (-1) * ram;
     }
-    if (ramScore1 / ramScore2 == -1) {
+    if (num.parse(Porownywarka.chosenRam.benchScore) ==
+        num.parse(Porownywarka.chosenRam2.benchScore)) {
       ramScore1 = 0;
       ramScore2 = 0;
     }
-
-    var psu = int.parse(Porownywarka.chosenPsu.power) /
-        int.parse(Porownywarka.chosenPsu2.power) *
+    print('ram git');
+       var psu = num.parse(Porownywarka.chosenPsu.power) /
+        num.parse(Porownywarka.chosenPsu2.power) *
         100;
     psuScore1 = psu;
     psuScore2 = (-1) * psu;
-    if (int.parse(Porownywarka.chosenPsu.power) <
-        int.parse(Porownywarka.chosenPsu2.power)) {
+    if (num.parse(Porownywarka.chosenPsu.power) <
+        num.parse(Porownywarka.chosenPsu2.power)) {
       psuScore2 = psu;
       psuScore1 = (-1) * psu;
     }
-    if (psuScore1 / psuScore2 == -1) {
+    if (num.parse(Porownywarka.chosenPsu.power) ==
+        num.parse(Porownywarka.chosenPsu2.power)) {
       psuScore1 = 0;
       psuScore2 = 0;
     }
-
-    var drive = int.parse(Porownywarka.chosenDrive.capacity) /
-        int.parse(Porownywarka.chosenDrive.capacity) *
+    print('psu git');
+    var drive = num.parse(Porownywarka.chosenDrive.capacity) /
+        num.parse(Porownywarka.chosenDrive2.capacity) *
         100;
     driveScore1 = drive;
     driveScore2 = (-1) * drive;
-    if (int.parse(Porownywarka.chosenDrive.capacity) <
-        int.parse(Porownywarka.chosenDrive2.capacity)) {
+    if (num.parse(Porownywarka.chosenDrive.capacity) <
+        num.parse(Porownywarka.chosenDrive2.capacity)*100) {
       driveScore2 = drive;
       driveScore1 = (-1) * drive;
     }
-    if (driveScore1 / driveScore2 == -1) {
+    if (num.parse(Porownywarka.chosenDrive.capacity) ==
+        num.parse(Porownywarka.chosenDrive2.capacity)) {
       driveScore1 = 0;
       driveScore2 = 0;
     }
+    print('drive git');
   }
-
-  Widget componentBar(String component, Image placeholder, double width,
+  double dp(double val, int places){ 
+   double mod = pow(10.0, places); 
+   return ((val * mod).round().toDouble() / mod); 
+  }
+  Widget componentBar(String component, Image placeholder, double t_width,
       String side, bool isThere) {
     TextDirection td;
     Alignment al;
     CrossAxisAlignment crossAxisAlignment;
-    width = double.parse(width.toStringAsFixed(1));
-
+    double width= dp(t_width, 1);
     var pixelWidth = width;
     if (pixelWidth < 0) pixelWidth = pixelWidth * (-1);
     if (pixelWidth > 100) pixelWidth = 100;
@@ -173,7 +184,7 @@ class _Comparison extends State<Comparison> {
                       Container(
                         alignment: al,
                         child: SizedBox(
-                          width: pixelWidth,
+                          width: pixelWidth.toDouble(),
                           height: 5,
                           child: Container(
                             color: color,
@@ -181,17 +192,17 @@ class _Comparison extends State<Comparison> {
                         ),
                       ),
                       if (width > 0)
-                        Text(
+                        AutoSizeText(
                           '+$width%',
                           style: TextStyle(color: Colors.green),
                         )
                       else if (width < 0)
-                        Text(
-                          '-$width%',
+                        AutoSizeText(
+                          '$width%',
                           style: TextStyle(color: Colors.red),
                         )
                       else
-                        Text(
+                        AutoSizeText(
                           '+$width%',
                           style: TextStyle(color: Colors.grey),
                         )
@@ -245,12 +256,9 @@ class _Comparison extends State<Comparison> {
 
     setScores();
 
-    print(cpuScore1.toString() +
-        cpuScore2.toString() +
-        gpuScore1.toString() +
-        gpuScore2.toString() +
-        ramScore1.toString() +
-        ramScore2.toString());
+    print(Porownywarka.chosenCpu.benchScore.toString() +
+        Porownywarka.chosenCpu2.benchScore.toString());
+      
 
     return Row(
       children: [
