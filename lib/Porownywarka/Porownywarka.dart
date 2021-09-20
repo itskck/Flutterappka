@@ -73,10 +73,8 @@ class _Porownywarka extends State<Porownywarka> {
             print("Slaby kodzik");
           } else {
             print('dobry kodzik lewo');
-            setState(() {
-                   isLeftChosen=true;       
-                        });
             
+            print('siema'); 
             Porownywarka.chosenCpu = await getFromCode(code: value).getCpu();
             Porownywarka.chosenPsu = await getFromCode(code: value).getPsu();
             Porownywarka.chosenMtb =
@@ -88,6 +86,9 @@ class _Porownywarka extends State<Porownywarka> {
             Porownywarka.chosenGpu = await getFromCode(code: value).getGpu();
             Porownywarka.chosenCooler =
                 await getFromCode(code: value).getCooler();
+            setState(() {
+                   isLeftChosen=true;       
+                        });
           }
         },
         textAlign: TextAlign.center,
@@ -135,8 +136,11 @@ class _Porownywarka extends State<Porownywarka> {
                       await dialogWidgetForCompare().showPopup(context,
                           0); //W zaleznosci czy bedzie wybrana lewa czy prawa wartosc bedzie sie zmieniala z 0 na 1
                       // print(Porownywarka.chosenCpu[0]);
+
                     }
-                    setState(() {});
+                    setState(() {
+                      isLeftChosen=true;
+                    });
                   },
                   child: Container(
                     height: 50,
@@ -199,9 +203,8 @@ class _Porownywarka extends State<Porownywarka> {
           if (await getFromCode(code: value).corrCode() == false) {
             print("Slaby kodzik");
           } else {
-            setState(() {
-                   isRightChosen=true;       
-                        });
+            print('dobry kodzik prawo');
+            
             Porownywarka.chosenCpu2 = await getFromCode(code: value).getCpu();
             Porownywarka.chosenPsu2 = await getFromCode(code: value).getPsu();
             Porownywarka.chosenMtb2 =
@@ -213,6 +216,9 @@ class _Porownywarka extends State<Porownywarka> {
             Porownywarka.chosenGpu2 = await getFromCode(code: value).getGpu();
             Porownywarka.chosenCooler2 =
                 await getFromCode(code: value).getCooler();
+                setState(() {
+                   isRightChosen=true;       
+                        });
           }
         },
         textAlign: TextAlign.center,
@@ -261,7 +267,7 @@ class _Porownywarka extends State<Porownywarka> {
                           1); //W zaleznosci czy bedzie wybrana lewa czy prawa wartosc bedzie sie zmieniala z 0 na 1
                       // print(Porownywarka.chosenCpu[0]);
                     }
-                    setState(() {});
+                    setState(() {isRightChosen=true;});
                   },
                   child: Container(
                     height: 50,

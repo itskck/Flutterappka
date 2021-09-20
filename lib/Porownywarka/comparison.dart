@@ -141,7 +141,7 @@ class _Comparison extends State<Comparison> {
     if (pixelWidth > 100) pixelWidth = 100;
     Color color;
     if (width > 0) color = Colors.green;
-    if (width < 0) color = Colors.red;
+    if (width < 0) color = Colors.grey;
     if (width == 0) color = Colors.grey;
 
     if (side == 'left') {
@@ -199,7 +199,7 @@ class _Comparison extends State<Comparison> {
                       else if (width < 0)
                         AutoSizeText(
                           '$width%',
-                          style: TextStyle(color: Colors.red),
+                          style: TextStyle(color: Colors.grey),
                         )
                       else
                         AutoSizeText(
