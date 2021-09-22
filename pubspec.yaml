@@ -70,6 +70,35 @@ flutter:
   - assets/avatars/3.png
   - assets/avatars/4.png
   - assets/avatars/5.png
+  # Cala czesc do log firm
+  - assets/companies logo/case/aerocool.png
+  - assets/companies logo/case/Coolermaster.png
+  - assets/companies logo/case/corsair.png
+  - assets/companies logo/case/fractal.png
+  - assets/companies logo/case/Silentiumpc.png
+  - assets/companies logo/case/Silverstone.png
+  - assets/companies logo/case/thermaltake.png
+  - assets/companies logo/cooler/arctic.png
+  - assets/companies logo/cooler/deepcool.png
+  - assets/companies logo/cooler/noctua.png
+  - assets/companies logo/cpu/intel.png
+  - assets/companies logo/cpu/ryzen.png
+  - assets/companies logo/drive/adata.png
+  - assets/companies logo/drive/seagate.png
+  - assets/companies logo/drive/toshiba.png
+  - assets/companies logo/drive/transcend.png
+  - assets/companies logo/drive/wd.png
+  - assets/companies logo/gpu/nvidia.png
+  - assets/companies logo/gpu/radeon.png
+  - assets/companies logo/motherboard/Asrock.png
+  - assets/companies logo/motherboard/Asus.png
+  - assets/companies logo/motherboard/biostar.png
+  - assets/companies logo/motherboard/gigabyte.png
+  - assets/companies logo/motherboard/msi.png
+  - assets/companies logo/ram/Gskill.png
+  - assets/companies logo/ram/Goodram.png
+  - assets/companies logo/psu/SeaSonic.png
+  - assets/companies logo/drive/Kingston.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   fonts:  
