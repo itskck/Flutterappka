@@ -10,6 +10,8 @@ import 'package:skladappka/config/fileOperations.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'listGenerator.dart';
+
 class Zalogowany extends StatefulWidget {
   Zalogowany({Key key, this.title}) : super(key: key);
 
@@ -193,12 +195,13 @@ class _Zalogowany extends State<Zalogowany> {
 
           margin: EdgeInsets.symmetric(horizontal: 20),
           child: Container(
-            child: ListView(
-              children: [
-              ],
+            child: ListView.builder(
+              itemCount: builds.length,
+              itemBuilder: (context, index) =>
+                 listGenerator(builds: builds[index]),
+                ),
             ),
-          )
-        ),
+          ),
         TextButton(onPressed: () async{
           logout();
         }, child: Text('Wyloguj'))
