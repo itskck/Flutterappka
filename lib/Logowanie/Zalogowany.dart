@@ -99,8 +99,12 @@ class _Zalogowany extends State<Zalogowany> {
       
     );
   }
+  @override
   Widget build(BuildContext context) {    
-    var builds=Provider.of<List<Builds>>(context)??[];
+    final builds=Provider.of<List<Builds>>(context)??[];
+    print("aaaaaaa");
+    print(builds.length);
+    print("aaaaaaa");
     return Center(
       child: Column(children: [
         Align(
@@ -191,15 +195,6 @@ class _Zalogowany extends State<Zalogowany> {
           child: Container(
             child: ListView(
               children: [
-                ListView.builder(
-                  itemCount: builds.length,
-                  itemBuilder: (context,i){
-                    var key;
-                    return Dismissible(
-                      key: key,
-                     child: Text(builds[i].timestamp));
-                  },
-                )
               ],
             ),
           )

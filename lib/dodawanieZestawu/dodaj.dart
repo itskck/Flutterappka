@@ -69,15 +69,11 @@ class _dodaj extends State<dodaj> {
             base.coolerSocket=dodaj.chosenCooler.socket;
 
           if (component == 'MTBRD'){
-            print("hhhhhhhhhhhhhhhhh");
-            print(base.ramRamType);
-            print("gggggggggggggggggggggggg");
             base.mtbRamType=dodaj.chosenMtb.ramType;
             base.mtbNvmeSlot=dodaj.chosenMtb.hasNvmeSlot;
             base.mtbSocket=dodaj.chosenMtb.socket;
             base.mtbStandard=dodaj.chosenMtb.standard;
           }
-
           if (component == 'DRIVE')
             base.driveConnectionType=dodaj.chosenDrive.connectionType;
 
@@ -86,9 +82,6 @@ class _dodaj extends State<dodaj> {
 
           if (component == 'RAM') {
             base.ramRamType = dodaj.chosenRam.type;
-            print("uuuuuuuuuuuuuuuuu");
-            print(base.ramRamType);
-            print("wwwwwwwwwwwwww");
           }
 
           setState(() {});
@@ -469,7 +462,27 @@ class _dodaj extends State<dodaj> {
                             onPressed: () async{
                               if(dodaj.chosenCooler==null)
                                 dodaj.chosenCooler=await base.addCooler();
-                              addBuildToDatabse(chosenCase: dodaj.chosenCase,chosenCooler: dodaj.chosenCooler,chosenCpu: dodaj.chosenCpu,chosenDrive: dodaj.chosenDrive,chosenGpu: dodaj.chosenGpu,chosenMtb: dodaj.chosenMtb,chosenPsu: dodaj.chosenPsu,chosenRam: dodaj.chosenRam).addBuildData();
+                              addBuildToDatabse(chosenCase: dodaj.chosenCase,chosenCooler: dodaj.chosenCooler,
+                                  chosenCpu: dodaj.chosenCpu,chosenDrive: dodaj.chosenDrive,chosenGpu: dodaj.chosenGpu,chosenMtb: dodaj.chosenMtb,
+                                  chosenPsu: dodaj.chosenPsu,chosenRam: dodaj.chosenRam).addBuildData();
+                              dodaj.chosenCooler=null;
+                              dodaj.chosenGpu=null;
+                              dodaj.chosenCase=null;
+                              dodaj.chosenRam=null;
+                              dodaj.chosenDrive=null;
+                              dodaj.chosenMtb=null;
+                              dodaj.chosenPsu=null;
+                              dodaj.chosenCpu=null;
+                              base.caseStandard=null;
+                              base.ramRamType=null;
+                              base.driveConnectionType=null;
+                              base.mtbStandard=null;
+                              base.mtbNvmeSlot=null;
+                              base.mtbRamType=null;
+                              base.coolerSocket=null;
+                              base.cpuSocket=null;
+                              base.mtbSocket=null;
+                              setState(() { });
                               Navigator.of(context).pop();
                             },
                             child: Text('Tak')),

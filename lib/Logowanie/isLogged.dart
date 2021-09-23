@@ -12,6 +12,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:skladappka/Firebase/Gpu.dart';
 import 'dart:core';
 import 'package:skladappka/Logowanie/Status.dart';
+import 'package:skladappka/Firebase/Builds.dart';
+
 
 
 class isLogged extends StatelessWidget {
@@ -25,7 +27,11 @@ class isLogged extends StatelessWidget {
     if (globalna.czyZalogowany=="czyZalogowany=false"){
       return Status();
     } else {
-      return Zalogowany();
+      return StreamProvider<List<Builds>>.value(
+        value: FireBase().builds,
+        initialData: [],
+        child: Zalogowany(),
+      );
     }
 
   }

@@ -90,10 +90,10 @@ class FireBase{
   }
   Stream<List<Cooler>> get coolers {
     if(cpuSocket==null)
-      return FirebaseFirestore.instance.collection('coolers').where('model',isNotEqualTo: "Fabryczne chłodzenie")
+      return FirebaseFirestore.instance.collection('coolers').where('model',isNotEqualTo: "Fabryczne chłodzenie").where('socket', arrayContains: [cpuSocket])
           .snapshots().map(coolerListFromSnapshot);
     else
-      return FirebaseFirestore.instance.collection('coolers').where('socket', arrayContains: cpuSocket)
+      return FirebaseFirestore.instance.collection('coolers')
           .where('model',isNotEqualTo: "Fabryczne chłodzenie").snapshots()
           .map(coolerListFromSnapshot);
   }
@@ -247,6 +247,7 @@ class FireBase{
     }).toList();
   }
   Stream<List<Builds>> get builds {
+    print(_firebaseUser.uid);
     return FirebaseFirestore.instance.collection('builds').where("uid",isEqualTo: _firebaseUser.uid).snapshots()
         .map(buildsListFromSnapshot);
   }
