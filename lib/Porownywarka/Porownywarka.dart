@@ -28,7 +28,7 @@ class Porownywarka extends StatefulWidget {
   static Case chosenCase, chosenCase2;
   static Gpu chosenGpu, chosenGpu2;
   static Cooler chosenCooler, chosenCooler2;
-
+  static String uid,uid2;
   @override
   _Porownywarka createState() => _Porownywarka();
 }
@@ -44,16 +44,35 @@ class _Porownywarka extends State<Porownywarka> {
   final dialogBuilderForCompare compare = dialogBuilderForCompare();
   int currentChild = 0;
 
-  Future<void> generateLists() {
-    //czekasz az po lewo i po prawo w porównywarce będzie wybrany zestaw albo wpisany kod
-    //w sumie trzeba jakiś zrobić ✓ że wybrany został do porównania zestaw pomyślnie
-
-    //GENERACJA LISTY
-    //generujesz po jednym indexie z list1 i list2,
-    //np. index 0 to cpu w list1 i w list 2,
-    //sprawdzasz ktory jest lepszy, czy ten z list1 czy z list2,
-    //ustawiasz widget score() zeby sie wyswietlal albo też nie,
-    //generujesz tak całą liste, wyświetlasz, profit.
+  Future<void> setValues(int lp,String value)async {
+    if(lp==0){
+            Porownywarka.chosenCpu = await getFromCode(code: value).getCpu();
+            Porownywarka.chosenPsu = await getFromCode(code: value).getPsu();
+            Porownywarka.chosenMtb =
+                await getFromCode(code: value).getMotherboard();
+            Porownywarka.chosenDrive =
+                await getFromCode(code: value).getDrive();
+            Porownywarka.chosenRam = await getFromCode(code: value).getRam();
+            Porownywarka.chosenCase = await getFromCode(code: value).getCase();
+            Porownywarka.chosenGpu = await getFromCode(code: value).getGpu();
+            Porownywarka.chosenCooler =
+                await getFromCode(code: value).getCooler();
+            Porownywarka.uid= await getFromCode(code: value).getUid();
+    }
+    else{
+            Porownywarka.chosenCpu2 = await getFromCode(code: value).getCpu();
+            Porownywarka.chosenPsu2 = await getFromCode(code: value).getPsu();
+            Porownywarka.chosenMtb2 =
+                await getFromCode(code: value).getMotherboard();
+            Porownywarka.chosenDrive2 =
+                await getFromCode(code: value).getDrive();
+            Porownywarka.chosenRam2 = await getFromCode(code: value).getRam();
+            Porownywarka.chosenCase2 = await getFromCode(code: value).getCase();
+            Porownywarka.chosenGpu2 = await getFromCode(code: value).getGpu();
+            Porownywarka.chosenCooler2 =
+                await getFromCode(code: value).getCooler();
+            Porownywarka.uid2= await getFromCode(code: value).getUid();
+    }
   }
 
   Widget left(bool isLeftChoosen) {
@@ -73,19 +92,8 @@ class _Porownywarka extends State<Porownywarka> {
             print("Slaby kodzik");
           } else {
             print('dobry kodzik lewo');
+            await setValues(0, value);      
             
-            print('siema'); 
-            Porownywarka.chosenCpu = await getFromCode(code: value).getCpu();
-            Porownywarka.chosenPsu = await getFromCode(code: value).getPsu();
-            Porownywarka.chosenMtb =
-                await getFromCode(code: value).getMotherboard();
-            Porownywarka.chosenDrive =
-                await getFromCode(code: value).getDrive();
-            Porownywarka.chosenRam = await getFromCode(code: value).getRam();
-            Porownywarka.chosenCase = await getFromCode(code: value).getCase();
-            Porownywarka.chosenGpu = await getFromCode(code: value).getGpu();
-            Porownywarka.chosenCooler =
-                await getFromCode(code: value).getCooler();
             setState(() {
                    isLeftChosen=true;       
                         });
@@ -204,18 +212,8 @@ class _Porownywarka extends State<Porownywarka> {
             print("Slaby kodzik");
           } else {
             print('dobry kodzik prawo');
+            await setValues(1, value);
             
-            Porownywarka.chosenCpu2 = await getFromCode(code: value).getCpu();
-            Porownywarka.chosenPsu2 = await getFromCode(code: value).getPsu();
-            Porownywarka.chosenMtb2 =
-                await getFromCode(code: value).getMotherboard();
-            Porownywarka.chosenDrive2 =
-                await getFromCode(code: value).getDrive();
-            Porownywarka.chosenRam2 = await getFromCode(code: value).getRam();
-            Porownywarka.chosenCase2 = await getFromCode(code: value).getCase();
-            Porownywarka.chosenGpu2 = await getFromCode(code: value).getGpu();
-            Porownywarka.chosenCooler2 =
-                await getFromCode(code: value).getCooler();
                 setState(() {
                    isRightChosen=true;       
                         });
@@ -290,7 +288,7 @@ class _Porownywarka extends State<Porownywarka> {
           ),
         );
       else
-        return  Container(
+        return Container(
           width: 150,
           height: 150,
           decoration: BoxDecoration(

@@ -272,7 +272,7 @@ class FireBase{
     Cooler chosenCooler;
     var snapshot= await FirebaseFirestore.instance
         .collection("coolers")
-        .where("model", isEqualTo: "domyślne chłodzenie")
+        .where("model", isEqualTo: 'Fabryczne chłodzenie')
         .get();
     snapshot.docs.map((doc){
       chosenCooler=Cooler(

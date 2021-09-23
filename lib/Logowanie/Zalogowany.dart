@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:skladappka/Firebase/doLogowanie/doLogowanie.dart';
@@ -146,7 +147,7 @@ class _Zalogowany extends State<Zalogowany> {
                       if(snapshot.connectionState==ConnectionState.done){
                       print(snapshot.data);
                       final username=snapshot.data;
-                      return Text(
+                      return AutoSizeText(
                         'Witaj, $username',
                         style: TextStyle(
                             fontSize: 25,

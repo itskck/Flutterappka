@@ -25,7 +25,7 @@ class getFromCode {
   static Case chosenCase;
   static Gpu chosenGpu;
   static Cooler chosenCooler;
-
+  static String uid;
   String code;
   getFromCode({this.code});
   
@@ -261,6 +261,18 @@ class getFromCode {
       );
     }).toList();
     return chosenRam;
+  }
+  Future<String> getUid() async{
+    var ktoro;
+    await FirebaseFirestore.instance.collection("builds")
+    .where('generatedCode', isEqualTo: code)
+    .get()
+    .then((QuerySnapshot result) => {
+      result.docs.forEach((element) {
+        ktoro=element['uid'];
+      })
+    });
+    return ktoro;
   }
 
 }

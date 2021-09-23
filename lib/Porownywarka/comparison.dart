@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:skladappka/Firebase/Drive.dart';
 import 'package:skladappka/dodawanieZestawu/dodaj.dart';
 import 'Porownywarka.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -13,6 +15,14 @@ class Comparison extends StatefulWidget {
 }
 
 class _Comparison extends State<Comparison> {
+  final List<Image> avatarList = [
+    Image.asset('assets/avatars/1.png'),
+    Image.asset('assets/avatars/2.png'),
+    Image.asset('assets/avatars/3.png'),
+    Image.asset('assets/avatars/4.png'),
+    Image.asset('assets/avatars/5.png'),
+  ];
+  bool isInTBs = false;
   double cpuScore1,
       cpuScore2,
       gpuScore1,
@@ -23,21 +33,33 @@ class _Comparison extends State<Comparison> {
       driveScore2,
       psuScore1,
       psuScore2;
+  String username = "", username2 = '';
+  int avatarid1 = 0, avatarid2 = 0;
 
-  double bigger(double a, double b) {
-    if (a > b) return a;
-    if (b > a)
-      return b;
-    else
-      return 0;
-  }
+  Future<void> getUserData() async {
+    await FirebaseFirestore.instance
+        .collection("users")
+        .where("uid", isEqualTo: Porownywarka.uid)
+        .get()
+        .then((QuerySnapshot result) => {
+              result.docs.forEach((element) {
+                avatarid1 = element['aid'];
+                username = element['nick'];
+                print('user1 loaded');
+              })
+            });
 
-  double lower(double a, double b) {
-    if (a > b) return b;
-    if (b > a)
-      return a;
-    else
-      return 1;
+    await FirebaseFirestore.instance
+        .collection("users")
+        .where("uid", isEqualTo: Porownywarka.uid2)
+        .get()
+        .then((QuerySnapshot result) => {
+              result.docs.forEach((element) {
+                avatarid2 = element['aid'];
+                username2 = element['nick'];
+                print('user2 loaded');
+              })
+            });
   }
 
   void setScores() {
@@ -56,12 +78,12 @@ class _Comparison extends State<Comparison> {
     if (num.parse(Porownywarka.chosenCpu.benchScore) ==
         num.parse(Porownywarka.chosenCpu2.benchScore)) {
       print('if');
-     
+
       cpuScore1 = 0;
       cpuScore2 = 0;
     }
     print('cpu git');
-        var gpu = num.parse(Porownywarka.chosenGpu.benchScore) /
+    var gpu = num.parse(Porownywarka.chosenGpu.benchScore) /
         num.parse(Porownywarka.chosenGpu2.benchScore) *
         100;
     gpuScore1 = gpu;
@@ -93,7 +115,7 @@ class _Comparison extends State<Comparison> {
       ramScore2 = 0;
     }
     print('ram git');
-       var psu = num.parse(Porownywarka.chosenPsu.power) /
+    var psu = num.parse(Porownywarka.chosenPsu.power) /
         num.parse(Porownywarka.chosenPsu2.power) *
         100;
     psuScore1 = psu;
@@ -109,16 +131,21 @@ class _Comparison extends State<Comparison> {
       psuScore2 = 0;
     }
     print('psu git');
-    var drive = num.parse(Porownywarka.chosenDrive.capacity) /
-        num.parse(Porownywarka.chosenDrive2.capacity) *
-        100;
+    var drive = num.parse(Porownywarka.chosenDrive.capacity).toDouble() -
+        num.parse(Porownywarka.chosenDrive2.capacity).toDouble();
+
     driveScore1 = drive;
     driveScore2 = (-1) * drive;
     if (num.parse(Porownywarka.chosenDrive.capacity) <
-        num.parse(Porownywarka.chosenDrive2.capacity)*100) {
+        num.parse(Porownywarka.chosenDrive2.capacity) * 100) {
       driveScore2 = drive;
       driveScore1 = (-1) * drive;
     }
+    if (driveScore1 > 1000 || driveScore2 > 1000) {
+      driveScore1 /= 1024;
+      driveScore2 /= 1024;
+      isInTBs = true;
+    } ////////////////////////////////////////////////////////////////////////////////////////sprawdzac czy jest ssd
     if (num.parse(Porownywarka.chosenDrive.capacity) ==
         num.parse(Porownywarka.chosenDrive2.capacity)) {
       driveScore1 = 0;
@@ -126,16 +153,28 @@ class _Comparison extends State<Comparison> {
     }
     print('drive git');
   }
-  double dp(double val, int places){ 
-   double mod = pow(10.0, places); 
-   return ((val * mod).round().toDouble() / mod); 
+
+  double dp(double val, int places) {
+    double mod = pow(10.0, places);
+    return ((val * mod).round().toDouble() / mod);
   }
-  Widget componentBar(String component, Image placeholder, double t_width,
+
+  Widget componentBar(dynamic comp, Image placeholder, double t_width,
       String side, bool isThere) {
     TextDirection td;
+    String component = comp.model;
+
     Alignment al;
     CrossAxisAlignment crossAxisAlignment;
-    double width= dp(t_width, 1);
+    double width = dp(t_width, 1);
+    String sign;
+
+    if (comp is Drive && isInTBs == false)
+      sign = ' GB';
+    else if (comp is Drive && isInTBs == true)
+      sign = ' TB';
+    else
+      sign = '%';
     var pixelWidth = width;
     if (pixelWidth < 0) pixelWidth = pixelWidth * (-1);
     if (pixelWidth > 100) pixelWidth = 100;
@@ -193,17 +232,17 @@ class _Comparison extends State<Comparison> {
                       ),
                       if (width > 0)
                         AutoSizeText(
-                          '+$width%',
+                          '+$width' + sign,
                           style: TextStyle(color: Colors.green),
                         )
                       else if (width < 0)
                         AutoSizeText(
-                          '$width%',
+                          '$width' + sign,
                           style: TextStyle(color: Colors.grey),
                         )
                       else
                         AutoSizeText(
-                          '+$width%',
+                          '+$width' + sign,
                           style: TextStyle(color: Colors.grey),
                         )
                     ],
@@ -258,33 +297,117 @@ class _Comparison extends State<Comparison> {
 
     print(Porownywarka.chosenCpu.benchScore.toString() +
         Porownywarka.chosenCpu2.benchScore.toString());
-      
 
-    return Row(
+    return Stack(
       children: [
-        buildColumn('left', [
-          componentBar(build1[0].model, placeholder, cpuScore1, 'left', true),
-          componentBar(build1[1].model, placeholder, gpuScore1, 'left', true),
-          componentBar(build1[2].model, placeholder, ramScore1, 'left', true),
-          componentBar(build1[3].model, placeholder, psuScore1, 'left', true),
-          componentBar(build1[4].model, placeholder, driveScore1, 'left', true),
-          componentBar(build1[5].model, placeholder, 0, 'left', true),
-          componentBar(build1[6].model, placeholder, 0, 'left', true),
-          componentBar(build1[7] != null ? build1[7].model : "nope",
-              placeholder, 0, 'left', build1[7] != null ? true : false),
-        ]),
-        buildColumn('right', [
-          componentBar(build2[0].model, placeholder, cpuScore2, 'right', true),
-          componentBar(build2[1].model, placeholder, gpuScore2, 'right', true),
-          componentBar(build2[2].model, placeholder, ramScore2, 'right', true),
-          componentBar(build2[3].model, placeholder, psuScore2, 'right', true),
-          componentBar(
-              build2[4].model, placeholder, driveScore2, 'right', true),
-          componentBar(build2[5].model, placeholder, 0, 'right', true),
-          componentBar(build2[6].model, placeholder, 0, 'right', true),
-          componentBar(build2[7] != null ? build2[7].model : "nope",
-              placeholder, 0, 'right', build2[7] != null ? true : false),
-        ])
+        Container(
+          alignment: Alignment.center,
+          child: SizedBox(
+            
+            height: MediaQuery.of(context).size.height * 0.8,
+            width: 1,
+            child: Container(
+              color: Colors.red),
+          ),
+        ),
+        Column(
+          children: [
+            Container(
+                margin: EdgeInsets.symmetric(vertical: 15),
+                height: 30,
+                width: MediaQuery.of(context).size.width,
+                child: FutureBuilder<void>(
+                    future: getUserData(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done)
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ClipRRect(
+                                      child: avatarList[avatarid1],
+                                      borderRadius: BorderRadius.circular(100)),
+                                  AutoSizeText(
+                                    'Zestaw użytkownika \n $username ',
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(fontSize: 30),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ClipRRect(
+                                      child: avatarList[avatarid2],
+                                      borderRadius: BorderRadius.circular(100)),
+                                  AutoSizeText(
+                                      'Zestaw użytkownika \n $username2',
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(fontSize: 30)),
+                                ],
+                              ),
+                            ),
+                          ],
+                        );
+                      if (snapshot.hasError)
+                        return Container();
+                      else
+                        return CircularProgressIndicator();
+                    })),
+            SizedBox(
+              height: 1,
+              width: MediaQuery.of(context).size.width * 0.95,
+              child: Container(
+                color: Colors.red,
+              ),
+            ),
+            Row(
+              children: [
+                buildColumn('left', [
+                  componentBar(build1[0], placeholder, cpuScore1, 'left', true),
+                  componentBar(build1[1], placeholder, gpuScore1, 'left', true),
+                  componentBar(build1[2], placeholder, ramScore1, 'left', true),
+                  componentBar(build1[3], placeholder, psuScore1, 'left', true),
+                  componentBar(
+                      build1[4], placeholder, driveScore1, 'left', true),
+                  componentBar(build1[5], placeholder, 0, 'left', true),
+                  componentBar(build1[6], placeholder, 0, 'left', true),
+                  componentBar(build1[7] != null ? build1[7] : "nope",
+                      placeholder, 0, 'left', build1[7] != null ? true : false),
+                ]),
+                buildColumn('right', [
+                  componentBar(
+                      build2[0], placeholder, cpuScore2, 'right', true),
+                  componentBar(
+                      build2[1], placeholder, gpuScore2, 'right', true),
+                  componentBar(
+                      build2[2], placeholder, ramScore2, 'right', true),
+                  componentBar(
+                      build2[3], placeholder, psuScore2, 'right', true),
+                  componentBar(
+                      build2[4], placeholder, driveScore2, 'right', true),
+                  componentBar(build2[5], placeholder, 0, 'right', true),
+                  componentBar(build2[6], placeholder, 0, 'right', true),
+                  componentBar(
+                      build2[7] != null ? build2[7] : "nope",
+                      placeholder,
+                      0,
+                      'right',
+                      build2[7] != null ? true : false),
+                ])
+              ],
+            ),
+          ],
+        ),
       ],
     );
   }
