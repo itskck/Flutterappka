@@ -1,6 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:skladappka/Firebase/Builds.dart';
+import 'package:skladappka/Firebase/FireBase.dart';
 import 'package:skladappka/Firebase/doLogowanie/doLogowanie.dart';
 import 'package:skladappka/config/fileOperations.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
@@ -18,7 +22,7 @@ class Zalogowany extends StatefulWidget {
 class _Zalogowany extends State<Zalogowany> {
   final doLogowanie _auth = doLogowanie();
   final file = fileReader();
- 
+  
   
   final List<Image> avatarList = [Image.asset('assets/avatars/1.png'),
   Image.asset('assets/avatars/2.png'),
@@ -32,6 +36,10 @@ class _Zalogowany extends State<Zalogowany> {
       super.initState();
       
     }
+  Future<dynamic> getBuildsList() async {
+    var builds = await FireBase().builds;
+    return builds;
+  }  
   Future<int> getAvatarNumber() async{
     var chosenAvatar;
     await FirebaseFirestore.instance
@@ -92,6 +100,7 @@ class _Zalogowany extends State<Zalogowany> {
     );
   }
   Widget build(BuildContext context) {    
+    var builds=Provider.of<List<Builds>>(context)??[];
     return Center(
       child: Column(children: [
         Align(
@@ -182,8 +191,14 @@ class _Zalogowany extends State<Zalogowany> {
           child: Container(
             child: ListView(
               children: [
-                Container(
-
+                ListView.builder(
+                  itemCount: builds.length,
+                  itemBuilder: (context,i){
+                    var key;
+                    return Dismissible(
+                      key: key,
+                     child: Text(builds[i].timestamp));
+                  },
                 )
               ],
             ),
