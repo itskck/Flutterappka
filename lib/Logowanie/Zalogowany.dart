@@ -11,6 +11,8 @@ import 'package:skladappka/Globalne.dart' as globalna;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
+import 'package:skladappka/wczytajZestaw/wczytajZestaw.dart';
+import 'package:skladappka/main.dart';
 
 class Zalogowany extends StatefulWidget {
   Zalogowany({Key key, this.title}) : super(key: key);
@@ -248,7 +250,10 @@ class _Zalogowany extends State<Zalogowany> {
                         ),
                         onDismissed: (DismissDirection direction){
                           if(direction== DismissDirection.startToEnd){
-
+                            print("halo");
+                            globalna.ktoro=1;
+                            //Skladapka();
+                            return wczytajZestaw(czyWczytuje: true, builds: item);
                           }
                           else{   
                                                                                

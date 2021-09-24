@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:skladappka/main.dart';
-import 'package:skladappka/Globalne.dart' as globalna;
 import 'package:skladappka/wczytajZestaw/choices.dart';
+import 'package:skladappka/Firebase/Builds.dart';
+import 'package:skladappka/wczytajZestaw/transition.dart';
 
 class wczytajZestaw extends StatelessWidget{    
   
-  int currentScreen = 0;
-  //widoki: guziki, wypisywanie z kodu, wybieranie z konta, wyswietlanie
-  List<Widget> Views = [
-    choices()
-    
-  ];
+  final bool czyWczytuje;
+  final Builds builds;
+
+  wczytajZestaw({this.czyWczytuje,this.builds});
+
   @override
   Widget build(BuildContext context) { //build context gives the layout, when you build widget it will always have this line
-    return Container(
-      child: Views[currentScreen],
-    ); 
+    if(czyWczytuje==false)
+      return Container(
+       child: choices(),
+     );
+    else
+      return transition(builds: builds);
   }
 }

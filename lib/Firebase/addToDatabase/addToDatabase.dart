@@ -90,4 +90,21 @@ class addBuildToDatabse{
       "uid": uid,
     });
   }
+
+  Future<void> editBuildData(String code) async{
+
+    return await buildCollection.doc(code+" "+uid).set({
+      "cpuId": chosenCpu.model,
+      "caseId": chosenCase.model,
+      "coolerId": chosenCooler.model,
+      "driveId": chosenDrive.model,
+      "gpuId": chosenGpu.model,
+      "motherboardId": chosenMtb.model,
+      "psuId": chosenPsu.model,
+      "ramId": chosenRam.model,
+      "generatedCode": pom,
+      "timestamp": new DateTime(now.year, now.month, now.day, now.hour, now.minute).toString(),
+      "uid": uid,
+    });
+  }
 }

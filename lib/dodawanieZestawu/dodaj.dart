@@ -17,7 +17,6 @@ import 'package:skladappka/Firebase/FireBase.dart';
 import 'Logo.dart';
 
 class dodaj extends StatefulWidget with ChangeNotifier {
-  dodaj({Key key, this.title}) : super(key: key);
 
   static Cpu chosenCpu;
   static Psu chosenPsu;
@@ -29,7 +28,19 @@ class dodaj extends StatefulWidget with ChangeNotifier {
   static Cooler chosenCooler;
   static List<Widget> panelsGrid;
 
-  final String title;
+  final Cpu cpu;
+  final Psu psu;
+  final Motherboard mtb;
+  final Drive drive;
+  final Ram ram;
+  final Case cases;
+  final Gpu gpu;
+  final Cooler cooler;
+  final String code;
+
+  dodaj({this.cpu, this.psu, this.mtb, this.drive, this.ram, this.cases, this.gpu, this.cooler,this.code});
+
+
 
   @override
   _dodaj createState() => _dodaj();
@@ -47,6 +58,27 @@ class _dodaj extends State<dodaj> {
   dialogWidget dialogwidget = new dialogWidget();
 
 
+  void setComponents(){
+    dodaj.chosenCpu=widget.cpu;
+    dodaj.chosenPsu=widget.psu;
+    dodaj.chosenMtb=widget.mtb;
+    dodaj.chosenDrive=widget.drive;
+    dodaj.chosenRam=widget.ram;
+    dodaj.chosenCase=widget.cases;
+    dodaj.chosenGpu=widget.gpu;
+    if(widget.cooler.model!='Fabryczne chłodzenie') {
+      dodaj.chosenCooler = widget.cooler;
+      base.coolerSocket=dodaj.chosenCooler.socket;
+    }
+    base.cpuSocket = dodaj.chosenCpu.socket;
+    base.mtbRamType=dodaj.chosenMtb.ramType;
+    base.mtbNvmeSlot=dodaj.chosenMtb.hasNvmeSlot;
+    base.mtbSocket=dodaj.chosenMtb.socket;
+    base.mtbStandard=dodaj.chosenMtb.standard;
+    base.driveConnectionType=dodaj.chosenDrive.connectionType;
+    base.caseStandard=dodaj.chosenCase.standard;
+    base.ramRamType = dodaj.chosenRam.type;
+  }
 
   Widget componentsList(String component) {
     return Container(
@@ -462,9 +494,12 @@ class _dodaj extends State<dodaj> {
                             onPressed: () async{
                               if(dodaj.chosenCooler==null)
                                 dodaj.chosenCooler=await base.addCooler();
-                              addBuildToDatabse(chosenCase: dodaj.chosenCase,chosenCooler: dodaj.chosenCooler,
+                              if(widget.cpu==null)addBuildToDatabse(chosenCase: dodaj.chosenCase,chosenCooler: dodaj.chosenCooler,
                                   chosenCpu: dodaj.chosenCpu,chosenDrive: dodaj.chosenDrive,chosenGpu: dodaj.chosenGpu,chosenMtb: dodaj.chosenMtb,
                                   chosenPsu: dodaj.chosenPsu,chosenRam: dodaj.chosenRam).addBuildData();
+                              else addBuildToDatabse(chosenCase: dodaj.chosenCase,chosenCooler: dodaj.chosenCooler,
+                                  chosenCpu: dodaj.chosenCpu,chosenDrive: dodaj.chosenDrive,chosenGpu: dodaj.chosenGpu,chosenMtb: dodaj.chosenMtb,
+                                  chosenPsu: dodaj.chosenPsu,chosenRam: dodaj.chosenRam).editBuildData(widget.code);
                               dodaj.chosenCooler=null;
                               dodaj.chosenGpu=null;
                               dodaj.chosenCase=null;

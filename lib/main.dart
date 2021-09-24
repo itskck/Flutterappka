@@ -120,8 +120,8 @@ class _SkladapkaState extends State<Skladapka> {
   ThemeData chosenTheme = new ThemeData();
 
   List<Widget> Views = [
-    dodaj(title: 'dodawanie'),
-    wczytajZestaw(),
+    dodaj(cpu: null, cases: null, cooler: null, drive: null, gpu: null, mtb: null, psu: null, ram: null, code: null),
+    wczytajZestaw(czyWczytuje: false,builds: null),
     Glowna(title: 'dodawanie'),
     Porownywarka(title: 'dodawanie'),
     Logowanie(title: 'dodawanie'),
