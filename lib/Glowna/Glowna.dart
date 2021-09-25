@@ -14,29 +14,161 @@ class Glowna extends StatefulWidget {
 }
 
 class _Glowna extends State<Glowna> {
-  
-
+  static Connectivity _connectivity = Connectivity();
+  static StreamSubscription<ConnectivityResult> connectivitySubscription;
+  static ConnectivityResult connectivityResult = ConnectivityResult.none;
   User _firebaseUser = FirebaseAuth.instance.currentUser;
+  
+  @override
+  void initState() {
+    super.initState();
+    print('ao');
+    connectivitySubscription =
+        _connectivity.onConnectivityChanged.listen(updateConnectionStatus);
+    print('object');
+  }
 
-  Widget internetIcon() {
-    if (Skladapka.connectivityResult == ConnectivityResult.none)
-      return Icon(
-        Icons.wifi,
-        color: Colors.red,
-      );
+  void updateConnectionStatus(ConnectivityResult result) {
+    setState(() {
+      connectivityResult = result;
+    });
+  }
+
+  bool internetIcon() {
+    if (connectivityResult == ConnectivityResult.none)
+      return false;
     else
-      return Icon(Icons.wifi, color: Colors.green);
+      return true;
+  }
+
+  Widget numberWidget(int num) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Container(
+          margin: EdgeInsets.only(left: 10),
+          child: SizedBox(
+            
+            width: 20,
+            height: 1,
+            child: Container(
+              color: Theme.of(context).accentColor,
+            ),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.all(10),
+          padding: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(color: Theme.of(context).accentColor)),
+          child: Text(
+            num.toString(),
+            style: TextStyle(fontSize: 22),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(right: 10),
+          child: SizedBox(
+            width: 20,
+            height: 1,
+            child: Container(color: Theme.of(context).accentColor),
+          ),
+        ),
+      ],
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    Color wifiColor;
+    String wifiStatus;
+    if(internetIcon()){ 
+      wifiColor=Colors.green;
+      wifiStatus="Połączono z siecią!";
+    }
+    else{ 
+      wifiColor=Colors.red;
+      wifiStatus="Oczekiwanie na połączenie z siecią...";
+      }
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Witaj w składappce!"),
-          internetIcon(),
-          Text(Skladapka.connectivityResult.toString()),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 30),
+            child: Text(
+              'Witaj w składappce!',
+              style: TextStyle(
+                  fontFamily: 'coolvetica',
+                  fontWeight: FontWeight.normal,
+                  fontSize: 30),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                height: 250,
+                width: 120,
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(10)),
+                child: Column(
+                  children: [
+                    numberWidget(1),
+                    Text('Połącz się z internetem, żeby korzystać z aktualnej bazy komponentów',
+                    textAlign: TextAlign.center,),
+                    
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 10),
+                      child: Icon(Icons.wifi_sharp, color: wifiColor,size: 30,)
+                      ),
+                    Text(wifiStatus,
+                    textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                height: 250,
+                width: 120,
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(10)),
+                child: Column(
+                  children: [                    
+                     numberWidget(2),
+                     Text('Dodaj zestaw lub edytuj już istniejący w zakładach',
+                    textAlign: TextAlign.center,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.add),
+                        Icon(Icons.edit)
+                      ],
+                    )
+
+                  ],
+                ),
+              ),
+              Container(
+                height: 250,
+                width: 120,
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(10)),
+                child: Column(
+                  children: [
+                    numberWidget(3),
+                    Text('Porównaj dwa zestawy i dowiedz się, który ma lepsze komponenty w zakładce',
+                    textAlign: TextAlign.center,),
+                    Icon(Icons.leaderboard)
+                  ],
+                ),
+              ),
+            ],
+          )
         ],
       ),
     );

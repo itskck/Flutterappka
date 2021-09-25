@@ -199,11 +199,11 @@ class _SkladapkaState extends State<Skladapka> {
         animationDuration: Duration(milliseconds: 300),
         height: 55,
         items: <Widget>[
-          Icon(Icons.add,color: chosenTheme.backgroundColor),      
-          Icon(Icons.file_download,color: chosenTheme.backgroundColor),
-          Icon(Icons.home,color:  chosenTheme.backgroundColor),
-          Icon(Icons.leaderboard,color:  chosenTheme.backgroundColor),
-          Icon(Icons.login,color:  chosenTheme.backgroundColor)
+          Icon(Icons.add,color: chosenTheme.canvasColor),      
+          Icon(Icons.edit,color: chosenTheme.canvasColor),
+          Icon(Icons.home,color:  chosenTheme.canvasColor),
+          Icon(Icons.leaderboard,color:  chosenTheme.canvasColor),
+          Icon(Icons.account_circle_rounded,color:  chosenTheme.canvasColor)
           ],
         
         onTap: _onItemTapped,
