@@ -71,6 +71,7 @@ class transition extends StatelessWidget {
       future: setCpu(),
       builder: (context, cpu){
         if (cpu.connectionState == ConnectionState.done){
+          print(cpu.data.model);
           chosenCpu=cpu.data;
           return FutureBuilder<Gpu>(
               future: setGpu(),
@@ -107,6 +108,7 @@ class transition extends StatelessWidget {
                                                               builder: (context, cooler){
                                                                 if (cooler.connectionState == ConnectionState.done){
                                                                   chosenCooler=cooler.data;
+                                                                  print(chosenCpu.model);
                                                                   return Edit(cpu: chosenCpu, cases: chosenCase, cooler: chosenCooler, drive: chosenDrive,
                                                                       gpu: chosenGpu, mtb: chosenMtb, psu: chosenPsu, ram: chosenRam, code: builds.generatedCode);
                                                                 }

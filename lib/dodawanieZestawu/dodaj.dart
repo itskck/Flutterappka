@@ -187,8 +187,8 @@ class _dodaj extends State<dodaj> {
                   setState(() {
                     base.cpuSocket=null;
                     if(dodaj.chosenGpu!=null)
-                    if(dodaj.chosenCpu.hasGpu!="none" && dodaj.chosenGpu.integra==true)
-                      dodaj.chosenGpu=null;
+                      if(dodaj.chosenCpu.hasGpu!="none" && dodaj.chosenGpu.integra==true)
+                       dodaj.chosenGpu=null;
                     dodaj.chosenCpu = null;
                   });
                   break;

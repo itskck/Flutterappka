@@ -169,12 +169,11 @@ class FireBase{
   Stream<List<Motherboard>> get motherboards {
 
     if((driveConnectionType==null || driveConnectionType=="SATA") && caseStandard!=null) {
-      print("o1o");
-      return FirebaseFirestore.instance.collection('motherboard')
-          .where('standard', arrayContainsAny: [caseStandard])
+          print (FirebaseFirestore.instance.collection('motherboard')
+          .where('standard', arrayContainsAny: [caseStandard[0]])
           .where('ramType', isEqualTo: ramRamType).where(
-          'socket', isEqualTo: cpuSocket)
-          .snapshots().map(motherboardListFromSnapshot);
+          'socket', isEqualTo: cpuSocket));
+
     }
     else if((driveConnectionType==null || driveConnectionType=="SATA") && caseStandard==null) {
       print(ramRamType);
@@ -187,7 +186,7 @@ class FireBase{
       print("o3o");
       return FirebaseFirestore.instance
           .collection('motherboard')
-          .where('standard', arrayContainsAny: [caseStandard])
+          .where('standard', arrayContainsAny: [caseStandard[0],caseStandard[1],caseStandard[2]])
           .where('ramType', isEqualTo: ramRamType)
           .where('socket', isEqualTo: cpuSocket)
           .where('hasNvmeSlot', isEqualTo: true)

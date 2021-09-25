@@ -143,7 +143,7 @@ class dialogBuilder extends StatelessWidget{
               if(globals.ktoro==0)
                 dodaj.chosenCase = cases[i];
               else if(globals.ktoro==1)
-                Edit.chosenDrive=drives[i];
+                Edit.chosenCase=cases[i];
               Navigator.pop(context);
             },
           )]);}

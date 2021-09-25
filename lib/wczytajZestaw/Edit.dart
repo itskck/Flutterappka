@@ -52,8 +52,10 @@ class _Edit extends State<Edit> {
   final Logo logo=Logo();
   String pom;
   @override
-  initState() {
+  void initState() {
     super.initState();
+    print("Hello there");
+    setComponents();
   }
 
   dialogWidget dialogwidget = new dialogWidget();
@@ -72,6 +74,7 @@ class _Edit extends State<Edit> {
       base.coolerSocket=Edit.chosenCooler.socket;
     }
     base.cpuSocket = Edit.chosenCpu.socket;
+    print("JEstem tu");
     base.mtbRamType=Edit.chosenMtb.ramType;
     base.mtbNvmeSlot=Edit.chosenMtb.hasNvmeSlot;
     base.mtbSocket=Edit.chosenMtb.socket;
@@ -227,8 +230,10 @@ class _Edit extends State<Edit> {
                   setState(() {
                     base.cpuSocket=null;
                     if(Edit.chosenGpu!=null)
-                      if(Edit.chosenCpu.hasGpu!="none" && Edit.chosenGpu.integra==true)
-                        Edit.chosenGpu=null;
+                      if(Edit.chosenCpu.hasGpu!="none" && Edit.chosenGpu.integra==true) {
+                        Edit.chosenGpu = null;
+
+                    }
                     Edit.chosenCpu = null;
                   });
                   break;
@@ -298,7 +303,6 @@ class _Edit extends State<Edit> {
 
   @override
   Widget build(BuildContext context) {
-    if(Edit.chosenCpu==null) setComponents();
     firstPanels = [
       addButton('CPU'),
       addButton('PSU'),
