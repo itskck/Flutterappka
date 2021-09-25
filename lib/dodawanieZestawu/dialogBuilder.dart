@@ -10,6 +10,8 @@ import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Ram.dart';
 import 'dart:core';
 import 'dodaj.dart';
+import 'package:skladappka/Globalne.dart' as globals;
+import 'package:skladappka/wczytajZestaw/Edit.dart';
 class dialogBuilder extends StatelessWidget{
   String component;
   var cpus,psus,gpus,coolers,mtbs,drives,cases,rams;  
@@ -31,7 +33,10 @@ class dialogBuilder extends StatelessWidget{
             padding: EdgeInsets.symmetric(horizontal: 25,vertical: 25),
             child: Text(cpus[i].model),
             onPressed: (){
-              dodaj.chosenCpu = cpus[i];
+              if(globals.ktoro==0)
+                dodaj.chosenCpu = cpus[i];
+              else if(globals.ktoro==1)
+                Edit.chosenCpu=cpus[i];
               Navigator.pop(context);
             },
           )]);}
@@ -45,7 +50,10 @@ class dialogBuilder extends StatelessWidget{
             padding: EdgeInsets.symmetric(horizontal: 25,vertical: 25),
             child: Text(psus[i].model.toString()),
             onPressed: (){
-              dodaj.chosenPsu = psus[i];
+              if(globals.ktoro==0)
+                dodaj.chosenPsu = psus[i];
+              else if(globals.ktoro==1)
+                Edit.chosenPsu=psus[i];
               Navigator.pop(context);
             },
           )]);}
@@ -60,7 +68,10 @@ class dialogBuilder extends StatelessWidget{
             padding: EdgeInsets.symmetric(horizontal: 25,vertical: 25),
             child: Text(gpus[i].model.toString()),
             onPressed: (){
-              dodaj.chosenGpu = gpus[i];
+              if(globals.ktoro==0)
+                dodaj.chosenGpu = gpus[i];
+              else if(globals.ktoro==1)
+                Edit.chosenGpu=gpus[i];
               Navigator.pop(context);
             },
           )]);}
@@ -75,7 +86,10 @@ class dialogBuilder extends StatelessWidget{
             padding: EdgeInsets.symmetric(horizontal: 25,vertical: 25),
             child: Text(coolers[i].model.toString()),
             onPressed: (){
-              dodaj.chosenCooler = coolers[i];
+              if(globals.ktoro==0)
+                dodaj.chosenCooler = coolers[i];
+              else if(globals.ktoro==1)
+                Edit.chosenCooler=coolers[i];
               Navigator.pop(context);
             },
           )]);}
@@ -90,7 +104,10 @@ class dialogBuilder extends StatelessWidget{
             padding: EdgeInsets.symmetric(horizontal: 25,vertical: 25),
             child: Text(mtbs[i].model.toString()),
             onPressed: (){
-              dodaj.chosenMtb = mtbs[i];
+              if(globals.ktoro==0)
+                dodaj.chosenMtb = mtbs[i];
+              else if(globals.ktoro==1)
+                Edit.chosenMtb=mtbs[i];
               Navigator.pop(context);
             },
           )]);}
@@ -105,7 +122,10 @@ class dialogBuilder extends StatelessWidget{
             padding: EdgeInsets.symmetric(horizontal: 25,vertical: 25),
             child: Text(drives[i].model.toString()),
             onPressed: (){
-              dodaj.chosenDrive = drives[i];
+              if(globals.ktoro==0)
+                dodaj.chosenDrive = drives[i];
+              else if(globals.ktoro==1)
+                Edit.chosenDrive=drives[i];
               Navigator.pop(context);
             },
               )]);}
@@ -120,7 +140,10 @@ class dialogBuilder extends StatelessWidget{
             padding: EdgeInsets.symmetric(horizontal: 25,vertical: 25),
             child: Text(cases[i].model.toString()),
             onPressed: (){
-              dodaj.chosenCase = cases[i];
+              if(globals.ktoro==0)
+                dodaj.chosenCase = cases[i];
+              else if(globals.ktoro==1)
+                Edit.chosenDrive=drives[i];
               Navigator.pop(context);
             },
           )]);}
@@ -135,7 +158,10 @@ class dialogBuilder extends StatelessWidget{
             padding: EdgeInsets.symmetric(horizontal: 25,vertical: 25),
             child: Text(rams[i].model.toString()),
             onPressed: (){
-              dodaj.chosenRam = rams[i];
+              if(globals.ktoro==0)
+                dodaj.chosenRam = rams[i];
+              else if(globals.ktoro==1)
+                Edit.chosenRam=rams[i];
               Navigator.pop(context);
             },
           )]);} 

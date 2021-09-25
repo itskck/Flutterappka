@@ -127,11 +127,11 @@ class _SkladapkaState extends State<Skladapka> {
       return wczytajZestaw(czyWczytuje: true, builds: widget.builds);
     }
     else
-      return Views[globalna.ktoro];
+      return Views[ktoro];
   }
 
   List<Widget> Views = [
-    dodaj(cpu: null, cases: null, cooler: null, drive: null, gpu: null, mtb: null, psu: null, ram: null, code: null),
+    dodaj(),
     wczytajZestaw(czyWczytuje: false,builds: null),
     Glowna(title: 'dodawanie'),
     Porownywarka(title: 'dodawanie'),

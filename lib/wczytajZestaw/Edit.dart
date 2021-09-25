@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/painting.dart';
 import 'package:skladappka/Firebase/Case.dart';
 import 'package:skladappka/Firebase/Cooler.dart';
@@ -11,12 +10,14 @@ import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Ram.dart';
 import 'package:flutter/material.dart';
 import 'package:blur/blur.dart';
-import 'dialogWidget.dart';
+import 'package:skladappka/dodawanieZestawu/dialogWidget.dart';
 import 'package:skladappka/Firebase/addToDatabase/addToDatabase.dart';
 import 'package:skladappka/Firebase/FireBase.dart';
-import 'Logo.dart';
+import 'package:skladappka/dodawanieZestawu/Logo.dart';
+import 'package:skladappka/Globalne.dart' as globalna;
+import 'package:skladappka/main.dart';
 
-class dodaj extends StatefulWidget with ChangeNotifier {
+class Edit extends StatefulWidget with ChangeNotifier {
 
   static Cpu chosenCpu;
   static Psu chosenPsu;
@@ -28,11 +29,25 @@ class dodaj extends StatefulWidget with ChangeNotifier {
   static Cooler chosenCooler;
   static List<Widget> panelsGrid;
 
+  final Cpu cpu;
+  final Psu psu;
+  final Motherboard mtb;
+  final Drive drive;
+  final Ram ram;
+  final Case cases;
+  final Gpu gpu;
+  final Cooler cooler;
+  final String code;
+
+  Edit({this.cpu, this.psu, this.mtb, this.drive, this.ram, this.cases, this.gpu, this.cooler,this.code});
+
+
+
   @override
-  _dodaj createState() => _dodaj();
+  _Edit createState() => _Edit();
 }
 
-class _dodaj extends State<dodaj> {
+class _Edit extends State<Edit> {
   final FireBase base=FireBase();
   final Logo logo=Logo();
   String pom;
@@ -42,6 +57,31 @@ class _dodaj extends State<dodaj> {
   }
 
   dialogWidget dialogwidget = new dialogWidget();
+
+
+  void setComponents(){
+    Edit.chosenCpu=widget.cpu;
+    Edit.chosenPsu=widget.psu;
+    Edit.chosenMtb=widget.mtb;
+    Edit.chosenDrive=widget.drive;
+    Edit.chosenRam=widget.ram;
+    Edit.chosenCase=widget.cases;
+    Edit.chosenGpu=widget.gpu;
+    if(widget.cooler.model!='Fabryczne chłodzenie') {
+      Edit.chosenCooler = widget.cooler;
+      base.coolerSocket=Edit.chosenCooler.socket;
+    }
+    base.cpuSocket = Edit.chosenCpu.socket;
+    base.mtbRamType=Edit.chosenMtb.ramType;
+    base.mtbNvmeSlot=Edit.chosenMtb.hasNvmeSlot;
+    base.mtbSocket=Edit.chosenMtb.socket;
+    base.mtbStandard=Edit.chosenMtb.standard;
+
+    base.driveConnectionType=Edit.chosenDrive.connectionType;
+    base.caseStandard=Edit.chosenCase.standard;
+    base.ramRamType = Edit.chosenRam.type;
+    setState(() { });
+  }
 
   Widget componentsList(String component) {
     return Container(
@@ -53,30 +93,30 @@ class _dodaj extends State<dodaj> {
   Widget addButton(String component) {
     return GestureDetector(
         onTap: () async {
-          if(dodaj.chosenGpu!=null)
-            if(dodaj.chosenGpu.integra==true)
-              dodaj.chosenGpu=null;
+          if(Edit.chosenGpu!=null)
+            if(Edit.chosenGpu.integra==true)
+              Edit.chosenGpu=null;
           await dialogwidget.showPopup(context, component, base);
           if (component == 'CPU')
-            base.cpuSocket=dodaj.chosenCpu.socket;
+            base.cpuSocket=Edit.chosenCpu.socket;
 
           else if (component == 'CSTM COOLER')
-            base.coolerSocket=dodaj.chosenCooler.socket;
+            base.coolerSocket=Edit.chosenCooler.socket;
 
           if (component == 'MTBRD'){
-            base.mtbRamType=dodaj.chosenMtb.ramType;
-            base.mtbNvmeSlot=dodaj.chosenMtb.hasNvmeSlot;
-            base.mtbSocket=dodaj.chosenMtb.socket;
-            base.mtbStandard=dodaj.chosenMtb.standard;
+            base.mtbRamType=Edit.chosenMtb.ramType;
+            base.mtbNvmeSlot=Edit.chosenMtb.hasNvmeSlot;
+            base.mtbSocket=Edit.chosenMtb.socket;
+            base.mtbStandard=Edit.chosenMtb.standard;
           }
           if (component == 'DRIVE')
-            base.driveConnectionType=dodaj.chosenDrive.connectionType;
+            base.driveConnectionType=Edit.chosenDrive.connectionType;
 
           if (component == 'CASE')
-            base.caseStandard=dodaj.chosenCase.standard;
+            base.caseStandard=Edit.chosenCase.standard;
 
           if (component == 'RAM') {
-            base.ramRamType = dodaj.chosenRam.type;
+            base.ramRamType = Edit.chosenRam.type;
           }
 
           setState(() {});
@@ -186,26 +226,26 @@ class _dodaj extends State<dodaj> {
                 case 'CPU':
                   setState(() {
                     base.cpuSocket=null;
-                    if(dodaj.chosenGpu!=null)
-                    if(dodaj.chosenCpu.hasGpu!="none" && dodaj.chosenGpu.integra==true)
-                      dodaj.chosenGpu=null;
-                    dodaj.chosenCpu = null;
+                    if(Edit.chosenGpu!=null)
+                      if(Edit.chosenCpu.hasGpu!="none" && Edit.chosenGpu.integra==true)
+                        Edit.chosenGpu=null;
+                    Edit.chosenCpu = null;
                   });
                   break;
                 case 'PSU':
                   setState(() {
-                    dodaj.chosenPsu = null;
+                    Edit.chosenPsu = null;
                   });
                   break;
                 case 'GPU':
                   setState(() {
-                    dodaj.chosenGpu = null;
+                    Edit.chosenGpu = null;
                   });
                   break;
                 case 'CSTM COOLER':
                   setState(() {
                     base.coolerSocket=null;
-                    dodaj.chosenCooler = null;
+                    Edit.chosenCooler = null;
                   });
                   break;
                 case 'MTBRD':
@@ -214,25 +254,25 @@ class _dodaj extends State<dodaj> {
                     base.mtbNvmeSlot=null;
                     base.mtbStandard=null;
                     base.caseStandard=null;
-                    dodaj.chosenMtb = null;
+                    Edit.chosenMtb = null;
                   });
                   break;
                 case 'DRIVE':
                   setState(() {
                     base.driveConnectionType=null;
-                    dodaj.chosenDrive = null;
+                    Edit.chosenDrive = null;
                   });
                   break;
                 case 'CASE':
                   setState(() {
                     base.caseStandard=null;
-                    dodaj.chosenCase = null;
+                    Edit.chosenCase = null;
                   });
                   break;
                 case 'RAM':
                   setState(() {
                     base.ramRamType=null;
-                    dodaj.chosenRam = null;
+                    Edit.chosenRam = null;
                   });
                   break;
               }
@@ -258,6 +298,7 @@ class _dodaj extends State<dodaj> {
 
   @override
   Widget build(BuildContext context) {
+    if(Edit.chosenCpu==null) setComponents();
     firstPanels = [
       addButton('CPU'),
       addButton('PSU'),
@@ -269,7 +310,7 @@ class _dodaj extends State<dodaj> {
       addButton('CSTM COOLER')
     ];
 
-    dodaj.panelsGrid = [
+    Edit.panelsGrid = [
       addButton('CPU'),
       addButton('PSU'),
       addButton('MTBRD'),
@@ -280,34 +321,34 @@ class _dodaj extends State<dodaj> {
       addButton('CSTM COOLER')
     ];
 
-    if (dodaj.chosenCpu != null) {
-      switch(dodaj.chosenCpu.manufacturer){
+    if (Edit.chosenCpu != null) {
+      switch(Edit.chosenCpu.manufacturer){
         case 'Intel': logo.cpu='assets/companies logo/cpu/intel.png'; break;
         case 'AMD': logo.cpu='assets/companies logo/cpu/ryzen.png'; break;
         default: logo.cpu='assets/placeholder.png';
       }
       setState(() {
-        dodaj.panelsGrid[0] =
-            itemFrame(dodaj.chosenCpu.model, 'CPU', logo.cpu);
+        Edit.panelsGrid[0] =
+            itemFrame(Edit.chosenCpu.model, 'CPU', logo.cpu);
       });
     } else
-      dodaj.panelsGrid[0] = addButton('CPU');
+      Edit.panelsGrid[0] = addButton('CPU');
 ////////////////////////////////////////////////////////////
-    if (dodaj.chosenPsu != null) {
-      switch(dodaj.chosenPsu.manufacturer){
+    if (Edit.chosenPsu != null) {
+      switch(Edit.chosenPsu.manufacturer){
         case 'SilentiumPC': logo.psu='assets/companies logo/case/Silentiumpc.png'; break;
         case 'SeaSonic': logo.psu='assets/companies logo/psu/SeaSonic.png'; break;
         default: logo.psu='assets/placeholder.png';
       }
       setState(() {
-        dodaj.panelsGrid[1] =
-            itemFrame(dodaj.chosenPsu.model, 'PSU', logo.psu);
+        Edit.panelsGrid[1] =
+            itemFrame(Edit.chosenPsu.model, 'PSU', logo.psu);
       });
     } else
-      dodaj.panelsGrid[1] = addButton('PSU');
+      Edit.panelsGrid[1] = addButton('PSU');
 ////////////////////////////////////////////////////
-    if (dodaj.chosenMtb != null) {
-      switch(dodaj.chosenMtb.manufacturer){
+    if (Edit.chosenMtb != null) {
+      switch(Edit.chosenMtb.manufacturer){
         case 'Gigabyte': logo.mtb='assets/companies logo/motherboard/gigabyte.png'; break;
         case 'Asus': logo.mtb='assets/companies logo/motherboard/Asus.png'; break;
         case 'Biostar': logo.mtb='assets/companies logo/motherboard/biostar.png'; break;
@@ -316,14 +357,14 @@ class _dodaj extends State<dodaj> {
         default: logo.mtb='assets/placeholder.png';
       }
       setState(() {
-        dodaj.panelsGrid[2] =
-            itemFrame(dodaj.chosenMtb.model, 'MTBRD', logo.mtb);
+        Edit.panelsGrid[2] =
+            itemFrame(Edit.chosenMtb.model, 'MTBRD', logo.mtb);
       });
     } else
-      dodaj.panelsGrid[2] = addButton('MTBRD');
+      Edit.panelsGrid[2] = addButton('MTBRD');
     ///////////////////////////////////////////////////////
-    if (dodaj.chosenDrive != null) {
-      switch(dodaj.chosenDrive.manufacturer){
+    if (Edit.chosenDrive != null) {
+      switch(Edit.chosenDrive.manufacturer){
         case 'Kingston': logo.drive='assets/companies logo/drive/Kingston.png'; break;
         case 'Toshiba': logo.drive='assets/companies logo/drive/toshiba.png'; break;
         case 'ADATA': logo.drive='assets/companies logo/drive/adata.png'; break;
@@ -333,28 +374,28 @@ class _dodaj extends State<dodaj> {
         default: logo.drive='assets/placeholder.png';
       }
       setState(() {
-        dodaj.panelsGrid[3] = itemFrame(
-            dodaj.chosenDrive.model, 'DRIVE', logo.drive);
+        Edit.panelsGrid[3] = itemFrame(
+            Edit.chosenDrive.model, 'DRIVE', logo.drive);
       });
     } else
-      dodaj.panelsGrid[3] = addButton('DRIVE');
+      Edit.panelsGrid[3] = addButton('DRIVE');
     ////////////////////////////////////////////////////
-    if (dodaj.chosenRam != null) {
-      switch(dodaj.chosenRam.manufacturer){
+    if (Edit.chosenRam != null) {
+      switch(Edit.chosenRam.manufacturer){
         case 'Kingston': logo.ram='assets/companies logo/drive/Kingston.png'; break;
         case 'GoodRam': logo.ram='assets/companies logo/ram/Goodram.png'; break;
         case 'G.Skill': logo.ram='assets/companies logo/ram/Gskill.png'; break;
         default: logo.ram='assets/placeholder.png';
       }
       setState(() {
-        dodaj.panelsGrid[4] =
-            itemFrame(dodaj.chosenRam.model, 'RAM', logo.ram);
+        Edit.panelsGrid[4] =
+            itemFrame(Edit.chosenRam.model, 'RAM', logo.ram);
       });
     } else
-      dodaj.panelsGrid[4] = addButton('RAM');
+      Edit.panelsGrid[4] = addButton('RAM');
     ////////////////////////////////////////////////////
-    if (dodaj.chosenCase != null) {
-      switch(dodaj.chosenCase.manufacturer){
+    if (Edit.chosenCase != null) {
+      switch(Edit.chosenCase.manufacturer){
         case 'MSI': logo.cases='assets/companies logo/motherboard/msi.png'; break;
         case 'Aerocool': logo.cases='assets/companies logo/case/aerocool.png'; break;
         case 'Cooler Master': logo.cases='assets/companies logo/case/Coolermaster.png'; break;
@@ -366,27 +407,27 @@ class _dodaj extends State<dodaj> {
         default: logo.cases='assets/placeholder.png';
       }
       setState(() {
-        dodaj.panelsGrid[5] =
-            itemFrame(dodaj.chosenCase.model, 'CASE', logo.cases);
+        Edit.panelsGrid[5] =
+            itemFrame(Edit.chosenCase.model, 'CASE', logo.cases);
       });
     } else
-      dodaj.panelsGrid[5] = addButton('CASE');
+      Edit.panelsGrid[5] = addButton('CASE');
     ///////////////////////////////////////////////////
-    if (dodaj.chosenGpu != null) {
-      switch(dodaj.chosenGpu.manufacturer){
+    if (Edit.chosenGpu != null) {
+      switch(Edit.chosenGpu.manufacturer){
         case 'NVIDIA': logo.gpu='assets/companies logo/gpu/nvidia.png'; break;
         case "Radeon": logo.gpu='assets/companies logo/gpu/radeon.png'; break;
         default: logo.gpu='assets/placeholder.png';
       }
       setState(() {
-        dodaj.panelsGrid[6] =
-            itemFrame(dodaj.chosenGpu.model, 'GPU', logo.gpu);
+        Edit.panelsGrid[6] =
+            itemFrame(Edit.chosenGpu.model, 'GPU', logo.gpu);
       });
     } else
-      dodaj.panelsGrid[6] = addButton('GPU');
+      Edit.panelsGrid[6] = addButton('GPU');
     //////////////////////////////////////////////////////
-    if (dodaj.chosenCooler != null) {
-      switch(dodaj.chosenCooler.manufacturer){
+    if (Edit.chosenCooler != null) {
+      switch(Edit.chosenCooler.manufacturer){
         case 'Corsair': logo.cooler='assets/companies logo/case/corsair.png'; break;
         case 'SilentiumPC': logo.cooler='assets/companies logo/case/Silentiumpc.png'; break;
         case 'Arctic': logo.cooler='assets/companies logo/cooler/arctic.png'; break;
@@ -398,99 +439,83 @@ class _dodaj extends State<dodaj> {
         default: logo.cooler='assets/placeholder.png';
       }
       setState(() {
-        dodaj.panelsGrid[7] = itemFrame(
-            dodaj.chosenCooler.model, 'CSTM COOLER', logo.cooler);
+        Edit.panelsGrid[7] = itemFrame(
+            Edit.chosenCooler.model, 'CSTM COOLER', logo.cooler);
       });
     } else
-      dodaj.panelsGrid[7] = addButton('CSTM COOLER');
+      Edit.panelsGrid[7] = addButton('CSTM COOLER');
 
-    //if (dodaj.panelsGrid != firstPanels)
+    //if (Edit.panelsGrid != firstPanels)
 
     //build context gives the layout, when you build widget it will always have this line
     return Stack(children: [
       SingleChildScrollView(
           child: Stack(children: [
-        Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            alignment: WrapAlignment.center,
-            direction: Axis.horizontal,
-            children: [
-              styledTextBar('↓ Niezbędniki ↓'),
-              for (var i = 0; i < 6; i++) dodaj.panelsGrid[i],
-              styledTextBar('↓ Dobrze mieć ↓'),
-              for (var i = 6; i < 8; i++) dodaj.panelsGrid[i],
-            ]),
-      ])),
+            Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                alignment: WrapAlignment.center,
+                direction: Axis.horizontal,
+                children: [
+                  styledTextBar('↓ Niezbędniki ↓'),
+                  for (var i = 0; i < 6; i++) Edit.panelsGrid[i],
+                  styledTextBar('↓ Dobrze mieć ↓'),
+                  for (var i = 6; i < 8; i++) Edit.panelsGrid[i],
+                ]),
+          ])),
       Align(
           alignment: Alignment(0.95, 0.95),
           child: FloatingActionButton(
             onPressed: () async{
-              if(dodaj.chosenGpu==null && dodaj.chosenCpu!=null)
-                 dodaj.chosenGpu= await base.addGpu(dodaj.chosenCpu.hasGpu);
-              if(dodaj.chosenCpu==null || dodaj.chosenRam==null || dodaj.chosenCase==null || dodaj.chosenDrive==null || dodaj.chosenMtb==null || dodaj.chosenPsu==null || dodaj.chosenGpu==null )
+              if(Edit.chosenGpu==null && Edit.chosenCpu!=null)
+                Edit.chosenGpu= await base.addGpu(Edit.chosenCpu.hasGpu);
+              if(Edit.chosenCpu==null || Edit.chosenRam==null || Edit.chosenCase==null || Edit.chosenDrive==null || Edit.chosenMtb==null || Edit.chosenPsu==null || Edit.chosenGpu==null )
                 showDialog(
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text('Blad'),
-                        content:
-                        Text('Nie wybrano ktoregos z niezbednych komponentow lub wybrany procesor '
-                            'nie posiada zintegrowanej karty graficznej'),
+                          title: Text('Blad'),
+                          content:
+                          Text('Nie wybrano ktoregos z niezbednych komponentow lub wybrany procesor '
+                              'nie posiada zintegrowanej karty graficznej'),
                           actions: [
-                          TextButton(
-                            onPressed: () {
-                            Navigator.of(context).pop();
-                            },
-                            child: Text('Ok')),
-                      ]);
+                            TextButton(
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text('Ok')),
+                          ]);
                     });
               else
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('Dodawanie zestawu'),
-                      content:
-                          Text('Czy chcesz zapisać zestaw na swoim koncie?'),
-                      actions: [
-                        TextButton(
-                            onPressed: () async{
-                              if(dodaj.chosenCooler==null)
-                                dodaj.chosenCooler=await base.addCooler();
-                             addBuildToDatabse(chosenCase: dodaj.chosenCase,chosenCooler: dodaj.chosenCooler,
-                                  chosenCpu: dodaj.chosenCpu,chosenDrive: dodaj.chosenDrive,chosenGpu: dodaj.chosenGpu,chosenMtb: dodaj.chosenMtb,
-                                  chosenPsu: dodaj.chosenPsu,chosenRam: dodaj.chosenRam).addBuildData();
-                              dodaj.chosenCooler=null;
-                              dodaj.chosenGpu=null;
-                              dodaj.chosenCase=null;
-                              dodaj.chosenRam=null;
-                              dodaj.chosenDrive=null;
-                              dodaj.chosenMtb=null;
-                              dodaj.chosenPsu=null;
-                              dodaj.chosenCpu=null;
-                              base.caseStandard=null;
-                              base.ramRamType=null;
-                              base.driveConnectionType=null;
-                              base.mtbStandard=null;
-                              base.mtbNvmeSlot=null;
-                              base.mtbRamType=null;
-                              base.coolerSocket=null;
-                              base.cpuSocket=null;
-                              base.mtbSocket=null;
-                              setState(() { });
-                              Navigator.of(context).pop();
-                            },
-                            child: Text('Tak')),
-                        TextButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: Text('Anuluj'))
-                      ],
-                    );
-                  });
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Dodawanie zestawu'),
+                        content:
+                        Text('Czy chcesz edytować ten zestaw?'),
+                        actions: [
+                          TextButton(
+                              onPressed: () async{
+                                if(Edit.chosenCooler==null)
+                                  Edit.chosenCooler=await base.addCooler();
+                                 addBuildToDatabse(chosenCase: Edit.chosenCase,chosenCooler: Edit.chosenCooler,
+                                    chosenCpu: Edit.chosenCpu,chosenDrive: Edit.chosenDrive,chosenGpu: Edit.chosenGpu,chosenMtb: Edit.chosenMtb,
+                                    chosenPsu: Edit.chosenPsu,chosenRam: Edit.chosenRam).editBuildData(widget.code);
+                                Navigator.of(context).pop();
+                                globalna.ktoro=4;
+                                inicjalizuj(null);
+                              },
+                              child: Text('Tak')),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('Anuluj'))
+                        ],
+                      );
+                    });
             },
-            child: Icon(Icons.save),
+            child: Icon(Icons.edit),
             backgroundColor: Color.fromRGBO(240, 84, 84, 1),
           )),
     ]);

@@ -7,7 +7,7 @@ import 'package:skladappka/Firebase/Motherboard.dart';
 import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Ram.dart';
 import 'package:skladappka/Firebase/Builds.dart';
-import 'package:skladappka/dodawanieZestawu/dodaj.dart';
+import 'Edit.dart';
 import 'package:flutter/material.dart';
 import 'package:skladappka/Firebase/getFromDatabase/getFromSaved.dart';
 
@@ -107,7 +107,7 @@ class transition extends StatelessWidget {
                                                               builder: (context, cooler){
                                                                 if (cooler.connectionState == ConnectionState.done){
                                                                   chosenCooler=cooler.data;
-                                                                  return dodaj(cpu: chosenCpu, cases: chosenCase, cooler: chosenCooler, drive: chosenDrive,
+                                                                  return Edit(cpu: chosenCpu, cases: chosenCase, cooler: chosenCooler, drive: chosenDrive,
                                                                       gpu: chosenGpu, mtb: chosenMtb, psu: chosenPsu, ram: chosenRam, code: builds.generatedCode);
                                                                 }
                                                                 else return CircularProgressIndicator();

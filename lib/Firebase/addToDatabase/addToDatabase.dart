@@ -102,9 +102,7 @@ class addBuildToDatabse{
       "motherboardId": chosenMtb.model,
       "psuId": chosenPsu.model,
       "ramId": chosenRam.model,
-      "generatedCode": pom,
       "timestamp": new DateTime(now.year, now.month, now.day, now.hour, now.minute).toString(),
-      "uid": uid,
     });
   }
 }
