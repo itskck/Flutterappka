@@ -10,8 +10,7 @@ import 'Glowna/Glowna.dart';
 import 'Logowanie/Logowanie.dart';
 import 'Porownywarka/Porownywarka.dart';
 import 'wczytajZestaw/wczytajZestaw.dart';
-import 'package:flutter/material.dart';
-import 'package:skladappka/Firebase/doLogowanie/doRejestracji.dart';
+import 'package:skladappka/Firebase/Builds.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'Firebase/doLogowanie/doLogowanie.dart';
 import 'Globalne.dart' as globalna;
@@ -39,18 +38,18 @@ Future<void> main() async {
     data.add(tekst);
   });
   globalna.czyZalogowany=data[0];
-  inicjalizuj();
+  inicjalizuj(null);
 }
 
-void inicjalizuj() {
+void inicjalizuj(Builds builds) {
   return runApp(MaterialApp(
-    home: Skladapka(),
+    home: Skladapka(builds: builds),
   ));
 }
 
 void _onItemTapped(int index) {
     globalna.ktoro = index;
-    inicjalizuj();
+    inicjalizuj(null);
   }
 
 ThemeData chooseTheme(int which) {
@@ -86,12 +85,16 @@ class Skladapka extends StatefulWidget {
   static StreamSubscription<ConnectivityResult> connectivitySubscription;
   static ConnectivityResult connectivityResult= ConnectivityResult.none;
 
+  final Builds builds;
+
+  Skladapka({this.builds});
+
   @override
   _SkladapkaState createState() => _SkladapkaState();
 }
 
 class _SkladapkaState extends State<Skladapka> {
-  
+
 
   @override
   void initState() {
@@ -118,6 +121,14 @@ class _SkladapkaState extends State<Skladapka> {
 
 
   ThemeData chosenTheme = new ThemeData();
+
+  Widget viewReturner(int ktoro){
+    if(widget.builds!=null) {
+      return wczytajZestaw(czyWczytuje: true, builds: widget.builds);
+    }
+    else
+      return Views[globalna.ktoro];
+  }
 
   List<Widget> Views = [
     dodaj(cpu: null, cases: null, cooler: null, drive: null, gpu: null, mtb: null, psu: null, ram: null, code: null),
@@ -175,12 +186,12 @@ class _SkladapkaState extends State<Skladapka> {
                   globalna.currentTheme = 0;
                 else
                   globalna.currentTheme = 1;
-                inicjalizuj();
+                inicjalizuj(null);
             },
           ))
         ]),
       ),
-      body: Views[globalna.ktoro],      
+      body: viewReturner(globalna.ktoro),
       bottomNavigationBar: CurvedNavigationBar(
         index: 2,
         color:Color.fromRGBO(240, 84, 84, 1),

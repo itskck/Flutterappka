@@ -75,9 +75,11 @@ class _dodaj extends State<dodaj> {
     base.mtbNvmeSlot=dodaj.chosenMtb.hasNvmeSlot;
     base.mtbSocket=dodaj.chosenMtb.socket;
     base.mtbStandard=dodaj.chosenMtb.standard;
+    print("JEstem tu");
     base.driveConnectionType=dodaj.chosenDrive.connectionType;
     base.caseStandard=dodaj.chosenCase.standard;
     base.ramRamType = dodaj.chosenRam.type;
+    setState(() { });
   }
 
   Widget componentsList(String component) {
@@ -295,6 +297,7 @@ class _dodaj extends State<dodaj> {
 
   @override
   Widget build(BuildContext context) {
+    if(widget.cpu!=null) setComponents();
     firstPanels = [
       addButton('CPU'),
       addButton('PSU'),

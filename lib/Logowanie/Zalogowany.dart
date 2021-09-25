@@ -250,10 +250,8 @@ class _Zalogowany extends State<Zalogowany> {
                         ),
                         onDismissed: (DismissDirection direction){
                           if(direction== DismissDirection.startToEnd){
-                            print("halo");
                             globalna.ktoro=1;
-                            //Skladapka();
-                            return wczytajZestaw(czyWczytuje: true, builds: item);
+                           inicjalizuj(item);
                           }
                           else{   
                                                                                

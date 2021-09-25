@@ -11,7 +11,8 @@ class wczytajZestaw extends StatelessWidget{
   wczytajZestaw({this.czyWczytuje,this.builds});
 
   @override
-  Widget build(BuildContext context) { //build context gives the layout, when you build widget it will always have this line
+  Widget build(BuildContext context) {
+    print("galo");
     if(czyWczytuje==false)
       return Container(
        child: choices(),
