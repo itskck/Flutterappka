@@ -14,7 +14,7 @@ import 'package:skladappka/Globalne.dart' as globals;
 import 'package:skladappka/wczytajZestaw/Edit.dart';
 class dialogBuilder extends StatelessWidget{
   String component;
-  var cpus,psus,gpus,coolers,mtbs,drives,cases,rams;  
+  var cpus,psus,gpus,coolers,mtbs,drives,cases,rams;
   dialogBuilder({this.component});
   @override
   Widget build(BuildContext context) {

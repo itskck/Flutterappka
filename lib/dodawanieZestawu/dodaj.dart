@@ -246,6 +246,7 @@ class _dodaj extends State<dodaj> {
                     base.mtbStandard = null;
                     base.caseStandard = null;
                     dodaj.chosenMtb = null;
+                    base.mtbSocket=null;
                   });
                   break;
                 case 'DRIVE':

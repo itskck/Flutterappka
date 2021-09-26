@@ -10,8 +10,8 @@ import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Ram.dart';
 import 'dart:core';
 import 'package:skladappka/Firebase/Code.dart';
-
-import 'dart:async';
+import 'package:rxdart/rxdart.dart';
+import 'package:async/async.dart' show StreamGroup;
 import 'Builds.dart';
 
 class FireBase{
@@ -92,7 +92,7 @@ class FireBase{
     if(cpuSocket!=null) {
       return FirebaseFirestore.instance.collection('coolers').where(
           'model', isNotEqualTo: "Fabryczne chłodzenie").where(
-          'socket', arrayContainsAny: [cpuSocket])
+          'socket', arrayContains: cpuSocket)
           .snapshots().map(coolerListFromSnapshot);
     }
     else
@@ -123,7 +123,7 @@ class FireBase{
   Stream<List<Cpu>> get cpus {
     if(coolerSocket!=null){
         return FirebaseFirestore.instance.collection('cpus')
-            .where('socket', arrayContainsAny: [coolerSocket]).where('socket', isEqualTo: mtbSocket)
+            .where('socket', whereIn: coolerSocket).where('socket', isEqualTo: mtbSocket)
             .snapshots().map(cpuListFromSnapshot);
 
     }
@@ -169,14 +169,13 @@ class FireBase{
   Stream<List<Motherboard>> get motherboards {
 
     if((driveConnectionType==null || driveConnectionType=="SATA") && caseStandard!=null) {
-          print (FirebaseFirestore.instance.collection('motherboard')
-          .where('standard', arrayContainsAny: [caseStandard[0]])
+      return FirebaseFirestore.instance.collection('motherboard')
+          .where('standard', whereIn: caseStandard)
           .where('ramType', isEqualTo: ramRamType).where(
-          'socket', isEqualTo: cpuSocket));
-
+          'socket', isEqualTo: cpuSocket).snapshots().map(motherboardListFromSnapshot);
     }
     else if((driveConnectionType==null || driveConnectionType=="SATA") && caseStandard==null) {
-      print(ramRamType);
+      print("was");
       return FirebaseFirestore.instance.collection('motherboard')
           .where('ramType', isEqualTo: ramRamType).where(
           'socket', isEqualTo: cpuSocket)
@@ -185,13 +184,9 @@ class FireBase{
     else if(caseStandard!=null) {
       print("o3o");
       return FirebaseFirestore.instance
-          .collection('motherboard')
-          .where('standard', arrayContainsAny: [caseStandard[0],caseStandard[1],caseStandard[2]])
-          .where('ramType', isEqualTo: ramRamType)
-          .where('socket', isEqualTo: cpuSocket)
-          .where('hasNvmeSlot', isEqualTo: true)
-          .snapshots()
-          .map(motherboardListFromSnapshot);
+            .collection('motherboard').where('standard', whereIn: caseStandard).where('ramType', isEqualTo: ramRamType)
+            .where('socket', isEqualTo: cpuSocket).where('hasNvmeSlot', isEqualTo: true).snapshots().map(motherboardListFromSnapshot);
+
     } else
       print("o4o");
       return FirebaseFirestore.instance.collection('motherboard')
