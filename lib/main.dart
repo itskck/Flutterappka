@@ -94,7 +94,7 @@ class Skladapka extends StatefulWidget {
 }
 
 class _SkladapkaState extends State<Skladapka> {
-
+  GlobalKey globalKey = new GlobalKey(debugLabel: 'btm_app_bar');
 
   @override
   void initState() {
@@ -124,6 +124,9 @@ class _SkladapkaState extends State<Skladapka> {
 
   Widget viewReturner(int ktoro){
     if(widget.builds!=null) {
+      setState(() {
+        globalna.ktoro=ktoro;
+      });
       return wczytajZestaw(czyWczytuje: true, builds: widget.builds);
     }
     else

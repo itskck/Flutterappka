@@ -92,7 +92,7 @@ class FireBase{
     if(cpuSocket!=null) {
       return FirebaseFirestore.instance.collection('coolers').where(
           'model', isNotEqualTo: "Fabryczne chłodzenie").where(
-          'socket', arrayContains: cpuSocket)
+          'socket', arrayContains : cpuSocket.toString())
           .snapshots().map(coolerListFromSnapshot);
     }
     else

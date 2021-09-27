@@ -103,6 +103,8 @@ class addBuildToDatabse{
       "psuId": chosenPsu.model,
       "ramId": chosenRam.model,
       "timestamp": new DateTime(now.year, now.month, now.day, now.hour, now.minute).toString(),
+      "generatedCode": code,
+      "uid": uid,
     });
   }
 }
