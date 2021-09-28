@@ -324,10 +324,10 @@ class _dodaj extends State<dodaj> {
     if (dodaj.chosenCpu != null) {
       switch (dodaj.chosenCpu.manufacturer) {
         case 'Intel':
-          logo.cpu = 'assets/companies logo/cpu/intel.png';
+          logo.cpu = 'assets/companies logo/intel.png';
           break;
         case 'AMD':
-          logo.cpu = 'assets/companies logo/cpu/ryzen.png';
+          logo.cpu = 'assets/companies logo/amd.png';
           break;
         default:
           logo.cpu = 'assets/placeholder.png';
@@ -341,10 +341,10 @@ class _dodaj extends State<dodaj> {
     if (dodaj.chosenPsu != null) {
       switch (dodaj.chosenPsu.manufacturer) {
         case 'SilentiumPC':
-          logo.psu = 'assets/companies logo/case/Silentiumpc.png';
+          logo.psu = 'assets/companies logo/silentiumpc.png';
           break;
         case 'SeaSonic':
-          logo.psu = 'assets/companies logo/psu/SeaSonic.png';
+          logo.psu = 'assets/companies logo/seasonic.png';
           break;
         default:
           logo.psu = 'assets/placeholder.png';
@@ -358,19 +358,19 @@ class _dodaj extends State<dodaj> {
     if (dodaj.chosenMtb != null) {
       switch (dodaj.chosenMtb.manufacturer) {
         case 'Gigabyte':
-          logo.mtb = 'assets/companies logo/motherboard/gigabyte.png';
+          logo.mtb = 'assets/companies logo/gigabyte.png';
           break;
         case 'Asus':
-          logo.mtb = 'assets/companies logo/motherboard/Asus.png';
+          logo.mtb = 'assets/companies logo/asus.png';
           break;
         case 'Biostar':
-          logo.mtb = 'assets/companies logo/motherboard/biostar.png';
+          logo.mtb = 'assets/companies logo/biostar.png';
           break;
         case 'MSI':
-          logo.mtb = 'assets/companies logo/motherboard/msi.png';
+          logo.mtb = 'assets/companies logo/msi.png';
           break;
         case 'ASRock':
-          logo.mtb = 'assets/companies logo/motherboard/Asrock.png';
+          logo.mtb = 'assets/companies logo/asrock.png';
           break;
         default:
           logo.mtb = 'assets/placeholder.png';
@@ -385,22 +385,22 @@ class _dodaj extends State<dodaj> {
     if (dodaj.chosenDrive != null) {
       switch (dodaj.chosenDrive.manufacturer) {
         case 'Kingston':
-          logo.drive = 'assets/companies logo/drive/Kingston.png';
+          logo.drive = 'assets/companies logo/kingston.png';
           break;
         case 'Toshiba':
-          logo.drive = 'assets/companies logo/drive/toshiba.png';
+          logo.drive = 'assets/companies logo/toshiba.png';
           break;
         case 'ADATA':
-          logo.drive = 'assets/companies logo/drive/adata.png';
+          logo.drive = 'assets/companies logo/adata.png';
           break;
         case 'Seagate':
-          logo.drive = 'assets/companies logo/drive/seagate.png';
+          logo.drive = 'assets/companies logo/seagate.png';
           break;
         case 'Transcend':
-          logo.drive = 'assets/companies logo/drive/trranscend.png';
+          logo.drive = 'assets/companies logo/trranscend.png';
           break;
         case 'WD':
-          logo.drive = 'assets/companies logo/drive/wd.png';
+          logo.drive = 'assets/companies logo/wd.png';
           break;
         default:
           logo.drive = 'assets/placeholder.png';
@@ -415,13 +415,13 @@ class _dodaj extends State<dodaj> {
     if (dodaj.chosenRam != null) {
       switch (dodaj.chosenRam.manufacturer) {
         case 'Kingston':
-          logo.ram = 'assets/companies logo/drive/Kingston.png';
+          logo.ram = 'assets/companies logo/kingston.png';
           break;
         case 'GoodRam':
-          logo.ram = 'assets/companies logo/ram/Goodram.png';
+          logo.ram = 'assets/companies logo/goodram.png';
           break;
         case 'G.Skill':
-          logo.ram = 'assets/companies logo/ram/Gskill.png';
+          logo.ram = 'assets/companies logo/gskill.png';
           break;
         default:
           logo.ram = 'assets/placeholder.png';
@@ -435,28 +435,28 @@ class _dodaj extends State<dodaj> {
     if (dodaj.chosenCase != null) {
       switch (dodaj.chosenCase.manufacturer) {
         case 'MSI':
-          logo.cases = 'assets/companies logo/motherboard/msi.png';
+          logo.cases = 'assets/companies logo/msi.png';
           break;
         case 'Aerocool':
-          logo.cases = 'assets/companies logo/case/aerocool.png';
+          logo.cases = 'assets/companies logo/aerocool.png';
           break;
         case 'Cooler Master':
-          logo.cases = 'assets/companies logo/case/Coolermaster.png';
+          logo.cases = 'assets/companies logo/coolermaster.png';
           break;
         case 'Corsair':
-          logo.cases = 'assets/companies logo/case/corsair.png';
+          logo.cases = 'assets/companies logo/corsair.png';
           break;
         case 'Fractal Design':
-          logo.cases = 'assets/companies logo/case/fractal.png';
+          logo.cases = 'assets/companies logo/fractal.png';
           break;
         case 'SilentiumPC':
-          logo.cases = 'assets/companies logo/case/Silentiumpc.png';
+          logo.cases = 'assets/companies logo/silentiumpc.png';
           break;
         case 'SilverStone':
-          logo.cases = 'assets/companies logo/case/Silverstone.png';
+          logo.cases = 'assets/companies logo/silverstone.png';
           break;
         case 'Thermaltake':
-          logo.cases = 'assets/companies logo/case/thermaltake.png';
+          logo.cases = 'assets/companies logo/thermaltake.png';
           break;
         default:
           logo.cases = 'assets/placeholder.png';
@@ -471,10 +471,10 @@ class _dodaj extends State<dodaj> {
     if (dodaj.chosenGpu != null) {
       switch (dodaj.chosenGpu.manufacturer) {
         case 'NVIDIA':
-          logo.gpu = 'assets/companies logo/gpu/nvidia.png';
+          logo.gpu = 'assets/companies logo/nvidia.png';
           break;
         case "Radeon":
-          logo.gpu = 'assets/companies logo/gpu/radeon.png';
+          logo.gpu = 'assets/companies logo/radeon.png';
           break;
         default:
           logo.gpu = 'assets/placeholder.png';
@@ -488,28 +488,28 @@ class _dodaj extends State<dodaj> {
     if (dodaj.chosenCooler != null) {
       switch (dodaj.chosenCooler.manufacturer) {
         case 'Corsair':
-          logo.cooler = 'assets/companies logo/case/corsair.png';
+          logo.cooler = 'assets/companies logo/corsair.png';
           break;
         case 'SilentiumPC':
-          logo.cooler = 'assets/companies logo/case/Silentiumpc.png';
+          logo.cooler = 'assets/companies logo/silentiumpc.png';
           break;
         case 'Arctic':
-          logo.cooler = 'assets/companies logo/cooler/arctic.png';
+          logo.cooler = 'assets/companies logo/arctic.png';
           break;
         case 'Noctua':
-          logo.cooler = 'assets/companies logo/cooler/noctua.png';
+          logo.cooler = 'assets/companies logo/noctua.png';
           break;
         case 'Cooler Master':
-          logo.cooler = 'assets/companies logo/case/Coolermaster.png';
+          logo.cooler = 'assets/companies logo/coolermaster.png';
           break;
         case 'SilverStone':
-          logo.cooler = 'assets/companies logo/case/Silverstone.png';
+          logo.cooler = 'assets/companies logo/silverstone.png';
           break;
         case 'Deepcool':
-          logo.cooler = 'assets/companies logo/cooler/deepcool.png';
+          logo.cooler = 'assets/companies logo/deepcool.png';
           break;
         case 'Thermaltake':
-          logo.cooler = 'assets/companies logo/case/thermaltake.png';
+          logo.cooler = 'assets/companies logo/thermaltake.png';
           break;
         default:
           logo.cooler = 'assets/placeholder.png';
