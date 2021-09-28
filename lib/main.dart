@@ -95,7 +95,7 @@ class Skladapka extends StatefulWidget {
 
 class _SkladapkaState extends State<Skladapka> {
   GlobalKey globalKey = new GlobalKey(debugLabel: 'btm_app_bar');
-
+  int navigationIndex=2;
   @override
   void initState() {
     super.initState();
@@ -124,9 +124,8 @@ class _SkladapkaState extends State<Skladapka> {
 
   Widget viewReturner(int ktoro){
     if(widget.builds!=null) {
-      setState(() {
-        globalna.ktoro=ktoro;
-      });
+      final CurvedNavigationBar navigationBar=globalKey.currentWidget;
+      navigationBar.onTap(1);
       return wczytajZestaw(czyWczytuje: true, builds: widget.builds);
     }
     else
@@ -195,7 +194,8 @@ class _SkladapkaState extends State<Skladapka> {
         ]),
       ),
       body: viewReturner(globalna.ktoro),
-      bottomNavigationBar: CurvedNavigationBar(
+      bottomNavigationBar: new CurvedNavigationBar(
+        key: globalKey,
         index: 2,
         color:Color.fromRGBO(240, 84, 84, 1),
         backgroundColor: chosenTheme.canvasColor,
@@ -209,7 +209,28 @@ class _SkladapkaState extends State<Skladapka> {
           Icon(Icons.account_circle_rounded,color:  chosenTheme.canvasColor)
           ],
         
-        onTap: _onItemTapped,
+        onTap: (int index){
+          setState(() {
+          navigationIndex = index;
+          switch (navigationIndex) {
+            case 0:
+              _onItemTapped(0);
+              break;
+            case 1:
+              _onItemTapped(1);
+              break;
+            case 2:
+              _onItemTapped(2);
+              break;
+            case 3:
+              _onItemTapped(3);
+              break;
+            case 4:
+              _onItemTapped(4);
+              break;
+          }
+          });
+        },
       ),
     )
         

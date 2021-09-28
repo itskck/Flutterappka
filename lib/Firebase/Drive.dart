@@ -9,6 +9,7 @@ class Drive{
   final String type;
   final String manufacturer;
   final String model;
-  Drive({this.capacity,this.connectionType,this.type,this.manufacturer,this.model});
+  final Image img;
+  Drive({this.capacity,this.connectionType,this.type,this.manufacturer,this.model,this.img});
 }
 

@@ -15,6 +15,8 @@ class Cpu{
   final bool isCoolerIncluded;
   final bool isUnlocked;
   final String threads;
-  Cpu({this.benchScore,this.socket, this.manufacturer, this.model, this.year,this.tdp,this.clocker,this.cores,this.hasGpu,this.isCoolerIncluded,this.isUnlocked,this.threads});
+  final Image img;
+  Cpu({this.benchScore,this.socket, this.manufacturer, this.model, this.year,this.tdp,this.clocker,this.cores,
+    this.hasGpu,this.isCoolerIncluded,this.isUnlocked,this.threads,this.img});
 }
 

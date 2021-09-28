@@ -8,6 +8,7 @@ class Cooler{
   final List<dynamic> socket;
   final String manufacturer;
   final String model;
-  Cooler({this.manufacturer, this.model, this.socket});
+  final Image img;
+  Cooler({this.manufacturer, this.model, this.socket,this.img});
 }
 

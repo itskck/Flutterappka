@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:skladappka/Firebase/Gpu.dart';
 import 'package:skladappka/Firebase/Case.dart';
 import 'package:skladappka/Firebase/Cooler.dart';
@@ -45,7 +46,10 @@ class FireBase{
 
 
   List<Gpu> gpuListFromSnapshot(QuerySnapshot snapshot){
+
     return snapshot.docs.map((doc){
+      String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       return Gpu(
         VRAM: doc.data().toString().contains('VRAM') ? doc.get('VRAM') : 'Error not found',
         manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
@@ -53,7 +57,8 @@ class FireBase{
         year: doc.data().toString().contains('year') ? doc.get('year') : 'Error not found',
         series: doc.data().toString().contains('series') ? doc.get('series') : 'Error not found',
         tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : 'Error not found',
-        integra: doc.data().toString().contains('integra') ? doc.get('integra') : 'Error not found'
+        integra: doc.data().toString().contains('integra') ? doc.get('integra') : 'Error not found',
+        img: img
       );
     }).toList();
   }
@@ -64,10 +69,13 @@ class FireBase{
 
   List<Case> caseListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc){
+      String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       return Case(
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
           model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          standard: doc.data().toString().contains('standard') ? doc.get('standard') : 'Error not found'
+          standard: doc.data().toString().contains('standard') ? doc.get('standard') : 'Error not found',
+          img: img
       );
     }).toList();
   }
@@ -81,10 +89,13 @@ class FireBase{
 
   List<Cooler> coolerListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc){
+      String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       return Cooler(
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
           model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Error not found'
+          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Error not found',
+          img: img
       );
     }).toList();
   }
@@ -104,6 +115,8 @@ class FireBase{
   List<Cpu> cpuListFromSnapshot(QuerySnapshot snapshot){
 
     return snapshot.docs.map((doc){
+      String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       return Cpu(
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
           model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
@@ -116,7 +129,8 @@ class FireBase{
           tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : 'Error not found',
           threads: doc.data().toString().contains('threads') ? doc.get('threads') : 'Error not found',
           year: doc.data().toString().contains('year') ? doc.get('year') : 'Error not found',
-          benchScore: doc.data().toString().contains('benchScore') ? doc.get('benchScore') : 'Error not found'
+          benchScore: doc.data().toString().contains('benchScore') ? doc.get('benchScore') : 'Error not found',
+          img: img
       );
     }).toList();
   }
@@ -135,12 +149,15 @@ class FireBase{
 
   List<Drive> driveListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc){
+      String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       return Drive(
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
           model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
           capacity: doc.data().toString().contains('capacity') ? doc.get('capacity') : 'Error not found',
           connectionType: doc.data().toString().contains('connectionType') ? doc.get('connectionType') : 'Error not found',
-          type: doc.data().toString().contains('type') ? doc.get('type') : 'Error not found'
+          type: doc.data().toString().contains('type') ? doc.get('type') : 'Error not found',
+          img: img
       );
     }).toList();
   }
@@ -154,6 +171,8 @@ class FireBase{
 
   List<Motherboard> motherboardListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc){
+      String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       return Motherboard(
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
           model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
@@ -162,7 +181,8 @@ class FireBase{
           ramSlots: doc.data().toString().contains('ramSlots') ? doc.get('ramSlots') : 'Error not found',
           ramType: doc.data().toString().contains('ramType') ? doc.get('ramType') : 'Error not found',
           socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Error not found',
-          standard: doc.data().toString().contains('standard') ? doc.get('standard') : 'Error not found'
+          standard: doc.data().toString().contains('standard') ? doc.get('standard') : 'Error not found',
+          img: img
       );
     }).toList();
   }
@@ -198,10 +218,13 @@ class FireBase{
 
   List<Psu> psuListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc){
+      String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       return Psu(
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
           model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          power: doc.data().toString().contains('power') ? doc.get('power') : 'Error not found'
+          power: doc.data().toString().contains('power') ? doc.get('power') : 'Error not found',
+          img: img
       );
     }).toList();
   }
@@ -211,12 +234,15 @@ class FireBase{
 
   List<Ram> ramListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.docs.map((doc){
+      String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       return Ram(
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
           model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
           capacity: doc.data().toString().contains('capacity') ? doc.get('capacity') : 'Error not found',
           speed: doc.data().toString().contains('speed') ? doc.get('speed') : 'Error not found',
-          type: doc.data().toString().contains('type') ? doc.get('type') : 'Error not found'
+          type: doc.data().toString().contains('type') ? doc.get('type') : 'Error not found',
+          img: img
       );
     }).toList();
   }
@@ -254,6 +280,8 @@ class FireBase{
         .collection("gpus")
         .where('model', isEqualTo: model).get();
     snapshot.docs.map((doc){
+      String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       chosenGpu=Gpu(
           VRAM: doc.data().toString().contains('VRAM') ? doc.get('VRAM') : 'Error not found',
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
@@ -261,7 +289,8 @@ class FireBase{
           year: doc.data().toString().contains('year') ? doc.get('year') : 'Error not found',
           series: doc.data().toString().contains('series') ? doc.get('series') : 'Error not found',
           tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : 'Error not found',
-          integra: doc.data().toString().contains('integra') ? doc.get('integra') : 'Error not found'
+          integra: doc.data().toString().contains('integra') ? doc.get('integra') : 'Error not found',
+          img:img
       );
     }).toList();
     return chosenGpu;
@@ -276,7 +305,8 @@ class FireBase{
       chosenCooler=Cooler(
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
           model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Error not found'
+          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Error not found',
+          img: null
       );
     }).toList();
     return chosenCooler;

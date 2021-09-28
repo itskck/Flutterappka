@@ -56,6 +56,8 @@ class getFromCode {
     .where("model", isEqualTo: cpu)
     .get();
     snapshot.docs.map((doc){
+      String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       chosenCpu=Cpu(
           benchScore: doc.data().toString().contains('benchScore') ? doc.get('benchScore') : 'Error not found',
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
@@ -68,7 +70,8 @@ class getFromCode {
           socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Error not found',
           tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : 'Error not found',
           threads: doc.data().toString().contains('threads') ? doc.get('threads') : 'Error not found',
-          year: doc.data().toString().contains('year') ? doc.get('year') : 'Error not found'
+          year: doc.data().toString().contains('year') ? doc.get('year') : 'Error not found',
+          img: img
       );
     }).toList();
     return chosenCpu;
@@ -90,6 +93,8 @@ class getFromCode {
         .where("model", isEqualTo: ktoro)
         .get();
     snapshot.docs.map((doc){
+      String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       chosenGpu=Gpu(
           benchScore: doc.data().toString().contains('benchScore') ? doc.get('benchScore') : 'Error not found',
           VRAM: doc.data().toString().contains('VRAM') ? doc.get('VRAM') : 'Error not found',
@@ -97,7 +102,8 @@ class getFromCode {
           model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
           year: doc.data().toString().contains('year') ? doc.get('year') : 'Error not found',
           series: doc.data().toString().contains('series') ? doc.get('series') : 'Error not found',
-          tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : 'Error not found'
+          tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : 'Error not found',
+          img: img
       );
     }).toList();
     return chosenGpu;
@@ -119,10 +125,13 @@ class getFromCode {
         .where("model", isEqualTo: ktoro)
         .get();
     snapshot.docs.map((doc){
+      String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       chosenCase=Case(
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
           model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          standard: doc.data().toString().contains('standard') ? doc.get('standard') : 'Error not found'
+          standard: doc.data().toString().contains('standard') ? doc.get('standard') : 'Error not found',
+          img: img
       );
     }).toList();
     return chosenCase;
@@ -144,10 +153,13 @@ class getFromCode {
         .where("model", isEqualTo: ktoro)
         .get();
     snapshot.docs.map((doc){
+      String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       chosenCooler=Cooler(
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
           model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Error not found'
+          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Error not found',
+          img: img
       );
     }).toList();
     return chosenCooler;
@@ -169,12 +181,15 @@ class getFromCode {
         .where("model", isEqualTo: ktoro)
         .get();
     snapshot.docs.map((doc){
+      String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       chosenDrive=Drive(
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
           model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
           capacity: doc.data().toString().contains('capacity') ? doc.get('capacity') : 'Error not found',
           connectionType: doc.data().toString().contains('connectionType') ? doc.get('connectionType') : 'Error not found',
-          type: doc.data().toString().contains('type') ? doc.get('type') : 'Error not found'
+          type: doc.data().toString().contains('type') ? doc.get('type') : 'Error not found',
+          img: img
       );
     }).toList();
     return chosenDrive;
@@ -196,6 +211,8 @@ class getFromCode {
         .where("model", isEqualTo: ktoro)
         .get();
     snapshot.docs.map((doc){
+      String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       chosenMtb=Motherboard(
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
           model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
@@ -204,7 +221,8 @@ class getFromCode {
           ramSlots: doc.data().toString().contains('ramSlots') ? doc.get('ramSlots') : 'Error not found',
           ramType: doc.data().toString().contains('ramType') ? doc.get('ramType') : 'Error not found',
           socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Error not found',
-          standard: doc.data().toString().contains('standard') ? doc.get('standard') : 'Error not found'
+          standard: doc.data().toString().contains('standard') ? doc.get('standard') : 'Error not found',
+          img: img
       );
     }).toList();
     return chosenMtb;
@@ -226,10 +244,13 @@ class getFromCode {
         .where("model", isEqualTo: ktoro)
         .get();
     snapshot.docs.map((doc){
+      String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       chosenPsu=Psu(
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
           model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          power: doc.data().toString().contains('power') ? doc.get('power') : 'Error not found'
+          power: doc.data().toString().contains('power') ? doc.get('power') : 'Error not found',
+          img: img
       );
     }).toList();
     return chosenPsu;
@@ -251,13 +272,16 @@ class getFromCode {
         .where("model", isEqualTo: ktoro)
         .get();
     snapshot.docs.map((doc){
+      String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       chosenRam=Ram(
           benchScore: doc.data().toString().contains('benchScore') ? doc.get('benchScore') : 'Error not found',
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
           model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
           capacity: doc.data().toString().contains('capacity') ? doc.get('capacity') : 'Error not found',
           speed: doc.data().toString().contains('speed') ? doc.get('speed') : 'Error not found',
-          type: doc.data().toString().contains('type') ? doc.get('type') : 'Error not found'
+          type: doc.data().toString().contains('type') ? doc.get('type') : 'Error not found',
+          img: img
       );
     }).toList();
     return chosenRam;
