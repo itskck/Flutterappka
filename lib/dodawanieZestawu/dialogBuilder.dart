@@ -17,6 +17,10 @@ class dialogBuilder extends StatelessWidget {
   String component;
   var cpus, psus, gpus, coolers, mtbs, drives, cases, rams;
   dialogBuilder({this.component});
+  TextStyle style = TextStyle(
+    overflow: TextOverflow.visible
+
+  );
   @override
   Widget build(BuildContext context) {
     if (component == 'CPU') {
@@ -32,23 +36,25 @@ class dialogBuilder extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(cpus[i].manufacturer + " " + cpus[i].model + " "),
-                        Text(cpus[i].cores + "x " + cpus[i].clocker + "GHz")
-                      ],
-                    ),
                     Container(
                         padding: EdgeInsets.all(5),
+                        margin: EdgeInsets.only(right: 20),
                         height: 40,
                         width: 40,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
                             border: Border.all(width: 1)),
                         child: cpus[i].img),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(cpus[i].manufacturer + " " + cpus[i].model + " ",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(cpus[i].cores + "x " + cpus[i].clocker + "GHz")
+                      ],
+                    ),
                   ],
                 ),
               ],
@@ -72,23 +78,25 @@ class dialogBuilder extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(psus[i].manufacturer + " " + psus[i].model + " "),
-                        Text(psus[i].power + " " + "W")
-                      ],
-                    ),
                     Container(
                         padding: EdgeInsets.all(5),
+                        margin: EdgeInsets.only(right: 20),
                         height: 40,
                         width: 40,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(100),
                             border: Border.all(width: 1)),
                         child: psus[i].img),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(psus[i].manufacturer + " " + psus[i].model,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(psus[i].power + " " + "W")
+                      ],
+                    ),
                   ],
                 ),
               ],
@@ -109,7 +117,33 @@ class dialogBuilder extends StatelessWidget {
         for (int i = 0; i < gpus.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-            child: Text(gpus[i].model.toString()),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                        padding: EdgeInsets.all(5),
+                        margin: EdgeInsets.only(right: 20),
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            border: Border.all(width: 1)),
+                        child: gpus[i].img),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(gpus[i].manufacturer + " " + gpus[i].model,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(gpus[i].VRAM + " " + "GB")
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
             onPressed: () {
               if (globals.ktoro == 0)
                 dodaj.chosenGpu = gpus[i];
@@ -126,7 +160,33 @@ class dialogBuilder extends StatelessWidget {
         for (int i = 0; i < coolers.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-            child: Text(coolers[i].model.toString()),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                        padding: EdgeInsets.all(5),
+                        margin: EdgeInsets.only(right: 20),
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            border: Border.all(width: 1)),
+                        child: coolers[i].img),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(coolers[i].manufacturer + " " + coolers[i].model,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
             onPressed: () {
               if (globals.ktoro == 0)
                 dodaj.chosenCooler = coolers[i];
@@ -143,7 +203,40 @@ class dialogBuilder extends StatelessWidget {
         for (int i = 0; i < mtbs.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-            child: Text(mtbs[i].model.toString()),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                        padding: EdgeInsets.all(5),
+                        margin: EdgeInsets.only(right: 20),
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            border: Border.all(width: 1)),
+                        child: mtbs[i].img),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(mtbs[i].manufacturer + " " + mtbs[i].model,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Row(
+                          children: [
+                            Text(mtbs[i].ramSlots + "x "),
+                            Text(mtbs[i].ramType + ", "),
+                            Text("Standard: " + mtbs[i].standard)
+                          ],
+                        ),
+                        if (mtbs[i].hasNvmeSlot) Text('Obsługa dysków NVMe M.2')
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
             onPressed: () {
               if (globals.ktoro == 0)
                 dodaj.chosenMtb = mtbs[i];
@@ -160,7 +253,37 @@ class dialogBuilder extends StatelessWidget {
         for (int i = 0; i < drives.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-            child: Text(drives[i].model.toString()),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                        padding: EdgeInsets.all(5),
+                        margin: EdgeInsets.only(right: 20),
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            border: Border.all(width: 1)),
+                        child: drives[i].img),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(drives[i].manufacturer + " " + drives[i].model,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(drives[i].type +
+                            ", " +
+                            drives[i].capacity +
+                            " " +
+                            "GB")
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
             onPressed: () {
               if (globals.ktoro == 0)
                 dodaj.chosenDrive = drives[i];
@@ -177,7 +300,45 @@ class dialogBuilder extends StatelessWidget {
         for (int i = 0; i < cases.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-            child: Text(cases[i].model.toString()),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                        padding: EdgeInsets.all(5),
+                        margin: EdgeInsets.only(right: 20),
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            border: Border.all(width: 1)),
+                        child: cases[i].img),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: 20,
+                          width: MediaQuery.of(context).size.width*0.5,
+                          child: Text(cases[i].manufacturer + " " + cases[i].model,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                              maxLines: 1,),
+                        ),
+                        Text("Obsługiwane standardy: "),
+                        Row(
+                          children: [
+                            
+                            for (int j = 0; j < cases[i].standard.length; j++)
+                              Text(cases[i].standard[j] + ", ")
+                          ],
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
             onPressed: () {
               if (globals.ktoro == 0)
                 dodaj.chosenCase = cases[i];
@@ -194,7 +355,33 @@ class dialogBuilder extends StatelessWidget {
         for (int i = 0; i < rams.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-            child: Text(rams[i].model.toString()),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                        padding: EdgeInsets.all(5),
+                        margin: EdgeInsets.only(right: 20),
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            border: Border.all(width: 1)),
+                        child: rams[i].img),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(rams[i].manufacturer + " " + rams[i].model,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(rams[i].type+", "+rams[i].speed+ " MHz, "+rams[i].capacity+" GB")
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
             onPressed: () {
               if (globals.ktoro == 0)
                 dodaj.chosenRam = rams[i];
