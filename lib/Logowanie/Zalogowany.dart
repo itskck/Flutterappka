@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -251,7 +252,8 @@ class _Zalogowany extends State<Zalogowany> {
                         onDismissed: (DismissDirection direction){
                           if(direction== DismissDirection.startToEnd){
                             globalna.ktoro=1;
-                           inicjalizuj(item);
+                            return inicjalizuj(item);
+
                           }
                           else{   
                                                                                

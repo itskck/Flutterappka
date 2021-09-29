@@ -48,9 +48,9 @@ void inicjalizuj(Builds builds) {
 }
 
 void _onItemTapped(int index) {
-    globalna.ktoro = index;
-    inicjalizuj(null);
-  }
+  globalna.ktoro = index;
+  inicjalizuj(null);
+}
 
 ThemeData chooseTheme(int which) {
   if (which == 1)
@@ -95,21 +95,21 @@ class Skladapka extends StatefulWidget {
 
 class _SkladapkaState extends State<Skladapka> {
   GlobalKey globalKey = new GlobalKey(debugLabel: 'btm_app_bar');
-  int navigationIndex=2;
+
   @override
   void initState() {
     super.initState();
     print('ao');
     Skladapka.connectivitySubscription = Skladapka._connectivity.onConnectivityChanged.listen(updateConnectionStatus);
-        print('object');
-        
+    print('object');
+
   }
 
-  void updateConnectionStatus(ConnectivityResult result){    
+  void updateConnectionStatus(ConnectivityResult result){
     setState(() {
       print(result);
       Skladapka.connectivityResult = result;
-     
+
     });
   }
 
@@ -124,8 +124,9 @@ class _SkladapkaState extends State<Skladapka> {
 
   Widget viewReturner(int ktoro){
     if(widget.builds!=null) {
-      final CurvedNavigationBar navigationBar=globalKey.currentWidget;
-      navigationBar.onTap(1);
+      setState(() {
+        globalna.ktoro=ktoro;
+      });
       return wczytajZestaw(czyWczytuje: true, builds: widget.builds);
     }
     else
@@ -137,12 +138,12 @@ class _SkladapkaState extends State<Skladapka> {
     wczytajZestaw(czyWczytuje: false,builds: null),
     Glowna(title: 'dodawanie'),
     Porownywarka(title: 'dodawanie'),
-    Logowanie(title: 'dodawanie'),
+    Logowanie(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    
+
     chosenTheme = chooseTheme(globalna.currentTheme);
     Icon moonIcon;
     if (globalna.currentTheme == 0)
@@ -155,85 +156,63 @@ class _SkladapkaState extends State<Skladapka> {
         Icons.brightness_2,
         color: Colors.white,
       );
-      print(Theme.of(context).primaryColor);
-    
+    print(Theme.of(context).primaryColor);
+
     return MaterialApp(
         theme: chosenTheme,
-        title: 'Skladapka', 
+        title: 'Skladapka',
         home: Scaffold(
-      //entry point to your app scaffold blank display
-      appBar: AppBar(
-        backgroundColor: Color.fromRGBO(240, 84, 84, 1),
-        //leading: Icon(Icons.computer),
-        title:
+          //entry point to your app scaffold blank display
+          appBar: AppBar(
+            backgroundColor: Color.fromRGBO(240, 84, 84, 1),
+            //leading: Icon(Icons.computer),
+            title:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(
-            'składappka',
-            style: TextStyle(
-                fontFamily: 'coolvetica',
-                fontWeight: FontWeight.normal,
-                fontSize: 34,
-                letterSpacing: 2,
-                foreground: Paint()
-                  ..style = PaintingStyle.stroke
-                  ..strokeWidth = 1
-                  ..color = Colors.white),
+              Text(
+                'składappka',
+                style: TextStyle(
+                    fontFamily: 'coolvetica',
+                    fontWeight: FontWeight.normal,
+                    fontSize: 34,
+                    letterSpacing: 2,
+                    foreground: Paint()
+                      ..style = PaintingStyle.stroke
+                      ..strokeWidth = 1
+                      ..color = Colors.white),
+              ),
+              Container(
+                  child: IconButton(
+                    padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                    icon: moonIcon,
+                    onPressed: () {
+                      if (globalna.currentTheme == 1)
+                        globalna.currentTheme = 0;
+                      else
+                        globalna.currentTheme = 1;
+                      inicjalizuj(null);
+                    },
+                  ))
+            ]),
           ),
-          Container(
-              child: IconButton(
-            padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-            icon: moonIcon,
-            onPressed: () {              
-                if (globalna.currentTheme == 1)
-                  globalna.currentTheme = 0;
-                else
-                  globalna.currentTheme = 1;
-                inicjalizuj(null);
-            },
-          ))
-        ]),
-      ),
-      body: viewReturner(globalna.ktoro),
-      bottomNavigationBar: new CurvedNavigationBar(
-        key: globalKey,
-        index: 2,
-        color:Color.fromRGBO(240, 84, 84, 1),
-        backgroundColor: chosenTheme.canvasColor,
-        animationDuration: Duration(milliseconds: 300),
-        height: 55,
-        items: <Widget>[
-          Icon(Icons.add,color: chosenTheme.canvasColor),      
-          Icon(Icons.edit,color: chosenTheme.canvasColor),
-          Icon(Icons.home,color:  chosenTheme.canvasColor),
-          Icon(Icons.leaderboard,color:  chosenTheme.canvasColor),
-          Icon(Icons.account_circle_rounded,color:  chosenTheme.canvasColor)
-          ],
-        
-        onTap: (int index){
-          setState(() {
-          navigationIndex = index;
-          switch (navigationIndex) {
-            case 0:
-              _onItemTapped(0);
-              break;
-            case 1:
-              _onItemTapped(1);
-              break;
-            case 2:
-              _onItemTapped(2);
-              break;
-            case 3:
-              _onItemTapped(3);
-              break;
-            case 4:
-              _onItemTapped(4);
-              break;
-          }
-          });
-        },
-      ),
-    )
-        
-  );
+          body: viewReturner(globalna.ktoro),
+          bottomNavigationBar: CurvedNavigationBar(
+            index: globalna.ktoro,
+            color:Color.fromRGBO(240, 84, 84, 1),
+            backgroundColor: chosenTheme.canvasColor,
+            animationDuration: Duration(milliseconds: 300),
+            height: 55,
+            items: <Widget>[
+              Icon(Icons.add,color: chosenTheme.canvasColor),
+              Icon(Icons.edit,color: chosenTheme.canvasColor),
+              Icon(Icons.home,color:  chosenTheme.canvasColor),
+              Icon(Icons.leaderboard,color:  chosenTheme.canvasColor),
+              Icon(Icons.account_circle_rounded,color:  chosenTheme.canvasColor)
+            ],
+
+            onTap: _onItemTapped,
+          ),
+        )
+
+    );
   }
 }

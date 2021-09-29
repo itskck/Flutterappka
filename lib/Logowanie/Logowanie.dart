@@ -12,9 +12,11 @@ import 'dart:core';
 import 'package:skladappka/Logowanie/Status.dart';
 import 'package:skladappka/Logowanie/isLogged.dart';
 class Logowanie extends StatefulWidget {
-  Logowanie({Key key, this.title}) : super(key: key);
+  final Function callback;
 
-  final String title;
+
+  Logowanie({this.callback});
+
   @override
   _Logowanie createState() => _Logowanie();
 }
