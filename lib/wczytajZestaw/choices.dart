@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:skladappka/Porownywarka/dialogWidgetForCompare.dart';
 import 'package:skladappka/main.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
 import 'wczytajZestaw.dart';
-class choices extends StatefulWidget {
-  choices({Key key, this.title}) : super(key: key);
+import 'package:skladappka/main.dart';
+import 'package:skladappka/Firebase/Builds.dart';
+import 'Edit.dart';
+import 'package:skladappka/Firebase/getFromDatabase/getFromCode.dart';
 
-  final String title;
+class choices extends StatefulWidget {
+
+  static Builds builds;
 
   @override
   _choices createState() => _choices();
@@ -24,8 +29,14 @@ class _choices extends State<choices>{
       ),
       ),
       TextField(
-        onSubmitted: (String value) {
-          //switch page
+        onSubmitted: (String value) async{
+          if (await getFromCode(code: value).corrCode() == false) {
+          print("Slaby kodzik");
+          } else {
+            choices.builds=await getFromCode(code: value).getBuild();
+            return inicjalizuj(choices.builds);
+
+          }
         } ,
         textAlign: TextAlign.center,
         decoration: InputDecoration(hintText: 'Wpisz kod zestawu',
@@ -61,8 +72,16 @@ class _choices extends State<choices>{
    Widget savedButton()
   {    
     return GestureDetector(
-      onTap: (){        
-        
+      onTap: () async{
+        if (globalna.czyZalogowany == "czyZalogowany=false") {
+          print("uzytkownik niezalogowany");
+        } else {
+          await dialogWidgetForCompare().showPopup(context,
+              0);
+         // Navigator.pop(context);//W zaleznosci czy bedzie wybrana lewa czy prawa wartosc bedzie sie zmieniala z 0 na 1
+          return inicjalizuj(choices.builds);
+
+        }
       },
       child: Container(      
       height: 50,

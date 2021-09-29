@@ -40,6 +40,7 @@ class Edit extends StatefulWidget with ChangeNotifier {
   final Gpu gpu;
   final Cooler cooler;
   final String code;
+  final bool diffUser;
 
   Edit(
       {this.cpu,
@@ -50,7 +51,8 @@ class Edit extends StatefulWidget with ChangeNotifier {
       this.cases,
       this.gpu,
       this.cooler,
-      this.code});
+      this.code,
+      this.diffUser});
 
   @override
   _Edit createState() => _Edit();
@@ -600,7 +602,7 @@ class _Edit extends State<Edit> {
           direction: SpeedDialDirection.left,
           children: [
             SpeedDialChild(
-              child: Icon(Icons.edit),
+              child: widget.diffUser==false ? Icon(Icons.edit) : Icon(Icons.save),
               backgroundColor:Color.fromRGBO(240, 84, 84, 1) ,
               foregroundColor: Colors.white,
               onTap: () async {
@@ -642,7 +644,7 @@ class _Edit extends State<Edit> {
                                 onPressed: () async {
                                   if (Edit.chosenCooler == null)
                                     Edit.chosenCooler = await base.addCooler();
-                                  addBuildToDatabse(
+                                  if(widget.diffUser==false)addBuildToDatabse(
                                       chosenCase: Edit.chosenCase,
                                       chosenCooler: Edit.chosenCooler,
                                       chosenCpu: Edit.chosenCpu,
@@ -652,6 +654,16 @@ class _Edit extends State<Edit> {
                                       chosenPsu: Edit.chosenPsu,
                                       chosenRam: Edit.chosenRam)
                                       .editBuildData(widget.code);
+                                  else addBuildToDatabse(
+                                      chosenCase: Edit.chosenCase,
+                                      chosenCooler: Edit.chosenCooler,
+                                      chosenCpu: Edit.chosenCpu,
+                                      chosenDrive: Edit.chosenDrive,
+                                      chosenGpu: Edit.chosenGpu,
+                                      chosenMtb: Edit.chosenMtb,
+                                      chosenPsu: Edit.chosenPsu,
+                                      chosenRam: Edit.chosenRam)
+                                      .addBuildData();
                                   Navigator.of(context).pop();
                                   globalna.ktoro=4;
                                   inicjalizuj(null);

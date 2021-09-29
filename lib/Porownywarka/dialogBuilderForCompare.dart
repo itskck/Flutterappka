@@ -11,7 +11,9 @@ import 'package:skladappka/Firebase/Motherboard.dart';
 import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Builds.dart';
 import 'dart:core';
- import 'package:skladappka/Firebase/getFromDatabase/getFromSaved.dart';
+import 'package:skladappka/Firebase/getFromDatabase/getFromSaved.dart';
+import 'package:skladappka/Globalne.dart' as globalna;
+import 'package:skladappka/wczytajZestaw/choices.dart';
 
 import 'package:skladappka/Porownywarka/Porownywarka.dart';
 
@@ -30,7 +32,8 @@ class dialogBuilderForCompare extends StatelessWidget{
               padding: EdgeInsets.symmetric(horizontal: 25,vertical: 25),
               child: Text(builds[i].timestamp),
               onPressed: () async{
-                if(ktoro==0) {
+                if(ktoro==0)
+                  if(globalna.ktoro==3){
                   Porownywarka.chosenCpu = await getFromSaved(id: builds[i].cpuId).getCpu();
                   Porownywarka.chosenPsu = await getFromSaved(id: builds[i].psuId).getPsu();
                   Porownywarka.chosenMtb = await getFromSaved(id: builds[i].motherboardId).getMotherboard();
@@ -39,7 +42,11 @@ class dialogBuilderForCompare extends StatelessWidget{
                   Porownywarka.chosenCase = await getFromSaved(id: builds[i].caseId).getCase();
                   Porownywarka.chosenGpu = await getFromSaved(id: builds[i].gpuId).getGpu();
                   Porownywarka.chosenCooler = await getFromSaved(id: builds[i].coolerId).getCooler();
-                }
+                  }
+                else
+                  {
+                    choices.builds=builds[i];
+                  }
                 else{
                   Porownywarka.chosenCpu2 = await getFromSaved(id: builds[i].cpuId).getCpu();
                   Porownywarka.chosenPsu2 = await getFromSaved(id: builds[i].psuId).getPsu();

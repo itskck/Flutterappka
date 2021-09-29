@@ -146,6 +146,8 @@ class _Porownywarka extends State<Porownywarka> {
                       // print(Porownywarka.chosenCpu[0]);
 
                     }
+                    if((isRightChosen==true&&(Porownywarka.chosenCpu!=null && Porownywarka.chosenCpu2!=null)) ||
+                        (isRightChosen==false&&(Porownywarka.chosenCpu!=null || Porownywarka.chosenCpu2!=null)))
                     setState(() {
                       isLeftChosen=true;
                     });
@@ -265,6 +267,8 @@ class _Porownywarka extends State<Porownywarka> {
                           1); //W zaleznosci czy bedzie wybrana lewa czy prawa wartosc bedzie sie zmieniala z 0 na 1
                       // print(Porownywarka.chosenCpu[0]);
                     }
+                    if((isLeftChosen==true&&(Porownywarka.chosenCpu!=null && Porownywarka.chosenCpu2!=null)) ||
+                        (isLeftChosen==false&&(Porownywarka.chosenCpu!=null || Porownywarka.chosenCpu2!=null)))
                     setState(() {isRightChosen=true;});
                   },
                   child: Container(

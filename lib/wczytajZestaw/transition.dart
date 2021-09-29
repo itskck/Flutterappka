@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:skladappka/Firebase/Case.dart';
 import 'package:skladappka/Firebase/Cooler.dart';
 import 'package:skladappka/Firebase/Cpu.dart';
@@ -108,9 +109,12 @@ class transition extends StatelessWidget {
                                                               builder: (context, cooler){
                                                                 if (cooler.connectionState == ConnectionState.done){
                                                                   chosenCooler=cooler.data;
-                                                                  print(chosenCpu.model);
+                                                                  if(builds.uid!=FirebaseAuth.instance.currentUser.uid)
                                                                   return Edit(cpu: chosenCpu, cases: chosenCase, cooler: chosenCooler, drive: chosenDrive,
-                                                                      gpu: chosenGpu, mtb: chosenMtb, psu: chosenPsu, ram: chosenRam, code: builds.generatedCode);
+                                                                      gpu: chosenGpu, mtb: chosenMtb, psu: chosenPsu, ram: chosenRam, code: builds.generatedCode, diffUser: true);
+                                                                  else
+                                                                    return Edit(cpu: chosenCpu, cases: chosenCase, cooler: chosenCooler, drive: chosenDrive,
+                                                                        gpu: chosenGpu, mtb: chosenMtb, psu: chosenPsu, ram: chosenRam, code: builds.generatedCode, diffUser: false);
                                                                 }
                                                                 else return CircularProgressIndicator();
                                                               },

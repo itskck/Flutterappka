@@ -94,7 +94,6 @@ class Skladapka extends StatefulWidget {
 }
 
 class _SkladapkaState extends State<Skladapka> {
-  GlobalKey globalKey = new GlobalKey(debugLabel: 'btm_app_bar');
 
   @override
   void initState() {
