@@ -2,6 +2,8 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:skladappka/Firebase/Case.dart';
 import 'package:skladappka/Firebase/Cooler.dart';
 import 'package:skladappka/Firebase/Cpu.dart';
@@ -51,7 +53,7 @@ class _dodaj extends State<dodaj> {
     );
   }
 
-  Widget addButton(String component) {
+  Widget addButton(String component,String background) {
     
     return GestureDetector(
         onTap: () async {
@@ -105,42 +107,66 @@ class _dodaj extends State<dodaj> {
           setState(() {});
         },
         child: Container(
-            margin: EdgeInsets.all(15),
-            width: MediaQuery.of(context).size.width * 0.4,
-            height: MediaQuery.of(context).size.width * 0.4,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color.fromRGBO(240, 84, 84, 1),
-                      Theme.of(context).shadowColor
-                    ])),
-            child: Stack(fit: StackFit.passthrough, children: <Widget>[
-              Blur(
-                blur: 0.8,
-                blurColor: Colors.transparent,
-                colorOpacity: 0,
-                child: Text(
-                  '$component ' * 150,
-                  overflow: TextOverflow.fade,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 21,
-                      fontWeight: FontWeight.w800,
-                      foreground: Paint()
-                        ..style = PaintingStyle.stroke
-                        ..strokeWidth = 1
-                        ..color = Color.fromRGBO(255, 255, 255, 50)),
-                ),
+          
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                 margin: EdgeInsets.only(left: 15),
+                child: Text(background,
+                style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: GoogleFonts.workSans().fontFamily,   
+                                color: Colors.white
+                                ),),
               ),
-              Icon(
-                Icons.add,
-                size: 100,
-                color: Colors.white,
-              ),
-            ])));
+              Container(
+                  margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
+                  padding: EdgeInsets.all(4),
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  height: MediaQuery.of(context).size.width * 0.4,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color.fromRGBO(142, 223, 255, 1),
+                            Color.fromRGBO(255, 0, 140, 1)
+                          ])),
+                  child: Container(
+                    alignment: Alignment.center,
+                    
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color.fromRGBO(45, 45, 45,1),
+                          Color.fromRGBO(59, 55, 68,1)
+                        ]
+                      )
+                    ),
+                    child: GradientText(
+                      '+',
+                      
+                      colors :[
+                        Colors.white,
+                       Colors.white
+
+                      ],
+                      
+                      style: TextStyle(
+                        fontSize: 120
+                      ),
+                      
+                    ),
+                  )),
+            ],
+          ),
+        ));
   }
 
   Widget emptyBar() {
@@ -155,17 +181,18 @@ class _dodaj extends State<dodaj> {
       width: MediaQuery.of(context).size.width,
       child: Align(
           alignment: Alignment.center,
-          child: Text(content,
+          child: GradientText(content,
+              colors: [
+                Colors.lightBlue[300],
+                Color.fromRGBO(178, 150, 255,1)
+              ],
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontFamily: 'coolvetica',
+                  fontFamily: GoogleFonts.workSans().fontFamily, 
                   fontWeight: FontWeight.normal,
-                  fontSize: 25,
+                  fontSize: 22,
                   letterSpacing: 2,
-                  foreground: Paint()
-                    ..style = PaintingStyle.stroke
-                    ..strokeWidth = 0.8
-                    ..color = Colors.red))),
+                 ))),
     );
   }
 
@@ -175,11 +202,12 @@ class _dodaj extends State<dodaj> {
         width: MediaQuery.of(context).size.width * 0.4,
         height: MediaQuery.of(context).size.width * 0.4,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
+            borderRadius: BorderRadius.all(Radius.circular(15)),
             gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Colors.grey, Colors.redAccent])),
+                colors: [Colors.lightBlue[300],
+                Color.fromRGBO(178, 150, 255,1)])),
         child: Stack(fit: StackFit.passthrough, children: <Widget>[
           Container(
             margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
@@ -192,14 +220,12 @@ class _dodaj extends State<dodaj> {
                 model,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontFamily: 'coolvetica',
+                    fontFamily: GoogleFonts.workSans().fontFamily,
                     fontWeight: FontWeight.normal,
                     fontSize: 15,
                     letterSpacing: 2,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 1
-                      ..color = Colors.white),
+                    color: Colors.white
+                    ),
               )),
           GestureDetector(
             onTap: () {
@@ -279,13 +305,14 @@ class _dodaj extends State<dodaj> {
             child: Align(
               alignment: Alignment(1.55, -1.55),
               child: Container(
+                
                 margin: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
-                    color: Colors.white),
+                    color: Color.fromRGBO(45, 45, 45,1)),
                 child: Icon(
                   Icons.cancel,
-                  color: Color.fromRGBO(240, 84, 84, 1),
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -297,26 +324,17 @@ class _dodaj extends State<dodaj> {
 
   @override
   Widget build(BuildContext context) {
-    firstPanels = [
-      addButton('CPU'),
-      addButton('PSU'),
-      addButton('MTBRD'),
-      addButton('DRIVE'),
-      addButton('RAM'),
-      addButton('CASE'),
-      addButton('GPU'),
-      addButton('CSTM COOLER')
-    ];
+   
 
     dodaj.panelsGrid = [
-      addButton('CPU'),
-      addButton('PSU'),
-      addButton('MTBRD'),
-      addButton('DRIVE'),
-      addButton('RAM'),
-      addButton('CASE'),
-      addButton('GPU'),
-      addButton('CSTM COOLER')
+      addButton('CPU',"PROCESOR"),
+      addButton('PSU','ZASILACZ'),
+      addButton('MTBRD','PŁYTA GŁÓWNA'),
+      addButton('DRIVE','DYSK'),
+      addButton('RAM','RAM'),
+      addButton('CASE','OBUDOWA'),
+      addButton('GPU','KARTA GRAFICZNA'),
+      addButton('CSTM COOLER','CHŁODZENIE')
     ];
 
     if (dodaj.chosenCpu != null) {
@@ -325,14 +343,14 @@ class _dodaj extends State<dodaj> {
         dodaj.panelsGrid[0] = itemFrame(dodaj.chosenCpu.model, 'CPU', dodaj.chosenCpu.img);
       });
     } else
-      dodaj.panelsGrid[0] = addButton('CPU');
+      dodaj.panelsGrid[0] = addButton('CPU','PROCESOR');
 ////////////////////////////////////////////////////////////
     if (dodaj.chosenPsu != null) {
       setState(() {
         dodaj.panelsGrid[1] = itemFrame(dodaj.chosenPsu.model, 'PSU', dodaj.chosenPsu.img);
       });
     } else
-      dodaj.panelsGrid[1] = addButton('PSU');
+      dodaj.panelsGrid[1] = addButton('PSU','ZASILACZ');
 ////////////////////////////////////////////////////
     if (dodaj.chosenMtb != null) {
       setState(() {
@@ -340,7 +358,7 @@ class _dodaj extends State<dodaj> {
             itemFrame(dodaj.chosenMtb.model, 'MTBRD', dodaj.chosenMtb.img);
       });
     } else
-      dodaj.panelsGrid[2] = addButton('MTBRD');
+      dodaj.panelsGrid[2] = addButton('MTBRD','PŁYTA GŁÓWNA');
     ///////////////////////////////////////////////////////
     if (dodaj.chosenDrive != null) {
       setState(() {
@@ -348,14 +366,14 @@ class _dodaj extends State<dodaj> {
             itemFrame(dodaj.chosenDrive.model, 'DRIVE', dodaj.chosenDrive.img);
       });
     } else
-      dodaj.panelsGrid[3] = addButton('DRIVE');
+      dodaj.panelsGrid[3] = addButton('DRIVE','DYSK');
     ////////////////////////////////////////////////////
     if (dodaj.chosenRam != null) {
       setState(() {
         dodaj.panelsGrid[4] = itemFrame(dodaj.chosenRam.model, 'RAM', dodaj.chosenRam.img);
       });
     } else
-      dodaj.panelsGrid[4] = addButton('RAM');
+      dodaj.panelsGrid[4] = addButton('RAM','RAM');
     ////////////////////////////////////////////////////
     if (dodaj.chosenCase != null) {
       setState(() {
@@ -363,14 +381,14 @@ class _dodaj extends State<dodaj> {
             itemFrame(dodaj.chosenCase.model, 'CASE', dodaj.chosenCase.img);
       });
     } else
-      dodaj.panelsGrid[5] = addButton('CASE');
+      dodaj.panelsGrid[5] = addButton('CASE','OBUDOWA');
     ///////////////////////////////////////////////////
     if (dodaj.chosenGpu != null) {
       setState(() {
         dodaj.panelsGrid[6] = itemFrame(dodaj.chosenGpu.model, 'GPU', dodaj.chosenGpu.img);
       });
     } else
-      dodaj.panelsGrid[6] = addButton('GPU');
+      dodaj.panelsGrid[6] = addButton('GPU','KARTA GRAFICZNA');
     //////////////////////////////////////////////////////
     if (dodaj.chosenCooler != null) {
       setState(() {
@@ -378,7 +396,7 @@ class _dodaj extends State<dodaj> {
             itemFrame(dodaj.chosenCooler.model, 'CSTM COOLER', dodaj.chosenCooler.img);
       });
     } else
-      dodaj.panelsGrid[7] = addButton('CSTM COOLER');
+      dodaj.panelsGrid[7] = addButton('CSTM COOLER','CHŁODZENIE');
 
     //if (dodaj.panelsGrid != firstPanels)
 
@@ -402,7 +420,7 @@ class _dodaj extends State<dodaj> {
       Align(
         alignment: Alignment(0.92,0.98),
         child: SpeedDial(
-          backgroundColor: Color.fromRGBO(240, 84, 84, 1),
+          backgroundColor: Colors.lightBlue[300].withOpacity(0.8),
           overlayOpacity: 0,
           curve: Curves.linear,
           animatedIcon: AnimatedIcons.menu_arrow,          
@@ -410,7 +428,7 @@ class _dodaj extends State<dodaj> {
           children: [
             SpeedDialChild(
               child: Icon(Icons.save),
-              backgroundColor:Color.fromRGBO(240, 84, 84, 1) ,
+              backgroundColor:Colors.lightBlue[300].withOpacity(0.8) ,
               foregroundColor: Colors.white,
               onTap: () async {
               if (dodaj.chosenGpu == null && dodaj.chosenCpu != null)
@@ -494,7 +512,7 @@ class _dodaj extends State<dodaj> {
             ),
             SpeedDialChild(
               child: Icon(Icons.delete),
-              backgroundColor:Color.fromRGBO(240, 84, 84, 1) ,
+              backgroundColor:Colors.lightBlue[300].withOpacity(0.8) ,
               foregroundColor: Colors.white,
               onTap: (){
                 setState(() {

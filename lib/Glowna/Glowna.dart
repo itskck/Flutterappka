@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:skladappka/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -54,7 +55,7 @@ class _Glowna extends State<Glowna> {
             width: 20,
             height: 1,
             child: Container(
-              color: Theme.of(context).accentColor,
+              color: Colors.white,
             ),
           ),
         ),
@@ -63,10 +64,11 @@ class _Glowna extends State<Glowna> {
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(color: Theme.of(context).accentColor)),
+              border: Border.all(color: Colors.white)),
           child: Text(
             num.toString(),
-            style: TextStyle(fontSize: 22),
+            style: TextStyle(fontSize: 22,
+            color: Colors.white),
           ),
         ),
         Container(
@@ -74,7 +76,7 @@ class _Glowna extends State<Glowna> {
           child: SizedBox(
             width: 20,
             height: 1,
-            child: Container(color: Theme.of(context).accentColor),
+            child: Container(color: Colors.white),
           ),
         ),
       ],
@@ -102,9 +104,11 @@ class _Glowna extends State<Glowna> {
             child: Text(
               'Witaj w składappce!',
               style: TextStyle(
-                  fontFamily: 'coolvetica',
+                  fontFamily: GoogleFonts.workSans().fontFamily,  
                   fontWeight: FontWeight.normal,
-                  fontSize: 30),
+                  //color: Colors.lightBlue[300],
+                  color: Colors.white,
+                  fontSize: 25),
             ),
           ),
           Row(
@@ -114,20 +118,35 @@ class _Glowna extends State<Glowna> {
                 height: 250,
                 width: 120,
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
+                    border: Border.all(color: Colors.lightBlue[300]),
                     borderRadius: BorderRadius.circular(10)),
                 child: Column(
                   children: [
                     numberWidget(1),
                     Text('Połącz się z internetem, żeby korzystać z aktualnej bazy komponentów',
+<<<<<<< Updated upstream
                       textAlign: TextAlign.center,),
 
+=======
+                    style: TextStyle(
+                      color: Colors.white
+                    ),
+                    textAlign: TextAlign.center,),
+                    
+>>>>>>> Stashed changes
                     Container(
                         margin: EdgeInsets.symmetric(vertical: 10),
                         child: Icon(Icons.wifi_sharp, color: wifiColor,size: 30,)
                     ),
                     Text(wifiStatus,
+<<<<<<< Updated upstream
                       textAlign: TextAlign.center,
+=======
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white
+                    ),
+>>>>>>> Stashed changes
                     ),
                   ],
                 ),
@@ -136,18 +155,28 @@ class _Glowna extends State<Glowna> {
                 height: 250,
                 width: 120,
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
+                    border: Border.all(color: Colors.lightBlue[300]),
                     borderRadius: BorderRadius.circular(10)),
                 child: Column(
+<<<<<<< Updated upstream
                   children: [
                     numberWidget(2),
                     Text('Dodaj zestaw lub edytuj już istniejący w zakładach',
                       textAlign: TextAlign.center,),
+=======
+                  children: [                    
+                     numberWidget(2),
+                     Text('Dodaj zestaw lub edytuj już istniejący w zakładach',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white
+                    ),),
+>>>>>>> Stashed changes
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.add),
-                        Icon(Icons.edit)
+                        Icon(Icons.add,color: Colors.white,),
+                        Icon(Icons.edit,color: Colors.white,)
                       ],
                     )
 
@@ -158,14 +187,22 @@ class _Glowna extends State<Glowna> {
                 height: 250,
                 width: 120,
                 decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black),
+                    border: Border.all(color: Colors.lightBlue[300]),
                     borderRadius: BorderRadius.circular(10)),
                 child: Column(
                   children: [
                     numberWidget(3),
                     Text('Porównaj dwa zestawy i dowiedz się, który ma lepsze komponenty w zakładce',
+<<<<<<< Updated upstream
                       textAlign: TextAlign.center,),
                     Icon(Icons.leaderboard)
+=======
+                    style: TextStyle(
+                      color: Colors.white
+                    ),
+                    textAlign: TextAlign.center,),
+                    Icon(Icons.leaderboard,color: Colors.white,)
+>>>>>>> Stashed changes
                   ],
                 ),
               ),

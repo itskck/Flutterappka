@@ -92,8 +92,11 @@ class dialogBuilder extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(psus[i].manufacturer + " " + psus[i].model,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Container(
+                          width: MediaQuery.of(context).size.width*0.50,
+                          child: Text(psus[i].manufacturer + " " + psus[i].model,
+                              style: TextStyle(fontWeight: FontWeight.bold),overflow: TextOverflow.ellipsis,),
+                        ),
                         Text(psus[i].power + " " + "W")
                       ],
                     ),

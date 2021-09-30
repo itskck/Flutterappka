@@ -4,6 +4,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:skladappka/Firebase/doLogowanie/doLogowanie.dart';
 import 'dodawanieZestawu/dodaj.dart';
 import 'Glowna/Glowna.dart';
@@ -16,8 +17,13 @@ import 'Firebase/doLogowanie/doLogowanie.dart';
 import 'Globalne.dart' as globalna;
 import 'config/fileOperations.dart';
 import 'package:permission_handler/permission_handler.dart';
+<<<<<<< Updated upstream
 import 'package:flutter/services.dart';
 
+=======
+import 'package:google_fonts/google_fonts.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
+>>>>>>> Stashed changes
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -43,38 +49,24 @@ Future<void> main() async {
 }
 
 void inicjalizuj(Builds builds) {
-  return runApp(MaterialApp(
-    home: Skladapka(builds: builds),
+  return runApp(Container(
+    child: Skladapka(builds: builds),
   ));
 }
 
 
 
-ThemeData chooseTheme(int which) {
-  if (which == 1)
-    return ThemeData(
-        canvasColor: Color(0xFF212121),
+ThemeData appTheme(){
+  return ThemeData(        
+        canvasColor: Color.fromRGBO(32, 33, 36,1),
         primarySwatch: Colors.grey,
-        primaryColor: Colors.black,
-        brightness: Brightness.dark,
-        backgroundColor: Color(0xFF212121),
-        accentColor: Colors.white,
-        accentIconTheme: IconThemeData(color: Colors.black),
-        dividerColor: Colors.black12,
-        shadowColor: Colors.black);
-  else if (which == 0)
-    return ThemeData(
-        canvasColor: Colors.white,
-        primarySwatch: Colors.grey,
-        primaryColor: Colors.white,
+        primaryColor: Color.fromRGBO(37, 38, 41,1),
         brightness: Brightness.light,
         backgroundColor: Color(0xFFE5E5E5),
         accentColor: Colors.black,
         accentIconTheme: IconThemeData(color: Colors.white),
         dividerColor: Colors.white54,
         shadowColor: Colors.grey[200]);
-  else
-    return ThemeData();
 }
 
 class Skladapka extends StatefulWidget {
@@ -121,7 +113,7 @@ class _SkladapkaState extends State<Skladapka> {
   }
 
 
-  ThemeData chosenTheme = new ThemeData();
+  
 
   Widget viewReturner(int ktoro){
     if(widget.builds!=null) {
@@ -142,71 +134,95 @@ class _SkladapkaState extends State<Skladapka> {
   ];
 
   @override
-  Widget build(BuildContext context) {
-
-    chosenTheme = chooseTheme(globalna.currentTheme);
-    Icon moonIcon;
-    if (globalna.currentTheme == 0)
-      moonIcon = Icon(
-        Icons.brightness_2_outlined,
-        color: Colors.white,
-      );
-    else
-      moonIcon = Icon(
-        Icons.brightness_2,
-        color: Colors.white,
-      );
-    print(Theme.of(context).primaryColor);
+  Widget build(BuildContext context) {    
 
     return MaterialApp(
-        theme: chosenTheme,
+        debugShowCheckedModeBanner: false,
+        theme: appTheme(),
         title: 'Skladapka',
         home: Scaffold(
+          backgroundColor: appTheme().primaryColor,
           //entry point to your app scaffold blank display
           appBar: AppBar(
-            backgroundColor: Color.fromRGBO(240, 84, 84, 1),
+            centerTitle: true,
+            toolbarHeight: 50,
+            elevation: 0,
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: appTheme().primaryColor,
+              statusBarIconBrightness: Brightness.light
+            ),
+            backgroundColor: appTheme().primaryColor,
+            //backgroundColor: appTheme().canvasColor,
+            
             //leading: Icon(Icons.computer),
             title:
-            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-              Text(
-                'składappka',
-                style: TextStyle(
-                    fontFamily: 'coolvetica',
-                    fontWeight: FontWeight.normal,
-                    fontSize: 34,
-                    letterSpacing: 2,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 1
-                      ..color = Colors.white),
-              ),
-              Container(
-                  child: IconButton(
-                    padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                    icon: moonIcon,
-                    onPressed: () {
-                      if (globalna.currentTheme == 1)
-                        globalna.currentTheme = 0;
-                      else
-                        globalna.currentTheme = 1;
-                      inicjalizuj(null);
-                    },
-                  ))
-            ]),
+            GradientText(
+              'składappka',
+              colors: [
+                Colors.lightBlue[300],
+                Color.fromRGBO(178, 150, 255,1)
+              ],
+              style: TextStyle(
+                  
+                  fontFamily: GoogleFonts.workSans().fontFamily,                  
+                  fontWeight: FontWeight.normal,
+                  fontSize: 34,
+                  letterSpacing: 2,
+                  
+                  ),
+            ),
           ),
-          body: viewReturner(globalna.ktoro),
+          body: GestureDetector(
+            onHorizontalDragEnd: (details){
+              if(details.primaryVelocity>0){
+                //w prawo
+                globalna.ktoro-=1;
+                if(globalna.ktoro<0)globalna.ktoro=0;
+                setState(() {
+                  
+                });
+              }
+              if(details.primaryVelocity<0){
+                //w lewo
+                globalna.ktoro+=1;
+                if(globalna.ktoro>4)globalna.ktoro=4;
+                setState(() {
+                  
+                });
+              }
+            },
+            child: Container(
+              
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    Color.fromRGBO(45, 45, 45,1),
+                    Color.fromRGBO(59, 55, 68,1)
+                  ],
+                  begin: FractionalOffset.topLeft,
+                  end: FractionalOffset.bottomRight
+                ),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(50),
+                  topRight: Radius.circular(50)
+                )
+              ),
+              child: viewReturner(globalna.ktoro)
+              ),
+          ),
           bottomNavigationBar: CurvedNavigationBar(
             index: globalna.ktoro,
-            color:Color.fromRGBO(240, 84, 84, 1),
-            backgroundColor: chosenTheme.canvasColor,
+            color:Colors.lightBlue[300].withOpacity(0.8),
+            backgroundColor: Color.fromRGBO(59, 55, 68,1),            
             animationDuration: Duration(milliseconds: 300),
-            height: 55,
+            
+            height: 50,
             items: <Widget>[
-              Icon(Icons.add,color: chosenTheme.canvasColor),
-              Icon(Icons.edit,color: chosenTheme.canvasColor),
-              Icon(Icons.home,color:  chosenTheme.canvasColor),
-              Icon(Icons.leaderboard,color:  chosenTheme.canvasColor),
-              Icon(Icons.account_circle_rounded,color:  chosenTheme.canvasColor)
+              Icon(Icons.add,color: Colors.white),
+              Icon(Icons.edit,color: Colors.white),
+              Icon(Icons.home,color:  Colors.white),
+              Icon(Icons.leaderboard,color:  Colors.white),
+              Icon(Icons.account_circle_rounded,color:  Colors.white)
             ],
 
             onTap: _onItemTapped,
