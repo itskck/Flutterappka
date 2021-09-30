@@ -18,6 +18,10 @@ import 'dialogWidget.dart';
 import 'package:skladappka/Firebase/addToDatabase/addToDatabase.dart';
 import 'package:skladappka/Firebase/FireBase.dart';
 import 'Logo.dart';
+import 'package:skladappka/main.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:skladappka/Globalne.dart' as globalna;
 
 class dodaj extends StatefulWidget with ChangeNotifier {
   static Cpu chosenCpu;
@@ -57,54 +61,61 @@ class _dodaj extends State<dodaj> {
     
     return GestureDetector(
         onTap: () async {
-          if (dodaj.chosenGpu != null) if (dodaj.chosenGpu.integra == true)
-            dodaj.chosenGpu = null;
-          await dialogwidget.showPopup(context, component, base);
-          if (component == 'CPU' && dodaj.chosenCpu != null) {
-            minTdp += double.parse(dodaj.chosenCpu.tdp) * 0.9;
-            maxTdp += double.parse(dodaj.chosenCpu.tdp);
-            base.cpuSocket = dodaj.chosenCpu.socket;
-          } else {
-            if (component == 'CSTM COOLER' && dodaj.chosenCooler != null) {
-              minTdp += 1.0;
-              maxTdp += 2.0;
-              base.coolerSocket = dodaj.chosenCooler.socket;
-            }
-          }
+          if(Skladapka.connectivityResult!=ConnectivityResult.none) {
+            if (dodaj.chosenGpu != null) if (dodaj.chosenGpu.integra == true)
+              dodaj.chosenGpu = null;
 
-          if (component == 'MTBRD' && dodaj.chosenMtb != null) {
-            minTdp += 50;
-            maxTdp += 150;
-            base.mtbRamType = dodaj.chosenMtb.ramType;
-            base.mtbNvmeSlot = dodaj.chosenMtb.hasNvmeSlot;
-            base.mtbSocket = dodaj.chosenMtb.socket;
-            base.mtbStandard = dodaj.chosenMtb.standard;
-          }
-          if (component == 'DRIVE' && dodaj.chosenDrive != null) {
-            if (dodaj.chosenDrive.type == "HDD") {
-              minTdp += 1.5;
-              maxTdp += 2.5;
+            await dialogwidget.showPopup(context, component, base);
+            if (component == 'CPU' && dodaj.chosenCpu != null) {
+              minTdp += double.parse(dodaj.chosenCpu.tdp) * 0.9;
+              maxTdp += double.parse(dodaj.chosenCpu.tdp);
+              base.cpuSocket = dodaj.chosenCpu.socket;
             } else {
-              minTdp += 0.5;
-              maxTdp += 1;
+              if (component == 'CSTM COOLER' && dodaj.chosenCooler != null) {
+                minTdp += 1.0;
+                maxTdp += 2.0;
+                base.coolerSocket = dodaj.chosenCooler.socket;
+              }
             }
-            base.driveConnectionType = dodaj.chosenDrive.connectionType;
-          }
 
-          if (component == 'CASE' && dodaj.chosenCase != null) {
-            base.caseStandard = dodaj.chosenCase.standard;
-          }
+            if (component == 'MTBRD' && dodaj.chosenMtb != null) {
+              minTdp += 50;
+              maxTdp += 150;
+              base.mtbRamType = dodaj.chosenMtb.ramType;
+              base.mtbNvmeSlot = dodaj.chosenMtb.hasNvmeSlot;
+              base.mtbSocket = dodaj.chosenMtb.socket;
+              base.mtbStandard = dodaj.chosenMtb.standard;
+            }
+            if (component == 'DRIVE' && dodaj.chosenDrive != null) {
+              if (dodaj.chosenDrive.type == "HDD") {
+                minTdp += 1.5;
+                maxTdp += 2.5;
+              } else {
+                minTdp += 0.5;
+                maxTdp += 1;
+              }
+              base.driveConnectionType = dodaj.chosenDrive.connectionType;
+            }
 
-          if (component == 'RAM' && dodaj.chosenRam != null) {
-            minTdp += 30;
-            maxTdp += 60;
-            base.ramRamType = dodaj.chosenRam.type;
+            if (component == 'CASE' && dodaj.chosenCase != null) {
+              base.caseStandard = dodaj.chosenCase.standard;
+            }
+
+            if (component == 'RAM' && dodaj.chosenRam != null) {
+              minTdp += 30;
+              maxTdp += 60;
+              base.ramRamType = dodaj.chosenRam.type;
+            }
+            if (component == 'GPU' && dodaj.chosenGpu != null) {
+              minTdp += double.parse(dodaj.chosenGpu.tdp);
+              maxTdp += double.parse(dodaj.chosenGpu.tdp);
+            }
+            setState(() {});
           }
-          if (component == 'GPU' && dodaj.chosenGpu != null) {
-            minTdp += double.parse(dodaj.chosenGpu.tdp);
-            maxTdp += double.parse(dodaj.chosenGpu.tdp);
-          }
-          setState(() {});
+          else Fluttertoast.showToast(msg: "Brak połączenia z internetem",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 2);
         },
         child: Container(
           
@@ -431,84 +442,97 @@ class _dodaj extends State<dodaj> {
               backgroundColor:Colors.lightBlue[300].withOpacity(0.8) ,
               foregroundColor: Colors.white,
               onTap: () async {
-              if (dodaj.chosenGpu == null && dodaj.chosenCpu != null)
-                dodaj.chosenGpu = await base.addGpu(dodaj.chosenCpu.hasGpu);
-              if (dodaj.chosenCpu == null ||
-                  dodaj.chosenRam == null ||
-                  dodaj.chosenCase == null ||
-                  dodaj.chosenDrive == null ||
-                  dodaj.chosenMtb == null ||
-                  dodaj.chosenPsu == null ||
-                  dodaj.chosenGpu == null)
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                          title: Text('Blad'),
-                          content: Text(
-                              'Nie wybrano ktoregos z niezbednych komponentow lub wybrany procesor '
-                              'nie posiada zintegrowanej karty graficznej'),
-                          actions: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: Text('Ok')),
-                          ]);
-                    });
-              else
-                showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Text('Dodawanie zestawu'),
-                        content:
-                            Text('Czy chcesz zapisać zestaw na swoim koncie?'),
-                        actions: [
-                          TextButton(
-                              onPressed: () async {
-                                if (dodaj.chosenCooler == null)
-                                  dodaj.chosenCooler = await base.addCooler();
-                                addBuildToDatabse(
-                                        chosenCase: dodaj.chosenCase,
-                                        chosenCooler: dodaj.chosenCooler,
-                                        chosenCpu: dodaj.chosenCpu,
-                                        chosenDrive: dodaj.chosenDrive,
-                                        chosenGpu: dodaj.chosenGpu,
-                                        chosenMtb: dodaj.chosenMtb,
-                                        chosenPsu: dodaj.chosenPsu,
-                                        chosenRam: dodaj.chosenRam)
-                                    .addBuildData();
-                                dodaj.chosenCooler = null;
-                                dodaj.chosenGpu = null;
-                                dodaj.chosenCase = null;
-                                dodaj.chosenRam = null;
-                                dodaj.chosenDrive = null;
-                                dodaj.chosenMtb = null;
-                                dodaj.chosenPsu = null;
-                                dodaj.chosenCpu = null;
-                                base.caseStandard = null;
-                                base.ramRamType = null;
-                                base.driveConnectionType = null;
-                                base.mtbStandard = null;
-                                base.mtbNvmeSlot = null;
-                                base.mtbRamType = null;
-                                base.coolerSocket = null;
-                                base.cpuSocket = null;
-                                base.mtbSocket = null;
-                                setState(() {});
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('Tak')),
-                          TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: Text('Anuluj'))
-                        ],
-                      );
-                    });
-            },
+                if(Skladapka.connectivityResult==ConnectivityResult.none)
+                  Fluttertoast.showToast(msg: "Brak połączenia z internetem",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 2);
+                else if(globalna.czyZalogowany=="czyZalogowany=false")
+                  Fluttertoast.showToast(msg: "Musisz być zalogowany",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 2);
+                else {
+                  if (dodaj.chosenGpu == null && dodaj.chosenCpu != null)
+                    dodaj.chosenGpu = await base.addGpu(dodaj.chosenCpu.hasGpu);
+                  if (dodaj.chosenCpu == null ||
+                      dodaj.chosenRam == null ||
+                      dodaj.chosenCase == null ||
+                      dodaj.chosenDrive == null ||
+                      dodaj.chosenMtb == null ||
+                      dodaj.chosenPsu == null ||
+                      dodaj.chosenGpu == null)
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                              title: Text('Blad'),
+                              content: Text(
+                                  'Nie wybrano ktoregos z niezbednych komponentow lub wybrany procesor '
+                                  'nie posiada zintegrowanej karty graficznej'),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text('Ok')),
+                              ]);
+                        });
+                  else
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text('Dodawanie zestawu'),
+                            content: Text(
+                                'Czy chcesz zapisać zestaw na swoim koncie?'),
+                            actions: [
+                              TextButton(
+                                  onPressed: () async {
+                                    if (dodaj.chosenCooler == null)
+                                      dodaj.chosenCooler =
+                                          await base.addCooler();
+                                    addBuildToDatabse(
+                                            chosenCase: dodaj.chosenCase,
+                                            chosenCooler: dodaj.chosenCooler,
+                                            chosenCpu: dodaj.chosenCpu,
+                                            chosenDrive: dodaj.chosenDrive,
+                                            chosenGpu: dodaj.chosenGpu,
+                                            chosenMtb: dodaj.chosenMtb,
+                                            chosenPsu: dodaj.chosenPsu,
+                                            chosenRam: dodaj.chosenRam)
+                                        .addBuildData();
+                                    dodaj.chosenCooler = null;
+                                    dodaj.chosenGpu = null;
+                                    dodaj.chosenCase = null;
+                                    dodaj.chosenRam = null;
+                                    dodaj.chosenDrive = null;
+                                    dodaj.chosenMtb = null;
+                                    dodaj.chosenPsu = null;
+                                    dodaj.chosenCpu = null;
+                                    base.caseStandard = null;
+                                    base.ramRamType = null;
+                                    base.driveConnectionType = null;
+                                    base.mtbStandard = null;
+                                    base.mtbNvmeSlot = null;
+                                    base.mtbRamType = null;
+                                    base.coolerSocket = null;
+                                    base.cpuSocket = null;
+                                    base.mtbSocket = null;
+                                    setState(() {});
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text('Tak')),
+                              TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: Text('Anuluj'))
+                            ],
+                          );
+                        });
+                }
+              },
             ),
             SpeedDialChild(
               child: Icon(Icons.delete),
