@@ -83,7 +83,7 @@ class Skladapka extends StatefulWidget {
 }
 
 class _SkladapkaState extends State<Skladapka> {
-
+  final doLogowanie _anonim = doLogowanie();
   @override
   void initState() {
     super.initState();
@@ -100,6 +100,11 @@ class _SkladapkaState extends State<Skladapka> {
   }
 
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+    User _firebaseUser=FirebaseAuth.instance.currentUser;
+    if(_firebaseUser==null) {
+      dynamic result = await _anonim.Anonim();
+      print(result);
+    }
     setState(() {
       Skladapka.connectivityResult = result;
     });
