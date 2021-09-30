@@ -62,6 +62,7 @@ class transition extends StatelessWidget {
   }
 
   Future<Cooler> setCooler() async{
+    
     Cooler cooler= await getFromSaved(id: builds.coolerId).getCooler();
     return cooler;
   }
@@ -116,35 +117,37 @@ class transition extends StatelessWidget {
                                                                     return Edit(cpu: chosenCpu, cases: chosenCase, cooler: chosenCooler, drive: chosenDrive,
                                                                         gpu: chosenGpu, mtb: chosenMtb, psu: chosenPsu, ram: chosenRam, code: builds.generatedCode, diffUser: false);
                                                                 }
-                                                                else return CircularProgressIndicator();
+                                                                else return Container();
                                                               },
                                                           );
                                                         }
-                                                        else return CircularProgressIndicator();
+                                                        else return Container();
                                                       },
                                                   );
                                                 }
-                                                else return CircularProgressIndicator();
+                                                else return Container();
                                               },
                                           );
                                         }
-                                        else return CircularProgressIndicator();
+                                        else return Container();
                                       },
                                   );
                                 }
-                                else return CircularProgressIndicator();
+                                else return Container();
                               },
                           );
                         }
-                        else return CircularProgressIndicator();
+                        else return Container();
                       },
                   );
                 }
-                else return CircularProgressIndicator();
+                else return Container();
               },
           );
         }
-        else return CircularProgressIndicator();
+        else return Center(child: CircularProgressIndicator(
+          color: Colors.white,
+        ));
 
       },
     );

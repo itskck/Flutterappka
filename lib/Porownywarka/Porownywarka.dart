@@ -1,6 +1,7 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:skladappka/main.dart';
 import 'package:skladappka/Firebase/Builds.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
@@ -30,7 +31,7 @@ class Porownywarka extends StatefulWidget {
   static Case chosenCase, chosenCase2;
   static Gpu chosenGpu, chosenGpu2;
   static Cooler chosenCooler, chosenCooler2;
-  static String uid,uid2;
+  static String uid, uid2;
   @override
   _Porownywarka createState() => _Porownywarka();
 }
@@ -46,34 +47,27 @@ class _Porownywarka extends State<Porownywarka> {
   final dialogBuilderForCompare compare = dialogBuilderForCompare();
   int currentChild = 0;
 
-  Future<void> setValues(int lp,String value)async {
-    if(lp==0){
-            Porownywarka.chosenCpu = await getFromCode(code: value).getCpu();
-            Porownywarka.chosenPsu = await getFromCode(code: value).getPsu();
-            Porownywarka.chosenMtb =
-                await getFromCode(code: value).getMotherboard();
-            Porownywarka.chosenDrive =
-                await getFromCode(code: value).getDrive();
-            Porownywarka.chosenRam = await getFromCode(code: value).getRam();
-            Porownywarka.chosenCase = await getFromCode(code: value).getCase();
-            Porownywarka.chosenGpu = await getFromCode(code: value).getGpu();
-            Porownywarka.chosenCooler =
-                await getFromCode(code: value).getCooler();
-            Porownywarka.uid= await getFromCode(code: value).getUid();
-    }
-    else{
-            Porownywarka.chosenCpu2 = await getFromCode(code: value).getCpu();
-            Porownywarka.chosenPsu2 = await getFromCode(code: value).getPsu();
-            Porownywarka.chosenMtb2 =
-                await getFromCode(code: value).getMotherboard();
-            Porownywarka.chosenDrive2 =
-                await getFromCode(code: value).getDrive();
-            Porownywarka.chosenRam2 = await getFromCode(code: value).getRam();
-            Porownywarka.chosenCase2 = await getFromCode(code: value).getCase();
-            Porownywarka.chosenGpu2 = await getFromCode(code: value).getGpu();
-            Porownywarka.chosenCooler2 =
-                await getFromCode(code: value).getCooler();
-            Porownywarka.uid2= await getFromCode(code: value).getUid();
+  Future<void> setValues(int lp, String value) async {
+    if (lp == 0) {
+      Porownywarka.chosenCpu = await getFromCode(code: value).getCpu();
+      Porownywarka.chosenPsu = await getFromCode(code: value).getPsu();
+      Porownywarka.chosenMtb = await getFromCode(code: value).getMotherboard();
+      Porownywarka.chosenDrive = await getFromCode(code: value).getDrive();
+      Porownywarka.chosenRam = await getFromCode(code: value).getRam();
+      Porownywarka.chosenCase = await getFromCode(code: value).getCase();
+      Porownywarka.chosenGpu = await getFromCode(code: value).getGpu();
+      Porownywarka.chosenCooler = await getFromCode(code: value).getCooler();
+      Porownywarka.uid = await getFromCode(code: value).getUid();
+    } else {
+      Porownywarka.chosenCpu2 = await getFromCode(code: value).getCpu();
+      Porownywarka.chosenPsu2 = await getFromCode(code: value).getPsu();
+      Porownywarka.chosenMtb2 = await getFromCode(code: value).getMotherboard();
+      Porownywarka.chosenDrive2 = await getFromCode(code: value).getDrive();
+      Porownywarka.chosenRam2 = await getFromCode(code: value).getRam();
+      Porownywarka.chosenCase2 = await getFromCode(code: value).getCase();
+      Porownywarka.chosenGpu2 = await getFromCode(code: value).getGpu();
+      Porownywarka.chosenCooler2 = await getFromCode(code: value).getCooler();
+      Porownywarka.uid2 = await getFromCode(code: value).getUid();
     }
   }
 
@@ -83,7 +77,8 @@ class _Porownywarka extends State<Porownywarka> {
         'Wczytaj zestaw z kodu',
         textAlign: TextAlign.center,
         style: TextStyle(
-          fontFamily: 'coolvetica',
+          fontFamily: GoogleFonts.workSans().fontFamily,
+          color: Colors.white,
           fontSize: 17,
           fontWeight: FontWeight.w100,
         ),
@@ -115,6 +110,12 @@ class _Porownywarka extends State<Porownywarka> {
         decoration: InputDecoration(
           hintText: 'Wpisz kod zestawu',
           counterText: "",
+          hintStyle: TextStyle(
+            fontFamily: GoogleFonts.workSans().fontFamily,
+            color: Colors.white,
+            fontSize: 17,
+            fontWeight: FontWeight.w100,
+          ),
         ),
         autofocus: true,
         enableInteractiveSelection: false,
@@ -136,14 +137,21 @@ class _Porownywarka extends State<Porownywarka> {
                     });
                   },
                   child: Container(
-                    height: 50,
-                    width: 150,
-                    alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Color.fromRGBO(240, 84, 84, 1), width: 2),
-                    ),
-                    child: children[currentChild],
+                        borderRadius: BorderRadius.circular(3),
+                        gradient: LinearGradient(colors: [
+                          Color.fromRGBO(142, 223, 255, 1),
+                          Color.fromRGBO(255, 0, 140, 1)
+                        ])),
+                    child: Container(
+                        margin: EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          color: Color.fromRGBO(45, 45, 45, 1),
+                        ),
+                        width: 150,
+                        height: 50,
+                        child: children[currentChild]),
                   )),
               SizedBox(
                 height: 20,
@@ -177,43 +185,69 @@ class _Porownywarka extends State<Porownywarka> {
                           isLeftChosen = true;
                         });
                     }
+                    if ((isRightChosen == true &&
+                            (Porownywarka.chosenCpu != null &&
+                                Porownywarka.chosenCpu2 != null)) ||
+                        (isRightChosen == false &&
+                            (Porownywarka.chosenCpu != null ||
+                                Porownywarka.chosenCpu2 != null)))
+                      setState(() {
+                        isLeftChosen = true;
+                      });
                   },
                   child: Container(
-                    height: 50,
-                    width: 150,
-                    alignment: Alignment.center,
+                    padding: EdgeInsets.all(2),
                     decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Color.fromRGBO(240, 84, 84, 1), width: 2),
-                    ),
-                    child: Text(
-                      
-                      'Wczytaj zapisany zestaw',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        
-                          fontFamily: 'coolvetica',
+                        borderRadius: BorderRadius.circular(5),
+                        gradient: LinearGradient(colors: [
+                          Color.fromRGBO(142, 223, 255, 1),
+                          Color.fromRGBO(255, 0, 140, 1)
+                        ])),
+                    child: Container(
+                      height: 50,
+                      width: 150,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(45, 45, 45, 1),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Text(
+                        'Wczytaj zapisany zestaw',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: GoogleFonts.workSans().fontFamily,
+                          color: Colors.white,
                           fontSize: 17,
-                          fontWeight: FontWeight.w100),
+                          fontWeight: FontWeight.w100,
+                        ),
+                      ),
                     ),
                   )),
             ],
           ),
         );
       else
-        return  Container(
+        return Container(
           width: 150,
           height: 150,
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+              Color.fromRGBO(142, 223, 255, 1),
+              Color.fromRGBO(255, 0, 140, 1)
+            ]),
             borderRadius: BorderRadius.circular(100),
-            border: Border.all(
-              width: 1
-            )
           ),
-          child: Icon(
-            Icons.check,
-            size: 70,
-            
+          child: Container(
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(45, 45, 45, 1),
+              borderRadius: BorderRadius.circular(100),
+            ),
+            child: Icon(
+              Icons.check,
+              size: 70,
+              color: Colors.white,
+            ),
           ),
         );
     }
@@ -223,13 +257,14 @@ class _Porownywarka extends State<Porownywarka> {
     return Container(margin: EdgeInsets.fromLTRB(10, 0, 10, 0), child: child());
   }
 
-    Widget right(bool isRightChoosen) {
+  Widget right(bool isRightChoosen) {
     List<Widget> children = [
       Text(
         'Wczytaj zestaw z kodu',
         textAlign: TextAlign.center,
         style: TextStyle(
-          fontFamily: 'coolvetica',
+          fontFamily: GoogleFonts.workSans().fontFamily,
+          color: Colors.white,
           fontSize: 17,
           fontWeight: FontWeight.w100,
         ),
@@ -261,6 +296,12 @@ class _Porownywarka extends State<Porownywarka> {
         decoration: InputDecoration(
           hintText: 'Wpisz kod zestawu',
           counterText: "",
+          hintStyle: TextStyle(
+            fontFamily: GoogleFonts.workSans().fontFamily,
+            color: Colors.white,
+            fontSize: 17,
+            fontWeight: FontWeight.w100,
+          ),
         ),
         autofocus: true,
         enableInteractiveSelection: false,
@@ -275,21 +316,28 @@ class _Porownywarka extends State<Porownywarka> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              GestureDetector(
+             GestureDetector(
                   onTap: () {
                     setState(() {
                       currentChild = 1;
                     });
                   },
                   child: Container(
-                    height: 50,
-                    width: 150,
-                    alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Color.fromRGBO(240, 84, 84, 1), width: 2),
-                    ),
-                    child: children[currentChild],
+                        borderRadius: BorderRadius.circular(3),
+                        gradient: LinearGradient(colors: [
+                          Color.fromRGBO(142, 223, 255, 1),
+                          Color.fromRGBO(255, 0, 140, 1)
+                        ])),
+                    child: Container(
+                        margin: EdgeInsets.all(2),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          color: Color.fromRGBO(45, 45, 45, 1),
+                        ),
+                        width: 150,
+                        height: 50,
+                        child: children[currentChild]),
                   )),
               SizedBox(
                 height: 20,
@@ -322,22 +370,42 @@ class _Porownywarka extends State<Porownywarka> {
                           isRightChosen = true;
                         });
                     }
+                    if ((isLeftChosen == true &&
+                            (Porownywarka.chosenCpu != null &&
+                                Porownywarka.chosenCpu2 != null)) ||
+                        (isLeftChosen == false &&
+                            (Porownywarka.chosenCpu != null ||
+                                Porownywarka.chosenCpu2 != null)))
+                      setState(() {
+                        isRightChosen = true;
+                      });
                   },
-                  child: Container(
-                    height: 50,
-                    width: 150,
-                    alignment: Alignment.center,
+                  child:  Container(
+                    padding: EdgeInsets.all(2),
                     decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Color.fromRGBO(240, 84, 84, 1), width: 2),
-                    ),
-                    child: Text(
-                      'Wczytaj zapisany zestaw',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontFamily: 'coolvetica',
+                        borderRadius: BorderRadius.circular(5),
+                        gradient: LinearGradient(colors: [
+                          Color.fromRGBO(142, 223, 255, 1),
+                          Color.fromRGBO(255, 0, 140, 1)
+                        ])),
+                    child: Container(
+                      height: 50,
+                      width: 150,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Color.fromRGBO(45, 45, 45, 1),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Text(
+                        'Wczytaj zapisany zestaw',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: GoogleFonts.workSans().fontFamily,
+                          color: Colors.white,
                           fontSize: 17,
-                          fontWeight: FontWeight.w100),
+                          fontWeight: FontWeight.w100,
+                        ),
+                      ),
                     ),
                   )),
             ],
@@ -347,26 +415,36 @@ class _Porownywarka extends State<Porownywarka> {
         return Container(
           width: 150,
           height: 150,
+          padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+              Color.fromRGBO(142, 223, 255, 1),
+              Color.fromRGBO(255, 0, 140, 1)
+            ]),
             borderRadius: BorderRadius.circular(100),
-            border: Border.all(
-              width: 1
-            )
           ),
-          child: Icon(
-            Icons.check,
-            size: 70,
-            
+          child: Container(
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(45, 45, 45, 1),
+              borderRadius: BorderRadius.circular(100),
+            ),
+            child: Icon(
+              Icons.check,
+              size: 70,
+              color: Colors.white,
+            ),
           ),
         );
-    };
+    }
+
+    ;
     setState(() {});
     return Container(margin: EdgeInsets.fromLTRB(10, 0, 10, 0), child: child());
   }
 
   @override
   Widget build(BuildContext context) {
-    if(isLeftChosen&&isRightChosen) return Comparison();
+    if (isLeftChosen && isRightChosen) return Comparison();
     //build context gives the layout, when you build widget it will always have this line
     return Center(
         child: Row(
@@ -377,7 +455,15 @@ class _Porownywarka extends State<Porownywarka> {
             height: MediaQuery.of(context).size.height * 0.2,
             width: 1,
             child: Container(
-              color: Colors.red,
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                colors: [
+                  Color.fromRGBO(142, 223, 255, 1),
+                  Color.fromRGBO(255, 0, 140, 1)
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              )),
             )),
         right(isRightChosen),
       ],

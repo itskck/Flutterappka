@@ -2,6 +2,8 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:skladappka/Firebase/Case.dart';
 import 'package:skladappka/Firebase/Cooler.dart';
 import 'package:skladappka/Firebase/Cpu.dart';
@@ -103,7 +105,7 @@ class _Edit extends State<Edit> {
     );
   }
 
-  Widget addButton(String component) {
+  Widget addButton(String component,String background) {
 
     return GestureDetector(
         onTap: () async {
@@ -157,42 +159,66 @@ class _Edit extends State<Edit> {
           setState(() {});
         },
         child: Container(
-            margin: EdgeInsets.all(15),
-            width: MediaQuery.of(context).size.width * 0.4,
-            height: MediaQuery.of(context).size.width * 0.4,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color.fromRGBO(240, 84, 84, 1),
-                      Theme.of(context).shadowColor
-                    ])),
-            child: Stack(fit: StackFit.passthrough, children: <Widget>[
-              Blur(
-                blur: 0.8,
-                blurColor: Colors.transparent,
-                colorOpacity: 0,
-                child: Text(
-                  '$component ' * 150,
-                  overflow: TextOverflow.fade,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontSize: 21,
-                      fontWeight: FontWeight.w800,
-                      foreground: Paint()
-                        ..style = PaintingStyle.stroke
-                        ..strokeWidth = 1
-                        ..color = Color.fromRGBO(255, 255, 255, 50)),
-                ),
+          
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                 margin: EdgeInsets.only(left: 15),
+                child: Text(background,
+                style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: GoogleFonts.workSans().fontFamily,   
+                                color: Colors.white
+                                ),),
               ),
-              Icon(
-                Icons.add,
-                size: 100,
-                color: Colors.white,
-              ),
-            ])));
+              Container(
+                  margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
+                  padding: EdgeInsets.all(4),
+                  width: MediaQuery.of(context).size.width * 0.4,
+                  height: MediaQuery.of(context).size.width * 0.4,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color.fromRGBO(142, 223, 255, 1),
+                            Color.fromRGBO(255, 0, 140, 1)
+                          ])),
+                  child: Container(
+                    alignment: Alignment.center,
+                    
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color.fromRGBO(45, 45, 45,1),
+                          Color.fromRGBO(59, 55, 68,1)
+                        ]
+                      )
+                    ),
+                    child: GradientText(
+                      '+',
+                      
+                      colors :[
+                        Colors.white,
+                       Colors.white
+
+                      ],
+                      
+                      style: TextStyle(
+                        fontSize: 120
+                      ),
+                      
+                    ),
+                  )),
+            ],
+          ),
+        ));
   }
 
   Widget emptyBar() {
@@ -201,23 +227,24 @@ class _Edit extends State<Edit> {
         child: Container(height: 50, width: MediaQuery.of(context).size.width));
   }
 
-  Widget styledTextBar(String content) {
+   Widget styledTextBar(String content) {
     return Container(
       height: 50,
       width: MediaQuery.of(context).size.width,
       child: Align(
           alignment: Alignment.center,
-          child: Text(content,
+          child: GradientText(content,
+              colors: [
+                Colors.lightBlue[300],
+                Color.fromRGBO(178, 150, 255,1)
+              ],
               textAlign: TextAlign.center,
               style: TextStyle(
-                  fontFamily: 'coolvetica',
+                  fontFamily: GoogleFonts.workSans().fontFamily, 
                   fontWeight: FontWeight.normal,
-                  fontSize: 25,
+                  fontSize: 22,
                   letterSpacing: 2,
-                  foreground: Paint()
-                    ..style = PaintingStyle.stroke
-                    ..strokeWidth = 0.8
-                    ..color = Colors.red))),
+                 ))),
     );
   }
 
@@ -227,11 +254,12 @@ class _Edit extends State<Edit> {
         width: MediaQuery.of(context).size.width * 0.4,
         height: MediaQuery.of(context).size.width * 0.4,
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
+            borderRadius: BorderRadius.all(Radius.circular(15)),
             gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Colors.grey, Colors.redAccent])),
+                colors: [Colors.lightBlue[300],
+                Color.fromRGBO(178, 150, 255,1)])),
         child: Stack(fit: StackFit.passthrough, children: <Widget>[
           Container(
             margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
@@ -244,14 +272,12 @@ class _Edit extends State<Edit> {
                 model,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                    fontFamily: 'coolvetica',
+                    fontFamily: GoogleFonts.workSans().fontFamily,
                     fontWeight: FontWeight.normal,
                     fontSize: 15,
                     letterSpacing: 2,
-                    foreground: Paint()
-                      ..style = PaintingStyle.stroke
-                      ..strokeWidth = 1
-                      ..color = Colors.white),
+                    color: Colors.white
+                    ),
               )),
           GestureDetector(
             onTap: () {
@@ -331,13 +357,14 @@ class _Edit extends State<Edit> {
             child: Align(
               alignment: Alignment(1.55, -1.55),
               child: Container(
+                
                 margin: EdgeInsets.all(20),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
-                    color: Colors.white),
+                    color: Color.fromRGBO(45, 45, 45,1)),
                 child: Icon(
                   Icons.cancel,
-                  color: Color.fromRGBO(240, 84, 84, 1),
+                  color: Colors.white,
                 ),
               ),
             ),
@@ -349,26 +376,15 @@ class _Edit extends State<Edit> {
 
   @override
   Widget build(BuildContext context) {
-    firstPanels = [
-      addButton('CPU'),
-      addButton('PSU'),
-      addButton('MTBRD'),
-      addButton('DRIVE'),
-      addButton('RAM'),
-      addButton('CASE'),
-      addButton('GPU'),
-      addButton('CSTM COOLER')
-    ];
-
     Edit.panelsGrid = [
-      addButton('CPU'),
-      addButton('PSU'),
-      addButton('MTBRD'),
-      addButton('DRIVE'),
-      addButton('RAM'),
-      addButton('CASE'),
-      addButton('GPU'),
-      addButton('CSTM COOLER')
+      addButton('CPU',"PROCESOR"),
+      addButton('PSU','ZASILACZ'),
+      addButton('MTBRD','PŁYTA GŁÓWNA'),
+      addButton('DRIVE','DYSK'),
+      addButton('RAM','RAM'),
+      addButton('CASE','OBUDOWA'),
+      addButton('GPU','KARTA GRAFICZNA'),
+      addButton('CSTM COOLER','CHŁODZENIE')
     ];
 
     if (Edit.chosenCpu != null) {
@@ -376,14 +392,14 @@ class _Edit extends State<Edit> {
         Edit.panelsGrid[0] = itemFrame(Edit.chosenCpu.model, 'CPU', Edit.chosenCpu.img);
       });
     } else
-      Edit.panelsGrid[0] = addButton('CPU');
+      Edit.panelsGrid[0] = addButton('CPU','Procesor');
 ////////////////////////////////////////////////////////////
     if (Edit.chosenPsu != null) {
       setState(() {
         Edit.panelsGrid[1] = itemFrame(Edit.chosenPsu.model, 'PSU', Edit.chosenPsu.img);
       });
     } else
-      Edit.panelsGrid[1] = addButton('PSU');
+      Edit.panelsGrid[1] = addButton('PSU','Zasilacz');
 ////////////////////////////////////////////////////
     if (Edit.chosenMtb != null) {
       setState(() {
@@ -391,7 +407,7 @@ class _Edit extends State<Edit> {
             itemFrame(Edit.chosenMtb.model, 'MTBRD', Edit.chosenMtb.img);
       });
     } else
-      Edit.panelsGrid[2] = addButton('MTBRD');
+      Edit.panelsGrid[2] = addButton('MTBRD','Płyta główna');
     ///////////////////////////////////////////////////////
     if (Edit.chosenDrive != null) {
       setState(() {
@@ -399,14 +415,14 @@ class _Edit extends State<Edit> {
             itemFrame(Edit.chosenDrive.model, 'DRIVE', Edit.chosenDrive.img);
       });
     } else
-      Edit.panelsGrid[3] = addButton('DRIVE');
+      Edit.panelsGrid[3] = addButton('DRIVE','Dysk');
     ////////////////////////////////////////////////////
     if (Edit.chosenRam != null) {
       setState(() {
         Edit.panelsGrid[4] = itemFrame(Edit.chosenRam.model, 'RAM', Edit.chosenRam.img);
       });
     } else
-      Edit.panelsGrid[4] = addButton('RAM');
+      Edit.panelsGrid[4] = addButton('RAM','RAM');
     ////////////////////////////////////////////////////
     if (Edit.chosenCase != null) {
       setState(() {
@@ -414,14 +430,14 @@ class _Edit extends State<Edit> {
             itemFrame(Edit.chosenCase.model, 'CASE', Edit.chosenCase.img);
       });
     } else
-      Edit.panelsGrid[5] = addButton('CASE');
+      Edit.panelsGrid[5] = addButton('CASE','Obudowa');
     ///////////////////////////////////////////////////
     if (Edit.chosenGpu != null) {
       setState(() {
         Edit.panelsGrid[6] = itemFrame(Edit.chosenGpu.model, 'GPU', Edit.chosenGpu.img);
       });
     } else
-      Edit.panelsGrid[6] = addButton('GPU');
+      Edit.panelsGrid[6] = addButton('GPU','Karta graficzna');
     //////////////////////////////////////////////////////
     if (Edit.chosenCooler != null) {
       setState(() {
@@ -429,7 +445,7 @@ class _Edit extends State<Edit> {
             itemFrame(Edit.chosenCooler.model, 'CSTM COOLER', Edit.chosenCooler.img);
       });
     } else
-      Edit.panelsGrid[7] = addButton('CSTM COOLER');
+      Edit.panelsGrid[7] = addButton('CSTM COOLER','Chłodzenie');
 
     //if (Edit.panelsGrid != firstPanels)
 
@@ -453,7 +469,7 @@ class _Edit extends State<Edit> {
       Align(
         alignment: Alignment(0.92,0.98),
         child: SpeedDial(
-          backgroundColor: Color.fromRGBO(240, 84, 84, 1),
+          backgroundColor:Colors.lightBlue[300].withOpacity(0.8) ,
           overlayOpacity: 0,
           curve: Curves.linear,
           animatedIcon: AnimatedIcons.menu_arrow,
@@ -461,7 +477,7 @@ class _Edit extends State<Edit> {
           children: [
             SpeedDialChild(
               child: widget.diffUser==false ? Icon(Icons.edit) : Icon(Icons.save),
-              backgroundColor:Color.fromRGBO(240, 84, 84, 1) ,
+              backgroundColor:Colors.lightBlue[300].withOpacity(0.8) ,
               foregroundColor: Colors.white,
               onTap: () async {
                 if (Edit.chosenGpu == null && Edit.chosenCpu != null)
@@ -539,7 +555,7 @@ class _Edit extends State<Edit> {
             ),
             SpeedDialChild(
                 child: Icon(Icons.delete),
-                backgroundColor:Color.fromRGBO(240, 84, 84, 1) ,
+                backgroundColor:Colors.lightBlue[300].withOpacity(0.8) ,
                 foregroundColor: Colors.white,
                 onTap: (){
                   setState(() {

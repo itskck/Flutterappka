@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:skladappka/Firebase/Drive.dart';
 import 'package:skladappka/dodawanieZestawu/dodaj.dart';
 import 'Porownywarka.dart';
@@ -205,7 +206,19 @@ class _Comparison extends State<Comparison> {
         child: Row(
           textDirection: td,
           children: [
-            SizedBox(height: 40, width: 40, child: placeholder),
+            SizedBox(height: 40, width: 40, child: Container(
+              decoration: BoxDecoration(
+                //borderRadius: BorderRadius.circular(40),
+                  gradient: LinearGradient(
+                colors: [
+                  Colors.white
+                  ,Colors.white
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              )),
+              child: placeholder
+              )),
             LimitedBox(
               maxWidth: MediaQuery.of(context).size.width / 2 - 40,
               child: Column(
@@ -216,6 +229,12 @@ class _Comparison extends State<Comparison> {
                     component,
                     maxLines: 1,
                     overflow: TextOverflow.clip,
+                    style: TextStyle(
+                                
+                                fontWeight: FontWeight.w800,
+                                fontFamily: GoogleFonts.workSans().fontFamily,   
+                                color: Colors.white
+                                ),
                   ),
                   Row(
                     textDirection: td,
@@ -233,17 +252,33 @@ class _Comparison extends State<Comparison> {
                       if (width > 0)
                         AutoSizeText(
                           '+$width' + sign,
-                          style: TextStyle(color: Colors.green),
+                          style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: GoogleFonts.workSans().fontFamily,   
+                                color: Colors.green
+                                ),
                         )
                       else if (width < 0)
                         AutoSizeText(
                           '$width' + sign,
-                          style: TextStyle(color: Colors.grey),
+                          style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: GoogleFonts.workSans().fontFamily,   
+                                color: Colors.red
+                                ),
                         )
                       else
                         AutoSizeText(
                           '+$width' + sign,
-                          style: TextStyle(color: Colors.grey),
+                          style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: GoogleFonts.workSans().fontFamily,   
+                                color: Colors.white
+                                ),
+                          
                         )
                     ],
                   ),
@@ -306,8 +341,17 @@ class _Comparison extends State<Comparison> {
             
             height: MediaQuery.of(context).size.height * 0.8,
             width: 1,
-            child: Container(
-              color: Colors.red),
+            child:  Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                colors: [
+                  Color.fromRGBO(142, 223, 255, 1),
+                  Color.fromRGBO(255, 0, 140, 1)
+                ],
+                end: Alignment.topCenter,
+                begin: Alignment.bottomCenter,
+              )),
+            ),
           ),
         ),
         Column(
@@ -335,7 +379,12 @@ class _Comparison extends State<Comparison> {
                                     'Zestaw użytkownika \n $username ',
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(fontSize: 30),
+                                    style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: GoogleFonts.workSans().fontFamily,   
+                                color: Colors.white
+                                ),
                                   ),
                                 ],
                               ),
@@ -352,7 +401,12 @@ class _Comparison extends State<Comparison> {
                                       'Zestaw użytkownika \n $username2',
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize: 30)),
+                                      style: TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: GoogleFonts.workSans().fontFamily,   
+                                color: Colors.white
+                                ),),
                                 ],
                               ),
                             ),
@@ -367,39 +421,49 @@ class _Comparison extends State<Comparison> {
               height: 1,
               width: MediaQuery.of(context).size.width * 0.95,
               child: Container(
-                color: Colors.red,
+                child: Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                colors: [
+                  Color.fromRGBO(142, 223, 255, 1),
+                  Color.fromRGBO(255, 0, 140, 1)
+                ],
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+              )),
+            )
               ),
             ),
             Row(
               children: [
                 buildColumn('left', [
-                  componentBar(build1[0], placeholder, cpuScore1, 'left', true),
-                  componentBar(build1[1], placeholder, gpuScore1, 'left', true),
-                  componentBar(build1[2], placeholder, ramScore1, 'left', true),
-                  componentBar(build1[3], placeholder, psuScore1, 'left', true),
+                  componentBar(build1[0], Image.asset('assets/companies logo/'+build1[0].manufacturer.toString().toLowerCase()+'.png'), cpuScore1, 'left', true),
+                  componentBar(build1[1], Image.asset('assets/companies logo/'+build1[1].manufacturer.toString().toLowerCase()+'.png'), gpuScore1, 'left', true),
+                  componentBar(build1[2], Image.asset('assets/companies logo/'+build1[2].manufacturer.toString().toLowerCase()+'.png'), ramScore1, 'left', true),
+                  componentBar(build1[3], Image.asset('assets/companies logo/'+build1[3].manufacturer.toString().toLowerCase()+'.png'), psuScore1, 'left', true),
                   componentBar(
-                      build1[4], placeholder, driveScore1, 'left', true),
-                  componentBar(build1[5], placeholder, 0, 'left', true),
-                  componentBar(build1[6], placeholder, 0, 'left', true),
+                      build1[4], Image.asset('assets/companies logo/'+build1[4].manufacturer.toString().toLowerCase()+'.png'), driveScore1, 'left', true),
+                  componentBar(build1[5], Image.asset('assets/companies logo/'+build1[5].manufacturer.toString().toLowerCase()+'.png'), 0, 'left', true),
+                  componentBar(build1[6], Image.asset('assets/companies logo/'+build1[6].manufacturer.toString().toLowerCase()+'.png'), 0, 'left', true),
                   componentBar(build1[7] != null ? build1[7] : "nope",
-                      placeholder, 0, 'left', build1[7] != null ? true : false),
+                      Image.asset('assets/companies logo/'+build1[7].manufacturer.toString().toLowerCase()+'.png'), 0, 'left', build1[7] != null ? true : false),
                 ]),
                 buildColumn('right', [
                   componentBar(
-                      build2[0], placeholder, cpuScore2, 'right', true),
+                      build2[0], Image.asset('assets/companies logo/'+build2[0].manufacturer.toString().toLowerCase()+'.png'), cpuScore2, 'right', true),
                   componentBar(
-                      build2[1], placeholder, gpuScore2, 'right', true),
+                      build2[1], Image.asset('assets/companies logo/'+build2[1].manufacturer.toString().toLowerCase()+'.png'), gpuScore2, 'right', true),
                   componentBar(
-                      build2[2], placeholder, ramScore2, 'right', true),
+                      build2[2], Image.asset('assets/companies logo/'+build2[2].manufacturer.toString().toLowerCase()+'.png'), ramScore2, 'right', true),
                   componentBar(
-                      build2[3], placeholder, psuScore2, 'right', true),
+                      build2[3], Image.asset('assets/companies logo/'+build2[3].manufacturer.toString().toLowerCase()+'.png'), psuScore2, 'right', true),
                   componentBar(
-                      build2[4], placeholder, driveScore2, 'right', true),
-                  componentBar(build2[5], placeholder, 0, 'right', true),
-                  componentBar(build2[6], placeholder, 0, 'right', true),
+                      build2[4], Image.asset('assets/companies logo/'+build2[4].manufacturer.toString().toLowerCase()+'.png'), driveScore2, 'right', true),
+                  componentBar(build2[5], Image.asset('assets/companies logo/'+build2[5].manufacturer.toString().toLowerCase()+'.png'), 0, 'right', true),
+                  componentBar(build2[6], Image.asset('assets/companies logo/'+build2[6].manufacturer.toString().toLowerCase()+'.png'), 0, 'right', true),
                   componentBar(
                       build2[7] != null ? build2[7] : "nope",
-                      placeholder,
+                      Image.asset('assets/companies logo/'+build2[7].manufacturer.toString().toLowerCase()+'.png'),
                       0,
                       'right',
                       build2[7] != null ? true : false),

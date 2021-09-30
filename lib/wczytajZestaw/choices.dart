@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:skladappka/Porownywarka/dialogWidgetForCompare.dart';
 import 'package:skladappka/main.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
@@ -25,11 +26,11 @@ class _choices extends State<choices>{
   List<Widget> children = [
       Text('Wczytaj zestaw z kodu',
       style: TextStyle(
-        fontFamily: 'coolvetica',
-        fontSize: 17,
-        fontWeight: FontWeight.w100,        
-      ),
-      ),
+          fontFamily: GoogleFonts.workSans().fontFamily,    
+          color: Colors.white,
+          fontSize: 17,
+          fontWeight: FontWeight.w100,
+      ),),
       TextField(
         onSubmitted: (String value) async{
           if(Skladapka.connectivityResult==ConnectivityResult.none)
@@ -51,7 +52,14 @@ class _choices extends State<choices>{
       } ,
         textAlign: TextAlign.center,
         decoration: InputDecoration(hintText: 'Wpisz kod zestawu',
+        hintStyle: TextStyle(
+          fontFamily: GoogleFonts.workSans().fontFamily,    
+          color: Colors.white,
+          fontSize: 17,
+          fontWeight: FontWeight.w100,
+      ),
         counterText: "",
+        
         ),
         autofocus: true,
         enableInteractiveSelection: false,
@@ -63,21 +71,34 @@ class _choices extends State<choices>{
 
   Widget codeOptionButton()
   {    
-    return GestureDetector(
-      onTap: (){        
-        setState(() {
-          currentChild=1;
-        });
-      },
-      child: Container(      
-      height: 50,
-      width: 200,
-      alignment: Alignment.center,
+    return Container(
+      padding: EdgeInsets.all(2),
       decoration: BoxDecoration(
-        border: Border.all(color: Color.fromRGBO(240, 84, 84, 1),width: 2),
+        borderRadius: BorderRadius.circular(5),
+        gradient: LinearGradient(
+          colors: [
+             Color.fromRGBO(142, 223, 255, 1),
+             Color.fromRGBO(255, 0, 140, 1)
+          ]
+        )
       ),
-      child: children[currentChild],
-    ));
+      child: GestureDetector(
+        onTap: (){        
+          setState(() {
+            currentChild=1;
+          });
+        },
+        child: Container(      
+        height: 50,
+        width: 200,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+         color: Color.fromRGBO(45, 45, 45,1),
+         borderRadius: BorderRadius.circular(5),
+        ),
+        child: children[currentChild],
+      )),
+    );
   }
 
    Widget savedButton()
@@ -107,18 +128,48 @@ class _choices extends State<choices>{
       width: 200,
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        border: Border.all(color: Color.fromRGBO(240, 84, 84, 1),width: 2),
+        borderRadius: BorderRadius.circular(5),
+        gradient: LinearGradient(
+          colors: [
+             Color.fromRGBO(142, 223, 255, 1),
+             Color.fromRGBO(255, 0, 140, 1)
+          ]
+        )
       ),
-      child: Text('Wczytaj zapisany zestaw',
-      style: TextStyle(
-        fontFamily: 'coolvetica',
-        fontSize: 17,
-        fontWeight: FontWeight.w100
-      ),),
+      padding: EdgeInsets.all(2),
+      child: GestureDetector(
+        onTap: () async{
+          if (globalna.czyZalogowany == "czyZalogowany=false") {
+            print("uzytkownik niezalogowany");
+          } else {
+            await dialogWidgetForCompare().showPopup(context,
+                0);
+           // Navigator.pop(context);//W zaleznosci czy bedzie wybrana lewa czy prawa wartosc bedzie sie zmieniala z 0 na 1
+            return inicjalizuj(choices.builds);
+
+          }
+        },
+        child: Container(      
+        height: 50,
+        width: 200,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: Color.fromRGBO(45, 45, 45,1),
+          borderRadius: BorderRadius.circular(5)
+        ),
+        child: Text('Wczytaj zapisany zestaw',
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          fontFamily: GoogleFonts.workSans().fontFamily,    
+          color: Colors.white,
+          fontSize: 17,
+          fontWeight: FontWeight.w100
+        ),),
+      )),
     ));
   }
   @override
-  Widget build(BuildContext context) { //build context gives the layout, when you build widget it will always have this line
+  Widget build(BuildContext context) { 
     return Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
