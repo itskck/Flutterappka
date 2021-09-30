@@ -124,29 +124,25 @@ class _Glowna extends State<Glowna> {
                   children: [
                     numberWidget(1),
                     Text('Połącz się z internetem, żeby korzystać z aktualnej bazy komponentów',
-<<<<<<< Updated upstream
-                      textAlign: TextAlign.center,),
 
-=======
                     style: TextStyle(
                       color: Colors.white
                     ),
                     textAlign: TextAlign.center,),
                     
->>>>>>> Stashed changes
+
                     Container(
                         margin: EdgeInsets.symmetric(vertical: 10),
                         child: Icon(Icons.wifi_sharp, color: wifiColor,size: 30,)
                     ),
                     Text(wifiStatus,
-<<<<<<< Updated upstream
-                      textAlign: TextAlign.center,
-=======
+
+
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.white
                     ),
->>>>>>> Stashed changes
+
                     ),
                   ],
                 ),
@@ -158,12 +154,7 @@ class _Glowna extends State<Glowna> {
                     border: Border.all(color: Colors.lightBlue[300]),
                     borderRadius: BorderRadius.circular(10)),
                 child: Column(
-<<<<<<< Updated upstream
-                  children: [
-                    numberWidget(2),
-                    Text('Dodaj zestaw lub edytuj już istniejący w zakładach',
-                      textAlign: TextAlign.center,),
-=======
+
                   children: [                    
                      numberWidget(2),
                      Text('Dodaj zestaw lub edytuj już istniejący w zakładach',
@@ -171,7 +162,7 @@ class _Glowna extends State<Glowna> {
                     style: TextStyle(
                       color: Colors.white
                     ),),
->>>>>>> Stashed changes
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -193,16 +184,13 @@ class _Glowna extends State<Glowna> {
                   children: [
                     numberWidget(3),
                     Text('Porównaj dwa zestawy i dowiedz się, który ma lepsze komponenty w zakładce',
-<<<<<<< Updated upstream
-                      textAlign: TextAlign.center,),
-                    Icon(Icons.leaderboard)
-=======
+
                     style: TextStyle(
                       color: Colors.white
                     ),
                     textAlign: TextAlign.center,),
                     Icon(Icons.leaderboard,color: Colors.white,)
->>>>>>> Stashed changes
+
                   ],
                 ),
               ),

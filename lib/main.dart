@@ -17,13 +17,12 @@ import 'Firebase/doLogowanie/doLogowanie.dart';
 import 'Globalne.dart' as globalna;
 import 'config/fileOperations.dart';
 import 'package:permission_handler/permission_handler.dart';
-<<<<<<< Updated upstream
+
 import 'package:flutter/services.dart';
 
-=======
 import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
->>>>>>> Stashed changes
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
