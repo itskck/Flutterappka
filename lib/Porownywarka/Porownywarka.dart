@@ -1,4 +1,6 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:skladappka/main.dart';
 import 'package:skladappka/Firebase/Builds.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
@@ -88,15 +90,25 @@ class _Porownywarka extends State<Porownywarka> {
       ),
       TextField(
         onSubmitted: (String value) async {
-          if (await getFromCode(code: value).corrCode() == false) {
-            print("Slaby kodzik");
-          } else {
-            print('dobry kodzik lewo');
-            await setValues(0, value);      
-            
-            setState(() {
-                   isLeftChosen=true;       
-                        });
+          if(Skladapka.connectivityResult==ConnectivityResult.none)
+            Fluttertoast.showToast(msg: "Brak połączenia z internetem",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 2);
+          else {
+            if (await getFromCode(code: value).corrCode() == false) {
+              Fluttertoast.showToast(msg: "Błędny kod",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 2);
+            } else {
+              print('dobry kodzik lewo');
+              await setValues(0, value);
+
+              setState(() {
+                isLeftChosen = true;
+              });
+            }
           }
         },
         textAlign: TextAlign.center,
@@ -138,19 +150,33 @@ class _Porownywarka extends State<Porownywarka> {
               ),
               GestureDetector(
                   onTap: () async {
-                    if (globalna.czyZalogowany == "czyZalogowany=false") {
-                      print("uzytkownik niezalogowany");
-                    } else {
-                      await dialogWidgetForCompare().showPopup(context,
-                          0); //W zaleznosci czy bedzie wybrana lewa czy prawa wartosc bedzie sie zmieniala z 0 na 1
-                      // print(Porownywarka.chosenCpu[0]);
+                    if(Skladapka.connectivityResult==ConnectivityResult.none)
+                      Fluttertoast.showToast(msg: "Brak połączenia z internetem",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 2);
+                    else {
+                      if (globalna.czyZalogowany == "czyZalogowany=false") {
+                        Fluttertoast.showToast(msg: "Musisz się zalogować",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 2);
+                      } else {
+                        await dialogWidgetForCompare().showPopup(context,
+                            0); //W zaleznosci czy bedzie wybrana lewa czy prawa wartosc bedzie sie zmieniala z 0 na 1
+                        // print(Porownywarka.chosenCpu[0]);
 
+                      }
+                      if ((isRightChosen == true &&
+                              (Porownywarka.chosenCpu != null &&
+                                  Porownywarka.chosenCpu2 != null)) ||
+                          (isRightChosen == false &&
+                              (Porownywarka.chosenCpu != null ||
+                                  Porownywarka.chosenCpu2 != null)))
+                        setState(() {
+                          isLeftChosen = true;
+                        });
                     }
-                    if((isRightChosen==true&&(Porownywarka.chosenCpu!=null && Porownywarka.chosenCpu2!=null)) ||
-                        (isRightChosen==false&&(Porownywarka.chosenCpu!=null || Porownywarka.chosenCpu2!=null)))
-                    setState(() {
-                      isLeftChosen=true;
-                    });
                   },
                   child: Container(
                     height: 50,
@@ -210,15 +236,25 @@ class _Porownywarka extends State<Porownywarka> {
       ),
       TextField(
         onSubmitted: (String value) async {
-          if (await getFromCode(code: value).corrCode() == false) {
-            print("Slaby kodzik");
-          } else {
-            print('dobry kodzik prawo');
-            await setValues(1, value);
-            
-                setState(() {
-                   isRightChosen=true;       
-                        });
+          if(Skladapka.connectivityResult==ConnectivityResult.none)
+            Fluttertoast.showToast(msg: "Brak połączenia z internetem",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 2);
+          else {
+            if (await getFromCode(code: value).corrCode() == false) {
+              Fluttertoast.showToast(msg: "Błędny kod",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 2);
+            } else {
+              print('dobry kodzik prawo');
+              await setValues(1, value);
+
+              setState(() {
+                isRightChosen = true;
+              });
+            }
           }
         },
         textAlign: TextAlign.center,
@@ -260,16 +296,32 @@ class _Porownywarka extends State<Porownywarka> {
               ),
               GestureDetector(
                   onTap: () async {
-                    if (globalna.czyZalogowany == "czyZalogowany=false") {
-                      print("uzytkownik niezalogowany");
-                    } else {
-                      await dialogWidgetForCompare().showPopup(context,
-                          1); //W zaleznosci czy bedzie wybrana lewa czy prawa wartosc bedzie sie zmieniala z 0 na 1
-                      // print(Porownywarka.chosenCpu[0]);
+                    if(Skladapka.connectivityResult==ConnectivityResult.none)
+                      Fluttertoast.showToast(msg: "Brak połączenia z internetem",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.CENTER,
+                          timeInSecForIosWeb: 2);
+                    else {
+                      if (globalna.czyZalogowany == "czyZalogowany=false") {
+                        Fluttertoast.showToast(msg: "Musisz się zalogować",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.CENTER,
+                            timeInSecForIosWeb: 2);
+                      } else {
+                        await dialogWidgetForCompare().showPopup(context,
+                            1); //W zaleznosci czy bedzie wybrana lewa czy prawa wartosc bedzie sie zmieniala z 0 na 1
+                        // print(Porownywarka.chosenCpu[0]);
+                      }
+                      if ((isLeftChosen == true &&
+                              (Porownywarka.chosenCpu != null &&
+                                  Porownywarka.chosenCpu2 != null)) ||
+                          (isLeftChosen == false &&
+                              (Porownywarka.chosenCpu != null ||
+                                  Porownywarka.chosenCpu2 != null)))
+                        setState(() {
+                          isRightChosen = true;
+                        });
                     }
-                    if((isLeftChosen==true&&(Porownywarka.chosenCpu!=null && Porownywarka.chosenCpu2!=null)) ||
-                        (isLeftChosen==false&&(Porownywarka.chosenCpu!=null || Porownywarka.chosenCpu2!=null)))
-                    setState(() {isRightChosen=true;});
                   },
                   child: Container(
                     height: 50,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:skladappka/Porownywarka/dialogWidgetForCompare.dart';
 import 'package:skladappka/main.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
@@ -7,6 +8,7 @@ import 'package:skladappka/main.dart';
 import 'package:skladappka/Firebase/Builds.dart';
 import 'Edit.dart';
 import 'package:skladappka/Firebase/getFromDatabase/getFromCode.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 class choices extends StatefulWidget {
 
@@ -30,14 +32,23 @@ class _choices extends State<choices>{
       ),
       TextField(
         onSubmitted: (String value) async{
+          if(Skladapka.connectivityResult==ConnectivityResult.none)
+            Fluttertoast.showToast(msg: "Brak połączenia z internetem",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 2);
+          else {
           if (await getFromCode(code: value).corrCode() == false) {
-          print("Slaby kodzik");
+            Fluttertoast.showToast(msg: "Błędny kod",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 2);
           } else {
-            choices.builds=await getFromCode(code: value).getBuild();
+            choices.builds = await getFromCode(code: value).getBuild();
             return inicjalizuj(choices.builds);
-
           }
-        } ,
+        }
+      } ,
         textAlign: TextAlign.center,
         decoration: InputDecoration(hintText: 'Wpisz kod zestawu',
         counterText: "",
@@ -73,16 +84,24 @@ class _choices extends State<choices>{
   {    
     return GestureDetector(
       onTap: () async{
-        if (globalna.czyZalogowany == "czyZalogowany=false") {
-          print("uzytkownik niezalogowany");
-        } else {
-          await dialogWidgetForCompare().showPopup(context,
-              0);
-         // Navigator.pop(context);//W zaleznosci czy bedzie wybrana lewa czy prawa wartosc bedzie sie zmieniala z 0 na 1
-          return inicjalizuj(choices.builds);
-
-        }
-      },
+        if(Skladapka.connectivityResult==ConnectivityResult.none)
+          Fluttertoast.showToast(msg: "Brak połączenia z internetem",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+              timeInSecForIosWeb: 2);
+        else {
+            if (globalna.czyZalogowany == "czyZalogowany=false") {
+              Fluttertoast.showToast(msg: "Musisz się zalogować",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 2);
+            } else {
+              await dialogWidgetForCompare().showPopup(context, 0);
+              // Navigator.pop(context);//W zaleznosci czy bedzie wybrana lewa czy prawa wartosc bedzie sie zmieniala z 0 na 1
+              return inicjalizuj(choices.builds);
+            }
+          }
+        },
       child: Container(      
       height: 50,
       width: 200,
