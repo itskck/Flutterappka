@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +16,7 @@ import 'Firebase/doLogowanie/doLogowanie.dart';
 import 'Globalne.dart' as globalna;
 import 'config/fileOperations.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter/services.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,10 +48,7 @@ void inicjalizuj(Builds builds) {
   ));
 }
 
-void _onItemTapped(int index) {
-  globalna.ktoro = index;
-  inicjalizuj(null);
-}
+
 
 ThemeData chooseTheme(int which) {
   if (which == 1)
@@ -99,16 +97,20 @@ class _SkladapkaState extends State<Skladapka> {
   void initState() {
     super.initState();
     print('ao');
-    Skladapka.connectivitySubscription = Skladapka._connectivity.onConnectivityChanged.listen(updateConnectionStatus);
+    Skladapka.connectivitySubscription = Skladapka._connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
     print('object');
 
   }
 
-  void updateConnectionStatus(ConnectivityResult result){
-    setState(() {
-      print(result);
-      Skladapka.connectivityResult = result;
+  void _onItemTapped(int index) {
+    if(globalna.ktoro==2) Glowna.connectivitySubscription.cancel();
+    globalna.ktoro = index;
+    inicjalizuj(null);
+  }
 
+  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+    setState(() {
+      Skladapka.connectivityResult = result;
     });
   }
 
@@ -128,7 +130,6 @@ class _SkladapkaState extends State<Skladapka> {
       });
       return wczytajZestaw(czyWczytuje: true, builds: widget.builds);
     }
-    else
       return Views[ktoro];
   }
 

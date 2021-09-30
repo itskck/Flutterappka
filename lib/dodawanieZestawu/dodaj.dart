@@ -169,7 +169,7 @@ class _dodaj extends State<dodaj> {
     );
   }
 
-  Widget itemFrame(String model, String component, String photoURL) {
+  Widget itemFrame(String model, String component, Image photoURL) {
     return Container(
         margin: EdgeInsets.all(15),
         width: MediaQuery.of(context).size.width * 0.4,
@@ -184,9 +184,7 @@ class _dodaj extends State<dodaj> {
           Container(
             margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
             padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-            child: Image(
-              image: AssetImage(photoURL),
-            ),
+            child: photoURL
           ),
           Align(
               alignment: Alignment.bottomCenter,
@@ -322,201 +320,62 @@ class _dodaj extends State<dodaj> {
     ];
 
     if (dodaj.chosenCpu != null) {
-      switch (dodaj.chosenCpu.manufacturer) {
-        case 'Intel':
-          logo.cpu = 'assets/companies logo/intel.png';
-          break;
-        case 'AMD':
-          logo.cpu = 'assets/companies logo/amd.png';
-          break;
-        default:
-          logo.cpu = 'assets/placeholder.png';
-      }
+
       setState(() {
-        dodaj.panelsGrid[0] = itemFrame(dodaj.chosenCpu.model, 'CPU', logo.cpu);
+        dodaj.panelsGrid[0] = itemFrame(dodaj.chosenCpu.model, 'CPU', dodaj.chosenCpu.img);
       });
     } else
       dodaj.panelsGrid[0] = addButton('CPU');
 ////////////////////////////////////////////////////////////
     if (dodaj.chosenPsu != null) {
-      switch (dodaj.chosenPsu.manufacturer) {
-        case 'SilentiumPC':
-          logo.psu = 'assets/companies logo/silentiumpc.png';
-          break;
-        case 'SeaSonic':
-          logo.psu = 'assets/companies logo/seasonic.png';
-          break;
-        default:
-          logo.psu = 'assets/placeholder.png';
-      }
       setState(() {
-        dodaj.panelsGrid[1] = itemFrame(dodaj.chosenPsu.model, 'PSU', logo.psu);
+        dodaj.panelsGrid[1] = itemFrame(dodaj.chosenPsu.model, 'PSU', dodaj.chosenPsu.img);
       });
     } else
       dodaj.panelsGrid[1] = addButton('PSU');
 ////////////////////////////////////////////////////
     if (dodaj.chosenMtb != null) {
-      switch (dodaj.chosenMtb.manufacturer) {
-        case 'Gigabyte':
-          logo.mtb = 'assets/companies logo/gigabyte.png';
-          break;
-        case 'Asus':
-          logo.mtb = 'assets/companies logo/asus.png';
-          break;
-        case 'Biostar':
-          logo.mtb = 'assets/companies logo/biostar.png';
-          break;
-        case 'MSI':
-          logo.mtb = 'assets/companies logo/msi.png';
-          break;
-        case 'ASRock':
-          logo.mtb = 'assets/companies logo/asrock.png';
-          break;
-        default:
-          logo.mtb = 'assets/placeholder.png';
-      }
       setState(() {
         dodaj.panelsGrid[2] =
-            itemFrame(dodaj.chosenMtb.model, 'MTBRD', logo.mtb);
+            itemFrame(dodaj.chosenMtb.model, 'MTBRD', dodaj.chosenMtb.img);
       });
     } else
       dodaj.panelsGrid[2] = addButton('MTBRD');
     ///////////////////////////////////////////////////////
     if (dodaj.chosenDrive != null) {
-      switch (dodaj.chosenDrive.manufacturer) {
-        case 'Kingston':
-          logo.drive = 'assets/companies logo/kingston.png';
-          break;
-        case 'Toshiba':
-          logo.drive = 'assets/companies logo/toshiba.png';
-          break;
-        case 'ADATA':
-          logo.drive = 'assets/companies logo/adata.png';
-          break;
-        case 'Seagate':
-          logo.drive = 'assets/companies logo/seagate.png';
-          break;
-        case 'Transcend':
-          logo.drive = 'assets/companies logo/trranscend.png';
-          break;
-        case 'WD':
-          logo.drive = 'assets/companies logo/wd.png';
-          break;
-        default:
-          logo.drive = 'assets/placeholder.png';
-      }
       setState(() {
         dodaj.panelsGrid[3] =
-            itemFrame(dodaj.chosenDrive.model, 'DRIVE', logo.drive);
+            itemFrame(dodaj.chosenDrive.model, 'DRIVE', dodaj.chosenDrive.img);
       });
     } else
       dodaj.panelsGrid[3] = addButton('DRIVE');
     ////////////////////////////////////////////////////
     if (dodaj.chosenRam != null) {
-      switch (dodaj.chosenRam.manufacturer) {
-        case 'Kingston':
-          logo.ram = 'assets/companies logo/kingston.png';
-          break;
-        case 'GoodRam':
-          logo.ram = 'assets/companies logo/goodram.png';
-          break;
-        case 'G.Skill':
-          logo.ram = 'assets/companies logo/gskill.png';
-          break;
-        default:
-          logo.ram = 'assets/placeholder.png';
-      }
       setState(() {
-        dodaj.panelsGrid[4] = itemFrame(dodaj.chosenRam.model, 'RAM', logo.ram);
+        dodaj.panelsGrid[4] = itemFrame(dodaj.chosenRam.model, 'RAM', dodaj.chosenRam.img);
       });
     } else
       dodaj.panelsGrid[4] = addButton('RAM');
     ////////////////////////////////////////////////////
     if (dodaj.chosenCase != null) {
-      switch (dodaj.chosenCase.manufacturer) {
-        case 'MSI':
-          logo.cases = 'assets/companies logo/msi.png';
-          break;
-        case 'Aerocool':
-          logo.cases = 'assets/companies logo/aerocool.png';
-          break;
-        case 'Cooler Master':
-          logo.cases = 'assets/companies logo/coolermaster.png';
-          break;
-        case 'Corsair':
-          logo.cases = 'assets/companies logo/corsair.png';
-          break;
-        case 'Fractal Design':
-          logo.cases = 'assets/companies logo/fractal.png';
-          break;
-        case 'SilentiumPC':
-          logo.cases = 'assets/companies logo/silentiumpc.png';
-          break;
-        case 'SilverStone':
-          logo.cases = 'assets/companies logo/silverstone.png';
-          break;
-        case 'Thermaltake':
-          logo.cases = 'assets/companies logo/thermaltake.png';
-          break;
-        default:
-          logo.cases = 'assets/placeholder.png';
-      }
       setState(() {
         dodaj.panelsGrid[5] =
-            itemFrame(dodaj.chosenCase.model, 'CASE', logo.cases);
+            itemFrame(dodaj.chosenCase.model, 'CASE', dodaj.chosenCase.img);
       });
     } else
       dodaj.panelsGrid[5] = addButton('CASE');
     ///////////////////////////////////////////////////
     if (dodaj.chosenGpu != null) {
-      switch (dodaj.chosenGpu.manufacturer) {
-        case 'NVIDIA':
-          logo.gpu = 'assets/companies logo/nvidia.png';
-          break;
-        case "Radeon":
-          logo.gpu = 'assets/companies logo/radeon.png';
-          break;
-        default:
-          logo.gpu = 'assets/placeholder.png';
-      }
       setState(() {
-        dodaj.panelsGrid[6] = itemFrame(dodaj.chosenGpu.model, 'GPU', logo.gpu);
+        dodaj.panelsGrid[6] = itemFrame(dodaj.chosenGpu.model, 'GPU', dodaj.chosenGpu.img);
       });
     } else
       dodaj.panelsGrid[6] = addButton('GPU');
     //////////////////////////////////////////////////////
     if (dodaj.chosenCooler != null) {
-      switch (dodaj.chosenCooler.manufacturer) {
-        case 'Corsair':
-          logo.cooler = 'assets/companies logo/corsair.png';
-          break;
-        case 'SilentiumPC':
-          logo.cooler = 'assets/companies logo/silentiumpc.png';
-          break;
-        case 'Arctic':
-          logo.cooler = 'assets/companies logo/arctic.png';
-          break;
-        case 'Noctua':
-          logo.cooler = 'assets/companies logo/noctua.png';
-          break;
-        case 'Cooler Master':
-          logo.cooler = 'assets/companies logo/coolermaster.png';
-          break;
-        case 'SilverStone':
-          logo.cooler = 'assets/companies logo/silverstone.png';
-          break;
-        case 'Deepcool':
-          logo.cooler = 'assets/companies logo/deepcool.png';
-          break;
-        case 'Thermaltake':
-          logo.cooler = 'assets/companies logo/thermaltake.png';
-          break;
-        default:
-          logo.cooler = 'assets/placeholder.png';
-      }
       setState(() {
         dodaj.panelsGrid[7] =
-            itemFrame(dodaj.chosenCooler.model, 'CSTM COOLER', logo.cooler);
+            itemFrame(dodaj.chosenCooler.model, 'CSTM COOLER', dodaj.chosenCooler.img);
       });
     } else
       dodaj.panelsGrid[7] = addButton('CSTM COOLER');

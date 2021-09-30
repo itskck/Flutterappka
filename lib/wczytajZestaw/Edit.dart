@@ -221,7 +221,7 @@ class _Edit extends State<Edit> {
     );
   }
 
-  Widget itemFrame(String model, String component, String photoURL) {
+  Widget itemFrame(String model, String component, Image photoURL) {
     return Container(
         margin: EdgeInsets.all(15),
         width: MediaQuery.of(context).size.width * 0.4,
@@ -236,9 +236,7 @@ class _Edit extends State<Edit> {
           Container(
             margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
             padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-            child: Image(
-              image: AssetImage(photoURL),
-            ),
+            child: photoURL
           ),
           Align(
               alignment: Alignment.bottomCenter,
@@ -374,201 +372,61 @@ class _Edit extends State<Edit> {
     ];
 
     if (Edit.chosenCpu != null) {
-      switch (Edit.chosenCpu.manufacturer) {
-        case 'Intel':
-          logo.cpu = 'assets/companies logo/cpu/intel.png';
-          break;
-        case 'AMD':
-          logo.cpu = 'assets/companies logo/cpu/ryzen.png';
-          break;
-        default:
-          logo.cpu = 'assets/placeholder.png';
-      }
       setState(() {
-        Edit.panelsGrid[0] = itemFrame(Edit.chosenCpu.model, 'CPU', logo.cpu);
+        Edit.panelsGrid[0] = itemFrame(Edit.chosenCpu.model, 'CPU', Edit.chosenCpu.img);
       });
     } else
       Edit.panelsGrid[0] = addButton('CPU');
 ////////////////////////////////////////////////////////////
     if (Edit.chosenPsu != null) {
-      switch (Edit.chosenPsu.manufacturer) {
-        case 'SilentiumPC':
-          logo.psu = 'assets/companies logo/case/Silentiumpc.png';
-          break;
-        case 'SeaSonic':
-          logo.psu = 'assets/companies logo/psu/SeaSonic.png';
-          break;
-        default:
-          logo.psu = 'assets/placeholder.png';
-      }
       setState(() {
-        Edit.panelsGrid[1] = itemFrame(Edit.chosenPsu.model, 'PSU', logo.psu);
+        Edit.panelsGrid[1] = itemFrame(Edit.chosenPsu.model, 'PSU', Edit.chosenPsu.img);
       });
     } else
       Edit.panelsGrid[1] = addButton('PSU');
 ////////////////////////////////////////////////////
     if (Edit.chosenMtb != null) {
-      switch (Edit.chosenMtb.manufacturer) {
-        case 'Gigabyte':
-          logo.mtb = 'assets/companies logo/motherboard/gigabyte.png';
-          break;
-        case 'Asus':
-          logo.mtb = 'assets/companies logo/motherboard/Asus.png';
-          break;
-        case 'Biostar':
-          logo.mtb = 'assets/companies logo/motherboard/biostar.png';
-          break;
-        case 'MSI':
-          logo.mtb = 'assets/companies logo/motherboard/msi.png';
-          break;
-        case 'ASRock':
-          logo.mtb = 'assets/companies logo/motherboard/Asrock.png';
-          break;
-        default:
-          logo.mtb = 'assets/placeholder.png';
-      }
       setState(() {
         Edit.panelsGrid[2] =
-            itemFrame(Edit.chosenMtb.model, 'MTBRD', logo.mtb);
+            itemFrame(Edit.chosenMtb.model, 'MTBRD', Edit.chosenMtb.img);
       });
     } else
       Edit.panelsGrid[2] = addButton('MTBRD');
     ///////////////////////////////////////////////////////
     if (Edit.chosenDrive != null) {
-      switch (Edit.chosenDrive.manufacturer) {
-        case 'Kingston':
-          logo.drive = 'assets/companies logo/drive/Kingston.png';
-          break;
-        case 'Toshiba':
-          logo.drive = 'assets/companies logo/drive/toshiba.png';
-          break;
-        case 'ADATA':
-          logo.drive = 'assets/companies logo/drive/adata.png';
-          break;
-        case 'Seagate':
-          logo.drive = 'assets/companies logo/drive/seagate.png';
-          break;
-        case 'Transcend':
-          logo.drive = 'assets/companies logo/drive/trranscend.png';
-          break;
-        case 'WD':
-          logo.drive = 'assets/companies logo/drive/wd.png';
-          break;
-        default:
-          logo.drive = 'assets/placeholder.png';
-      }
       setState(() {
         Edit.panelsGrid[3] =
-            itemFrame(Edit.chosenDrive.model, 'DRIVE', logo.drive);
+            itemFrame(Edit.chosenDrive.model, 'DRIVE', Edit.chosenDrive.img);
       });
     } else
       Edit.panelsGrid[3] = addButton('DRIVE');
     ////////////////////////////////////////////////////
     if (Edit.chosenRam != null) {
-      switch (Edit.chosenRam.manufacturer) {
-        case 'Kingston':
-          logo.ram = 'assets/companies logo/drive/Kingston.png';
-          break;
-        case 'GoodRam':
-          logo.ram = 'assets/companies logo/ram/Goodram.png';
-          break;
-        case 'G.Skill':
-          logo.ram = 'assets/companies logo/ram/Gskill.png';
-          break;
-        default:
-          logo.ram = 'assets/placeholder.png';
-      }
       setState(() {
-        Edit.panelsGrid[4] = itemFrame(Edit.chosenRam.model, 'RAM', logo.ram);
+        Edit.panelsGrid[4] = itemFrame(Edit.chosenRam.model, 'RAM', Edit.chosenRam.img);
       });
     } else
       Edit.panelsGrid[4] = addButton('RAM');
     ////////////////////////////////////////////////////
     if (Edit.chosenCase != null) {
-      switch (Edit.chosenCase.manufacturer) {
-        case 'MSI':
-          logo.cases = 'assets/companies logo/motherboard/msi.png';
-          break;
-        case 'Aerocool':
-          logo.cases = 'assets/companies logo/case/aerocool.png';
-          break;
-        case 'Cooler Master':
-          logo.cases = 'assets/companies logo/case/Coolermaster.png';
-          break;
-        case 'Corsair':
-          logo.cases = 'assets/companies logo/case/corsair.png';
-          break;
-        case 'Fractal Design':
-          logo.cases = 'assets/companies logo/case/fractal.png';
-          break;
-        case 'SilentiumPC':
-          logo.cases = 'assets/companies logo/case/Silentiumpc.png';
-          break;
-        case 'SilverStone':
-          logo.cases = 'assets/companies logo/case/Silverstone.png';
-          break;
-        case 'Thermaltake':
-          logo.cases = 'assets/companies logo/case/thermaltake.png';
-          break;
-        default:
-          logo.cases = 'assets/placeholder.png';
-      }
       setState(() {
         Edit.panelsGrid[5] =
-            itemFrame(Edit.chosenCase.model, 'CASE', logo.cases);
+            itemFrame(Edit.chosenCase.model, 'CASE', Edit.chosenCase.img);
       });
     } else
       Edit.panelsGrid[5] = addButton('CASE');
     ///////////////////////////////////////////////////
     if (Edit.chosenGpu != null) {
-      switch (Edit.chosenGpu.manufacturer) {
-        case 'NVIDIA':
-          logo.gpu = 'assets/companies logo/gpu/nvidia.png';
-          break;
-        case "Radeon":
-          logo.gpu = 'assets/companies logo/gpu/radeon.png';
-          break;
-        default:
-          logo.gpu = 'assets/placeholder.png';
-      }
       setState(() {
-        Edit.panelsGrid[6] = itemFrame(Edit.chosenGpu.model, 'GPU', logo.gpu);
+        Edit.panelsGrid[6] = itemFrame(Edit.chosenGpu.model, 'GPU', Edit.chosenGpu.img);
       });
     } else
       Edit.panelsGrid[6] = addButton('GPU');
     //////////////////////////////////////////////////////
     if (Edit.chosenCooler != null) {
-      switch (Edit.chosenCooler.manufacturer) {
-        case 'Corsair':
-          logo.cooler = 'assets/companies logo/case/corsair.png';
-          break;
-        case 'SilentiumPC':
-          logo.cooler = 'assets/companies logo/case/Silentiumpc.png';
-          break;
-        case 'Arctic':
-          logo.cooler = 'assets/companies logo/cooler/arctic.png';
-          break;
-        case 'Noctua':
-          logo.cooler = 'assets/companies logo/cooler/noctua.png';
-          break;
-        case 'Cooler Master':
-          logo.cooler = 'assets/companies logo/case/Coolermaster.png';
-          break;
-        case 'SilverStone':
-          logo.cooler = 'assets/companies logo/case/Silverstone.png';
-          break;
-        case 'Deepcool':
-          logo.cooler = 'assets/companies logo/cooler/deepcool.png';
-          break;
-        case 'Thermaltake':
-          logo.cooler = 'assets/companies logo/case/thermaltake.png';
-          break;
-        default:
-          logo.cooler = 'assets/placeholder.png';
-      }
       setState(() {
         Edit.panelsGrid[7] =
-            itemFrame(Edit.chosenCooler.model, 'CSTM COOLER', logo.cooler);
+            itemFrame(Edit.chosenCooler.model, 'CSTM COOLER', Edit.chosenCooler.img);
       });
     } else
       Edit.panelsGrid[7] = addButton('CSTM COOLER');
