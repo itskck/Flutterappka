@@ -1,37 +1,23 @@
 >>>porównywarka page
->popup przy wybieraniu z konta
->guzik "porównaj który uruchamia system"
 >widok z CPU,GPU,PSU,RAM,?DRIVE?
 >szczegółowe widoki z poszczególnymi kompoenetami
 
 
 >>>dodawanie page
 >opcja dodawania kolejnych dysków?
->opcja restartu widoku, aka. usunięcie paneli wszystkch
 
 >>>Edytuj page
->wczytywanie jak w porwównywarce,
+>wczytywanie jak w porwównywarce,  //Zrobione
 >floating button "zapisz", "usuń"
 
 >>>Głowna
 >tutorial jak używać appki
 >przypomnienie o polaczeniu sie z internetem chyba że zrobimy cachowanie.
 
->>>main
->listener połączenia z internetem chyba że cachowanie
+>>>Strona oceny komponentow
+>Wczytujesz z builda komponenty i je oceniasz
 
->>>user page
->personal data, wyswietlanie, mozliwosc modyfikacji
->zapisane zestawy, mozliwosc usunięcia i modyfikacji
+>>>Sprawdzenie ergonomii systemu
 
 >>>baza danych
->dorzucenie troche danych
->dorzucenie dokumentu z dodatkowymi dyskami
->dorzucenie integrated GPU
-
->>Dodaj
->Sprawdzanie czy jest zintegrowana karta graficzna
->Opcjonalne rzeczy maja byc opcjonalne (zeby nie zwracały null)
-
->>Main
->ma cie nie wpuszczac na strony jesli nie masz polaczenia
+>certyfikat zasialaczy
