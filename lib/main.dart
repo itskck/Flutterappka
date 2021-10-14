@@ -17,7 +17,7 @@ import 'Firebase/doLogowanie/doLogowanie.dart';
 import 'Globalne.dart' as globalna;
 import 'config/fileOperations.dart';
 import 'package:permission_handler/permission_handler.dart';
-
+import 'package:skladappka/rateComponents/rateComponents.dart';
 import 'package:flutter/services.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -44,7 +44,16 @@ Future<void> main() async {
     data.add(tekst);
   });
   globalna.czyZalogowany=data[0];
-  inicjalizuj(null);
+  runApp(MaterialApp(debugShowCheckedModeBanner: false,
+    theme: appTheme(),
+    title: 'Skladapka',
+    home: Glowna()));
+}
+
+void glowna() {
+  return runApp(Container(
+    child: Glowna(title: 'Skladapka'),
+  ));
 }
 
 void inicjalizuj(Builds builds) {
@@ -132,7 +141,7 @@ class _SkladapkaState extends State<Skladapka> {
   List<Widget> Views = [
     dodaj(),
     wczytajZestaw(czyWczytuje: false,builds: null),
-    Glowna(title: 'dodawanie'),
+    rateComponents(),
     Porownywarka(title: 'dodawanie'),
     Logowanie(),
   ];

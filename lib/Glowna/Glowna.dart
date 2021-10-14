@@ -83,6 +83,7 @@ class _Glowna extends State<Glowna> {
 
   @override
   Widget build(BuildContext context) {
+
     Color wifiColor;
     String wifiStatus;
     if (internetIcon()) {
@@ -92,7 +93,8 @@ class _Glowna extends State<Glowna> {
       wifiColor = Colors.red;
       wifiStatus = "Oczekiwanie na połączenie z siecią...";
     }
-    return Center(
+    return Scaffold(
+    body: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -220,9 +222,23 @@ class _Glowna extends State<Glowna> {
                 ),
               ),
             ],
+          ),
+          Container (
+            child: RaisedButton(
+                color: Colors.pink[400],
+                child: Text(
+                  'Zaczynajmy!',
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  Navigator.push(context,MaterialPageRoute (builder: (context) => Skladapka()));
+                }
+            ),
           )
         ],
-      ),
+
+      ),)
+
     );
   }
 }

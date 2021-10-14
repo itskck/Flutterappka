@@ -161,7 +161,12 @@ class getFromSaved {
           ramType: doc.data().toString().contains('ramType') ? doc.get('ramType') : 'Error not found',
           socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Error not found',
           standard: doc.data().toString().contains('standard') ? doc.get('standard') : 'Error not found',
-          img:img
+          img:img,
+          wifi: doc.data().toString().contains('wifi') ? doc.get('wifi') : false,
+          usb3: doc.data().toString().contains('usb3') ? doc.get('usb3') : 'Error not found',
+          usb2and1: doc.data().toString().contains('usb2and1') ? doc.get('usb2and1') : 'Error not found',
+          ethernetSpeed: doc.data().toString().contains('ethernetSpeed') ? doc.get('ethernetSpeed') : 'Error not found',
+          sataPorts: doc.data().toString().contains('sataPorts') ? doc.get('sataPorts') : 'Error not found'
       );
     }).toList();
     return chosenMtb;
