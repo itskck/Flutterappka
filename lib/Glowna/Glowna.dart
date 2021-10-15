@@ -39,7 +39,7 @@ class _Glowna extends State<Glowna> {
   }
 
   bool internetIcon() {
-    if (Skladapka.connectivityResult == ConnectivityResult.none)
+    if (connectivityResult == ConnectivityResult.none)
       return false;
     else
       return true;
