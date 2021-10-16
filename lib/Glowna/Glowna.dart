@@ -11,6 +11,8 @@ import 'package:skladappka/main.dart';
 class Glowna extends StatefulWidget {
   Glowna({Key key, this.title}) : super(key: key);
   static StreamSubscription<ConnectivityResult> connectivitySubscription;
+  static Connectivity _connectivity = Connectivity();
+  static ConnectivityResult connectivityResult= ConnectivityResult.none;
   final String title;
 
   @override
@@ -18,9 +20,7 @@ class Glowna extends StatefulWidget {
 }
 
 class _Glowna extends State<Glowna> {
-  static Connectivity _connectivity = Connectivity();
 
-  static ConnectivityResult connectivityResult = ConnectivityResult.none;
   User _firebaseUser = FirebaseAuth.instance.currentUser;
 
   @override
@@ -28,18 +28,18 @@ class _Glowna extends State<Glowna> {
     super.initState();
     print('ao');
     Glowna.connectivitySubscription =
-        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+        Glowna._connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
     print('object');
   }
 
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     setState(() {
-      connectivityResult = result;
+      Glowna.connectivityResult = result;
     });
   }
 
   bool internetIcon() {
-    if (connectivityResult == ConnectivityResult.none)
+    if (Glowna.connectivityResult == ConnectivityResult.none)
       return false;
     else
       return true;

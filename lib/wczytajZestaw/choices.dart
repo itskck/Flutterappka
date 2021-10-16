@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:skladappka/Glowna/Glowna.dart';
 import 'package:skladappka/Porownywarka/dialogWidgetForCompare.dart';
 import 'package:skladappka/main.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
@@ -105,7 +106,7 @@ class _choices extends State<choices>{
   {    
     return GestureDetector(
       onTap: () async{
-        if(Skladapka.connectivityResult==ConnectivityResult.none)
+        if(Glowna.connectivityResult==ConnectivityResult.none)
           Fluttertoast.showToast(msg: "Brak połączenia z internetem",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,

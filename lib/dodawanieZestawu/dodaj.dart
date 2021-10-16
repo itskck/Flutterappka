@@ -18,7 +18,7 @@ import 'dialogWidget.dart';
 import 'package:skladappka/Firebase/addToDatabase/addToDatabase.dart';
 import 'package:skladappka/Firebase/FireBase.dart';
 import 'Logo.dart';
-import 'package:skladappka/main.dart';
+import 'package:skladappka/Glowna/Glowna.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
@@ -61,7 +61,7 @@ class _dodaj extends State<dodaj> {
     
     return GestureDetector(
         onTap: () async {
-          if(Skladapka.connectivityResult!=ConnectivityResult.none) {
+          if(Glowna.connectivityResult!=ConnectivityResult.none) {
             if (dodaj.chosenGpu != null) if (dodaj.chosenGpu.integra == true)
               dodaj.chosenGpu = null;
 
@@ -442,7 +442,7 @@ class _dodaj extends State<dodaj> {
               backgroundColor:Colors.lightBlue[300].withOpacity(0.8) ,
               foregroundColor: Colors.white,
               onTap: () async {
-                if(Skladapka.connectivityResult==ConnectivityResult.none)
+                if(Glowna.connectivityResult==ConnectivityResult.none)
                   Fluttertoast.showToast(msg: "Brak połączenia z internetem",
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.CENTER,
