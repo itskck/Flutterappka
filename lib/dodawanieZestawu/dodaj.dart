@@ -349,9 +349,10 @@ class _dodaj extends State<dodaj> {
     ];
 
     if (dodaj.chosenCpu != null) {
-
+      
       setState(() {
         dodaj.panelsGrid[0] = itemFrame(dodaj.chosenCpu.model, 'CPU', dodaj.chosenCpu.img);
+        print('aaa');
       });
     } else
       dodaj.panelsGrid[0] = addButton('CPU','PROCESOR');

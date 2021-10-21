@@ -139,9 +139,9 @@ class _SkladapkaState extends State<Skladapka> {
   }
 
   List<Widget> Views = [
-    dodaj(),
+    rateComponents(),    
     wczytajZestaw(czyWczytuje: false,builds: null),
-    rateComponents(),
+    dodaj(),
     Porownywarka(title: 'dodawanie'),
     Logowanie(),
   ];
@@ -231,9 +231,9 @@ class _SkladapkaState extends State<Skladapka> {
             
             height: 50,
             items: <Widget>[
-              Icon(Icons.add,color: Colors.white),
+              Icon(Icons.star_rate_outlined,color: Colors.white),
               Icon(Icons.edit,color: Colors.white),
-              Icon(Icons.home,color:  Colors.white),
+              Icon(Icons.add,color:  Colors.white),
               Icon(Icons.leaderboard,color:  Colors.white),
               Icon(Icons.account_circle_rounded,color:  Colors.white)
             ],
