@@ -123,7 +123,7 @@ class _Glowna extends State<Glowna> {
                     borderRadius: BorderRadius.circular(10)),
                 child: Container(
                   height: 250,
-                  width: 120,
+                  width: 116,
                   decoration: BoxDecoration(
                       color: Color.fromRGBO(45, 45, 45, 1),
                       borderRadius: BorderRadius.circular(10)),
@@ -161,7 +161,7 @@ class _Glowna extends State<Glowna> {
                     borderRadius: BorderRadius.circular(10)),
                 child: Container(
                   height: 250,
-                  width: 120,
+                  width: 116,
                   decoration: BoxDecoration(
                       color: Color.fromRGBO(45, 45, 45, 1),
                       borderRadius: BorderRadius.circular(10)),
@@ -200,7 +200,7 @@ class _Glowna extends State<Glowna> {
                     borderRadius: BorderRadius.circular(10)),
                 child: Container(
                   height: 250,
-                  width: 120,
+                  width: 116,
                   decoration: BoxDecoration(
 
                       color: Color.fromRGBO(45, 45, 45, 1),
