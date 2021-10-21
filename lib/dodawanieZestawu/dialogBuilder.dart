@@ -60,7 +60,7 @@ class dialogBuilder extends StatelessWidget {
               ],
             ),
             onPressed: () {
-              if (globals.ktoro == 0)
+              if (globals.ktoro == 2)
                 dodaj.chosenCpu = cpus[i];
               else if (globals.ktoro == 1) Edit.chosenCpu = cpus[i];
               Navigator.pop(context);
@@ -105,7 +105,7 @@ class dialogBuilder extends StatelessWidget {
               ],
             ),
             onPressed: () {
-              if (globals.ktoro == 0)
+              if (globals.ktoro == 2)
                 dodaj.chosenPsu = psus[i];
               else if (globals.ktoro == 1) Edit.chosenPsu = psus[i];
               Navigator.pop(context);
@@ -148,7 +148,7 @@ class dialogBuilder extends StatelessWidget {
               ],
             ),
             onPressed: () {
-              if (globals.ktoro == 0)
+              if (globals.ktoro == 2)
                 dodaj.chosenGpu = gpus[i];
               else if (globals.ktoro == 1) Edit.chosenGpu = gpus[i];
               Navigator.pop(context);
@@ -191,7 +191,7 @@ class dialogBuilder extends StatelessWidget {
               ],
             ),
             onPressed: () {
-              if (globals.ktoro == 0)
+              if (globals.ktoro == 2)
                 dodaj.chosenCooler = coolers[i];
               else if (globals.ktoro == 1) Edit.chosenCooler = coolers[i];
               Navigator.pop(context);
@@ -241,7 +241,7 @@ class dialogBuilder extends StatelessWidget {
               ],
             ),
             onPressed: () {
-              if (globals.ktoro == 0)
+              if (globals.ktoro == 2)
                 dodaj.chosenMtb = mtbs[i];
               else if (globals.ktoro == 1) Edit.chosenMtb = mtbs[i];
               Navigator.pop(context);
@@ -288,7 +288,7 @@ class dialogBuilder extends StatelessWidget {
               ],
             ),
             onPressed: () {
-              if (globals.ktoro == 0)
+              if (globals.ktoro == 2)
                 dodaj.chosenDrive = drives[i];
               else if (globals.ktoro == 1) Edit.chosenDrive = drives[i];
               Navigator.pop(context);
@@ -343,7 +343,7 @@ class dialogBuilder extends StatelessWidget {
               ],
             ),
             onPressed: () {
-              if (globals.ktoro == 0)
+              if (globals.ktoro == 2)
                 dodaj.chosenCase = cases[i];
               else if (globals.ktoro == 1) Edit.chosenCase = cases[i];
               Navigator.pop(context);
@@ -386,7 +386,7 @@ class dialogBuilder extends StatelessWidget {
               ],
             ),
             onPressed: () {
-              if (globals.ktoro == 0)
+              if (globals.ktoro == 2)
                 dodaj.chosenRam = rams[i];
               else if (globals.ktoro == 1) Edit.chosenRam = rams[i];
               Navigator.pop(context);
