@@ -207,128 +207,146 @@ class _dodaj extends State<dodaj> {
     );
   }
 
-  Widget itemFrame(String model, String component, Image photoURL) {
-    return Container(
-        margin: EdgeInsets.all(15),
-        width: MediaQuery.of(context).size.width * 0.4,
-        height: MediaQuery.of(context).size.width * 0.4,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(15)),
-            gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Colors.lightBlue[300],
-                Color.fromRGBO(178, 150, 255,1)])),
-        child: Stack(fit: StackFit.passthrough, children: <Widget>[
-          Container(
-            margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
-            padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
-            child: photoURL
-          ),
-          Align(
-              alignment: Alignment.bottomCenter,
-              child: Text(
-                model,
-                textAlign: TextAlign.center,
+  Widget itemFrame(String model, String component, Image photoURL,String background) {
+    
+    
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        
+        Container(
+                 margin: EdgeInsets.only(left: 15),
+                child: Text(background,
                 style: TextStyle(
-                    fontFamily: GoogleFonts.workSans().fontFamily,
-                    fontWeight: FontWeight.normal,
-                    fontSize: 15,
-                    letterSpacing: 2,
-                    color: Colors.white
-                    ),
-              )),
-          GestureDetector(
-            onTap: () {
-              switch (component) {
-                case 'CPU':
-                  setState(() {
-                    minTdp -= double.parse(dodaj.chosenCpu.tdp) * 0.9;
-                    maxTdp -= double.parse(dodaj.chosenCpu.tdp);
-                    base.cpuSocket = null;
-                    if (dodaj.chosenGpu != null) if (dodaj.chosenCpu.hasGpu !=
-                            "none" &&
-                        dodaj.chosenGpu.integra == true) dodaj.chosenGpu = null;
-                    dodaj.chosenCpu = null;
-                  });
-                  break;
-                case 'PSU':
-                  setState(() {
-                    dodaj.chosenPsu = null;
-                  });
-                  break;
-                case 'GPU':
-                  minTdp -= double.parse(dodaj.chosenGpu.tdp);
-                  maxTdp -= double.parse(dodaj.chosenGpu.tdp);
-                  setState(() {
-                    dodaj.chosenGpu = null;
-                  });
-                  break;
-                case 'CSTM COOLER':
-                  minTdp -= 1.0;
-                  maxTdp -= 2.0;
-                  setState(() {
-                    base.coolerSocket = null;
-                    dodaj.chosenCooler = null;
-                  });
-                  break;
-                case 'MTBRD':
-                  minTdp -= 50;
-                  maxTdp -= 150;
-                  setState(() {
-                    base.mtbRamType = null;
-                    base.mtbNvmeSlot = null;
-                    base.mtbStandard = null;
-                    base.caseStandard = null;
-                    dodaj.chosenMtb = null;
-                    base.mtbSocket=null;
-                  });
-                  break;
-                case 'DRIVE':
-                  if (dodaj.chosenDrive.type == "HDD") {
-                    minTdp -= 1.5;
-                    maxTdp -= 2.5;
-                  } else {
-                    minTdp -= 0.5;
-                    maxTdp -= 1;
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                fontFamily: GoogleFonts.workSans().fontFamily,   
+                                color: Colors.white
+                                ),),
+              ),
+        Container(
+            margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
+            width: MediaQuery.of(context).size.width * 0.4,
+            height: MediaQuery.of(context).size.width * 0.4,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(15)),
+                gradient: LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [Colors.lightBlue[300],
+                    Color.fromRGBO(178, 150, 255,1)])),
+            child: Stack(fit: StackFit.passthrough, children: <Widget>[
+              Container(
+                margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
+                padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                child: photoURL
+              ),
+              Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Text(
+                    model,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontFamily: GoogleFonts.workSans().fontFamily,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 15,
+                        letterSpacing: 2,
+                        color: Colors.white
+                        ),
+                  )),
+              GestureDetector(
+                onTap: () {
+                  switch (component) {
+                    case 'CPU':
+                      setState(() {
+                        minTdp -= double.parse(dodaj.chosenCpu.tdp) * 0.9;
+                        maxTdp -= double.parse(dodaj.chosenCpu.tdp);
+                        base.cpuSocket = null;
+                        if (dodaj.chosenGpu != null) if (dodaj.chosenCpu.hasGpu !=
+                                "none" &&
+                            dodaj.chosenGpu.integra == true) dodaj.chosenGpu = null;
+                        dodaj.chosenCpu = null;
+                      });
+                      break;
+                    case 'PSU':
+                      setState(() {
+                        dodaj.chosenPsu = null;
+                      });
+                      break;
+                    case 'GPU':
+                      minTdp -= double.parse(dodaj.chosenGpu.tdp);
+                      maxTdp -= double.parse(dodaj.chosenGpu.tdp);
+                      setState(() {
+                        dodaj.chosenGpu = null;
+                      });
+                      break;
+                    case 'CSTM COOLER':
+                      minTdp -= 1.0;
+                      maxTdp -= 2.0;
+                      setState(() {
+                        base.coolerSocket = null;
+                        dodaj.chosenCooler = null;
+                      });
+                      break;
+                    case 'MTBRD':
+                      minTdp -= 50;
+                      maxTdp -= 150;
+                      setState(() {
+                        base.mtbRamType = null;
+                        base.mtbNvmeSlot = null;
+                        base.mtbStandard = null;
+                        base.caseStandard = null;
+                        dodaj.chosenMtb = null;
+                        base.mtbSocket=null;
+                      });
+                      break;
+                    case 'DRIVE':
+                      if (dodaj.chosenDrive.type == "HDD") {
+                        minTdp -= 1.5;
+                        maxTdp -= 2.5;
+                      } else {
+                        minTdp -= 0.5;
+                        maxTdp -= 1;
+                      }
+                      setState(() {
+                        base.driveConnectionType = null;
+                        dodaj.chosenDrive = null;
+                      });
+                      break;
+                    case 'CASE':
+                      setState(() {
+                        base.caseStandard = null;
+                        dodaj.chosenCase = null;
+                      });
+                      break;
+                    case 'RAM':
+                      minTdp -= 30;
+                      maxTdp -= 60;
+                      setState(() {
+                        base.ramRamType = null;
+                        dodaj.chosenRam = null;
+                      });
+                      break;
                   }
-                  setState(() {
-                    base.driveConnectionType = null;
-                    dodaj.chosenDrive = null;
-                  });
-                  break;
-                case 'CASE':
-                  setState(() {
-                    base.caseStandard = null;
-                    dodaj.chosenCase = null;
-                  });
-                  break;
-                case 'RAM':
-                  minTdp -= 30;
-                  maxTdp -= 60;
-                  setState(() {
-                    base.ramRamType = null;
-                    dodaj.chosenRam = null;
-                  });
-                  break;
-              }
-            },
-            child: Align(
-              alignment: Alignment(1.55, -1.55),
-              child: Container(
-                
-                margin: EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(100),
-                    color: Color.fromRGBO(45, 45, 45,1)),
-                child: Icon(
-                  Icons.cancel,
-                  color: Colors.white,
+                },
+                child: Align(
+                  alignment: Alignment(1.55, -1.55),
+                  child: Container(
+                    
+                    margin: EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(100),
+                        color: Color.fromRGBO(45, 45, 45,1)),
+                    child: Icon(
+                      Icons.cancel,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
-        ]));
+            ])),
+      ],
+    );
   }
 
   List<Widget> firstPanels;
@@ -351,7 +369,7 @@ class _dodaj extends State<dodaj> {
     if (dodaj.chosenCpu != null) {
       
       setState(() {
-        dodaj.panelsGrid[0] = itemFrame(dodaj.chosenCpu.model, 'CPU', dodaj.chosenCpu.img);
+        dodaj.panelsGrid[0] = itemFrame(dodaj.chosenCpu.model, 'CPU', dodaj.chosenCpu.img,'PROCESOR');
         print('aaa');
       });
     } else
@@ -359,7 +377,7 @@ class _dodaj extends State<dodaj> {
 ////////////////////////////////////////////////////////////
     if (dodaj.chosenPsu != null) {
       setState(() {
-        dodaj.panelsGrid[1] = itemFrame(dodaj.chosenPsu.model, 'PSU', dodaj.chosenPsu.img);
+        dodaj.panelsGrid[1] = itemFrame(dodaj.chosenPsu.model, 'PSU', dodaj.chosenPsu.img,'ZASILACZ');
       });
     } else
       dodaj.panelsGrid[1] = addButton('PSU','ZASILACZ');
@@ -367,7 +385,7 @@ class _dodaj extends State<dodaj> {
     if (dodaj.chosenMtb != null) {
       setState(() {
         dodaj.panelsGrid[2] =
-            itemFrame(dodaj.chosenMtb.model, 'MTBRD', dodaj.chosenMtb.img);
+            itemFrame(dodaj.chosenMtb.model, 'MTBRD', dodaj.chosenMtb.img,'PŁYTA GŁÓWNA');
       });
     } else
       dodaj.panelsGrid[2] = addButton('MTBRD','PŁYTA GŁÓWNA');
@@ -375,14 +393,14 @@ class _dodaj extends State<dodaj> {
     if (dodaj.chosenDrive != null) {
       setState(() {
         dodaj.panelsGrid[3] =
-            itemFrame(dodaj.chosenDrive.model, 'DRIVE', dodaj.chosenDrive.img);
+            itemFrame(dodaj.chosenDrive.model, 'DRIVE', dodaj.chosenDrive.img,'DYSK SYSTEMOWY');
       });
     } else
       dodaj.panelsGrid[3] = addButton('DRIVE','DYSK');
     ////////////////////////////////////////////////////
     if (dodaj.chosenRam != null) {
       setState(() {
-        dodaj.panelsGrid[4] = itemFrame(dodaj.chosenRam.model, 'RAM', dodaj.chosenRam.img);
+        dodaj.panelsGrid[4] = itemFrame(dodaj.chosenRam.model, 'RAM', dodaj.chosenRam.img,'RAM');
       });
     } else
       dodaj.panelsGrid[4] = addButton('RAM','RAM');
@@ -390,14 +408,14 @@ class _dodaj extends State<dodaj> {
     if (dodaj.chosenCase != null) {
       setState(() {
         dodaj.panelsGrid[5] =
-            itemFrame(dodaj.chosenCase.model, 'CASE', dodaj.chosenCase.img);
+            itemFrame(dodaj.chosenCase.model, 'CASE', dodaj.chosenCase.img,'OBUDOWA');
       });
     } else
       dodaj.panelsGrid[5] = addButton('CASE','OBUDOWA');
     ///////////////////////////////////////////////////
     if (dodaj.chosenGpu != null) {
       setState(() {
-        dodaj.panelsGrid[6] = itemFrame(dodaj.chosenGpu.model, 'GPU', dodaj.chosenGpu.img);
+        dodaj.panelsGrid[6] = itemFrame(dodaj.chosenGpu.model, 'GPU', dodaj.chosenGpu.img,'KARTA GRAFICZNA');
       });
     } else
       dodaj.panelsGrid[6] = addButton('GPU','KARTA GRAFICZNA');
@@ -405,7 +423,7 @@ class _dodaj extends State<dodaj> {
     if (dodaj.chosenCooler != null) {
       setState(() {
         dodaj.panelsGrid[7] =
-            itemFrame(dodaj.chosenCooler.model, 'CSTM COOLER', dodaj.chosenCooler.img);
+            itemFrame(dodaj.chosenCooler.model, 'CSTM COOLER', dodaj.chosenCooler.img,'CHŁODZENIE');
       });
     } else
       dodaj.panelsGrid[7] = addButton('CSTM COOLER','CHŁODZENIE');

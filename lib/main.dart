@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -62,6 +63,23 @@ void inicjalizuj(Builds builds) {
   ));
 }
 
+Future<int> getAvatarNumber() async {
+    var chosenAvatar;
+    await FirebaseFirestore.instance
+        .collection("users")
+        .where('uid', isEqualTo: FirebaseAuth.instance.currentUser.uid)
+        .get()
+        .then((QuerySnapshot result) => {
+              result.docs.forEach((element) {
+                if (element['aid'] != null)
+                  chosenAvatar = element['aid'];
+                else
+                  chosenAvatar = 0;
+              })
+            });
+    
+    return chosenAvatar;
+  }
 
 
 ThemeData appTheme(){
@@ -145,9 +163,18 @@ class _SkladapkaState extends State<Skladapka> {
     Porownywarka(title: 'dodawanie'),
     Logowanie(),
   ];
+  final List<Image> avatarList = [
+    Image.asset('assets/avatars/1.png'),
+    Image.asset('assets/avatars/2.png'),
+    Image.asset('assets/avatars/3.png'),
+    Image.asset('assets/avatars/4.png'),
+    Image.asset('assets/avatars/5.png'),
+  ];
 
+  
   @override
   Widget build(BuildContext context) {    
+    
 
     return MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -235,7 +262,24 @@ class _SkladapkaState extends State<Skladapka> {
               Icon(Icons.edit,color: Colors.white),
               Icon(Icons.add,color:  Colors.white),
               Icon(Icons.leaderboard,color:  Colors.white),
+              if (globalna.czyZalogowany=="czyZalogowany=false")
               Icon(Icons.account_circle_rounded,color:  Colors.white)
+              else
+              Container(
+                height: 30,
+                width: 30,
+                child: ClipRRect(
+                  child: FutureBuilder(
+                    future: getAvatarNumber(),
+                    builder:(context, snapshot) {
+                      if(snapshot.connectionState==ConnectionState.done)
+                      return avatarList[snapshot.data];
+                      else return Container();
+                    },
+                  ),
+                  borderRadius: BorderRadius.circular(100),
+                ),
+              )
             ],
 
             onTap: _onItemTapped,
