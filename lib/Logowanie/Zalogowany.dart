@@ -8,6 +8,7 @@ import 'package:skladappka/Firebase/Builds.dart';
 import 'package:skladappka/Firebase/FireBase.dart';
 import 'package:skladappka/Firebase/doLogowanie/doLogowanie.dart';
 import 'package:skladappka/Logowanie/Logowanie.dart';
+import 'package:skladappka/Logowanie/Wylogowany.dart';
 import 'package:skladappka/config/fileOperations.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
 import 'package:google_fonts/google_fonts.dart';
@@ -100,10 +101,8 @@ class _Zalogowany extends State<Zalogowany> {
       title: Text('Czy chcesz usunąć swoje konto?',style: TextStyle(fontSize: 18),),
       actions: [
         TextButton(child: Text('Tak'),
-        onPressed: (){
-          Logowanie();
-          doLogowanie().deleteUser();
-          Navigator.pop(c);
+        onPressed: () async{
+          await doLogowanie().deleteUser();
           
         },),
         TextButton(child: Text('Nie'),

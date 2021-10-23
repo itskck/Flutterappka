@@ -27,9 +27,10 @@ class _Logowanie extends State<Logowanie>{
       value: doLogowanie().user,
       initialData: null,
       child: Container(
-        
+
         child: isLogged(),
       ),
     );
+
   }
 }
