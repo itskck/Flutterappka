@@ -70,7 +70,7 @@ class doLogowanie{
     return userCollection.doc(_autoryzacja.currentUser.uid).delete();
   }
 
-Future deleteUser(String email, String password) async {
+Future deleteUser() async {
   FirebaseAuth.instance.currentUser.delete();
   await FirebaseAuth.instance.signOut();
   await Anonim();

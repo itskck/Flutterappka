@@ -7,6 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:skladappka/Firebase/Builds.dart';
 import 'package:skladappka/Firebase/FireBase.dart';
 import 'package:skladappka/Firebase/doLogowanie/doLogowanie.dart';
+import 'package:skladappka/Logowanie/Logowanie.dart';
 import 'package:skladappka/config/fileOperations.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
 import 'package:google_fonts/google_fonts.dart';
@@ -14,6 +15,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
 import 'package:skladappka/wczytajZestaw/wczytajZestaw.dart';
 import 'package:skladappka/main.dart';
+import 'package:skladappka/Firebase/doLogowanie/doLogowanie.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -92,12 +94,35 @@ class _Zalogowany extends State<Zalogowany> {
     return username;
   }
 
+  Widget removeAcc(BuildContext c){
+   
+    return AlertDialog(
+      title: Text('Czy chcesz usunąć swoje konto?',style: TextStyle(fontSize: 18),),
+      actions: [
+        TextButton(child: Text('Tak'),
+        onPressed: (){
+          Logowanie();
+          doLogowanie().deleteUser();
+          Navigator.pop(c);
+          
+        },),
+        TextButton(child: Text('Nie'),
+        onPressed: (){
+          Navigator.pop(c);
+        },),
+      ],
+    );
+  }
+
   Widget chooseAvatar(BuildContext c) {
     return SimpleDialog(
       title: Center(child: Text('Wybierz swój awatar:')),
       children: [
-        for (int i = 0; i < avatarList.length; i++)
-          SimpleDialogOption(
+        Wrap(
+          alignment: WrapAlignment.center,
+          children: [
+            for (int i = 0; i < avatarList.length; i++)
+             SimpleDialogOption(
             child: Container(height: 50, width: 50, child: avatarList[i]),
             onPressed: () async {
               await FirebaseFirestore.instance
@@ -108,15 +133,24 @@ class _Zalogowany extends State<Zalogowany> {
               Navigator.pop(c);
             },
           ),
-        Center(
-          child: Text('Edytuj nazwę użytkownika:'),
+          ],
         ),
+        
+        
         Container(
+          margin: EdgeInsets.fromLTRB(35, 20, 35, 0),
           width: 50,
-          height: 20,
-          child: TextField(),
+          height: 40,
+          child: TextField(
+           decoration: InputDecoration(
+             border: OutlineInputBorder(),
+             labelText: 'Edytuj nazwę użytkownika',
+             isDense: true,
+             contentPadding: EdgeInsets.all(8)
+           ),
+          ),
         )
-      ],
+        ],
     );
   }
 
@@ -395,7 +429,39 @@ class _Zalogowany extends State<Zalogowany> {
                         ],
                       );
                     }))),
-        Container(
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+
+          children: [
+            Container(
+              width: 100,
+              padding: EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color.fromRGBO(142, 223, 255, 1),
+                        Color.fromRGBO(255, 0, 140, 1)
+                      ])),
+              child: Container(
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(45, 45, 45, 1),
+                    borderRadius: BorderRadius.circular(10)),
+                child: TextButton(
+                    onPressed: () async {
+                      logout();
+                    },
+                    child: Text('Wyloguj',style: TextStyle(color: Colors.white),)),
+              ),
+            ),
+            SizedBox(
+              width: 30,
+            ),
+            Container(
+              width: 100,
           padding: EdgeInsets.all(2),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
@@ -413,12 +479,21 @@ class _Zalogowany extends State<Zalogowany> {
                 borderRadius: BorderRadius.circular(10)),
             child: TextButton(
                 onPressed: () async {
-                  logout();
+                  await showDialog(context: context, builder: (BuildContext c) => removeAcc(c) );
                 },
-                child: Text('Wyloguj')),
+                child: Text('Usuń konto',style: TextStyle(
+                  color: Colors.white
+                ),)),
           ),
         )
+          ],
+        ),
+        
       ]),
     );
   }
+
+  
 }
+
+

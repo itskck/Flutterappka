@@ -153,6 +153,7 @@ class _SkladapkaState extends State<Skladapka> {
         theme: appTheme(),
         title: 'Skladapka',
         home: Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: appTheme().primaryColor,
           //entry point to your app scaffold blank display
           appBar: AppBar(
