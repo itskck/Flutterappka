@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:skladappka/Glowna/Glowna.dart';
 import 'package:skladappka/Porownywarka/dialogWidgetForCompare.dart';
 import 'package:skladappka/main.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
@@ -33,7 +34,7 @@ class _rateComponents extends State<rateComponents>{
       ),),
     TextField(
       onSubmitted: (String value) async{
-        if(Skladapka.connectivityResult==ConnectivityResult.none)
+        if(Glowna.connectivityResult==ConnectivityResult.none)
           Fluttertoast.showToast(msg: "Brak połączenia z internetem",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.CENTER,
@@ -105,7 +106,7 @@ class _rateComponents extends State<rateComponents>{
   {
     return GestureDetector(
         onTap: () async{
-          if(Skladapka.connectivityResult==ConnectivityResult.none)
+          if(Glowna.connectivityResult==ConnectivityResult.none)
             Fluttertoast.showToast(msg: "Brak połączenia z internetem",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
@@ -118,7 +119,6 @@ class _rateComponents extends State<rateComponents>{
                   timeInSecForIosWeb: 2);
             } else {
               await dialogWidgetForCompare().showPopup(context, 0);
-              // Navigator.pop(context);//W zaleznosci czy bedzie wybrana lewa czy prawa wartosc bedzie sie zmieniala z 0 na 1
               return inicjalizuj(rateComponents.builds);
             }
           }
@@ -140,7 +140,10 @@ class _rateComponents extends State<rateComponents>{
           child: GestureDetector(
               onTap: () async{
                 if (globalna.czyZalogowany == "czyZalogowany=false") {
-                  print("uzytkownik niezalogowany");
+                  Fluttertoast.showToast(msg: "Musisz być zalogowany",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.CENTER,
+                      timeInSecForIosWeb: 2);
                 } else {
                   await dialogWidgetForCompare().showPopup(context,
                       0);

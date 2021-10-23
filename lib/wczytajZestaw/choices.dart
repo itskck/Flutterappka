@@ -34,7 +34,7 @@ class _choices extends State<choices>{
       ),),
       TextField(
         onSubmitted: (String value) async{
-          if(Skladapka.connectivityResult==ConnectivityResult.none)
+          if(Glowna.connectivityResult==ConnectivityResult.none)
             Fluttertoast.showToast(msg: "Brak połączenia z internetem",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.CENTER,
@@ -141,7 +141,10 @@ class _choices extends State<choices>{
       child: GestureDetector(
         onTap: () async{
           if (globalna.czyZalogowany == "czyZalogowany=false") {
-            print("uzytkownik niezalogowany");
+            Fluttertoast.showToast(msg: "Musisz być zalogowany",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                timeInSecForIosWeb: 2);
           } else {
             await dialogWidgetForCompare().showPopup(context,
                 0);

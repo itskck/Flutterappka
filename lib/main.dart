@@ -7,6 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:skladappka/Firebase/doLogowanie/doLogowanie.dart';
+import 'package:skladappka/rateComponents/whichSite.dart';
 import 'dodawanieZestawu/dodaj.dart';
 import 'Glowna/Glowna.dart';
 import 'Logowanie/Logowanie.dart';
@@ -97,9 +98,6 @@ ThemeData appTheme(){
 
 class Skladapka extends StatefulWidget {
   // This widget is the root of your application.
-  static Connectivity _connectivity = Connectivity();
-  static StreamSubscription<ConnectivityResult> connectivitySubscription;
-  static ConnectivityResult connectivityResult= ConnectivityResult.none;
 
   final Builds builds;
 
@@ -111,14 +109,6 @@ class Skladapka extends StatefulWidget {
 
 class _SkladapkaState extends State<Skladapka> {
   final doLogowanie _anonim = doLogowanie();
-  @override
-  void initState() {
-    super.initState();
-    print('ao');
-    Skladapka.connectivitySubscription = Skladapka._connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
-    print('object');
-
-  }
 
   void _onItemTapped(int index) {
     if(globalna.ktoro==2) Glowna.connectivitySubscription.cancel();
@@ -126,34 +116,16 @@ class _SkladapkaState extends State<Skladapka> {
     inicjalizuj(null);
   }
 
-  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
-    User _firebaseUser=FirebaseAuth.instance.currentUser;
-    if(_firebaseUser==null) {
-      dynamic result = await _anonim.Anonim();
-      print(result);
-    }
-    setState(() {
-      Skladapka.connectivityResult = result;
-    });
-  }
-
-  @override
-  dispose() {
-    super.dispose();
-    Skladapka.connectivitySubscription.cancel();
-  }
-
-
-  
 
   Widget viewReturner(int ktoro){
     if(widget.builds!=null) {
       setState(() {
         globalna.ktoro=ktoro;
       });
-      return wczytajZestaw(czyWczytuje: true, builds: widget.builds);
+      if(ktoro==1) return wczytajZestaw(czyWczytuje: true, builds: widget.builds);
+      else return whichSite(czyWczytuje: true, builds: widget.builds);
     }
-      return Views[ktoro];
+     else return Views[ktoro];
   }
 
   List<Widget> Views = [

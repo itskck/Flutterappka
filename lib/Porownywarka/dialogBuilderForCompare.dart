@@ -14,6 +14,7 @@ import 'dart:core';
 import 'package:skladappka/Firebase/getFromDatabase/getFromSaved.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
 import 'package:skladappka/wczytajZestaw/choices.dart';
+import 'package:skladappka/rateComponents/rateComponents.dart';
 
 import 'package:skladappka/Porownywarka/Porownywarka.dart';
 
@@ -43,10 +44,13 @@ class dialogBuilderForCompare extends StatelessWidget{
                   Porownywarka.chosenGpu = await getFromSaved(id: builds[i].gpuId).getGpu();
                   Porownywarka.chosenCooler = await getFromSaved(id: builds[i].coolerId).getCooler();
                   }
-                else
+                else if(globalna.ktoro==1)
                   {
                     choices.builds=builds[i];
                   }
+                else
+                  rateComponents.builds=builds[i];
+
                 else{
                   Porownywarka.chosenCpu2 = await getFromSaved(id: builds[i].cpuId).getCpu();
                   Porownywarka.chosenPsu2 = await getFromSaved(id: builds[i].psuId).getPsu();
