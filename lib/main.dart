@@ -125,7 +125,7 @@ class _SkladapkaState extends State<Skladapka> {
       if(ktoro==1) return wczytajZestaw(czyWczytuje: true, builds: widget.builds);
       else return whichSite(czyWczytuje: true, builds: widget.builds);
     }
-     else return Views[ktoro];
+     else return  Views[ktoro];
   }
 
   List<Widget> Views = [
@@ -225,7 +225,7 @@ class _SkladapkaState extends State<Skladapka> {
           ),
           bottomNavigationBar: CurvedNavigationBar(
             index: globalna.ktoro,
-            color:Colors.lightBlue[300].withOpacity(0.8),
+            color:Colors.lightBlue[300],
             backgroundColor: Color.fromRGBO(59, 55, 68,1),            
             animationDuration: Duration(milliseconds: 300),
             

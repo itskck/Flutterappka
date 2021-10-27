@@ -448,26 +448,57 @@ class _Porownywarka extends State<Porownywarka> {
     if (isLeftChosen && isRightChosen) return Comparison();
     //build context gives the layout, when you build widget it will always have this line
     return Center(
-        child: Row(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('Porównywanie zestawów',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  
+                  fontFamily: GoogleFonts.workSans().fontFamily,                  
+                  fontWeight: FontWeight.normal,
+                  fontSize: 38,
+                  letterSpacing: 2,
+                  color: Colors.white
+                  ),),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.1,vertical: 0),
+                child: Text('Wybierz dwa dowolne zestawy, a następnie porównaj ich komponenty',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: GoogleFonts.workSans().fontFamily,                  
+                    fontWeight: FontWeight.normal,
+                    fontSize: 16,
+                    letterSpacing: 1,
+                    
+                    ),),
+              ),
+              SizedBox(height: 50,),
+            Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        left(isLeftChosen),
-        SizedBox(
-            height: MediaQuery.of(context).size.height * 0.2,
-            width: 1,
-            child: Container(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                colors: [
-                  Color.fromRGBO(142, 223, 255, 1),
-                  Color.fromRGBO(255, 0, 140, 1)
-                ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              )),
-            )),
-        right(isRightChosen),
+            left(isLeftChosen),
+            SizedBox(
+                height: MediaQuery.of(context).size.height * 0.2,
+                width: 1,
+                child: Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                    colors: [
+                      Color.fromRGBO(142, 223, 255, 1),
+                      Color.fromRGBO(255, 0, 140, 1)
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  )),
+                )),
+            right(isRightChosen),
       ],
-    ));
+    ),
+          SizedBox(height: 170,)
+          ],
+
+        ));
   }
 }

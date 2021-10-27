@@ -178,7 +178,7 @@ class _Comparison extends State<Comparison> {
       sign = '%';
     var pixelWidth = width;
     if (pixelWidth < 0) pixelWidth = pixelWidth * (-1);
-    if (pixelWidth > 100) pixelWidth = 100;
+    if (pixelWidth > 50) pixelWidth = 50;
     Color color;
     if (width > 0) color = Colors.green;
     if (width < 0) color = Colors.grey;
@@ -201,40 +201,44 @@ class _Comparison extends State<Comparison> {
       );
     else
       return Container(
-        width: MediaQuery.of(context).size.width / 2,
+        padding: EdgeInsets.symmetric(horizontal: 5),
+        width: MediaQuery.of(context).size.width *0.5-1,
         height: 70,
         child: Row(
           textDirection: td,
           children: [
-            SizedBox(height: 40, width: 40, child: Container(
-              decoration: BoxDecoration(
-                //borderRadius: BorderRadius.circular(40),
-                  gradient: LinearGradient(
-                colors: [
-                  Colors.white
-                  ,Colors.white
-                ],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              )),
-              child: placeholder
-              )),
+            Container(
+                height: 40,
+                width: 40,
+                child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(40),
+                        gradient: LinearGradient(
+                          colors: [Colors.white, Colors.white],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        )),
+                    child: placeholder)),
             LimitedBox(
-              maxWidth: MediaQuery.of(context).size.width / 2 - 40,
+              maxWidth: MediaQuery.of(context).size.width *0.35,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: crossAxisAlignment,
                 children: [
                   AutoSizeText(
-                    component,
+                    component.length > 15
+                        ? " " +
+                            component.substring(
+                                0, component.length - component.length + 15) +
+                            "..."
+                        : " " + component,
                     maxLines: 1,
                     overflow: TextOverflow.clip,
                     style: TextStyle(
-                                
-                                fontWeight: FontWeight.w800,
-                                fontFamily: GoogleFonts.workSans().fontFamily,   
-                                color: Colors.white
-                                ),
+                        fontSize: 10,
+                        fontWeight: FontWeight.w800,
+                        fontFamily: GoogleFonts.workSans().fontFamily,
+                        color: Colors.white),
                   ),
                   Row(
                     textDirection: td,
@@ -251,34 +255,31 @@ class _Comparison extends State<Comparison> {
                       ),
                       if (width > 0)
                         AutoSizeText(
-                          '+$width' + sign,
+                          ' +$width' + sign,
                           style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w800,
-                                fontFamily: GoogleFonts.workSans().fontFamily,   
-                                color: Colors.green
-                                ),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w800,
+                              fontFamily: GoogleFonts.workSans().fontFamily,
+                              color: Colors.green),
+                          overflow: TextOverflow.ellipsis,
                         )
                       else if (width < 0)
                         AutoSizeText(
                           '$width' + sign,
                           style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w800,
-                                fontFamily: GoogleFonts.workSans().fontFamily,   
-                                color: Colors.red
-                                ),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w800,
+                              fontFamily: GoogleFonts.workSans().fontFamily,
+                              color: Colors.red),
                         )
                       else
                         AutoSizeText(
                           '+$width' + sign,
                           style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w800,
-                                fontFamily: GoogleFonts.workSans().fontFamily,   
-                                color: Colors.white
-                                ),
-                          
+                              fontSize: 15,
+                              fontWeight: FontWeight.w800,
+                              fontFamily: GoogleFonts.workSans().fontFamily,
+                              color: Colors.white),
                         )
                     ],
                   ),
@@ -296,10 +297,13 @@ class _Comparison extends State<Comparison> {
       ca = CrossAxisAlignment.start;
     else
       ca = CrossAxisAlignment.end;
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: ca,
-      children: children,
+    return Container(
+      width: MediaQuery.of(context).size.width / 2,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: ca,
+        children: children,
+      ),
     );
   }
 
@@ -338,10 +342,9 @@ class _Comparison extends State<Comparison> {
         Container(
           alignment: Alignment.center,
           child: SizedBox(
-            
             height: MediaQuery.of(context).size.height * 0.8,
             width: 1,
-            child:  Container(
+            child: Container(
               decoration: BoxDecoration(
                   gradient: LinearGradient(
                 colors: [
@@ -380,11 +383,11 @@ class _Comparison extends State<Comparison> {
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w800,
-                                fontFamily: GoogleFonts.workSans().fontFamily,   
-                                color: Colors.white
-                                ),
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w800,
+                                        fontFamily:
+                                            GoogleFonts.workSans().fontFamily,
+                                        color: Colors.white),
                                   ),
                                 ],
                               ),
@@ -398,15 +401,16 @@ class _Comparison extends State<Comparison> {
                                       child: avatarList[avatarid2],
                                       borderRadius: BorderRadius.circular(100)),
                                   AutoSizeText(
-                                      'Zestaw użytkownika \n $username2',
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w800,
-                                fontFamily: GoogleFonts.workSans().fontFamily,   
-                                color: Colors.white
-                                ),),
+                                    'Zestaw użytkownika \n $username2',
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w800,
+                                        fontFamily:
+                                            GoogleFonts.workSans().fontFamily,
+                                        color: Colors.white),
+                                  ),
                                 ],
                               ),
                             ),
@@ -421,49 +425,156 @@ class _Comparison extends State<Comparison> {
               height: 1,
               width: MediaQuery.of(context).size.width * 0.95,
               child: Container(
-                child: Container(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                colors: [
-                  Color.fromRGBO(142, 223, 255, 1),
-                  Color.fromRGBO(255, 0, 140, 1)
-                ],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
+                  child: Container(
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                  colors: [
+                    Color.fromRGBO(142, 223, 255, 1),
+                    Color.fromRGBO(255, 0, 140, 1)
+                  ],
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                )),
               )),
-            )
-              ),
             ),
             Row(
               children: [
                 buildColumn('left', [
-                  componentBar(build1[0], Image.asset('assets/companies logo/'+build1[0].manufacturer.toString().toLowerCase()+'.png'), cpuScore1, 'left', true),
-                  componentBar(build1[1], Image.asset('assets/companies logo/'+build1[1].manufacturer.toString().toLowerCase()+'.png'), gpuScore1, 'left', true),
-                  componentBar(build1[2], Image.asset('assets/companies logo/'+build1[2].manufacturer.toString().toLowerCase()+'.png'), ramScore1, 'left', true),
-                  componentBar(build1[3], Image.asset('assets/companies logo/'+build1[3].manufacturer.toString().toLowerCase()+'.png'), psuScore1, 'left', true),
                   componentBar(
-                      build1[4], Image.asset('assets/companies logo/'+build1[4].manufacturer.toString().toLowerCase()+'.png'), driveScore1, 'left', true),
-                  componentBar(build1[5], Image.asset('assets/companies logo/'+build1[5].manufacturer.toString().toLowerCase()+'.png'), 0, 'left', true),
-                  componentBar(build1[6], Image.asset('assets/companies logo/'+build1[6].manufacturer.toString().toLowerCase()+'.png'), 0, 'left', true),
-                  componentBar(build1[7] != null ? build1[7] : "nope",
-                      Image.asset('assets/companies logo/'+build1[7].manufacturer.toString().toLowerCase()+'.png'), 0, 'left', build1[7] != null ? true : false),
+                      build1[0],
+                      Image.asset('assets/companies logo/' +
+                          build1[0].manufacturer.toString().toLowerCase() +
+                          '.png'),
+                      cpuScore1,
+                      'left',
+                      true),
+                  componentBar(
+                      build1[1],
+                      Image.asset('assets/companies logo/' +
+                          build1[1].manufacturer.toString().toLowerCase() +
+                          '.png'),
+                      gpuScore1,
+                      'left',
+                      true),
+                  componentBar(
+                      build1[2],
+                      Image.asset('assets/companies logo/' +
+                          build1[2].manufacturer.toString().toLowerCase() +
+                          '.png'),
+                      ramScore1,
+                      'left',
+                      true),
+                  componentBar(
+                      build1[3],
+                      Image.asset('assets/companies logo/' +
+                          build1[3].manufacturer.toString().toLowerCase() +
+                          '.png'),
+                      psuScore1,
+                      'left',
+                      true),
+                  componentBar(
+                      build1[4],
+                      Image.asset('assets/companies logo/' +
+                          build1[4].manufacturer.toString().toLowerCase() +
+                          '.png'),
+                      driveScore1,
+                      'left',
+                      true),
+                  componentBar(
+                      build1[5],
+                      Image.asset('assets/companies logo/' +
+                          build1[5].manufacturer.toString().toLowerCase() +
+                          '.png'),
+                      0,
+                      'left',
+                      true),
+                  componentBar(
+                      build1[6],
+                      Image.asset('assets/companies logo/' +
+                          build1[6].manufacturer.toString().toLowerCase() +
+                          '.png'),
+                      0,
+                      'left',
+                      true),
+                  componentBar(
+                      build1[7],
+                      build1[7].manufacturer != 'placeholder'
+                          ? Image.asset('assets/companies logo/' +
+                              build1[7].manufacturer.toString().toLowerCase() +
+                              '.png')
+                          : Image.asset('assets/companies logo/' +
+                              build1[0].manufacturer.toString().toLowerCase() +
+                              '.png'),
+                      0,
+                      'left',
+                      build1[7] != null ? true : false),
                 ]),
                 buildColumn('right', [
                   componentBar(
-                      build2[0], Image.asset('assets/companies logo/'+build2[0].manufacturer.toString().toLowerCase()+'.png'), cpuScore2, 'right', true),
+                      build2[0],
+                      Image.asset('assets/companies logo/' +
+                          build2[0].manufacturer.toString().toLowerCase() +
+                          '.png'),
+                      cpuScore2,
+                      'right',
+                      true),
                   componentBar(
-                      build2[1], Image.asset('assets/companies logo/'+build2[1].manufacturer.toString().toLowerCase()+'.png'), gpuScore2, 'right', true),
+                      build2[1],
+                      Image.asset('assets/companies logo/' +
+                          build2[1].manufacturer.toString().toLowerCase() +
+                          '.png'),
+                      gpuScore2,
+                      'right',
+                      true),
                   componentBar(
-                      build2[2], Image.asset('assets/companies logo/'+build2[2].manufacturer.toString().toLowerCase()+'.png'), ramScore2, 'right', true),
+                      build2[2],
+                      Image.asset('assets/companies logo/' +
+                          build2[2].manufacturer.toString().toLowerCase() +
+                          '.png'),
+                      ramScore2,
+                      'right',
+                      true),
                   componentBar(
-                      build2[3], Image.asset('assets/companies logo/'+build2[3].manufacturer.toString().toLowerCase()+'.png'), psuScore2, 'right', true),
+                      build2[3],
+                      Image.asset('assets/companies logo/' +
+                          build2[3].manufacturer.toString().toLowerCase() +
+                          '.png'),
+                      psuScore2,
+                      'right',
+                      true),
                   componentBar(
-                      build2[4], Image.asset('assets/companies logo/'+build2[4].manufacturer.toString().toLowerCase()+'.png'), driveScore2, 'right', true),
-                  componentBar(build2[5], Image.asset('assets/companies logo/'+build2[5].manufacturer.toString().toLowerCase()+'.png'), 0, 'right', true),
-                  componentBar(build2[6], Image.asset('assets/companies logo/'+build2[6].manufacturer.toString().toLowerCase()+'.png'), 0, 'right', true),
+                      build2[4],
+                      Image.asset('assets/companies logo/' +
+                          build2[4].manufacturer.toString().toLowerCase() +
+                          '.png'),
+                      driveScore2,
+                      'right',
+                      true),
                   componentBar(
-                      build2[7] != null ? build2[7] : "nope",
-                      Image.asset('assets/companies logo/'+build2[7].manufacturer.toString().toLowerCase()+'.png'),
+                      build2[5],
+                      Image.asset('assets/companies logo/' +
+                          build2[5].manufacturer.toString().toLowerCase() +
+                          '.png'),
+                      0,
+                      'right',
+                      true),
+                  componentBar(
+                      build2[6],
+                      Image.asset('assets/companies logo/' +
+                          build2[6].manufacturer.toString().toLowerCase() +
+                          '.png'),
+                      0,
+                      'right',
+                      true),
+                  componentBar(
+                      build2[7],
+                      build2[7].manufacturer != 'placeholder'
+                          ? Image.asset('assets/companies logo/' +
+                              build2[7].manufacturer.toString().toLowerCase() +
+                              '.png')
+                          : Image.asset('assets/companies logo/' +
+                              build2[0].manufacturer.toString().toLowerCase() +
+                              '.png'),
                       0,
                       'right',
                       build2[7] != null ? true : false),

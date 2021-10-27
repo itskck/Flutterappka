@@ -448,9 +448,9 @@ class _dodaj extends State<dodaj> {
       ])),
       
       Align(
-        alignment: Alignment(0.92,0.98),
+        alignment: Alignment(0.92,0.95),
         child: SpeedDial(
-          backgroundColor: Colors.lightBlue[300].withOpacity(0.8),
+          backgroundColor: Colors.lightBlue[300],
           overlayOpacity: 0,
           curve: Curves.linear,
           animatedIcon: AnimatedIcons.menu_arrow,          
@@ -458,7 +458,7 @@ class _dodaj extends State<dodaj> {
           children: [
             SpeedDialChild(
               child: Icon(Icons.save),
-              backgroundColor:Colors.lightBlue[300].withOpacity(0.8) ,
+              backgroundColor:Colors.lightBlue[300] ,
               foregroundColor: Colors.white,
               onTap: () async {
                 if(Glowna.connectivityResult==ConnectivityResult.none)
@@ -555,7 +555,7 @@ class _dodaj extends State<dodaj> {
             ),
             SpeedDialChild(
               child: Icon(Icons.delete),
-              backgroundColor:Colors.lightBlue[300].withOpacity(0.8) ,
+              backgroundColor:Colors.lightBlue[300] ,
               foregroundColor: Colors.white,
               onTap: (){
                 setState(() {

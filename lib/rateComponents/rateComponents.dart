@@ -177,9 +177,34 @@ class _rateComponents extends State<rateComponents>{
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          codeOptionButton(),
-          SizedBox(height: 20,),
-          savedButton(),
+          Text('Ocena zestawu',
+              style: TextStyle(
+                  
+                  fontFamily: GoogleFonts.workSans().fontFamily,                  
+                  fontWeight: FontWeight.normal,
+                  fontSize: 38,
+                  letterSpacing: 2,
+                  color: Colors.white
+                  ),),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width*0.1,vertical: 0),
+                child: Text('Wybierz preferowaną opcje wyboru, a następnie dowiedz się, jak możesz ulepszyć swój zestaw',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white,
+                    fontFamily: GoogleFonts.workSans().fontFamily,                  
+                    fontWeight: FontWeight.normal,
+                    fontSize: 16,
+                    letterSpacing: 1,
+
+                    
+                    ),),
+              ),
+              SizedBox(height: 50,),
+              codeOptionButton(),
+              SizedBox(height: 20,),
+              savedButton(),
+              SizedBox(height: 150,)
         ],
       ),
     );

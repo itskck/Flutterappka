@@ -25,7 +25,7 @@ class getFromSaved {
   static Case chosenCase;
   static Gpu chosenGpu;
   static Cooler chosenCooler;
-
+  static String uid;
   String id;
   getFromSaved({this.id});
 
@@ -190,7 +190,9 @@ class getFromSaved {
     }).toList();
     return chosenPsu;
   }
-
+  Future<String> getUid()async{
+    
+  }
   Future<Ram> getRam() async{
 
     var snapshot= await FirebaseFirestore.instance
