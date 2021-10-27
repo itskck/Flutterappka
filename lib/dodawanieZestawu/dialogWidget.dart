@@ -100,5 +100,12 @@ class dialogWidget {
         initialData: [],
         child: dialogBuilder(component: component),
       );
+
+    if (component == 'EXTRA DRIVE')
+      return StreamProvider<List<Drive>>.value(
+        value: base.extradrives,
+        initialData: [],
+        child: dialogBuilder(component: component),
+      );
   }
 }

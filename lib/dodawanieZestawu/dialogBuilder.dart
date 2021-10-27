@@ -241,9 +241,13 @@ class dialogBuilder extends StatelessWidget {
               ],
             ),
             onPressed: () {
-              if (globals.ktoro == 2)
+              if (globals.ktoro == 2) {
                 dodaj.chosenMtb = mtbs[i];
-              else if (globals.ktoro == 1) Edit.chosenMtb = mtbs[i];
+                if(mtbs[i].hasNvmeSlot==true && dodaj.chosenDrive==null)
+                  dodaj.usedNvme=false;
+                if(dodaj.chosenMtb.hasNvmeSlot==true) dodaj.slots=int.parse(dodaj.chosenMtb.sataPorts);
+                else dodaj.slots=int.parse(dodaj.chosenMtb.sataPorts)-1;
+              } else if (globals.ktoro == 1) Edit.chosenMtb = mtbs[i];
               Navigator.pop(context);
             },
           )
@@ -288,9 +292,10 @@ class dialogBuilder extends StatelessWidget {
               ],
             ),
             onPressed: () {
-              if (globals.ktoro == 2)
+              if (globals.ktoro == 2) {
                 dodaj.chosenDrive = drives[i];
-              else if (globals.ktoro == 1) Edit.chosenDrive = drives[i];
+                if(drives[i].connectionType=="NVMe") dodaj.usedNvme=true;
+              } else if (globals.ktoro == 1) Edit.chosenDrive = drives[i];
               Navigator.pop(context);
             },
           )
@@ -394,5 +399,58 @@ class dialogBuilder extends StatelessWidget {
           )
       ]);
     }
+
+    if (component == 'EXTRA DRIVE') {
+      drives = Provider.of<List<Drive>>(context) ?? [];
+      return SimpleDialog(title: Text('Choose your $component'), children: [
+        for (int i = 0; i < drives.length; i++)
+          SimpleDialogOption(
+            padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(
+                        padding: EdgeInsets.all(5),
+                        margin: EdgeInsets.only(right: 20),
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            border: Border.all(width: 1)),
+                        child: drives[i].img),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(drives[i].manufacturer + " " + drives[i].model,
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text(drives[i].type +
+                            ", " +
+                            drives[i].capacity +
+                            " " +
+                            "GB")
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            onPressed: () {
+              if (globals.ktoro == 2) {
+                dodaj.extraDrives.add(drives[i]);
+                if(drives[i].connectionType=="NVMe") dodaj.usedNvme=true;
+                  dodaj.extra++;
+                  dodaj.slots--;
+                  print('O co coemone');
+                  print(dodaj.slots);
+              } else if (globals.ktoro == 1) Edit.chosenDrive = drives[i];
+              Navigator.pop(context);
+            },
+          )
+      ]);
+    }
+
   }
 }

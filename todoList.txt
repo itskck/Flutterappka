@@ -1,23 +1,11 @@
 >>>porównywarka page
->widok z CPU,GPU,PSU,RAM,?DRIVE?
 >szczegółowe widoki z poszczególnymi kompoenetami
-
 
 >>>dodawanie page
 >opcja dodawania kolejnych dysków?
 
->>>Edytuj page
->wczytywanie jak w porwównywarce,  //Zrobione
->floating button "zapisz", "usuń"
-
->>>Głowna
->tutorial jak używać appki
->przypomnienie o polaczeniu sie z internetem chyba że zrobimy cachowanie.
-
 >>>Strona oceny komponentow
 >Wczytujesz z builda komponenty i je oceniasz
-
->>>Sprawdzenie ergonomii systemu
 
 >>>baza danych
 >certyfikat zasialaczy

@@ -14,6 +14,7 @@ import 'package:skladappka/Firebase/Code.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:async/async.dart' show StreamGroup;
 import 'Builds.dart';
+import 'package:skladappka/dodawanieZestawu/dodaj.dart';
 
 class FireBase{
 
@@ -315,6 +316,28 @@ class FireBase{
       );
     }).toList();
     return chosenCooler;
+  }
+
+  List<Drive> extradriveListFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.docs.map((doc){
+      String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
+      return Drive(
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
+          capacity: doc.data().toString().contains('capacity') ? doc.get('capacity') : 'Error not found',
+          connectionType: doc.data().toString().contains('connectionType') ? doc.get('connectionType') : 'Error not found',
+          type: doc.data().toString().contains('type') ? doc.get('type') : 'Error not found',
+          img: img
+      );
+    }).toList();
+  }
+  Stream<List<Drive>> get extradrives {
+    if(dodaj.usedNvme==false)
+      return FirebaseFirestore.instance.collection('drives').snapshots().map(driveListFromSnapshot);
+    else
+      return FirebaseFirestore.instance.collection('drives').where('connectionType', isEqualTo: 'SATA')
+          .snapshots().map(driveListFromSnapshot);
   }
 }
 

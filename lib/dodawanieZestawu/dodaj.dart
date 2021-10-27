@@ -33,6 +33,11 @@ class dodaj extends StatefulWidget with ChangeNotifier {
   static Gpu chosenGpu;
   static Cooler chosenCooler;
   static List<Widget> panelsGrid;
+  static List<Drive> extraDrives;
+  static int extra=-1;
+  static bool usedNvme=true;
+  static int pom1=8;
+  static int slots=0;
 
   @override
   _dodaj createState() => _dodaj();
@@ -42,13 +47,19 @@ class _dodaj extends State<dodaj> {
   var minTdp = 0.0, maxTdp = 0.0;
   final FireBase base = FireBase();
   final Logo logo = Logo();
+
+
   String pom;
+
   @override
   initState() {
+    print("raz dwa trzy");
+    dodaj.extraDrives=new List<Drive>();
     super.initState();
   }
 
   dialogWidget dialogwidget = new dialogWidget();
+
 
   Widget componentsList(String component) {
     return Container(
@@ -363,7 +374,17 @@ class _dodaj extends State<dodaj> {
       addButton('RAM','RAM'),
       addButton('CASE','OBUDOWA'),
       addButton('GPU','KARTA GRAFICZNA'),
-      addButton('CSTM COOLER','CHŁODZENIE')
+      addButton('CSTM COOLER','CHŁODZENIE'),
+      addButton('EXTRA DRIVE', 'DODATKOWY DYSK'),
+      addButton('EXTRA DRIVE', 'DODATKOWY DYSK'),
+      addButton('EXTRA DRIVE', 'DODATKOWY DYSK'),
+      addButton('EXTRA DRIVE', 'DODATKOWY DYSK'),
+      addButton('EXTRA DRIVE', 'DODATKOWY DYSK'),
+      addButton('EXTRA DRIVE', 'DODATKOWY DYSK'),
+      addButton('EXTRA DRIVE', 'DODATKOWY DYSK'),
+      addButton('EXTRA DRIVE', 'DODATKOWY DYSK'),
+      addButton('EXTRA DRIVE', 'DODATKOWY DYSK'),
+      addButton('EXTRA DRIVE', 'DODATKOWY DYSK')
     ];
 
     if (dodaj.chosenCpu != null) {
@@ -383,6 +404,7 @@ class _dodaj extends State<dodaj> {
       dodaj.panelsGrid[1] = addButton('PSU','ZASILACZ');
 ////////////////////////////////////////////////////
     if (dodaj.chosenMtb != null) {
+
       setState(() {
         dodaj.panelsGrid[2] =
             itemFrame(dodaj.chosenMtb.model, 'MTBRD', dodaj.chosenMtb.img,'PŁYTA GŁÓWNA');
@@ -427,6 +449,18 @@ class _dodaj extends State<dodaj> {
       });
     } else
       dodaj.panelsGrid[7] = addButton('CSTM COOLER','CHŁODZENIE');
+    ///////////////////////////////////////////////////
+    if(dodaj.extraDrives==null) print("CZEMU JEST NULL"); else print(dodaj.extraDrives.length);
+    if(dodaj.chosenMtb!=null && dodaj.extraDrives.length>0){
+      print('wykonuje sie');
+      setState(() {
+        for(int i=0;i<dodaj.extra+1;i++)
+        dodaj.panelsGrid[i+8]=
+            itemFrame(dodaj.extraDrives[i].model, 'EXTRA DRIVE', dodaj.extraDrives[i].img, 'DODATKOWY DYSK');
+      });
+    }
+    else
+      dodaj.panelsGrid[dodaj.pom1] = addButton('EXTRA DRIVE','DODATKOWY DYSK');
 
     //if (dodaj.panelsGrid != firstPanels)
 
@@ -444,6 +478,8 @@ class _dodaj extends State<dodaj> {
               for (var i = 0; i < 6; i++) dodaj.panelsGrid[i],
               styledTextBar('↓ Dobrze mieć ↓'),
               for (var i = 6; i < 8; i++) dodaj.panelsGrid[i],
+              for(dodaj.pom1=8;dodaj. pom1<dodaj.extra+9;dodaj.pom1++) dodaj.panelsGrid[dodaj.pom1],
+              if(dodaj.chosenMtb!=null) if(dodaj.slots>0) dodaj.panelsGrid[dodaj.pom1+1],
             ]),
       ])),
       
