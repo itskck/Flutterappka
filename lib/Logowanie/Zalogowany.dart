@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:skladappka/Firebase/Builds.dart';
 import 'package:skladappka/Firebase/FireBase.dart';
 import 'package:skladappka/Firebase/doLogowanie/doLogowanie.dart';
@@ -153,27 +154,54 @@ class _Zalogowany extends State<Zalogowany> {
     );
   }
 
-  Widget buildItem(IconData icon, String text) {
-    return Wrap(
-      children: [
-        Container(
-            margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-            child: Icon(
-              icon,
-              size: 20,
-              color: Colors.white,
-            )),
-        Container(
-          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-          width: 100,
-          child: Text(
-            text,
-            style: TextStyle(fontSize: 13, color: Colors.white),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
-          ),
-        )
-      ],
+  Widget buildItems(var item) {
+    List<String> compList=[
+      item.cpuId,
+      item.gpuId,
+      item.ramId,
+      item.psuId,
+      item.driveId,
+      item.motherboardId,
+      item.caseId
+    ];
+    List<String> typeList=[
+      'Procesor: ',
+      'Karta graficzna: ',
+      'Ram: ',
+      'Zasilacz: ',
+      'Dysk systemowy: ',
+      'Płyta główna: ',
+      'Obudowa: ',
+    ];
+    
+    return Container(
+      padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
+      child: Wrap(
+        children: [
+          for(int i=0;i<compList.length;i++)
+          Row(
+            children:[
+          Text(typeList[i],
+          style: TextStyle(
+            fontFamily: GoogleFonts.workSans().fontFamily,
+            color: Colors.white,
+            fontSize: 15
+          ),),
+          GradientText(compList[i]+" ", 
+          colors: [
+            Color.fromRGBO(142, 223, 255, 1),
+                Color.fromRGBO(142, 223, 255, 1),               
+          ],       
+          style: TextStyle(
+            
+            fontFamily: GoogleFonts.workSans().fontFamily,
+            
+            
+            fontSize: 18
+          ),), ]
+          )
+        ],
+      ),
     );
   }
 
@@ -188,6 +216,7 @@ class _Zalogowany extends State<Zalogowany> {
       var dateB = b.timestamp;
       return -dateA.compareTo(dateB);
     });
+    var listLen = 3;
     return Center(
       child: Column(children: [
         Align(
@@ -356,7 +385,8 @@ class _Zalogowany extends State<Zalogowany> {
                                   child: Wrap(
                                     alignment: WrapAlignment.start,
                                     children: [
-                                      Center(
+                                      Container(
+                                        margin: EdgeInsets.only(left: 10),
                                           child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -367,6 +397,7 @@ class _Zalogowany extends State<Zalogowany> {
                                                     .timestamp
                                                     .substring(0, 10),
                                             style: TextStyle(
+                                              fontFamily: GoogleFonts.workSans().fontFamily,
                                                 color: Colors.white,
                                                 fontSize: 17),
                                           ),
@@ -376,6 +407,7 @@ class _Zalogowany extends State<Zalogowany> {
                                                   "Kod: " +
                                                       builds[i].generatedCode,
                                                   style: TextStyle(
+                                                    fontFamily: GoogleFonts.workSans().fontFamily,
                                                       color: Colors.white,
                                                       fontSize: 17)),
                                               IconButton(
@@ -400,23 +432,30 @@ class _Zalogowany extends State<Zalogowany> {
                                           )
                                         ],
                                       )),
-                                      buildItem(
-                                          Icons.select_all, builds[i].cpuId),
-                                      buildItem(
-                                          Icons.tv_sharp, builds[i].gpuId),
-                                      buildItem(Icons.keyboard_alt_sharp,
-                                          builds[i].ramId),
-                                      buildItem(Icons.dynamic_form_sharp,
-                                          builds[i].psuId),
-                                      buildItem(
-                                          Icons.local_laundry_service_sharp,
-                                          builds[i].driveId),
-                                      buildItem(Icons.view_sidebar_sharp,
-                                          builds[i].motherboardId),
-                                      buildItem(Icons.crop_5_4_sharp,
-                                          builds[i].caseId),
-                                      buildItem(
-                                          Icons.ac_unit, builds[i].coolerId),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment: MainAxisAlignment.start ,
+                                            children: [
+                                              Icon(Icons.arrow_left,color: Colors.white,),
+                                              Icon(Icons.edit,size: 20,color: Colors.white,),
+                                            ],
+                                          ),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.end ,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: [
+                                              Icon(Icons.delete,color: Colors.white),
+                                               Icon(Icons.arrow_right,color: Colors.white,), 
+                                            ],
+                                          )
+                                         
+                                        ],
+                                      ),
+                                      buildItems(item),
                                     ],
                                   )),
                             ),
