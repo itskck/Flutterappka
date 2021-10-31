@@ -163,6 +163,16 @@ class FireBase{
     }).toList();
   }
   Stream<List<Drive>> get drives {
+    if(dodaj.extraDrives.length>0){
+      if(dodaj.usedNvme==false && dodaj.extraDrives.length < int.parse(dodaj.chosenMtb.sataPorts))
+        return FirebaseFirestore.instance.collection('drives').snapshots().map(driveListFromSnapshot);
+      else if(dodaj.usedNvme==true)
+        return FirebaseFirestore.instance.collection('drives').where('connectionType', isEqualTo: 'SATA')
+            .snapshots().map(driveListFromSnapshot);
+      else
+        return FirebaseFirestore.instance.collection('drives').where('connectionType', isEqualTo: 'NVMe')
+            .snapshots().map(driveListFromSnapshot);
+    }
     if(mtbNvmeSlot==null || mtbNvmeSlot==true)
       return FirebaseFirestore.instance.collection('drives').snapshots().map(driveListFromSnapshot);
     else
@@ -333,10 +343,17 @@ class FireBase{
     }).toList();
   }
   Stream<List<Drive>> get extradrives {
-    if(dodaj.usedNvme==false)
+    if(dodaj.chosenDrive!=null)
+      if(dodaj.chosenDrive.connectionType=="SATA" && dodaj.chosenMtb.hasNvmeSlot==true && dodaj.slots==1 && dodaj.usedNvme==false)
+        return FirebaseFirestore.instance.collection('drives').where('connectionType', isEqualTo: 'NVMe')
+            .snapshots().map(driveListFromSnapshot);
+    if(dodaj.usedNvme==false && dodaj.extraDrives.length < int.parse(dodaj.chosenMtb.sataPorts))
       return FirebaseFirestore.instance.collection('drives').snapshots().map(driveListFromSnapshot);
-    else
+    else if(dodaj.usedNvme==true)
       return FirebaseFirestore.instance.collection('drives').where('connectionType', isEqualTo: 'SATA')
+          .snapshots().map(driveListFromSnapshot);
+    else
+      return FirebaseFirestore.instance.collection('drives').where('connectionType', isEqualTo: 'NVMe')
           .snapshots().map(driveListFromSnapshot);
   }
 }

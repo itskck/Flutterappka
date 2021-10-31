@@ -440,8 +440,11 @@ class dialogBuilder extends StatelessWidget {
             onPressed: () {
               if (globals.ktoro == 2) {
                 dodaj.extraDrives.add(drives[i]);
-                if(drives[i].connectionType=="NVMe") dodaj.usedNvme=true;
-                  dodaj.extra++;
+                if(drives[i].connectionType=="NVMe") {
+                  dodaj.usedNvme = true;
+
+                }
+                dodaj.extra++;
                   dodaj.slots--;
                   print('O co coemone');
                   print(dodaj.slots);

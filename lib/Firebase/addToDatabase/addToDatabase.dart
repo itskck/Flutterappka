@@ -15,28 +15,24 @@ import 'package:skladappka/Firebase/Ram.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-class addNickToDatabase{
+class addNickToDatabase {
+  final CollectionReference userCollection =
+      FirebaseFirestore.instance.collection("users");
 
-  
-  
-  final CollectionReference userCollection = FirebaseFirestore.instance.collection("users");
-
-  Future<void> updateUserData(String nick,String uid) async {
-    var aid= Random().nextInt(5);
+  Future<void> updateUserData(String nick, String uid) async {
+    var aid = Random().nextInt(5);
     print('id zarejstrowanego: ' + uid);
-    return await userCollection.doc(uid).set({
-      'aid': aid,
-      'nick': nick,
-      'uid': uid
-    });
+    return await userCollection
+        .doc(uid)
+        .set({'aid': aid, 'nick': nick, 'uid': uid});
   }
-
 }
 
-class addBuildToDatabse{
+class addBuildToDatabse {
   Random _rnd = Random();
-  final _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-  int a=0;
+  final _chars =
+      'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  int licznik = 0;
   String pom;
   final Cpu chosenCpu;
   final Psu chosenPsu;
@@ -46,37 +42,67 @@ class addBuildToDatabse{
   final Case chosenCase;
   final Gpu chosenGpu;
   final Cooler chosenCooler;
-  String uid=FirebaseAuth.instance.currentUser.uid;
-  DateTime now=new DateTime.now();
+  final List<Drive> extraDrive;
+  String uid = FirebaseAuth.instance.currentUser.uid;
+  DateTime now = new DateTime.now();
 
-  addBuildToDatabse({this.chosenCpu,this.chosenRam,this.chosenPsu,this.chosenMtb,this.chosenGpu,this.chosenDrive,this.chosenCooler,this.chosenCase});
+  addBuildToDatabse(
+      {this.chosenCpu,
+      this.chosenRam,
+      this.chosenPsu,
+      this.chosenMtb,
+      this.chosenGpu,
+      this.chosenDrive,
+      this.chosenCooler,
+      this.chosenCase,
+      this.extraDrive});
 
-  final CollectionReference buildCollection = FirebaseFirestore.instance.collection("builds");
+  final CollectionReference buildCollection =
+      FirebaseFirestore.instance.collection("builds");
 
-  Future<String> generateRandomString() async{
-    String randomString =String.fromCharCodes(List.generate(5, (index)=> _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+  Future<String> generateRandomString() async {
+    String randomString = String.fromCharCodes(List.generate(
+        5, (index) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
     return randomString;
   }
 
-  Future<bool> checkexist() async{
-    final QuerySnapshot result=await FirebaseFirestore.instance
+  Future<bool> checkexist() async {
+    final QuerySnapshot result = await FirebaseFirestore.instance
         .collection("builds")
         .where("generatedCode", isEqualTo: pom)
         .limit(1)
         .get();
-    final List<DocumentSnapshot> documents=result.docs;
-  if(documents.length==1) return true;
-  else return false;
+    final List<DocumentSnapshot> documents = result.docs;
+    if (documents.length == 1)
+      return true;
+    else
+      return false;
   }
 
-  Future<void> addBuildData() async{
-    pom="pcqxs";
-    while(await checkexist()==true){
+  Future<void> addBuildData() async {
+    pom = "pcqxs";
+    while (await checkexist() == true) {
       print("cos tam");
-      pom=await generateRandomString();
+      pom = await generateRandomString();
     }
-
-    return await buildCollection.doc(pom+" "+uid).set({
+    List<String> extra_drives;
+    extra_drives = new List<String>();
+    if (extraDrive != null) {
+      if (extraDrive.length > 0)
+        for (int i = 0; i < extraDrive.length; i++) {
+          for (int j = 0; j < extraDrive.length; j++) {
+            if (extraDrive[i].model == extraDrive[j].model) {
+              licznik++;
+            }
+          }
+          extra_drives.add(licznik.toString()+" "+extraDrive[i].model);
+          licznik=0;
+        }
+      else
+        extra_drives.add("Brak");
+    }
+    print(extra_drives.length);
+    return await buildCollection.doc(pom + " " + uid).set({
       "cpuId": chosenCpu.model,
       "caseId": chosenCase.model,
       "coolerId": chosenCooler.model,
@@ -86,14 +112,16 @@ class addBuildToDatabse{
       "psuId": chosenPsu.model,
       "ramId": chosenRam.model,
       "generatedCode": pom,
-      "timestamp": new DateTime(now.year, now.month, now.day, now.hour, now.minute).toString(),
+      "timestamp":
+          new DateTime(now.year, now.month, now.day, now.hour, now.minute)
+              .toString(),
       "uid": uid,
+      "extradisck": FieldValue.arrayUnion(extra_drives),
     });
   }
 
-  Future<void> editBuildData(String code) async{
-
-    return await buildCollection.doc(code+" "+uid).set({
+  Future<void> editBuildData(String code) async {
+    return await buildCollection.doc(code + " " + uid).set({
       "cpuId": chosenCpu.model,
       "caseId": chosenCase.model,
       "coolerId": chosenCooler.model,
@@ -102,7 +130,9 @@ class addBuildToDatabse{
       "motherboardId": chosenMtb.model,
       "psuId": chosenPsu.model,
       "ramId": chosenRam.model,
-      "timestamp": new DateTime(now.year, now.month, now.day, now.hour, now.minute).toString(),
+      "timestamp":
+          new DateTime(now.year, now.month, now.day, now.hour, now.minute)
+              .toString(),
       "generatedCode": code,
       "uid": uid,
     });
