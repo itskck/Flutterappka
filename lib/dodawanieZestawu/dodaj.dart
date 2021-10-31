@@ -686,9 +686,9 @@ class _dodaj extends State<dodaj> {
                         context: context,
                         builder: (BuildContext context) {
                           return AlertDialog(
-                              title: Text('Blad'),
+                              title: Text('Błąd'),
                               content: Text(
-                                  'Nie wybrano ktoregos z niezbednych komponentow lub wybrany procesor '
+                                  'Nie wybrano ktoregoś z niezbędnych komponentów lub wybrany procesor '
                                   'nie posiada zintegrowanej karty graficznej'),
                               actions: [
                                 TextButton(

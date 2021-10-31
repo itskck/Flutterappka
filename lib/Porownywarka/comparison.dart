@@ -65,9 +65,15 @@ class _Comparison extends State<Comparison> {
 
   void setScores() {
     print('start');
-    var cpu = num.parse(Porownywarka.chosenCpu.benchScore) /
+    var cpu;
+    if(num.parse(Porownywarka.chosenCpu.benchScore)>num.parse(Porownywarka.chosenCpu2.benchScore))
+    cpu = num.parse(Porownywarka.chosenCpu.benchScore) /
         num.parse(Porownywarka.chosenCpu2.benchScore) *
         100;
+    else
+      cpu = num.parse(Porownywarka.chosenCpu2.benchScore) /
+          num.parse(Porownywarka.chosenCpu.benchScore) *
+          100;
     print(cpu);
     cpuScore1 = cpu;
     cpuScore2 = (-1) * cpu;
@@ -84,9 +90,15 @@ class _Comparison extends State<Comparison> {
       cpuScore2 = 0;
     }
     print('cpu git');
-    var gpu = num.parse(Porownywarka.chosenGpu.benchScore) /
-        num.parse(Porownywarka.chosenGpu2.benchScore) *
+    var gpu;
+    if(num.parse(Porownywarka.chosenGpu.benchScore)>num.parse(Porownywarka.chosenGpu2.benchScore))
+    gpu = (num.parse(Porownywarka.chosenGpu.benchScore) /
+        num.parse(Porownywarka.chosenGpu2.benchScore)) *
         100;
+    else
+      gpu = (num.parse(Porownywarka.chosenGpu2.benchScore) /
+          num.parse(Porownywarka.chosenGpu.benchScore)) *
+          100;
     gpuScore1 = gpu;
     gpuScore2 = (-1) * gpu;
     if (num.parse(Porownywarka.chosenGpu.benchScore) <
@@ -100,9 +112,15 @@ class _Comparison extends State<Comparison> {
       gpuScore2 = 0;
     }
     print('gpu git');
-    var ram = num.parse(Porownywarka.chosenRam.benchScore) /
+    var ram;
+    if(num.parse(Porownywarka.chosenRam.benchScore)>num.parse(Porownywarka.chosenRam2.benchScore))
+    ram = num.parse(Porownywarka.chosenRam.benchScore) /
         num.parse(Porownywarka.chosenRam2.benchScore) *
         100;
+    else
+      ram = num.parse(Porownywarka.chosenRam2.benchScore) /
+          num.parse(Porownywarka.chosenRam.benchScore) *
+          100;
     ramScore1 = ram;
     ramScore2 = (-1) * ram;
     if (num.parse(Porownywarka.chosenRam.benchScore) <
@@ -116,9 +134,15 @@ class _Comparison extends State<Comparison> {
       ramScore2 = 0;
     }
     print('ram git');
-    var psu = num.parse(Porownywarka.chosenPsu.power) /
+    var psu;
+    if(num.parse(Porownywarka.chosenPsu.power)>num.parse(Porownywarka.chosenPsu2.power))
+    psu = num.parse(Porownywarka.chosenPsu.power) /
         num.parse(Porownywarka.chosenPsu2.power) *
         100;
+    else
+      psu = num.parse(Porownywarka.chosenPsu2.power) /
+          num.parse(Porownywarka.chosenPsu.power) *
+          100;
     psuScore1 = psu;
     psuScore2 = (-1) * psu;
     if (num.parse(Porownywarka.chosenPsu.power) <
@@ -132,8 +156,13 @@ class _Comparison extends State<Comparison> {
       psuScore2 = 0;
     }
     print('psu git');
-    var drive = num.parse(Porownywarka.chosenDrive.capacity).toDouble() -
+    var drive;
+    if(num.parse(Porownywarka.chosenDrive.capacity)>num.parse(Porownywarka.chosenDrive2.capacity))
+    drive = num.parse(Porownywarka.chosenDrive.capacity).toDouble() -
         num.parse(Porownywarka.chosenDrive2.capacity).toDouble();
+    else
+      drive = num.parse(Porownywarka.chosenDrive2.capacity).toDouble() -
+          num.parse(Porownywarka.chosenDrive.capacity).toDouble();
 
     driveScore1 = drive;
     driveScore2 = (-1) * drive;
