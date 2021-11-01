@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/painting.dart';
@@ -38,16 +39,16 @@ class dodaj extends StatefulWidget with ChangeNotifier {
   static bool usedNvme = true;
   static int pom1 = 8;
   static int slots = 0;
-
+  static double iloscRam=1.0;
   @override
   _dodaj createState() => _dodaj();
 }
 
 class _dodaj extends State<dodaj> {
   var minTdp = 0.0, maxTdp = 0.0;
+
   final FireBase base = FireBase();
   final Logo logo = Logo();
-
   String pom;
 
   @override
@@ -77,8 +78,14 @@ class _dodaj extends State<dodaj> {
           if (Glowna.connectivityResult != ConnectivityResult.none) {
             if (dodaj.chosenGpu != null) if (dodaj.chosenGpu.integra == true)
               dodaj.chosenGpu = null;
-
-            await dialogwidget.showPopup(context, component, base);
+            if(component=="RAM" && dodaj.chosenMtb==null)
+              Fluttertoast.showToast(
+                  msg: "Wybierz najpierw płytę główną",
+                  toastLength: Toast.LENGTH_SHORT,
+                  gravity: ToastGravity.CENTER,
+                  timeInSecForIosWeb: 2);
+            else
+              await dialogwidget.showPopup(context, component, base);
             if (component == 'CPU' && dodaj.chosenCpu != null) {
               minTdp += double.parse(dodaj.chosenCpu.tdp) * 0.9;
               maxTdp += double.parse(dodaj.chosenCpu.tdp);
@@ -115,8 +122,8 @@ class _dodaj extends State<dodaj> {
             }
 
             if (component == 'RAM' && dodaj.chosenRam != null) {
-              minTdp += 30;
-              maxTdp += 60;
+              minTdp += dodaj.iloscRam*30;
+              maxTdp += dodaj.iloscRam*60;
               base.ramRamType = dodaj.chosenRam.type;
             }
             if (component == 'GPU' && dodaj.chosenGpu != null) {
@@ -297,6 +304,10 @@ class _dodaj extends State<dodaj> {
                     case 'MTBRD':
                       minTdp -= 50;
                       maxTdp -= 150;
+                      if(dodaj.chosenRam!=null) {
+                        minTdp -= 30*dodaj.iloscRam;
+                        maxTdp -= 60*dodaj.iloscRam;
+                      }
                       setState(() {
                         base.mtbRamType = null;
                         base.mtbNvmeSlot = null;
@@ -309,6 +320,11 @@ class _dodaj extends State<dodaj> {
                         dodaj.usedNvme = true;
                         dodaj.pom1 = 8;
                         dodaj.slots = 0;
+                        if(dodaj.chosenRam!=null){
+                          dodaj.iloscRam=1;
+                          base.ramRamType = null;
+                          dodaj.chosenRam = null;
+                        }
                       });
                       break;
                     case 'DRIVE':
@@ -334,11 +350,12 @@ class _dodaj extends State<dodaj> {
                       });
                       break;
                     case 'RAM':
-                      minTdp -= 30;
-                      maxTdp -= 60;
+                      minTdp -= 30*dodaj.iloscRam;
+                      maxTdp -= 60*dodaj.iloscRam;
                       setState(() {
                         base.ramRamType = null;
                         dodaj.chosenRam = null;
+                        dodaj.iloscRam=1;
                       });
                       break;
                     case 'EXTRA DRIVE':
@@ -721,7 +738,10 @@ class _dodaj extends State<dodaj> {
                                             chosenMtb: dodaj.chosenMtb,
                                             chosenPsu: dodaj.chosenPsu,
                                             chosenRam: dodaj.chosenRam,
-                                            extraDrive: dodaj.extraDrives)
+                                            extraDrive: dodaj.extraDrives,
+                                            minTdp: minTdp,
+                                            maxTdp: maxTdp,
+                                            iloscRam: dodaj.iloscRam)
                                         .addBuildData();
                                     dodaj.chosenCooler = null;
                                     dodaj.chosenGpu = null;

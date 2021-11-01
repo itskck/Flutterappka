@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:skladappka/Firebase/Case.dart';
 import 'package:skladappka/Firebase/Cooler.dart';
 import 'package:skladappka/Firebase/Cpu.dart';
@@ -12,18 +15,32 @@ import 'dart:core';
 import 'dodaj.dart';
 import 'package:skladappka/Globalne.dart' as globals;
 import 'package:skladappka/wczytajZestaw/Edit.dart';
+class dialogBuilder extends StatefulWidget {
+  final String component;
 
-class dialogBuilder extends StatelessWidget {
+  dialogBuilder({this.component});
+
+  @override
+  _dialogBuilder createState() => _dialogBuilder();
+}
+
+class _dialogBuilder extends State<dialogBuilder> {
+  double iloscRam=1.0;
+  double ram=1;
   String component;
   var cpus, psus, gpus, coolers, mtbs, drives, cases, rams;
-  dialogBuilder({this.component});
   TextStyle style = TextStyle(
     overflow: TextOverflow.visible
 
   );
   @override
+  initState() {
+    component=widget.component;
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    if (component == 'CPU') {
+    if (widget.component == 'CPU') {
       cpus = Provider.of<List<Cpu>>(context) ?? [];
       print("44444444444");
       print(cpus.length);
@@ -68,7 +85,7 @@ class dialogBuilder extends StatelessWidget {
           )
       ]);
     }
-    if (component == 'PSU') {
+    if (widget.component == 'PSU') {
       psus = Provider.of<List<Psu>>(context) ?? [];
       return SimpleDialog(title: Text('Choose your $component'), children: [
         for (int i = 0; i < psus.length; i++)
@@ -114,7 +131,7 @@ class dialogBuilder extends StatelessWidget {
       ]);
     }
 
-    if (component == 'GPU') {
+    if (widget.component == 'GPU') {
       gpus = Provider.of<List<Gpu>>(context) ?? [];
       return SimpleDialog(title: Text('Choose your $component'), children: [
         for (int i = 0; i < gpus.length; i++)
@@ -157,7 +174,7 @@ class dialogBuilder extends StatelessWidget {
       ]);
     }
 
-    if (component == 'CSTM COOLER') {
+    if (widget.component == 'CSTM COOLER') {
       coolers = Provider.of<List<Cooler>>(context) ?? [];
       return SimpleDialog(title: Text('Choose your $component'), children: [
         for (int i = 0; i < coolers.length; i++)
@@ -200,7 +217,7 @@ class dialogBuilder extends StatelessWidget {
       ]);
     }
 
-    if (component == 'MTBRD') {
+    if (widget.component == 'MTBRD') {
       mtbs = Provider.of<List<Motherboard>>(context) ?? [];
       return SimpleDialog(title: Text('Choose your $component'), children: [
         for (int i = 0; i < mtbs.length; i++)
@@ -254,7 +271,7 @@ class dialogBuilder extends StatelessWidget {
       ]);
     }
 
-    if (component == 'DRIVE') {
+    if (widget.component == 'DRIVE') {
       drives = Provider.of<List<Drive>>(context) ?? [];
       return SimpleDialog(title: Text('Choose your $component'), children: [
         for (int i = 0; i < drives.length; i++)
@@ -302,7 +319,7 @@ class dialogBuilder extends StatelessWidget {
       ]);
     }
 
-    if (component == 'CASE') {
+    if (widget.component == 'CASE') {
       cases = Provider.of<List<Case>>(context) ?? [];
       return SimpleDialog(title: Text('Choose your $component'), children: [
         for (int i = 0; i < cases.length; i++)
@@ -357,9 +374,44 @@ class dialogBuilder extends StatelessWidget {
       ]);
     }
 
-    if (component == 'RAM') {
+    if (widget.component == 'RAM') {
+
       rams = Provider.of<List<Ram>>(context) ?? [];
       return SimpleDialog(title: Text('Choose your $component'), children: [
+        Column(
+          children: [
+            Text(
+              ram.toString(),
+              style: TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w800,
+                  fontFamily: GoogleFonts.workSans().fontFamily,
+                  color: Colors.black),
+            ),
+            Slider(
+              value: iloscRam,
+              onChanged: (rating) {
+                setState(() {
+                  if (rating % 2 == 0) {
+                        iloscRam = rating;
+                        ram=iloscRam;
+                      }
+                  else {
+                    print(rating);
+                        iloscRam = (rating.floor()).toDouble();
+                        ram=iloscRam;
+                      }
+                  if (ram == 3.0)
+                  ram = 2;
+                  else if (ram == 5.0) ram = 4;
+                    });
+              },
+              min: 1,
+              max: double.parse(dodaj.chosenMtb.ramSlots),
+              divisions: int.parse(dodaj.chosenMtb.ramSlots)==1 ? 1 : int.parse(dodaj.chosenMtb.ramSlots)==2 ? 2 : int.parse(dodaj.chosenMtb.ramSlots)==4 ? 2 : 3,
+            ),
+          ],
+        ),
         for (int i = 0; i < rams.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
@@ -391,16 +443,17 @@ class dialogBuilder extends StatelessWidget {
               ],
             ),
             onPressed: () {
-              if (globals.ktoro == 2)
-                dodaj.chosenRam = rams[i];
-              else if (globals.ktoro == 1) Edit.chosenRam = rams[i];
+              if (globals.ktoro == 2) {
+                    dodaj.chosenRam = rams[i];
+                    dodaj.iloscRam=ram;
+                  } else if (globals.ktoro == 1) Edit.chosenRam = rams[i];
               Navigator.pop(context);
             },
           )
       ]);
     }
 
-    if (component == 'EXTRA DRIVE') {
+    if (widget.component == 'EXTRA DRIVE') {
       drives = Provider.of<List<Drive>>(context) ?? [];
       return SimpleDialog(title: Text('Choose your $component'), children: [
         for (int i = 0; i < drives.length; i++)

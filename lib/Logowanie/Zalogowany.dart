@@ -96,20 +96,25 @@ class _Zalogowany extends State<Zalogowany> {
     return username;
   }
 
-  Widget removeAcc(BuildContext c){
-   
+  Widget removeAcc(BuildContext c) {
     return AlertDialog(
-      title: Text('Czy chcesz usunąć swoje konto?',style: TextStyle(fontSize: 18),),
+      title: Text(
+        'Czy chcesz usunąć swoje konto?',
+        style: TextStyle(fontSize: 18),
+      ),
       actions: [
-        TextButton(child: Text('Tak'),
-        onPressed: () async{
-          await doLogowanie().deleteUser();
-          
-        },),
-        TextButton(child: Text('Nie'),
-        onPressed: (){
-          Navigator.pop(c);
-        },),
+        TextButton(
+          child: Text('Tak'),
+          onPressed: () async {
+            await doLogowanie().deleteUser();
+          },
+        ),
+        TextButton(
+          child: Text('Nie'),
+          onPressed: () {
+            Navigator.pop(c);
+          },
+        ),
       ],
     );
   }
@@ -122,40 +127,49 @@ class _Zalogowany extends State<Zalogowany> {
           alignment: WrapAlignment.center,
           children: [
             for (int i = 0; i < avatarList.length; i++)
-             SimpleDialogOption(
-            child: Container(height: 50, width: 50, child: avatarList[i]),
-            onPressed: () async {
-              await FirebaseFirestore.instance
-                  .collection('users')
-                  .doc(FirebaseAuth.instance.currentUser.uid)
-                  .update({'aid': i});
-              setState(() {});
-              Navigator.pop(c);
-            },
-          ),
+              SimpleDialogOption(
+                child: Container(height: 50, width: 50, child: avatarList[i]),
+                onPressed: () async {
+                  await FirebaseFirestore.instance
+                      .collection('users')
+                      .doc(FirebaseAuth.instance.currentUser.uid)
+                      .update({'aid': i});
+                  setState(() {});
+                  Navigator.pop(c);
+                },
+              ),
           ],
         ),
-        
-        
         Container(
           margin: EdgeInsets.fromLTRB(35, 20, 35, 0),
           width: 50,
           height: 40,
-          child: TextField(
-           decoration: InputDecoration(
-             border: OutlineInputBorder(),
-             labelText: 'Edytuj nazwę użytkownika',
-             isDense: true,
-             contentPadding: EdgeInsets.all(8)
-           ),
+          child: TextFormField(
+            onFieldSubmitted: (name) async {
+              if (name.length > 12)
+                Fluttertoast.showToast(
+                    msg: 'Wybierz nazwę użytkownika krótszą niż 12 znaków');
+              else
+                await FirebaseFirestore.instance
+                    .collection('users')
+                    .doc(FirebaseAuth.instance.currentUser.uid)
+                    .update({'nick': name});
+              setState(() {});
+              Navigator.pop(c);
+            },
+            decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Edytuj nazwę użytkownika',
+                isDense: true,
+                contentPadding: EdgeInsets.all(8)),
           ),
         )
-        ],
+      ],
     );
   }
 
   Widget buildItems(var item) {
-    List<String> compList=[
+    List<String> compList = [
       item.cpuId,
       item.gpuId,
       item.ramId,
@@ -164,7 +178,7 @@ class _Zalogowany extends State<Zalogowany> {
       item.motherboardId,
       item.caseId
     ];
-    List<String> typeList=[
+    List<String> typeList = [
       'Procesor: ',
       'Karta graficzna: ',
       'Ram: ',
@@ -173,33 +187,31 @@ class _Zalogowany extends State<Zalogowany> {
       'Płyta główna: ',
       'Obudowa: ',
     ];
-    
+
     return Container(
       padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
       child: Wrap(
         children: [
-          for(int i=0;i<compList.length;i++)
-          Row(
-            children:[
-          Text(typeList[i],
-          style: TextStyle(
-            fontFamily: GoogleFonts.workSans().fontFamily,
-            color: Colors.white,
-            fontSize: 15
-          ),),
-          GradientText(compList[i]+" ", 
-          colors: [
-            Color.fromRGBO(142, 223, 255, 1),
-                Color.fromRGBO(142, 223, 255, 1),               
-          ],       
-          style: TextStyle(
-            
-            fontFamily: GoogleFonts.workSans().fontFamily,
-            
-            
-            fontSize: 18
-          ),), ]
-          )
+          for (int i = 0; i < compList.length; i++)
+            Row(children: [
+              Text(
+                typeList[i],
+                style: TextStyle(
+                    fontFamily: GoogleFonts.workSans().fontFamily,
+                    color: Colors.white,
+                    fontSize: 15),
+              ),
+              GradientText(
+                compList[i] + " ",
+                colors: [
+                  Color.fromRGBO(142, 223, 255, 1),
+                  Color.fromRGBO(142, 223, 255, 1),
+                ],
+                style: TextStyle(
+                    fontFamily: GoogleFonts.workSans().fontFamily,
+                    fontSize: 18),
+              ),
+            ])
         ],
       ),
     );
@@ -256,12 +268,16 @@ class _Zalogowany extends State<Zalogowany> {
                                 ConnectionState.done) {
                               print(snapshot.data);
                               final username = snapshot.data;
-                              return AutoSizeText(
-                                'Witaj, $username',
-                                style: TextStyle(
-                                    fontSize: 25,
-                                    fontWeight: FontWeight.w300,
-                                    color: Colors.white),
+                              return Container(
+                                width: MediaQuery.of(context).size.width * 0.7,
+                                child: AutoSizeText(
+                                  'Witaj, $username',
+                                  overflow: TextOverflow.fade,
+                                  style: TextStyle(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w300,
+                                      color: Colors.white),
+                                ),
                               );
                             } else
                               return CircularProgressIndicator();
@@ -386,73 +402,91 @@ class _Zalogowany extends State<Zalogowany> {
                                     alignment: WrapAlignment.start,
                                     children: [
                                       Container(
-                                        margin: EdgeInsets.only(left: 10),
+                                          margin: EdgeInsets.only(left: 10),
                                           child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(
+                                                'Zestaw z ' +
+                                                    builds[i]
+                                                        .timestamp
+                                                        .substring(0, 10),
+                                                style: TextStyle(
+                                                    fontFamily:
+                                                        GoogleFonts.workSans()
+                                                            .fontFamily,
+                                                    color: Colors.white,
+                                                    fontSize: 17),
+                                              ),
+                                              Row(
+                                                children: [
+                                                  Text(
+                                                      "Kod: " +
+                                                          builds[i]
+                                                              .generatedCode,
+                                                      style: TextStyle(
+                                                          fontFamily: GoogleFonts
+                                                                  .workSans()
+                                                              .fontFamily,
+                                                          color: Colors.white,
+                                                          fontSize: 17)),
+                                                  IconButton(
+                                                      onPressed: () {
+                                                        Clipboard.setData(
+                                                            ClipboardData(
+                                                                text: builds[i]
+                                                                    .generatedCode));
+                                                        Fluttertoast.showToast(
+                                                            msg:
+                                                                "Skopiowano kod do schowka",
+                                                            toastLength: Toast
+                                                                .LENGTH_SHORT,
+                                                            gravity:
+                                                                ToastGravity
+                                                                    .BOTTOM);
+                                                      },
+                                                      icon: Icon(
+                                                        Icons.share,
+                                                        color: Colors.white,
+                                                      ))
+                                                ],
+                                              )
+                                            ],
+                                          )),
+                                      Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
-                                            'Zestaw z ' +
-                                                builds[i]
-                                                    .timestamp
-                                                    .substring(0, 10),
-                                            style: TextStyle(
-                                              fontFamily: GoogleFonts.workSans().fontFamily,
+                                          Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Icon(
+                                                Icons.arrow_left,
                                                 color: Colors.white,
-                                                fontSize: 17),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                  "Kod: " +
-                                                      builds[i].generatedCode,
-                                                  style: TextStyle(
-                                                    fontFamily: GoogleFonts.workSans().fontFamily,
-                                                      color: Colors.white,
-                                                      fontSize: 17)),
-                                              IconButton(
-                                                  onPressed: () {
-                                                    Clipboard.setData(
-                                                        ClipboardData(
-                                                            text: builds[i]
-                                                                .generatedCode));
-                                                    Fluttertoast.showToast(
-                                                        msg:
-                                                            "Skopiowano kod do schowka",
-                                                        toastLength:
-                                                            Toast.LENGTH_SHORT,
-                                                        gravity: ToastGravity
-                                                            .BOTTOM);
-                                                  },
-                                                  icon: Icon(
-                                                    Icons.share,
-                                                    color: Colors.white,
-                                                  ))
-                                            ],
-                                          )
-                                        ],
-                                      )),
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.min,
-                                            mainAxisAlignment: MainAxisAlignment.start ,
-                                            children: [
-                                              Icon(Icons.arrow_left,color: Colors.white,),
-                                              Icon(Icons.edit,size: 20,color: Colors.white,),
+                                              ),
+                                              Icon(
+                                                Icons.edit,
+                                                size: 20,
+                                                color: Colors.white,
+                                              ),
                                             ],
                                           ),
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.end ,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
-                                              Icon(Icons.delete,color: Colors.white),
-                                               Icon(Icons.arrow_right,color: Colors.white,), 
+                                              Icon(Icons.delete,
+                                                  color: Colors.white),
+                                              Icon(
+                                                Icons.arrow_right,
+                                                color: Colors.white,
+                                              ),
                                             ],
                                           )
-                                         
                                         ],
                                       ),
                                       buildItems(item),
@@ -469,7 +503,6 @@ class _Zalogowany extends State<Zalogowany> {
                     }))),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-
           children: [
             Container(
               width: 100,
@@ -489,10 +522,34 @@ class _Zalogowany extends State<Zalogowany> {
                     color: Color.fromRGBO(45, 45, 45, 1),
                     borderRadius: BorderRadius.circular(10)),
                 child: TextButton(
-                    onPressed: () async {
-                      logout();
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Wylogowywanie"),
+                              content:
+                                  Text("Czy na pewno chcesz się wylogować?"),
+                              actions: [
+                                TextButton(
+                                    onPressed: () async {
+                                      logout();
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('Tak',style: TextStyle(color: Colors.black),),),
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: Text('Nie',style: TextStyle(color: Colors.black),))
+                              ],
+                            );
+                          });
                     },
-                    child: Text('Wyloguj',style: TextStyle(color: Colors.white),)),
+                    child: Text(
+                      'Wyloguj',
+                      style: TextStyle(color: Colors.white),
+                    )),
               ),
             ),
             SizedBox(
@@ -500,38 +557,36 @@ class _Zalogowany extends State<Zalogowany> {
             ),
             Container(
               width: 100,
-          padding: EdgeInsets.all(2),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color.fromRGBO(142, 223, 255, 1),
-                    Color.fromRGBO(255, 0, 140, 1)
-                  ])),
-          child: Container(
-            height: 40,
-            decoration: BoxDecoration(
-                color: Color.fromRGBO(45, 45, 45, 1),
-                borderRadius: BorderRadius.circular(10)),
-            child: TextButton(
-                onPressed: () async {
-                  await showDialog(context: context, builder: (BuildContext c) => removeAcc(c) );
-                },
-                child: Text('Usuń konto',style: TextStyle(
-                  color: Colors.white
-                ),)),
-          ),
-        )
+              padding: EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color.fromRGBO(142, 223, 255, 1),
+                        Color.fromRGBO(255, 0, 140, 1)
+                      ])),
+              child: Container(
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(45, 45, 45, 1),
+                    borderRadius: BorderRadius.circular(10)),
+                child: TextButton(
+                    onPressed: () async {
+                      await showDialog(
+                          context: context,
+                          builder: (BuildContext c) => removeAcc(c));
+                    },
+                    child: Text(
+                      'Usuń konto',
+                      style: TextStyle(color: Colors.white),
+                    )),
+              ),
+            )
           ],
         ),
-        
       ]),
     );
   }
-
-  
 }
-
-

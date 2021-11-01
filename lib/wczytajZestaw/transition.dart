@@ -112,10 +112,12 @@ class transition extends StatelessWidget {
                                                                   chosenCooler=cooler.data;
                                                                   if(builds.uid!=FirebaseAuth.instance.currentUser.uid)
                                                                   return Edit(cpu: chosenCpu, cases: chosenCase, cooler: chosenCooler, drive: chosenDrive,
-                                                                      gpu: chosenGpu, mtb: chosenMtb, psu: chosenPsu, ram: chosenRam, code: builds.generatedCode, diffUser: true);
+                                                                      gpu: chosenGpu, mtb: chosenMtb, psu: chosenPsu, ram: chosenRam, code: builds.generatedCode, diffUser: true,
+                                                                      minTdp: builds.minTdp, maxTdp: builds.maxTdp);
                                                                   else
                                                                     return Edit(cpu: chosenCpu, cases: chosenCase, cooler: chosenCooler, drive: chosenDrive,
-                                                                        gpu: chosenGpu, mtb: chosenMtb, psu: chosenPsu, ram: chosenRam, code: builds.generatedCode, diffUser: false);
+                                                                        gpu: chosenGpu, mtb: chosenMtb, psu: chosenPsu, ram: chosenRam, code: builds.generatedCode, diffUser: false,
+                                                                        minTdp: builds.minTdp, maxTdp: builds.maxTdp);
                                                                 }
                                                                 else return Container();
                                                               },

@@ -43,6 +43,8 @@ class addBuildToDatabse {
   final Gpu chosenGpu;
   final Cooler chosenCooler;
   final List<Drive> extraDrive;
+  final num minTdp,maxTdp;
+  final double iloscRam;
   String uid = FirebaseAuth.instance.currentUser.uid;
   DateTime now = new DateTime.now();
 
@@ -55,7 +57,11 @@ class addBuildToDatabse {
       this.chosenDrive,
       this.chosenCooler,
       this.chosenCase,
-      this.extraDrive});
+      this.extraDrive,
+      this.maxTdp,
+      this.minTdp,
+      this.iloscRam
+      });
 
   final CollectionReference buildCollection =
       FirebaseFirestore.instance.collection("builds");
@@ -116,7 +122,10 @@ class addBuildToDatabse {
           new DateTime(now.year, now.month, now.day, now.hour, now.minute)
               .toString(),
       "uid": uid,
-      "extradisck": FieldValue.arrayUnion(extra_drives),
+      "extradisk": FieldValue.arrayUnion(extra_drives),
+      "minTdp": minTdp,
+      "maxTdp": maxTdp,
+      "ramNumber": iloscRam,
     });
   }
 

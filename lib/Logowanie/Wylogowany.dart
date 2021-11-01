@@ -19,7 +19,8 @@ class _Wylogowany extends State<Wylogowany> {
   final doLogowanie _auth = doLogowanie();
   final _formKey = GlobalKey<FormState>();
   final addNickToDatabase _add = addNickToDatabase();
-  final TextStyle style = TextStyle(color: Colors.white,fontFamily: GoogleFonts.workSans().fontFamily);
+  final TextStyle style = TextStyle(
+      color: Colors.white, fontFamily: GoogleFonts.workSans().fontFamily);
   String nick = '';
   String error = '';
   final file = fileReader();
@@ -48,8 +49,7 @@ class _Wylogowany extends State<Wylogowany> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('E-mail',
-                style: style),
+                Text('E-mail', style: style),
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                   padding: EdgeInsets.all(2),
@@ -71,15 +71,14 @@ class _Wylogowany extends State<Wylogowany> {
                       onChanged: (val) {
                         setState(() => email = val.trim());
                       },
-                      keyboardType: TextInputType.emailAddress,                      
+                      keyboardType: TextInputType.emailAddress,
                       style: style,
                       decoration: InputDecoration(
-                        hintText: "Wprowadź adres e-mail" ,
-                        hintStyle: style,                        
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.fromLTRB(15, 14, 0, 0),
-                        prefixIcon: Icon(Icons.email,color: Colors.white)
-                      ),
+                          hintText: "Wprowadź adres e-mail",
+                          hintStyle: style,
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.fromLTRB(15, 14, 0, 0),
+                          prefixIcon: Icon(Icons.email, color: Colors.white)),
                     ),
                   ),
                 ),
@@ -89,8 +88,7 @@ class _Wylogowany extends State<Wylogowany> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Hasło',
-                style: style),
+                Text('Hasło', style: style),
                 Container(
                   margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                   padding: EdgeInsets.all(2),
@@ -109,27 +107,27 @@ class _Wylogowany extends State<Wylogowany> {
                         borderRadius: BorderRadius.circular(5)),
                     child: TextFormField(
                       obscureText: true,
-              validator: (val) =>
-                  val.length < 8 ? 'Wprowadz haslo conajmniej 8 znakow' : null,
-              onChanged: (val) {
-                setState(() => password = val);
-              },
-                      keyboardType: TextInputType.emailAddress,                      
+                      validator: (val) => val.length < 8
+                          ? 'Wprowadz haslo conajmniej 8 znakow'
+                          : null,
+                      onChanged: (val) {
+                        setState(() => password = val);
+                      },
+                      keyboardType: TextInputType.emailAddress,
                       style: style,
                       decoration: InputDecoration(
-                        hintText: "Wprowadź hasło" ,
-                        hintStyle: style,                        
-                        border: InputBorder.none,
-                        contentPadding: EdgeInsets.fromLTRB(15, 14, 0, 0),
-                        prefixIcon: Icon(Icons.lock,color: Colors.white)
-                      ),
+                          hintText: "Wprowadź hasło",
+                          hintStyle: style,
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.fromLTRB(15, 14, 0, 0),
+                          prefixIcon: Icon(Icons.lock, color: Colors.white)),
                     ),
                   ),
                 ),
               ],
             ),
             SizedBox(height: 20.0),
-            GestureDetector(                
+            GestureDetector(
                 child: Container(
                   margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                   padding: EdgeInsets.all(2),
@@ -142,12 +140,11 @@ class _Wylogowany extends State<Wylogowany> {
                             Color.fromRGBO(142, 223, 255, 1),
                             Color.fromRGBO(255, 0, 140, 1)
                           ])),
-                  width: MediaQuery.of(context).size.width*0.8,
+                  width: MediaQuery.of(context).size.width * 0.8,
                   height: 30,
                   child: Container(
-                    decoration: BoxDecoration(
-                        
-                        borderRadius: BorderRadius.circular(50)),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(50)),
                     alignment: Alignment.center,
                     child: Text(
                       'ZAREJESTRUJ',
@@ -181,23 +178,19 @@ class _Wylogowany extends State<Wylogowany> {
                     }
                   }
                 }),
-            
-            
-            SizedBox(height: 20,),
-            GestureDetector(              
+            SizedBox(
+              height: 20,
+            ),
+            GestureDetector(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Masz już konto? ',
-                    style: style
-                  ),
+                  Text('Masz już konto? ', style: style),
                   Text(
                     'Zaloguj się',
                     style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      
                     ),
                   ),
                 ],

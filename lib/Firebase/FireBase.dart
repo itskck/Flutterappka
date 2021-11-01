@@ -281,7 +281,9 @@ class FireBase{
         psuId: doc.data().toString().contains('psuId') ? doc.get('psuId') : 'Error not found',
         ramId: doc.data().toString().contains('ramId') ? doc.get('ramId') : 'Error not found',
         timestamp: doc.data().toString().contains('timestamp') ? doc.get('timestamp') : 'Error not found',
-        uid: doc.data().toString().contains('uid') ? doc.get('uid') : 'Error not found'
+        uid: doc.data().toString().contains('uid') ? doc.get('uid') : 'Error not found',
+        minTdp: doc.data().toString().contains('minTdp') ? doc.get('minTdp') : 'Error not found',
+        maxTdp: doc.data().toString().contains('maxTdp') ? doc.get('maxTdp') : 'Error not found',
       );
     }).toList();
   }

@@ -43,6 +43,7 @@ class Edit extends StatefulWidget with ChangeNotifier {
   final Cooler cooler;
   final String code;
   final bool diffUser;
+  final num minTdp,maxTdp;
 
   Edit(
       {this.cpu,
@@ -54,14 +55,16 @@ class Edit extends StatefulWidget with ChangeNotifier {
       this.gpu,
       this.cooler,
       this.code,
-      this.diffUser});
+      this.diffUser,
+      this.maxTdp,
+      this.minTdp});
 
   @override
   _Edit createState() => _Edit();
 }
 
 class _Edit extends State<Edit> {
-  var minTdp = 0.0, maxTdp = 0.0;
+  var minTdp, maxTdp;
   final FireBase base = FireBase();
   final Logo logo = Logo();
   String pom;
