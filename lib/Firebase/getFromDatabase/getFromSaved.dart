@@ -76,6 +76,7 @@ class getFromSaved {
           year: doc.data().toString().contains('year') ? doc.get('year') : 'Error not found',
           series: doc.data().toString().contains('series') ? doc.get('series') : 'Error not found',
           tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : 'Error not found',
+          integra: doc.data().toString().contains('integra')? doc.get('integra'): 'Error',
           img:img
       );
     }).toList();
