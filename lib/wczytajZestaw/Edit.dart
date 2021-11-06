@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/painting.dart';
@@ -43,7 +44,8 @@ class Edit extends StatefulWidget with ChangeNotifier {
   final Cooler cooler;
   final String code;
   final bool diffUser;
-  final num minTdp,maxTdp;
+  final double minTdp,maxTdp;
+  final List<Drive> extradisk;
 
   Edit(
       {this.cpu,
@@ -57,14 +59,15 @@ class Edit extends StatefulWidget with ChangeNotifier {
       this.code,
       this.diffUser,
       this.maxTdp,
-      this.minTdp});
+      this.minTdp,
+      this.extradisk});
 
   @override
   _Edit createState() => _Edit();
 }
 
 class _Edit extends State<Edit> {
-  var minTdp, maxTdp;
+  double minTdp, maxTdp;
   final FireBase base = FireBase();
   final Logo logo = Logo();
   String pom;
@@ -72,6 +75,9 @@ class _Edit extends State<Edit> {
   initState() {
     super.initState();
     setComponents();
+    print(widget.extradisk[0].model);
+    print("g");
+    print(widget.extradisk[1].model);
   }
 
   void setComponents(){
@@ -96,6 +102,8 @@ class _Edit extends State<Edit> {
     base.driveConnectionType=Edit.chosenDrive.connectionType;
     base.caseStandard=Edit.chosenCase.standard;
     base.ramRamType = Edit.chosenRam.type;
+    minTdp=widget.minTdp;
+    maxTdp=widget.maxTdp;
     setState(() { });
   }
 

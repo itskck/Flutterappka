@@ -17,6 +17,7 @@ class Builds{
   final String timestamp;
   final String uid;
   final num minTdp,maxTdp;
-  Builds({this.coolerId,this.caseId,this.cpuId,this.driveId,this.generatedCode,this.gpuId,this.motherboardId,this.psuId,this.ramId,this.timestamp,this.uid,this.minTdp,this.maxTdp});
+  final List<String> extradisk;
+  Builds({this.coolerId,this.caseId,this.cpuId,this.driveId,this.generatedCode,this.gpuId,this.motherboardId,this.psuId,this.ramId,this.timestamp,this.uid,this.minTdp,this.maxTdp, this.extradisk});
 }
 
