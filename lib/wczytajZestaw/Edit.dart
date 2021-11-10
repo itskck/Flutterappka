@@ -33,6 +33,7 @@ class Edit extends StatefulWidget with ChangeNotifier {
   static Gpu chosenGpu;
   static Cooler chosenCooler;
   static List<Widget> panelsGrid;
+  static List<Drive> chosenextradisk;
 
   final Cpu cpu;
   final Psu psu;
@@ -104,6 +105,7 @@ class _Edit extends State<Edit> {
     base.ramRamType = Edit.chosenRam.type;
     minTdp=widget.minTdp;
     maxTdp=widget.maxTdp;
+    Edit.chosenextradisk=widget.extradisk;
     setState(() { });
   }
 

@@ -284,6 +284,7 @@ class FireBase{
         uid: doc.data().toString().contains('uid') ? doc.get('uid') : 'Error not found',
         minTdp: doc.data().toString().contains('minTdp') ? doc.get('minTdp') : 'Error not found',
         maxTdp: doc.data().toString().contains('maxTdp') ? doc.get('maxTdp') : 'Error not found',
+        extradisk: List.from(doc.data().toString().contains('extradisk') ? doc.get('extradisk') : 'Error not found'),
       );
     }).toList();
   }

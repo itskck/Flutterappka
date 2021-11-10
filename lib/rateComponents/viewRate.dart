@@ -22,6 +22,7 @@ class viewRate extends StatefulWidget {
   final Gpu gpu;
   final Cooler cooler;
   final String code;
+  final List<Drive> extradisk;
 
   viewRate({
     this.cpu,
@@ -33,6 +34,7 @@ class viewRate extends StatefulWidget {
     this.gpu,
     this.cooler,
     this.code,
+    this.extradisk,
   });
 
   @override
@@ -50,7 +52,12 @@ class _viewRateState extends State<viewRate> {
     var rand = new Random();
     return min + rand.nextInt(max - min) + 1;
   }
+  @override
+  initState() {
+    super.initState();
+    print(widget.extradisk.length);
 
+  }
   Widget buildItems() {
     List<String> compList = [
       widget.cpu.model,
