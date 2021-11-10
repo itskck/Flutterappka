@@ -160,7 +160,7 @@ class _haveAcc extends State<haveAcc> {
                           msg: 'Nieprawidłowe dane logowania');
                       result = await _auth.Anonim();
                     } else {
-                      file.save("czyZalogowany=true");
+                      file.save("czyZalogowany=true",'loginConfig');
                       globalna.czyZalogowany = "czyZalogowany=true";
                     }
                   }

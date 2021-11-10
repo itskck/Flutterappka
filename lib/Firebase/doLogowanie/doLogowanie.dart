@@ -89,7 +89,7 @@ class doLogowanie {
     await Anonim();
     print(_firebaseUser.uid);
     globalna.czyZalogowany = "czyZalogowany=false";
-    file.save(globalna.czyZalogowany);
+    file.save(globalna.czyZalogowany,'loginConfig');
   }
 
   Future deleteAnonym() async {

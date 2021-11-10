@@ -73,7 +73,7 @@ class _Zalogowany extends State<Zalogowany> {
 
   void logout() async {
     await _auth.wylogui();
-    file.save("czyZalogowany=false");
+    file.save("czyZalogowany=false",'loginConfig');
     globalna.czyZalogowany = "czyZalogowany=false";
     dynamic result = await _auth.Anonim();
     print(result);

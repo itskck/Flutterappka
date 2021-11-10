@@ -164,7 +164,7 @@ class _Wylogowany extends State<Wylogowany> {
                       result = await _auth.Anonim();
                       globalna.czyZalogowany = "czyZalogowany=false";
                     } else {
-                      file.save("czyZalogowany=true");
+                      file.save("czyZalogowany=true",'loginConfig');
                       email.runes.forEach((int element) {
                         var character = new String.fromCharCode(element);
                         if (character == '@') {

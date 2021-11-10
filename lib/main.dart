@@ -31,9 +31,13 @@ Future<void> main() async {
   User _firebaseUser = FirebaseAuth.instance.currentUser;
   final file = fileReader();
   List<String> data;
+  String pom="";
+  int licznik=0;
+  bool sprawdzacz=false;
   data = new List<String>();
   if (_firebaseUser == null) {
-    file.save("czyZalogowany=false");
+    print("nie no blagam");
+    file.save("czyZalogowany=false",'loginConfig');
     final doLogowanie _anonim = doLogowanie();
     dynamic result = await _anonim.Anonim();
     if (result == null)
@@ -42,15 +46,26 @@ Future<void> main() async {
       print(result.uid);
   } else
     print(_firebaseUser.uid);
-  await file.read().then((String tekst) {
+  if(await file.exists('tutorialConfig')==false){
+    print("her");
+    file.save('tutorial=true', 'tutorialConfig');
+  }
+  await file.read('loginConfig').then((String tekst) {
     data.add(tekst);
   });
+  await file.read('tutorialConfig').then((String tekst) {
+    data.add(tekst);
+  });
+
   globalna.czyZalogowany = data[0];
+  print(data[1]);
+  if(data[1]=="tutorial=false")
+    sprawdzacz=true;
   runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme(),
       title: 'Skladapka',
-      home: Glowna()));
+      home: Glowna(title: data[1])));
 }
 
 void glowna() {

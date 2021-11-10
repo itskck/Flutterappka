@@ -108,6 +108,9 @@ class _Glowna extends State<Glowna> {
       wifiColor = Colors.red;
       wifiStatus = "Oczekiwanie na połączenie z siecią...";
     }
+    if(widget.title=="tutorial=false")
+      return Skladapka();
+    else
     return Scaffold(
         body: Center(
       child: Column(
@@ -286,7 +289,7 @@ class _Glowna extends State<Glowna> {
                   setState(()  {
                     isChecked=value;    
                     if(value==true){
-                      filereader.save('tutorial=false');
+                      filereader.save('tutorial=false','tutorialConfig');
                     }          
                   });
                 }
