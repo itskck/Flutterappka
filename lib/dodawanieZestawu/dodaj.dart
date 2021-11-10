@@ -54,11 +54,13 @@ class _dodaj extends State<dodaj> {
   @override
   initState() {
     print("raz dwa trzy");
-    dodaj.extraDrives = new List<Drive>();
-    dodaj.extra = -1;
-    dodaj.usedNvme = true;
-    dodaj.pom1 = 8;
-    dodaj.slots = 0;
+    if(dodaj.chosenMtb==null) {
+      dodaj.extraDrives = new List<Drive>();
+      dodaj.extra = -1;
+      dodaj.usedNvme = true;
+      dodaj.pom1 = 8;
+      dodaj.slots = 0;
+    }
     super.initState();
   }
 
