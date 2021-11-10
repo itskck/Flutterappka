@@ -7,12 +7,13 @@ import 'package:skladappka/main.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:skladappka/main.dart';
+import 'package:skladappka/config/fileOperations.dart';
 
 class Glowna extends StatefulWidget {
   Glowna({Key key, this.title}) : super(key: key);
   static StreamSubscription<ConnectivityResult> connectivitySubscription;
   static Connectivity _connectivity = Connectivity();
-  static ConnectivityResult connectivityResult= ConnectivityResult.none;
+  static ConnectivityResult connectivityResult = ConnectivityResult.none;
   final String title;
 
   @override
@@ -20,15 +21,15 @@ class Glowna extends StatefulWidget {
 }
 
 class _Glowna extends State<Glowna> {
-
   User _firebaseUser = FirebaseAuth.instance.currentUser;
-
+  fileReader filereader = new fileReader();
+  bool isChecked=false;
   @override
   void initState() {
     super.initState();
     print('ao');
-    Glowna.connectivitySubscription =
-        Glowna._connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    Glowna.connectivitySubscription = Glowna._connectivity.onConnectivityChanged
+        .listen(_updateConnectionStatus);
     print('object');
   }
 
@@ -46,6 +47,7 @@ class _Glowna extends State<Glowna> {
   }
 
   Widget numberWidget(int num) {
+    
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -84,6 +86,19 @@ class _Glowna extends State<Glowna> {
   @override
   Widget build(BuildContext context) {
 
+    Color getColor(Set<MaterialState> states) {
+      const Set<MaterialState> interactiveStates = <MaterialState>{
+        MaterialState.pressed,
+        MaterialState.hovered,
+        MaterialState.focused,
+      };
+      if (states.any(interactiveStates.contains)) {
+        return Colors.lightBlue;
+      }
+      return Colors.pink;
+    }
+    
+
     Color wifiColor;
     String wifiStatus;
     if (internetIcon()) {
@@ -94,12 +109,12 @@ class _Glowna extends State<Glowna> {
       wifiStatus = "Oczekiwanie na połączenie z siecią...";
     }
     return Scaffold(
-    body: Center(
+        body: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            margin: EdgeInsets.symmetric(vertical: 30),
+            margin: EdgeInsets.symmetric(vertical: 20),
             child: Text(
               'Witaj w składappce!',
               style: TextStyle(
@@ -202,7 +217,6 @@ class _Glowna extends State<Glowna> {
                   height: 250,
                   width: 116,
                   decoration: BoxDecoration(
-
                       color: Color.fromRGBO(45, 45, 45, 1),
                       borderRadius: BorderRadius.circular(10)),
                   child: Column(
@@ -223,22 +237,73 @@ class _Glowna extends State<Glowna> {
               ),
             ],
           ),
-          Container (
-            child: RaisedButton(
-                color: Colors.pink[400],
-                child: Text(
-                  'Zaczynajmy!',
-                  style: TextStyle(color: Colors.white),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Skladapka()));
+            },
+            child: Container(
+              width: 120,
+              height: 30,
+              margin: EdgeInsets.all(10),
+              padding: EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color.fromRGBO(142, 223, 255, 1),
+                        Color.fromRGBO(255, 0, 140, 1)
+                      ])),
+              child: Container(
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(45, 45, 45, 1),
+                    borderRadius: BorderRadius.circular(10)),
+                child: Center(
+                  child: Text('Zaczynajmy!',
+                  style: TextStyle(color: Colors.white,fontSize: 15),
+                  
+                  textAlign: TextAlign.center,),
                 ),
-                onPressed: () {
-                  Navigator.push(context,MaterialPageRoute (builder: (context) => Skladapka()));
+              ),
+            )
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            
+
+            children: [
+              Container(
+                height: 30,
+                width: 30,
+                child: Checkbox(
+                value: isChecked , 
+                checkColor: Colors.white,
+                fillColor: MaterialStateProperty.resolveWith(getColor),
+                onChanged:(bool value){            
+                  setState(()  {
+                    isChecked=value;    
+                    if(value==true){
+                      filereader.save('tutorial=false');
+                    }          
+                  });
                 }
-            ),
-          )
+                ),
+              ),
+              Text('Nie wyświetlaj tego okna w przyszłości',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 13
+              ),)
+            ],
+          ),
+          
         ],
-
-      ),)
-
-    );
+      ),
+    ));
   }
+
+  
 }

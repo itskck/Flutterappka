@@ -28,11 +28,11 @@ import 'package:simple_gradient_text/simple_gradient_text.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  User _firebaseUser=FirebaseAuth.instance.currentUser;
-  final file=fileReader();
+  User _firebaseUser = FirebaseAuth.instance.currentUser;
+  final file = fileReader();
   List<String> data;
-  data=new List<String>();
-  if(_firebaseUser==null) {
+  data = new List<String>();
+  if (_firebaseUser == null) {
     file.save("czyZalogowany=false");
     final doLogowanie _anonim = doLogowanie();
     dynamic result = await _anonim.Anonim();
@@ -40,16 +40,17 @@ Future<void> main() async {
       print('Nie jestes w bazie');
     else
       print(result.uid);
-  }
-  else print(_firebaseUser.uid);
-  await file.read().then((String tekst){
+  } else
+    print(_firebaseUser.uid);
+  await file.read().then((String tekst) {
     data.add(tekst);
   });
-  globalna.czyZalogowany=data[0];
-  runApp(MaterialApp(debugShowCheckedModeBanner: false,
-    theme: appTheme(),
-    title: 'Skladapka',
-    home: Glowna()));
+  globalna.czyZalogowany = data[0];
+  runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: appTheme(),
+      title: 'Skladapka',
+      home: Glowna()));
 }
 
 void glowna() {
@@ -65,35 +66,34 @@ void inicjalizuj(Builds builds) {
 }
 
 Future<int> getAvatarNumber() async {
-    var chosenAvatar;
-    await FirebaseFirestore.instance
-        .collection("users")
-        .where('uid', isEqualTo: FirebaseAuth.instance.currentUser.uid)
-        .get()
-        .then((QuerySnapshot result) => {
-              result.docs.forEach((element) {
-                if (element['aid'] != null)
-                  chosenAvatar = element['aid'];
-                else
-                  chosenAvatar = 0;
-              })
-            });
-    
-    return chosenAvatar;
-  }
+  var chosenAvatar;
+  await FirebaseFirestore.instance
+      .collection("users")
+      .where('uid', isEqualTo: FirebaseAuth.instance.currentUser.uid)
+      .get()
+      .then((QuerySnapshot result) => {
+            result.docs.forEach((element) {
+              if (element['aid'] != null)
+                chosenAvatar = element['aid'];
+              else
+                chosenAvatar = 0;
+            })
+          });
 
+  return chosenAvatar;
+}
 
-ThemeData appTheme(){
-  return ThemeData(        
-        canvasColor: Color.fromRGBO(32, 33, 36,1),
-        primarySwatch: Colors.grey,
-        primaryColor: Color.fromRGBO(37, 38, 41,1),
-        brightness: Brightness.light,
-        backgroundColor: Color(0xFFE5E5E5),
-        accentColor: Colors.black,
-        accentIconTheme: IconThemeData(color: Colors.white),
-        dividerColor: Colors.white54,
-        shadowColor: Colors.grey[200]);
+ThemeData appTheme() {
+  return ThemeData(
+      canvasColor: Color.fromRGBO(32, 33, 36, 1),
+      primarySwatch: Colors.grey,
+      primaryColor: Color.fromRGBO(37, 38, 41, 1),
+      brightness: Brightness.light,
+      backgroundColor: Color(0xFFE5E5E5),
+      accentColor: Colors.black,
+      accentIconTheme: IconThemeData(color: Colors.white),
+      dividerColor: Colors.white54,
+      shadowColor: Colors.grey[200]);
 }
 
 class Skladapka extends StatefulWidget {
@@ -111,26 +111,27 @@ class _SkladapkaState extends State<Skladapka> {
   final doLogowanie _anonim = doLogowanie();
 
   void _onItemTapped(int index) {
-    if(globalna.ktoro==2) Glowna.connectivitySubscription.cancel();
+    if (globalna.ktoro == 2) Glowna.connectivitySubscription.cancel();
     globalna.ktoro = index;
     inicjalizuj(null);
   }
 
-
-  Widget viewReturner(int ktoro){
-    if(widget.builds!=null) {
+  Widget viewReturner(int ktoro) {
+    if (widget.builds != null) {
       setState(() {
-        globalna.ktoro=ktoro;
+        globalna.ktoro = ktoro;
       });
-      if(ktoro==1) return wczytajZestaw(czyWczytuje: true, builds: widget.builds);
-      else return whichSite(czyWczytuje: true, builds: widget.builds);
-    }
-     else return  Views[ktoro];
+      if (ktoro == 1)
+        return wczytajZestaw(czyWczytuje: true, builds: widget.builds);
+      else
+        return whichSite(czyWczytuje: true, builds: widget.builds);
+    } else
+      return Views[ktoro];
   }
 
   List<Widget> Views = [
-    rateComponents(),    
-    wczytajZestaw(czyWczytuje: false,builds: null),
+    rateComponents(),
+    wczytajZestaw(czyWczytuje: false, builds: null),
     dodaj(),
     Porownywarka(title: 'dodawanie'),
     Logowanie(),
@@ -143,11 +144,8 @@ class _SkladapkaState extends State<Skladapka> {
     Image.asset('assets/avatars/5.png'),
   ];
 
-  
   @override
-  Widget build(BuildContext context) {    
-    
-
+  Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: appTheme(),
@@ -161,104 +159,85 @@ class _SkladapkaState extends State<Skladapka> {
             toolbarHeight: 50,
             elevation: 0,
             systemOverlayStyle: SystemUiOverlayStyle(
-              statusBarColor: appTheme().primaryColor,
-              statusBarIconBrightness: Brightness.light
-            ),
+                statusBarColor: appTheme().primaryColor,
+                statusBarIconBrightness: Brightness.light),
             backgroundColor: appTheme().primaryColor,
             //backgroundColor: appTheme().canvasColor,
-            
+
             //leading: Icon(Icons.computer),
-            title:
-            GradientText(
+            title: GradientText(
               'składappka',
-              colors: [
-                Colors.lightBlue[300],
-                Color.fromRGBO(178, 150, 255,1)
-              ],
+              colors: [Colors.lightBlue[300], Color.fromRGBO(178, 150, 255, 1)],
               style: TextStyle(
-                  
-                  fontFamily: GoogleFonts.workSans().fontFamily,                  
-                  fontWeight: FontWeight.normal,
-                  fontSize: 34,
-                  letterSpacing: 2,
-                  
-                  ),
+                fontFamily: GoogleFonts.workSans().fontFamily,
+                fontWeight: FontWeight.normal,
+                fontSize: 34,
+                letterSpacing: 2,
+              ),
             ),
           ),
           body: GestureDetector(
-            onHorizontalDragEnd: (details){
-              if(details.primaryVelocity>0){
+            onHorizontalDragEnd: (details) {
+              if (details.primaryVelocity > 0) {
                 //w prawo
-                globalna.ktoro-=1;
-                if(globalna.ktoro<0)globalna.ktoro=0;
-                setState(() {
-                  
-                });
+                globalna.ktoro -= 1;
+                if (globalna.ktoro < 0) globalna.ktoro = 0;
+                setState(() {});
               }
-              if(details.primaryVelocity<0){
+              if (details.primaryVelocity < 0) {
                 //w lewo
-                globalna.ktoro+=1;
-                if(globalna.ktoro>4)globalna.ktoro=4;
-                setState(() {
-                  
-                });
+                globalna.ktoro += 1;
+                if (globalna.ktoro > 4) globalna.ktoro = 4;
+                setState(() {});
               }
             },
             child: Container(
-              
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color.fromRGBO(45, 45, 45,1),
-                    Color.fromRGBO(59, 55, 68,1)
-                  ],
-                  begin: FractionalOffset.topLeft,
-                  end: FractionalOffset.bottomRight
-                ),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(50),
-                  topRight: Radius.circular(50)
-                )
-              ),
-              child: viewReturner(globalna.ktoro)
-              ),
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        colors: [
+                          Color.fromRGBO(45, 45, 45, 1),
+                          Color.fromRGBO(59, 55, 68, 1)
+                        ],
+                        begin: FractionalOffset.topLeft,
+                        end: FractionalOffset.bottomRight),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(50),
+                        topRight: Radius.circular(50))),
+                child: viewReturner(globalna.ktoro)),
           ),
           bottomNavigationBar: CurvedNavigationBar(
             index: globalna.ktoro,
-            color:Colors.lightBlue[300],
-            backgroundColor: Color.fromRGBO(59, 55, 68,1),            
+            color: Colors.lightBlue[300],
+            backgroundColor: Color.fromRGBO(59, 55, 68, 1),
             animationDuration: Duration(milliseconds: 300),
-            
             height: 50,
             items: <Widget>[
-              Icon(Icons.star_rate_outlined,color: Colors.white),
-              Icon(Icons.edit,color: Colors.white),
-              Icon(Icons.add,color:  Colors.white),
-              Icon(Icons.leaderboard,color:  Colors.white),
-              if (globalna.czyZalogowany=="czyZalogowany=false")
-              Icon(Icons.account_circle_rounded,color:  Colors.white)
+              Icon(Icons.star_rate_outlined, color: Colors.white),
+              Icon(Icons.edit, color: Colors.white),
+              Icon(Icons.add, color: Colors.white),
+              Icon(Icons.leaderboard, color: Colors.white),
+              if (globalna.czyZalogowany == "czyZalogowany=false")
+                Icon(Icons.account_circle_rounded, color: Colors.white)
               else
-              Container(
-                height: 30,
-                width: 30,
-                child: ClipRRect(
-                  child: FutureBuilder(
-                    future: getAvatarNumber(),
-                    builder:(context, snapshot) {
-                      if(snapshot.connectionState==ConnectionState.done)
-                      return avatarList[snapshot.data];
-                      else return Container();
-                    },
+                Container(
+                  height: 30,
+                  width: 30,
+                  child: ClipRRect(
+                    child: FutureBuilder(
+                      future: getAvatarNumber(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done)
+                          return avatarList[snapshot.data];
+                        else
+                          return Container();
+                      },
+                    ),
+                    borderRadius: BorderRadius.circular(100),
                   ),
-                  borderRadius: BorderRadius.circular(100),
-                ),
-              )
+                )
             ],
-
             onTap: _onItemTapped,
           ),
-        )
-
-    );
+        ));
   }
 }
