@@ -44,6 +44,7 @@ class dialogBuilderForCompare extends StatelessWidget{
                   Porownywarka.chosenGpu = await getFromSaved(id: builds[i].gpuId).getGpu();
                   Porownywarka.chosenCooler = await getFromSaved(id: builds[i].coolerId).getCooler();
                   Porownywarka.uid=builds[i].uid;
+                  Porownywarka.extradisk=await getFromSaved(builds: builds[i]).setExtra();
                   }
                 else if(globalna.ktoro==1)
                   {
@@ -62,6 +63,7 @@ class dialogBuilderForCompare extends StatelessWidget{
                   Porownywarka.chosenGpu2 = await getFromSaved(id: builds[i].gpuId).getGpu();
                   Porownywarka.chosenCooler2 = await getFromSaved(id: builds[i].coolerId).getCooler();
                   Porownywarka.uid2=builds[i].uid;
+                  Porownywarka.extradisk2=await getFromSaved(builds: builds[i]).setExtra();
                 }
                 Navigator.pop(context);
               },

@@ -33,6 +33,7 @@ class Porownywarka extends StatefulWidget {
   static Gpu chosenGpu, chosenGpu2;
   static Cooler chosenCooler, chosenCooler2;
   static String uid, uid2;
+  static List<Drive> extradisk,extradisk2;
   @override
   _Porownywarka createState() => _Porownywarka();
 }
@@ -59,6 +60,7 @@ class _Porownywarka extends State<Porownywarka> {
       Porownywarka.chosenGpu = await getFromCode(code: value).getGpu();
       Porownywarka.chosenCooler = await getFromCode(code: value).getCooler();
       Porownywarka.uid = await getFromCode(code: value).getUid();
+      Porownywarka.extradisk=await getFromCode(code: value).setExtra();
     } else {
       Porownywarka.chosenCpu2 = await getFromCode(code: value).getCpu();
       Porownywarka.chosenPsu2 = await getFromCode(code: value).getPsu();
@@ -69,6 +71,7 @@ class _Porownywarka extends State<Porownywarka> {
       Porownywarka.chosenGpu2 = await getFromCode(code: value).getGpu();
       Porownywarka.chosenCooler2 = await getFromCode(code: value).getCooler();
       Porownywarka.uid2 = await getFromCode(code: value).getUid();
+      Porownywarka.extradisk2=await getFromCode(code: value).setExtra();
     }
   }
 

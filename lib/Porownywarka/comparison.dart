@@ -64,7 +64,8 @@ class _Comparison extends State<Comparison> {
   }
 
   void setScores() {
-    print('start');
+    print(Porownywarka.extradisk.length);
+    print(Porownywarka.extradisk2.length);
     var cpu;
     if(num.parse(Porownywarka.chosenCpu.benchScore)>num.parse(Porownywarka.chosenCpu2.benchScore))
     cpu = num.parse(Porownywarka.chosenCpu.benchScore) /

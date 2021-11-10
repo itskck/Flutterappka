@@ -13,10 +13,7 @@ import 'package:skladappka/Firebase/Motherboard.dart';
 import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Ram.dart';
 import 'package:skladappka/Firebase/Builds.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'package:skladappka/Porownywarka/Porownywarka.dart';
-
+import 'package:skladappka/Firebase/getFromDatabase/getFromSaved.dart';
 class getFromCode {
   static Cpu chosenCpu;
   static Psu chosenPsu;
@@ -29,6 +26,7 @@ class getFromCode {
   static String uid;
   static Builds builds;
   String code;
+  List<Drive> extradisk;
   getFromCode({this.code});
   
   Future<bool> corrCode() async{
@@ -329,6 +327,39 @@ class getFromCode {
       );
     }).toList();
     return builds;
+  }
+
+  Future<List<Drive>> setExtra() async{
+    await(getBuild());
+    extradisk = new List<Drive>();
+    String number="", disk="";
+    int space=0, numberint;
+    if(builds.extradisk[0]=="Brak"){
+      return extradisk;
+    }
+    for(int i=0; i<builds.extradisk.length;i++){
+      while(builds.extradisk[i][space]!=" "){
+        print("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
+        print(builds.extradisk[i][space]);
+        number+=builds.extradisk[i][space];
+        space++;
+      }
+      space++;
+      print("cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc");
+      print(builds.extradisk[i][space]);
+      for(;space<builds.extradisk[i].length;space++)
+        disk+=builds.extradisk[i][space];
+      space=0;
+      numberint=int.parse(number);
+      number="";
+      for(int j=0;j<numberint;j++){
+        extradisk.add(await getFromSaved(id: disk).getDrive());
+      }
+      disk="";
+    }
+    // print("cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc");
+    //print(extradisk.length);
+    return extradisk;
   }
 
 }
