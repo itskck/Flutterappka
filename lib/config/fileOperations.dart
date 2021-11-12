@@ -7,6 +7,9 @@ class fileReader{
     Directory appDocDir = await getExternalStorageDirectory();
     String filePath = appDocDir.path + "/" +title+".txt";
     File f = File(filePath);
+    if(await exists(title)==false){
+      f.create();
+    }
     f.writeAsString(data);
   }
 
