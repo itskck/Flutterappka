@@ -44,6 +44,7 @@ class _dialogBuilder extends State<dialogBuilder> {
       cpus = Provider.of<List<Cpu>>(context) ?? [];
       print("44444444444");
       print(cpus.length);
+      
       print("44444444444");
       return SimpleDialog(title: Text('Wybierz procesor:'), children: [
         for (int i = 0; i < cpus.length; i++)
@@ -67,9 +68,13 @@ class _dialogBuilder extends State<dialogBuilder> {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(cpus[i].manufacturer + " " + cpus[i].model + " ",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text(cpus[i].cores + "x " + cpus[i].clocker + "GHz")
+                        Text(cpus[i].manufacturer + " " + cpus[i].model ,
+                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18,fontFamily: GoogleFonts.workSans().fontFamily)),
+                        Text(cpus[i].cores + "x " + cpus[i].clocker + "GHz, Socket: "+cpus[i].socket,style: TextStyle(fontFamily: GoogleFonts.workSans().fontFamily),),
+                        Text(cpus[i].hasGpu=='none'?"Zintegorwana karta graficzna ❌":"Zintegrowana karta graficzna ✅",style: TextStyle(fontFamily: GoogleFonts.workSans().fontFamily),),
+                        Text(cpus[i].isUnlocked?"Odblokowany mnożnik ✅":"Zablokowany mnożnik ❌",style: TextStyle(fontFamily: GoogleFonts.workSans().fontFamily),),
+                        Text('Rocznik: '+cpus[i].year,style: TextStyle(fontFamily: GoogleFonts.workSans().fontFamily),),
+
                       ],
                     ),
                   ],

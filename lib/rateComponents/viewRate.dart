@@ -176,9 +176,6 @@ class _viewRateState extends State<viewRate> {
     else diskString+='Dysk systemowy jest dyskiem HDD, który nie jest zalecany do bycia dyskiem systemowym. Prawdopodobnym jest, że system będzie chodził na nim powoli, a aplikacje mogą niekiedy się zacinać.';
     
     
-
-
-    
     return Container(
       padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
       child: Column(
