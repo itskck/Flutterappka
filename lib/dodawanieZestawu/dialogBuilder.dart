@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skladappka/Firebase/Case.dart';
@@ -50,36 +51,42 @@ class _dialogBuilder extends State<dialogBuilder> {
         for (int i = 0; i < cpus.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                        padding: EdgeInsets.all(5),
-                        margin: EdgeInsets.only(right: 20),
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            border: Border.all(width: 1)),
-                        child: cpus[i].img),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(cpus[i].manufacturer + " " + cpus[i].model ,
-                            style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18,fontFamily: GoogleFonts.workSans().fontFamily)),
-                        Text(cpus[i].cores + "x " + cpus[i].clocker + "GHz, Socket: "+cpus[i].socket,style: TextStyle(fontFamily: GoogleFonts.workSans().fontFamily),),
-                        Text(cpus[i].hasGpu=='none'?"Zintegorwana karta graficzna ❌":"Zintegrowana karta graficzna ✅",style: TextStyle(fontFamily: GoogleFonts.workSans().fontFamily),),
-                        Text(cpus[i].isUnlocked?"Odblokowany mnożnik ✅":"Zablokowany mnożnik ❌",style: TextStyle(fontFamily: GoogleFonts.workSans().fontFamily),),
-                        Text('Rocznik: '+cpus[i].year,style: TextStyle(fontFamily: GoogleFonts.workSans().fontFamily),),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                          padding: EdgeInsets.all(5),
+                          margin: EdgeInsets.only(right: 20),
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              border: Border.all(width: 1)),
+                          child: cpus[i].img),
+                      Container(
+                        width: MediaQuery.of(context).size.width*0.5,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(cpus[i].manufacturer + " " + cpus[i].model ,
+                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,fontFamily: GoogleFonts.workSans().fontFamily)),
+                            Text(cpus[i].cores + "x " + cpus[i].clocker + "GHz, Socket: "+cpus[i].socket,style: TextStyle(fontFamily: GoogleFonts.workSans().fontFamily,fontSize: 12),),
+                            Text(cpus[i].hasGpu=='none'?"Zintegorwana karta graficzna ❌":"Zintegrowana karta graficzna ✅",style: TextStyle(fontFamily: GoogleFonts.workSans().fontFamily,fontSize: 12),),
+                            Text(cpus[i].isUnlocked?"Odblokowany mnożnik ✅":"Zablokowany mnożnik ❌",style: TextStyle(fontFamily: GoogleFonts.workSans().fontFamily,fontSize: 12),),
+                            Text('Rocznik: '+cpus[i].year,style: TextStyle(fontFamily: GoogleFonts.workSans().fontFamily,fontSize: 12),),
 
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
             onPressed: () {
               if (globals.ktoro == 2)
