@@ -7,6 +7,7 @@ import 'package:skladappka/dodawanieZestawu/dodaj.dart';
 import 'Porownywarka.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'dart:math';
+import 'package:fl_chart/fl_chart.dart';
 
 class Comparison extends StatefulWidget {
   const Comparison({Key key}) : super(key: key);
@@ -67,10 +68,11 @@ class _Comparison extends State<Comparison> {
     print(Porownywarka.extradisk.length);
     print(Porownywarka.extradisk2.length);
     var cpu;
-    if(num.parse(Porownywarka.chosenCpu.benchScore)>num.parse(Porownywarka.chosenCpu2.benchScore))
-    cpu = num.parse(Porownywarka.chosenCpu.benchScore) /
-        num.parse(Porownywarka.chosenCpu2.benchScore) *
-        100;
+    if (num.parse(Porownywarka.chosenCpu.benchScore) >
+        num.parse(Porownywarka.chosenCpu2.benchScore))
+      cpu = num.parse(Porownywarka.chosenCpu.benchScore) /
+          num.parse(Porownywarka.chosenCpu2.benchScore) *
+          100;
     else
       cpu = num.parse(Porownywarka.chosenCpu2.benchScore) /
           num.parse(Porownywarka.chosenCpu.benchScore) *
@@ -92,13 +94,14 @@ class _Comparison extends State<Comparison> {
     }
     print('cpu git');
     var gpu;
-    if(num.parse(Porownywarka.chosenGpu.benchScore)>num.parse(Porownywarka.chosenGpu2.benchScore))
-    gpu = (num.parse(Porownywarka.chosenGpu.benchScore) /
-        num.parse(Porownywarka.chosenGpu2.benchScore)) *
-        100;
+    if (num.parse(Porownywarka.chosenGpu.benchScore) >
+        num.parse(Porownywarka.chosenGpu2.benchScore))
+      gpu = (num.parse(Porownywarka.chosenGpu.benchScore) /
+              num.parse(Porownywarka.chosenGpu2.benchScore)) *
+          100;
     else
       gpu = (num.parse(Porownywarka.chosenGpu2.benchScore) /
-          num.parse(Porownywarka.chosenGpu.benchScore)) *
+              num.parse(Porownywarka.chosenGpu.benchScore)) *
           100;
     gpuScore1 = gpu;
     gpuScore2 = (-1) * gpu;
@@ -114,10 +117,11 @@ class _Comparison extends State<Comparison> {
     }
     print('gpu git');
     var ram;
-    if(num.parse(Porownywarka.chosenRam.benchScore)>num.parse(Porownywarka.chosenRam2.benchScore))
-    ram = num.parse(Porownywarka.chosenRam.benchScore) /
-        num.parse(Porownywarka.chosenRam2.benchScore) *
-        100;
+    if (num.parse(Porownywarka.chosenRam.benchScore) >
+        num.parse(Porownywarka.chosenRam2.benchScore))
+      ram = num.parse(Porownywarka.chosenRam.benchScore) /
+          num.parse(Porownywarka.chosenRam2.benchScore) *
+          100;
     else
       ram = num.parse(Porownywarka.chosenRam2.benchScore) /
           num.parse(Porownywarka.chosenRam.benchScore) *
@@ -136,10 +140,11 @@ class _Comparison extends State<Comparison> {
     }
     print('ram git');
     var psu;
-    if(num.parse(Porownywarka.chosenPsu.power)>num.parse(Porownywarka.chosenPsu2.power))
-    psu = num.parse(Porownywarka.chosenPsu.power) /
-        num.parse(Porownywarka.chosenPsu2.power) *
-        100;
+    if (num.parse(Porownywarka.chosenPsu.power) >
+        num.parse(Porownywarka.chosenPsu2.power))
+      psu = num.parse(Porownywarka.chosenPsu.power) /
+          num.parse(Porownywarka.chosenPsu2.power) *
+          100;
     else
       psu = num.parse(Porownywarka.chosenPsu2.power) /
           num.parse(Porownywarka.chosenPsu.power) *
@@ -158,9 +163,10 @@ class _Comparison extends State<Comparison> {
     }
     print('psu git');
     var drive;
-    if(num.parse(Porownywarka.chosenDrive.capacity)>num.parse(Porownywarka.chosenDrive2.capacity))
-    drive = num.parse(Porownywarka.chosenDrive.capacity).toDouble() -
-        num.parse(Porownywarka.chosenDrive2.capacity).toDouble();
+    if (num.parse(Porownywarka.chosenDrive.capacity) >
+        num.parse(Porownywarka.chosenDrive2.capacity))
+      drive = num.parse(Porownywarka.chosenDrive.capacity).toDouble() -
+          num.parse(Porownywarka.chosenDrive2.capacity).toDouble();
     else
       drive = num.parse(Porownywarka.chosenDrive2.capacity).toDouble() -
           num.parse(Porownywarka.chosenDrive.capacity).toDouble();
@@ -191,24 +197,29 @@ class _Comparison extends State<Comparison> {
   }
 
   Widget componentBar(dynamic comp, Image placeholder, double t_width,
-      String side, bool isThere) {
+      String side, bool isThere, String compType) {
     TextDirection td;
-    String component = comp.model;
+    String component = comp.manufacturer + " " + comp.model;
 
     Alignment al;
     CrossAxisAlignment crossAxisAlignment;
     double width = dp(t_width, 1);
-    String sign;
+    String sign, addText = '';
 
     if (comp is Drive && isInTBs == false)
       sign = ' GB';
     else if (comp is Drive && isInTBs == true)
       sign = ' TB';
     else
-      sign = '%';
+      sign = '% SM';
+
+    if (comp is Drive && comp.type == 'HDD') {
+      addText = ' HDD';
+    }
+
     var pixelWidth = width;
     if (pixelWidth < 0) pixelWidth = pixelWidth * (-1);
-    if (pixelWidth > 50) pixelWidth = 50;
+    if (pixelWidth > 40) pixelWidth = 40;
     Color color;
     if (width > 0) color = Colors.green;
     if (width < 0) color = Colors.grey;
@@ -232,89 +243,128 @@ class _Comparison extends State<Comparison> {
     else
       return Container(
         padding: EdgeInsets.symmetric(horizontal: 5),
-        width: MediaQuery.of(context).size.width *0.5-1,
-        height: 70,
-        child: Row(
-          textDirection: td,
+        margin: EdgeInsets.symmetric(vertical: 5),
+        width: MediaQuery.of(context).size.width * 0.5 - 1,
+        height: 80,
+        child: Column(
+          crossAxisAlignment: crossAxisAlignment,
           children: [
             Container(
-                height: 40,
-                width: 40,
-                child: Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        gradient: LinearGradient(
-                          colors: [Colors.white, Colors.white],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        )),
-                    child: placeholder)),
-            LimitedBox(
-              maxWidth: MediaQuery.of(context).size.width *0.35,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: crossAxisAlignment,
-                children: [
-                  AutoSizeText(
-                    component.length > 15
-                        ? " " +
-                            component.substring(
-                                0, component.length - component.length + 15) +
-                            "..."
-                        : " " + component,
-                    maxLines: 1,
-                    overflow: TextOverflow.clip,
-                    style: TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.w800,
-                        fontFamily: GoogleFonts.workSans().fontFamily,
-                        color: Colors.white),
-                  ),
-                  Row(
-                    textDirection: td,
+              child: Text(
+                compType,
+                style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w800,
+                    fontFamily: GoogleFonts.workSans().fontFamily,
+                    color: Colors.white),
+              ),
+            ),
+            SizedBox(
+              height: 1,
+              width: MediaQuery.of(context).size.width * 0.25,
+              child: Container(
+                color: Colors.white,
+              ),
+            ),
+            SizedBox(
+              height: 6,
+            ),
+            Row(
+              textDirection: td,
+              children: [
+                Container(
+                    height: 40,
+                    width: 40,
+                    child: Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40),
+                            gradient: LinearGradient(
+                              colors: [Colors.white, Colors.white],
+                              begin: Alignment.topLeft,
+                              end: Alignment.bottomRight,
+                            )),
+                        child: placeholder)),
+                LimitedBox(
+                  maxWidth: MediaQuery.of(context).size.width * 0.35,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: crossAxisAlignment,
                     children: [
-                      Container(
-                        alignment: al,
-                        child: SizedBox(
-                          width: pixelWidth.toDouble(),
-                          height: 5,
-                          child: Container(
-                            color: color,
-                          ),
-                        ),
+                      AutoSizeText(
+                        component,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w800,
+                            fontFamily: GoogleFonts.workSans().fontFamily,
+                            color: Colors.white),
                       ),
-                      if (width > 0)
-                        AutoSizeText(
-                          ' +$width' + sign,
+                      Row(
+                        textDirection: td,
+                        children: [
+                          Container(
+                            alignment: al,
+                            child: SizedBox(
+                              width: pixelWidth.toDouble(),
+                              height: 5,
+                              child: Container(
+                                color: color,
+                              ),
+                            ),
+                          ),
+                          if (width > 0)
+                            AutoSizeText(
+                              ' +$width' + sign,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w800,
+                                  fontFamily: GoogleFonts.workSans().fontFamily,
+                                  color: Colors.green),
+                              overflow: TextOverflow.ellipsis,
+                            )
+                          else if (width < 0)
+                            AutoSizeText(
+                              '$width' + sign,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w800,
+                                  fontFamily: GoogleFonts.workSans().fontFamily,
+                                  color: Colors.red),
+                            )
+                          else
+                            AutoSizeText(
+                              '+$width' + sign,
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w800,
+                                  fontFamily: GoogleFonts.workSans().fontFamily,
+                                  color: Colors.white),
+                            )
+                        ],
+                      ),
+                      if (comp is Drive && comp.type == 'SSD')
+                        Text(
+                          'SSD',
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w800,
                               fontFamily: GoogleFonts.workSans().fontFamily,
                               color: Colors.green),
-                          overflow: TextOverflow.ellipsis,
-                        )
-                      else if (width < 0)
-                        AutoSizeText(
-                          '$width' + sign,
+                        ),
+                      if (comp is Drive && comp.type == 'HDD')
+                        Text(
+                          'HDD',
                           style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.w800,
                               fontFamily: GoogleFonts.workSans().fontFamily,
                               color: Colors.red),
                         )
-                      else
-                        AutoSizeText(
-                          '+$width' + sign,
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.w800,
-                              fontFamily: GoogleFonts.workSans().fontFamily,
-                              color: Colors.white),
-                        )
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),
@@ -333,6 +383,112 @@ class _Comparison extends State<Comparison> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: ca,
         children: children,
+      ),
+    );
+  }
+
+  Widget totalMem() {
+    int max = 0, capacity1 = 0, capacity2 = 0;
+    for (var i in Porownywarka.extradisk) {
+      capacity1 += int.parse(i.capacity);
+    }
+    for (var i in Porownywarka.extradisk2) {
+      capacity2 += int.parse(i.capacity);
+    }
+    capacity1 += int.parse(Porownywarka.chosenDrive.capacity);
+    capacity2 += int.parse(Porownywarka.chosenDrive2.capacity);
+    capacity1 > capacity2 ? max = capacity1 : max = capacity1;
+
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+              child: Text(
+            'Całkowita pamięć systemów',
+            style: TextStyle(color: Colors.white),
+          )),
+          Container(
+              margin: EdgeInsets.only(bottom: 5),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.45,
+                height: 1,
+                child: Container(
+                  color: Colors.white,
+                ),
+              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    width: 10,
+                    height: 10,
+                    color: Colors.pink,
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        'Lewy zestaw',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Text(
+                        capacity1.toString() + ' GB',
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
+                  )
+                ],
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.3,
+                height: MediaQuery.of(context).size.width * 0.3,
+                child: PieChart(PieChartData(
+                    startDegreeOffset: 55,
+                    sectionsSpace: 5,
+                    centerSpaceRadius: 40,
+                    sections: [
+                      PieChartSectionData(
+                          titlePositionPercentageOffset: 1.5,
+                          value: capacity1.toDouble(),
+                          radius: 20,
+                          color: Colors.pink,
+                          titleStyle: TextStyle(color: Colors.white,fontSize: 18)),
+                      PieChartSectionData(
+                        titlePositionPercentageOffset: 1.5,
+                          value: capacity2.toDouble(),
+                          color: Colors.lightBlue,
+                          radius: 20,
+                          titleStyle: TextStyle(color: Colors.white,fontSize: 18))
+                    ])),
+              ),
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.all(10),
+                    width: 10,
+                    height: 10,
+                    color: Colors.lightBlue,
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        'Prawy zestaw',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Text(
+                        capacity1.toString() + ' GB',
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
+                  ),
+                ],
+              )
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -370,9 +526,9 @@ class _Comparison extends State<Comparison> {
     return Stack(
       children: [
         Container(
-          alignment: Alignment.center,
+          alignment: Alignment(0, -0.8),
           child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.8,
+            height: MediaQuery.of(context).size.height * 0.6,
             width: 1,
             child: Container(
               decoration: BoxDecoration(
@@ -477,7 +633,8 @@ class _Comparison extends State<Comparison> {
                           '.png'),
                       cpuScore1,
                       'left',
-                      true),
+                      true,
+                      'Procesor: '),
                   componentBar(
                       build1[1],
                       Image.asset('assets/companies logo/' +
@@ -485,7 +642,8 @@ class _Comparison extends State<Comparison> {
                           '.png'),
                       gpuScore1,
                       'left',
-                      true),
+                      true,
+                      'Karta graficzna: '),
                   componentBar(
                       build1[2],
                       Image.asset('assets/companies logo/' +
@@ -493,7 +651,8 @@ class _Comparison extends State<Comparison> {
                           '.png'),
                       ramScore1,
                       'left',
-                      true),
+                      true,
+                      'Ram: '),
                   componentBar(
                       build1[3],
                       Image.asset('assets/companies logo/' +
@@ -501,7 +660,8 @@ class _Comparison extends State<Comparison> {
                           '.png'),
                       psuScore1,
                       'left',
-                      true),
+                      true,
+                      'Zasilacz: '),
                   componentBar(
                       build1[4],
                       Image.asset('assets/companies logo/' +
@@ -509,16 +669,10 @@ class _Comparison extends State<Comparison> {
                           '.png'),
                       driveScore1,
                       'left',
-                      true),
-                  componentBar(
-                      build1[5],
-                      Image.asset('assets/companies logo/' +
-                          build1[5].manufacturer.toString().toLowerCase() +
-                          '.png'),
-                      0,
-                      'left',
-                      true),
-                  componentBar(
+                      true,
+                      'Dysk systemowy: '),
+
+                  /* componentBar(
                       build1[6],
                       Image.asset('assets/companies logo/' +
                           build1[6].manufacturer.toString().toLowerCase() +
@@ -537,7 +691,7 @@ class _Comparison extends State<Comparison> {
                               '.png'),
                       0,
                       'left',
-                      build1[7] != null ? true : false),
+                      build1[7] != null ? true : false),*/
                 ]),
                 buildColumn('right', [
                   componentBar(
@@ -547,7 +701,8 @@ class _Comparison extends State<Comparison> {
                           '.png'),
                       cpuScore2,
                       'right',
-                      true),
+                      true,
+                      'Procesor: '),
                   componentBar(
                       build2[1],
                       Image.asset('assets/companies logo/' +
@@ -555,7 +710,8 @@ class _Comparison extends State<Comparison> {
                           '.png'),
                       gpuScore2,
                       'right',
-                      true),
+                      true,
+                      'Karta graficzna: '),
                   componentBar(
                       build2[2],
                       Image.asset('assets/companies logo/' +
@@ -563,7 +719,8 @@ class _Comparison extends State<Comparison> {
                           '.png'),
                       ramScore2,
                       'right',
-                      true),
+                      true,
+                      'Ram: '),
                   componentBar(
                       build2[3],
                       Image.asset('assets/companies logo/' +
@@ -571,7 +728,8 @@ class _Comparison extends State<Comparison> {
                           '.png'),
                       psuScore2,
                       'right',
-                      true),
+                      true,
+                      'Zasilacz: '),
                   componentBar(
                       build2[4],
                       Image.asset('assets/companies logo/' +
@@ -579,16 +737,10 @@ class _Comparison extends State<Comparison> {
                           '.png'),
                       driveScore2,
                       'right',
-                      true),
-                  componentBar(
-                      build2[5],
-                      Image.asset('assets/companies logo/' +
-                          build2[5].manufacturer.toString().toLowerCase() +
-                          '.png'),
-                      0,
-                      'right',
-                      true),
-                  componentBar(
+                      true,
+                      'Dysk systemowy: '),
+
+                  /* componentBar(
                       build2[6],
                       Image.asset('assets/companies logo/' +
                           build2[6].manufacturer.toString().toLowerCase() +
@@ -607,12 +759,69 @@ class _Comparison extends State<Comparison> {
                               '.png'),
                       0,
                       'right',
-                      build2[7] != null ? true : false),
+                      build2[7] != null ? true : false),*/
                 ])
               ],
             ),
+            totalMem(),
           ],
         ),
+        GestureDetector(
+          onTap: () {
+            showDialog(
+                context: context,
+                builder: (BuildContext conctext) {
+                  return AlertDialog(
+                    title: Text('Jak działa porównywanie'),
+                    content: Wrap(
+                      children: [
+                        Text(
+                            'Ta strona określa szacowaną moc na postawie średnich wyników popularnych testów wydajności poszczególnych komponentów\n'),
+                        Text(
+                            'Dane te są szacunkowe i nie powinny decydować o ostatecznej ocenie komponentu\n\n\n\n'),
+                        Text('Legenda: SM - Szacunkowa moc')
+                      ],
+                    ),
+                    actions: [
+                      TextButton(
+                          onPressed: () {
+                            print('aaaaa 111');
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            'Zrozumiano',
+                            style: TextStyle(
+                                color: Colors.black,
+                                decoration: TextDecoration.underline),
+                          ))
+                    ],
+                  );
+                });
+          },
+          child: Align(
+            alignment: Alignment(1, 0.95),
+            child: Stack(
+              alignment: AlignmentDirectional.centerEnd,
+              children: [
+                Container(
+                  width: 20,
+                  height: 40,
+                  color: Colors.white,
+                  alignment: Alignment(1, 0),
+                ),
+                Container(
+                    width: 50,
+                    height: 40,
+                    alignment: Alignment(-1, 0),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(100)),
+                    child: Icon(Icons.info,
+                        color: Color.fromRGBO(59, 55, 68, 1), size: 40)),
+              ],
+            ),
+          ),
+        )
       ],
     );
   }
