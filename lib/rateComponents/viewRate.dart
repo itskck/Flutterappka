@@ -179,7 +179,17 @@ class _viewRateState extends State<viewRate> {
     String diskString='';
     if(widget.drive.type=='SSD') diskString+='Dysk systemowy jest szybkim dyskiem SSD, który powinien uruchamiać system dużo szybciej niż klasyczne dyski HDD. ';
     else diskString+='Dysk systemowy jest dyskiem HDD, który nie jest zalecany do bycia dyskiem systemowym. Prawdopodobnym jest, że system będzie chodził na nim powoli, a aplikacje mogą niekiedy się zacinać.';
-    
+    //////////////////////Zdania psu
+    String psuString='';
+    if(double.parse(widget.psu.power)<widget.maxTdp)psuString+='Wybrany zasilacz prawdopodobnie nie dostarczy wystarczającej ilości mocy alby zasilić zestaw, '
+    +'jako że, przy intensywnej pracy, pobierać może on nawet '+widget.maxTdp.toString()+' W, a nominalna moc zasilacza to jedynie '+widget.psu.power+' W';
+    else
+    psuString+='Zailacz powinien poradzić sobie z dostarczeniem mocy do zestawu komputerowego, ponieważ jego nominalna moc wynosi '+widget.maxTdp.toString()+
+    ' W, a zestaw szacunkowo pobierać będzie do '+widget.maxTdp.toString()+' W.';
+    ///Zdania case
+    String caseString='';
+    if(!widget.cases.standard.contains("ATX"))caseString+='Obudowa w tym zestawie nie pozwala na ewentualne rozbudowy systemu do największych standardów płyt głównych. Należy także pamiętać, że w mniejszych obudowach, z reguły można spodziewać się gorszego przepływu powietrza, a co za tym idzie, wyższych temperatur komponentów podczas pracy.';
+    else caseString+='Obudowa w tym zestawie wspiera standard ATX który zapewnia kompatybilność ze znaczną większością płyt głównych i zasilaczy na rynku. Ponadto od takiej dużej obudowy, można spodziewać się dobrego przepływu powietrza, potrzebnego do utrzymania optymalnych temperatur w środu zestawu.';
     
     return Container(
       padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
@@ -242,7 +252,7 @@ class _viewRateState extends State<viewRate> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [                    
                     Text(
-                      cpuString+'\n\n'+mtbString+'\n\n'+gpuString+'\n\n'+ramString+'\n\n'+diskString,
+                      cpuString+'\n\n'+mtbString+'\n\n'+gpuString+'\n\n'+ramString+'\n\n'+diskString+'\n\n'+psuString+'\n\n'+caseString,
                       style: style,
                     ),
                   ],
