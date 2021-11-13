@@ -150,7 +150,8 @@ class transition extends StatelessWidget {
                                                         if(extradisks.connectionState==ConnectionState.done){
                                                           extradisk=extradisks.data;
                                                           return viewRate(cpu: chosenCpu, cases: chosenCase, cooler: chosenCooler, drive: chosenDrive,
-                                                              gpu: chosenGpu, mtb: chosenMtb, psu: chosenPsu, ram: chosenRam, code: builds.generatedCode, extradisk: extradisk);
+                                                              gpu: chosenGpu, mtb: chosenMtb, psu: chosenPsu, ram: chosenRam, code: builds.generatedCode, extradisk: extradisk,
+                                                              minTdp: builds.minTdp, maxTdp: builds.maxTdp);
                                                         }
                                                         else return Container();
                                                       },
