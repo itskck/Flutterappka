@@ -81,7 +81,7 @@ class _Zalogowany extends State<Zalogowany> {
 
   Future<String> getUsername() async {
     var username;
-    print(FirebaseAuth.instance.currentUser.uid);
+    // print(FirebaseAuth.instance.currentUser.uid);
     await FirebaseFirestore.instance
         .collection("users")
         .where("uid", isEqualTo: FirebaseAuth.instance.currentUser.uid)
@@ -106,6 +106,7 @@ class _Zalogowany extends State<Zalogowany> {
         TextButton(
           child: Text('Tak'),
           onPressed: () async {
+            Navigator.pop(context);
             await doLogowanie().deleteUser();
           },
         ),

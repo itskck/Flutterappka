@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:skladappka/Firebase/doLogowanie/doRejestracji.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
 import 'package:skladappka/config/fileOperations.dart';
@@ -53,7 +54,11 @@ class doLogowanie {
       User user = result.user;
       return _uzytkownik(user);
     } catch (error) {
-      print(error.toString());
+      Fluttertoast.showToast(
+          msg: "Podany adres e-mail jest zajęty lub jest niepoprawny",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2);
       return null;
     }
   }
@@ -65,7 +70,7 @@ class doLogowanie {
       User user = result.user;
       return user;
     } catch (error) {
-      print(error.toString());
+
       return null;
     }
   }
@@ -82,10 +87,19 @@ class doLogowanie {
     for (var document in snapshot.docs) await document.reference.delete();
   }
 
+  Future removeUser() async {
+    var collection = FirebaseFirestore.instance
+        .collection("users")
+        .where("uid", isEqualTo: _firebaseUser.uid);
+    var snapshot = await collection.get();
+    for (var document in snapshot.docs) await document.reference.delete();
+  }
+
   Future deleteUser() async {
     await deleteUserBuilds();
+    await removeUser();
     await FirebaseAuth.instance.currentUser.delete();
-    await FirebaseAuth.instance.signOut();
+
     await Anonim();
     print(_firebaseUser.uid);
     globalna.czyZalogowany = "czyZalogowany=false";

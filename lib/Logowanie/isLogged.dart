@@ -21,7 +21,6 @@ class isLogged extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final user = Provider.of<doRejestracji>(context);
-    print(user);
 
     // return either the Home or Authenticate widget
     if (globalna.czyZalogowany=="czyZalogowany=false"){
