@@ -498,7 +498,7 @@ class _dialogBuilder extends State<dialogBuilder> {
 
     if (widget.component == 'EXTRA DRIVE') {
       drives = Provider.of<List<Drive>>(context) ?? [];
-      return SimpleDialog(title: Text('Choose your $component'), children: [
+      return SimpleDialog(title: Text('Wybierz dodatkowy dysk'), children: [
         for (int i = 0; i < drives.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
@@ -526,7 +526,9 @@ class _dialogBuilder extends State<dialogBuilder> {
                             ", " +
                             drives[i].capacity +
                             " " +
-                            "GB")
+                            "GB"),
+
+                        Text('Typ złącza: '+drives[i].connectionType)
                       ],
                     ),
                   ],
