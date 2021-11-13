@@ -74,11 +74,11 @@ class _dialogBuilder extends State<dialogBuilder> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(cpus[i].manufacturer + " " + cpus[i].model ,
-                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,fontFamily: GoogleFonts.workSans().fontFamily)),
-                            Text(cpus[i].cores + "x " + cpus[i].clocker + "GHz, Socket: "+cpus[i].socket,style: TextStyle(fontFamily: GoogleFonts.workSans().fontFamily,fontSize: 12),),
-                            Text(cpus[i].hasGpu=='none'?"Zintegorwana karta graficzna ❌":"Zintegrowana karta graficzna ✅",style: TextStyle(fontFamily: GoogleFonts.workSans().fontFamily,fontSize: 12),),
-                            Text(cpus[i].isUnlocked?"Odblokowany mnożnik ✅":"Zablokowany mnożnik ❌",style: TextStyle(fontFamily: GoogleFonts.workSans().fontFamily,fontSize: 12),),
-                            Text('Rocznik: '+cpus[i].year,style: TextStyle(fontFamily: GoogleFonts.workSans().fontFamily,fontSize: 12),),
+                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
+                            Text(cpus[i].cores + "x " + cpus[i].clocker + "GHz, Socket: "+cpus[i].socket,),
+                            Text(cpus[i].hasGpu=='none'?"Zintegorwana karta graficzna ❌":"Zintegrowana karta graficzna ✅",),
+                            Text(cpus[i].isUnlocked?"Odblokowany mnożnik ✅":"Zablokowany mnożnik ❌",),
+                            Text('Rocznik: '+cpus[i].year,),
 
                           ],
                         ),
@@ -99,7 +99,7 @@ class _dialogBuilder extends State<dialogBuilder> {
     }
     if (widget.component == 'PSU') {
       psus = Provider.of<List<Psu>>(context) ?? [];
-      return SimpleDialog(title: Text('Choose your $component'), children: [
+      return SimpleDialog(title: Text('Wybierz zasilacz:'), children: [
         for (int i = 0; i < psus.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
@@ -145,7 +145,7 @@ class _dialogBuilder extends State<dialogBuilder> {
 
     if (widget.component == 'GPU') {
       gpus = Provider.of<List<Gpu>>(context) ?? [];
-      return SimpleDialog(title: Text('Choose your $component'), children: [
+      return SimpleDialog(title: Text('Wybierz kartę graficzną:'), children: [
         for (int i = 0; i < gpus.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
@@ -169,7 +169,9 @@ class _dialogBuilder extends State<dialogBuilder> {
                       children: [
                         Text(gpus[i].manufacturer + " " + gpus[i].model,
                             style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text(gpus[i].VRAM + " " + "GB")
+                            Text("VRAM: "+gpus[i].VRAM + " GB"),
+                        Text('Seria: '+gpus[i].series), 
+                        Text('Rocznik: '+gpus[i].year)
                       ],
                     ),
                   ],
@@ -188,7 +190,7 @@ class _dialogBuilder extends State<dialogBuilder> {
 
     if (widget.component == 'CSTM COOLER') {
       coolers = Provider.of<List<Cooler>>(context) ?? [];
-      return SimpleDialog(title: Text('Choose your $component'), children: [
+      return SimpleDialog(title: Text('Wybierz chłodzenie'), children: [
         for (int i = 0; i < coolers.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
@@ -212,6 +214,19 @@ class _dialogBuilder extends State<dialogBuilder> {
                       children: [
                         Text(coolers[i].manufacturer + " " + coolers[i].model,
                             style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text('Kompatybilność z gniazdami: '),
+                        Row(
+                          children: [
+                            for(int j=0;j<coolers[i].socket.length;j++)
+                        Row(
+                          children: [
+                            Text(coolers[i].socket[j]+", "),
+                            if(j+1%3==0)Text('\n')
+                          ],
+                        )
+                        ],
+                        
+                        )
                         
                       ],
                     ),
@@ -231,7 +246,7 @@ class _dialogBuilder extends State<dialogBuilder> {
 
     if (widget.component == 'MTBRD') {
       mtbs = Provider.of<List<Motherboard>>(context) ?? [];
-      return SimpleDialog(title: Text('Choose your $component'), children: [
+      return SimpleDialog(title: Text('Wybierz płytę główną'), children: [
         for (int i = 0; i < mtbs.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
@@ -260,9 +275,19 @@ class _dialogBuilder extends State<dialogBuilder> {
                             Text(mtbs[i].ramSlots + "x "),
                             Text(mtbs[i].ramType + ", "),
                             Text("Standard: " + mtbs[i].standard)
+                          ],                          
+                        ),
+                        Row(
+                          children: [
+                            Text(mtbs[i].sataPorts+'x SATA, '),Text(mtbs[i].usb3+'x USB v3')
                           ],
                         ),
-                        if (mtbs[i].hasNvmeSlot) Text('Obsługa dysków NVMe M.2')
+                        if (mtbs[i].hasNvmeSlot) Text('Obsługa dysków NVMe M.2'),
+                        
+                            Text(mtbs[i].wifi?'Wifi: ✅' :'Wifi: ❌'),
+                            Text('Przepustowość portu ethernet: \n'+ mtbs[i].ethernetSpeed+"Mb/s")
+                          
+                        
                       ],
                     ),
                   ],
@@ -285,7 +310,7 @@ class _dialogBuilder extends State<dialogBuilder> {
 
     if (widget.component == 'DRIVE') {
       drives = Provider.of<List<Drive>>(context) ?? [];
-      return SimpleDialog(title: Text('Choose your $component'), children: [
+      return SimpleDialog(title: Text('Wybierz dysk systemowy: '), children: [
         for (int i = 0; i < drives.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
@@ -313,7 +338,10 @@ class _dialogBuilder extends State<dialogBuilder> {
                             ", " +
                             drives[i].capacity +
                             " " +
-                            "GB")
+                            "GB"),
+
+                        Text('Typ złącza: '+drives[i].connectionType)
+                            
                       ],
                     ),
                   ],
@@ -333,7 +361,7 @@ class _dialogBuilder extends State<dialogBuilder> {
 
     if (widget.component == 'CASE') {
       cases = Provider.of<List<Case>>(context) ?? [];
-      return SimpleDialog(title: Text('Choose your $component'), children: [
+      return SimpleDialog(title: Text('Wybierz obudowę: '), children: [
         for (int i = 0; i < cases.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
@@ -389,11 +417,11 @@ class _dialogBuilder extends State<dialogBuilder> {
     if (widget.component == 'RAM') {
 
       rams = Provider.of<List<Ram>>(context) ?? [];
-      return SimpleDialog(title: Text('Choose your $component'), children: [
+      return SimpleDialog(title: Text('Wybierz RAM: '), children: [
         Column(
           children: [
             Text(
-              ram.toString(),
+              'Liczba kości: '+ ram.toString()[0],
               style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w800,
@@ -401,6 +429,8 @@ class _dialogBuilder extends State<dialogBuilder> {
                   color: Colors.black),
             ),
             Slider(
+              inactiveColor: Colors.grey,
+              activeColor: Colors.pink,
               value: iloscRam,
               onChanged: (rating) {
                 setState(() {
@@ -447,7 +477,8 @@ class _dialogBuilder extends State<dialogBuilder> {
                       children: [
                         Text(rams[i].manufacturer + " " + rams[i].model,
                             style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text(rams[i].type+", "+rams[i].speed+ " MHz, "+rams[i].capacity+" GB")
+                        Text(rams[i].type+", "+rams[i].speed+ " MHz, "),
+                        Text('Pojemność jednej kości: '+ rams[i].capacity+" GB")
                       ],
                     ),
                   ],
