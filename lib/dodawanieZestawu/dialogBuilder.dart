@@ -16,6 +16,7 @@ import 'dart:core';
 import 'dodaj.dart';
 import 'package:skladappka/Globalne.dart' as globals;
 import 'package:skladappka/wczytajZestaw/Edit.dart';
+
 class dialogBuilder extends StatefulWidget {
   final String component;
 
@@ -26,26 +27,25 @@ class dialogBuilder extends StatefulWidget {
 }
 
 class _dialogBuilder extends State<dialogBuilder> {
-  double iloscRam=1.0;
-  double ram=1;
+  double iloscRam = 1.0;
+  double ram = 1;
   String component;
   var cpus, psus, gpus, coolers, mtbs, drives, cases, rams;
-  TextStyle style = TextStyle(
-    overflow: TextOverflow.visible
-
-  );
+  TextStyle style = TextStyle(overflow: TextOverflow.visible);
+  bool gpuAzState = false,gpuPowerState=false,gpuYearState=false;
   @override
   initState() {
-    component=widget.component;
+    component = widget.component;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     if (widget.component == 'CPU') {
       cpus = Provider.of<List<Cpu>>(context) ?? [];
       print("44444444444");
       print(cpus.length);
-      
+
       print("44444444444");
       return SimpleDialog(title: Text('Wybierz procesor:'), children: [
         for (int i = 0; i < cpus.length; i++)
@@ -69,17 +69,33 @@ class _dialogBuilder extends State<dialogBuilder> {
                               border: Border.all(width: 1)),
                           child: cpus[i].img),
                       Container(
-                        width: MediaQuery.of(context).size.width*0.5,
+                        width: MediaQuery.of(context).size.width * 0.5,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(cpus[i].manufacturer + " " + cpus[i].model ,
-                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16)),
-                            Text(cpus[i].cores + "x " + cpus[i].clocker + "GHz, Socket: "+cpus[i].socket,),
-                            Text(cpus[i].hasGpu=='none'?"Zintegorwana karta graficzna ❌":"Zintegrowana karta graficzna ✅",),
-                            Text(cpus[i].isUnlocked?"Odblokowany mnożnik ✅":"Zablokowany mnożnik ❌",),
-                            Text('Rocznik: '+cpus[i].year,),
-
+                            Text(cpus[i].manufacturer + " " + cpus[i].model,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 16)),
+                            Text(
+                              cpus[i].cores +
+                                  "x " +
+                                  cpus[i].clocker +
+                                  "GHz, Socket: " +
+                                  cpus[i].socket,
+                            ),
+                            Text(
+                              cpus[i].hasGpu == 'none'
+                                  ? "Zintegorwana karta graficzna ❌"
+                                  : "Zintegrowana karta graficzna ✅",
+                            ),
+                            Text(
+                              cpus[i].isUnlocked
+                                  ? "Odblokowany mnożnik ✅"
+                                  : "Zablokowany mnożnik ❌",
+                            ),
+                            Text(
+                              'Rocznik: ' + cpus[i].year,
+                            ),
                           ],
                         ),
                       ),
@@ -122,9 +138,12 @@ class _dialogBuilder extends State<dialogBuilder> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width*0.50,
-                          child: Text(psus[i].manufacturer + " " + psus[i].model,
-                              style: TextStyle(fontWeight: FontWeight.bold),overflow: TextOverflow.ellipsis,),
+                          width: MediaQuery.of(context).size.width * 0.50,
+                          child: Text(
+                            psus[i].manufacturer + " " + psus[i].model,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                            overflow: TextOverflow.ellipsis,
+                          ),
                         ),
                         Text(psus[i].power + " " + "W")
                       ],
@@ -145,7 +164,83 @@ class _dialogBuilder extends State<dialogBuilder> {
 
     if (widget.component == 'GPU') {
       gpus = Provider.of<List<Gpu>>(context) ?? [];
+      
       return SimpleDialog(title: Text('Wybierz kartę graficzną:'), children: [
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 40),
+          
+          child: Row(
+            
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  gpuAzState = true;
+                  if (gpuAzState) {
+                    setState(() {
+                      gpuPowerState=false;
+                      gpuYearState=false;
+                      gpus.sort((Gpu a, Gpu b) {
+                        return a.model
+                            .toLowerCase()
+                            .compareTo(b.model.toLowerCase());
+                      });
+                    });
+                  } 
+                },
+                child: Container(
+                  width: 20,
+                  height: 20,
+                  child: Icon(Icons.sort_by_alpha,
+                      color: gpuAzState ? Colors.green : Colors.grey),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  gpuPowerState = true;
+                  if (gpuPowerState) {
+                    setState(() {
+                      gpuAzState=false;
+                      gpuYearState=false;
+                      gpus.sort((Gpu a, Gpu b) {
+                        return a.VRAM
+                            .toLowerCase()
+                            .compareTo(b.VRAM.toLowerCase());
+                      });
+                    });
+                  } 
+                },
+                child: Container(
+                  width: 20,
+                  height: 20,
+                  child: Icon(Icons.memory,
+                      color: gpuPowerState ? Colors.green : Colors.grey),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  gpuYearState = true;
+                  if (gpuYearState) {
+                    setState(() {
+                      gpuPowerState=false;
+                      gpuAzState=false;
+                      gpus.sort((Gpu a, Gpu b) {
+                        return a.year
+                            .toLowerCase()
+                            .compareTo(b.year.toLowerCase());
+                      });
+                    });
+                  } 
+                },
+                child: Container(
+                  width: 20,
+                  height: 20,
+                  child: Center(child: Text('\'99',style:TextStyle(color: gpuYearState ? Colors.green : Colors.grey,fontSize: 15),)),
+                ),
+              ),
+            ],
+          ),
+        ),
         for (int i = 0; i < gpus.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
@@ -169,9 +264,9 @@ class _dialogBuilder extends State<dialogBuilder> {
                       children: [
                         Text(gpus[i].manufacturer + " " + gpus[i].model,
                             style: TextStyle(fontWeight: FontWeight.bold)),
-                            Text("VRAM: "+gpus[i].VRAM + " GB"),
-                        Text('Seria: '+gpus[i].series), 
-                        Text('Rocznik: '+gpus[i].year)
+                        Text("VRAM: " + gpus[i].VRAM + " GB"),
+                        Text('Seria: ' + gpus[i].series),
+                        Text('Rocznik: ' + gpus[i].year)
                       ],
                     ),
                   ],
@@ -217,17 +312,15 @@ class _dialogBuilder extends State<dialogBuilder> {
                         Text('Kompatybilność z gniazdami: '),
                         Row(
                           children: [
-                            for(int j=0;j<coolers[i].socket.length;j++)
-                        Row(
-                          children: [
-                            Text(coolers[i].socket[j]+", "),
-                            if(j+1%3==0)Text('\n')
+                            for (int j = 0; j < coolers[i].socket.length; j++)
+                              Row(
+                                children: [
+                                  Text(coolers[i].socket[j] + ", "),
+                                  if (j + 1 % 3 == 0) Text('\n')
+                                ],
+                              )
                           ],
                         )
-                        ],
-                        
-                        )
-                        
                       ],
                     ),
                   ],
@@ -275,19 +368,20 @@ class _dialogBuilder extends State<dialogBuilder> {
                             Text(mtbs[i].ramSlots + "x "),
                             Text(mtbs[i].ramType + ", "),
                             Text("Standard: " + mtbs[i].standard)
-                          ],                          
+                          ],
                         ),
                         Row(
                           children: [
-                            Text(mtbs[i].sataPorts+'x SATA, '),Text(mtbs[i].usb3+'x USB v3')
+                            Text(mtbs[i].sataPorts + 'x SATA, '),
+                            Text(mtbs[i].usb3 + 'x USB v3')
                           ],
                         ),
-                        if (mtbs[i].hasNvmeSlot) Text('Obsługa dysków NVMe M.2'),
-                        
-                            Text(mtbs[i].wifi?'Wifi: ✅' :'Wifi: ❌'),
-                            Text('Przepustowość portu ethernet: \n'+ mtbs[i].ethernetSpeed+"Mb/s")
-                          
-                        
+                        if (mtbs[i].hasNvmeSlot)
+                          Text('Obsługa dysków NVMe M.2'),
+                        Text(mtbs[i].wifi ? 'Wifi: ✅' : 'Wifi: ❌'),
+                        Text('Przepustowość portu ethernet: \n' +
+                            mtbs[i].ethernetSpeed +
+                            "Mb/s")
                       ],
                     ),
                   ],
@@ -297,10 +391,12 @@ class _dialogBuilder extends State<dialogBuilder> {
             onPressed: () {
               if (globals.ktoro == 2) {
                 dodaj.chosenMtb = mtbs[i];
-                if(mtbs[i].hasNvmeSlot==true && dodaj.chosenDrive==null)
-                  dodaj.usedNvme=false;
-                if(dodaj.chosenMtb.hasNvmeSlot==true) dodaj.slots=int.parse(dodaj.chosenMtb.sataPorts);
-                else dodaj.slots=int.parse(dodaj.chosenMtb.sataPorts)-1;
+                if (mtbs[i].hasNvmeSlot == true && dodaj.chosenDrive == null)
+                  dodaj.usedNvme = false;
+                if (dodaj.chosenMtb.hasNvmeSlot == true)
+                  dodaj.slots = int.parse(dodaj.chosenMtb.sataPorts);
+                else
+                  dodaj.slots = int.parse(dodaj.chosenMtb.sataPorts) - 1;
               } else if (globals.ktoro == 1) Edit.chosenMtb = mtbs[i];
               Navigator.pop(context);
             },
@@ -339,9 +435,7 @@ class _dialogBuilder extends State<dialogBuilder> {
                             drives[i].capacity +
                             " " +
                             "GB"),
-
-                        Text('Typ złącza: '+drives[i].connectionType)
-                            
+                        Text('Typ złącza: ' + drives[i].connectionType)
                       ],
                     ),
                   ],
@@ -351,7 +445,7 @@ class _dialogBuilder extends State<dialogBuilder> {
             onPressed: () {
               if (globals.ktoro == 2) {
                 dodaj.chosenDrive = drives[i];
-                if(drives[i].connectionType=="NVMe") dodaj.usedNvme=true;
+                if (drives[i].connectionType == "NVMe") dodaj.usedNvme = true;
               } else if (globals.ktoro == 1) Edit.chosenDrive = drives[i];
               Navigator.pop(context);
             },
@@ -385,15 +479,16 @@ class _dialogBuilder extends State<dialogBuilder> {
                       children: [
                         SizedBox(
                           height: 20,
-                          width: MediaQuery.of(context).size.width*0.5,
-                          child: Text(cases[i].manufacturer + " " + cases[i].model,
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                              maxLines: 1,),
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          child: Text(
+                            cases[i].manufacturer + " " + cases[i].model,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                            maxLines: 1,
+                          ),
                         ),
                         Text("Obsługiwane standardy: "),
                         Row(
                           children: [
-                            
                             for (int j = 0; j < cases[i].standard.length; j++)
                               Text(cases[i].standard[j] + ", ")
                           ],
@@ -415,13 +510,12 @@ class _dialogBuilder extends State<dialogBuilder> {
     }
 
     if (widget.component == 'RAM') {
-
       rams = Provider.of<List<Ram>>(context) ?? [];
       return SimpleDialog(title: Text('Wybierz RAM: '), children: [
         Column(
           children: [
             Text(
-              'Liczba kości: '+ ram.toString()[0],
+              'Liczba kości: ' + ram.toString()[0],
               style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.w800,
@@ -435,22 +529,27 @@ class _dialogBuilder extends State<dialogBuilder> {
               onChanged: (rating) {
                 setState(() {
                   if (rating % 2 == 0) {
-                        iloscRam = rating;
-                        ram=iloscRam;
-                      }
-                  else {
+                    iloscRam = rating;
+                    ram = iloscRam;
+                  } else {
                     print(rating);
-                        iloscRam = (rating.floor()).toDouble();
-                        ram=iloscRam;
-                      }
+                    iloscRam = (rating.floor()).toDouble();
+                    ram = iloscRam;
+                  }
                   if (ram == 3.0)
-                  ram = 2;
+                    ram = 2;
                   else if (ram == 5.0) ram = 4;
-                    });
+                });
               },
               min: 1,
               max: double.parse(dodaj.chosenMtb.ramSlots),
-              divisions: int.parse(dodaj.chosenMtb.ramSlots)==1 ? 1 : int.parse(dodaj.chosenMtb.ramSlots)==2 ? 2 : int.parse(dodaj.chosenMtb.ramSlots)==4 ? 2 : 3,
+              divisions: int.parse(dodaj.chosenMtb.ramSlots) == 1
+                  ? 1
+                  : int.parse(dodaj.chosenMtb.ramSlots) == 2
+                      ? 2
+                      : int.parse(dodaj.chosenMtb.ramSlots) == 4
+                          ? 2
+                          : 3,
             ),
           ],
         ),
@@ -477,8 +576,10 @@ class _dialogBuilder extends State<dialogBuilder> {
                       children: [
                         Text(rams[i].manufacturer + " " + rams[i].model,
                             style: TextStyle(fontWeight: FontWeight.bold)),
-                        Text(rams[i].type+", "+rams[i].speed+ " MHz, "),
-                        Text('Pojemność jednej kości: '+ rams[i].capacity+" GB")
+                        Text(rams[i].type + ", " + rams[i].speed + " MHz, "),
+                        Text('Pojemność jednej kości: ' +
+                            rams[i].capacity +
+                            " GB")
                       ],
                     ),
                   ],
@@ -487,9 +588,9 @@ class _dialogBuilder extends State<dialogBuilder> {
             ),
             onPressed: () {
               if (globals.ktoro == 2) {
-                    dodaj.chosenRam = rams[i];
-                    dodaj.iloscRam=ram;
-                  } else if (globals.ktoro == 1) Edit.chosenRam = rams[i];
+                dodaj.chosenRam = rams[i];
+                dodaj.iloscRam = ram;
+              } else if (globals.ktoro == 1) Edit.chosenRam = rams[i];
               Navigator.pop(context);
             },
           )
@@ -527,8 +628,7 @@ class _dialogBuilder extends State<dialogBuilder> {
                             drives[i].capacity +
                             " " +
                             "GB"),
-
-                        Text('Typ złącza: '+drives[i].connectionType)
+                        Text('Typ złącza: ' + drives[i].connectionType)
                       ],
                     ),
                   ],
@@ -538,20 +638,18 @@ class _dialogBuilder extends State<dialogBuilder> {
             onPressed: () {
               if (globals.ktoro == 2) {
                 dodaj.extraDrives.add(drives[i]);
-                if(drives[i].connectionType=="NVMe") {
+                if (drives[i].connectionType == "NVMe") {
                   dodaj.usedNvme = true;
-
                 }
                 dodaj.extra++;
-                  dodaj.slots--;
-                  print('O co coemone');
-                  print(dodaj.slots);
+                dodaj.slots--;
+                print('O co coemone');
+                print(dodaj.slots);
               } else if (globals.ktoro == 1) Edit.chosenDrive = drives[i];
               Navigator.pop(context);
             },
           )
       ]);
     }
-
   }
 }
