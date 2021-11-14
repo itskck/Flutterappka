@@ -235,90 +235,90 @@ class _Zalogowany extends State<Zalogowany> {
         Align(
           alignment: Alignment.topLeft,
           child: Container(
+            width: MediaQuery.of(context).size.width,
             margin: EdgeInsets.fromLTRB(30, 20, 0, 50),
             child: Row(
               children: [
-                Column(
-                  children: [
-                    Container(
-                      height: 70,
-                      child: ClipRRect(
-                          child: FutureBuilder<int>(
-                            future: getAvatarNumber(),
+                Container(
+                  height: 70,
+                  child: ClipRRect(
+                      child: FutureBuilder<int>(
+                        future: getAvatarNumber(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done)
+                            return avatarList[snapshot.data];
+                          else
+                            return Container();
+                        },
+                      ),
+                      borderRadius: BorderRadius.circular(100)),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width*0.5,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
+                        child: FutureBuilder<String>(
+                            future: getUsername(),
                             builder: (context, snapshot) {
                               if (snapshot.connectionState ==
-                                  ConnectionState.done)
-                                return avatarList[snapshot.data];
-                              else
-                                return Container();
-                            },
-                          ),
-                          borderRadius: BorderRadius.circular(100)),
-                    ),
-                  ],
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: EdgeInsets.fromLTRB(20, 0, 0, 0),
-                      child: FutureBuilder<String>(
-                          future: getUsername(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              print(snapshot.data);
-                              final username = snapshot.data;
-                              return Container(
-                                width: MediaQuery.of(context).size.width * 0.7,
-                                child: AutoSizeText(
-                                  'Witaj, $username',
-                                  overflow: TextOverflow.fade,
-                                  style: TextStyle(
-                                      fontSize: 25,
-                                      fontWeight: FontWeight.w300,
-                                      color: Colors.white),
-                                ),
-                              );
-                            } else
-                              return CircularProgressIndicator();
-                          }),
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        await showDialog(
-                            context: context,
-                            builder: (BuildContext c) => chooseAvatar(c));
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(left: 23),
-                        padding: EdgeInsets.all(2),
-                        width: 100,
-                        height: 30,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: LinearGradient(
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
-                                colors: [
-                                  Color.fromRGBO(142, 223, 255, 1),
-                                  Color.fromRGBO(255, 0, 140, 1)
-                                ])),
+                                  ConnectionState.done) {
+                                print(snapshot.data);
+                                final username = snapshot.data;
+                                return Container(
+                                  width: MediaQuery.of(context).size.width * 0.7,
+                                  child: AutoSizeText(
+                                    'Witaj, $username',
+                                    overflow: TextOverflow.fade,
+                                    style: TextStyle(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w300,
+                                        color: Colors.white),
+                                  ),
+                                );
+                              } else
+                                return CircularProgressIndicator();
+                            }),
+                      ),
+                      GestureDetector(
+                        onTap: () async {
+                          await showDialog(
+                              context: context,
+                              builder: (BuildContext c) => chooseAvatar(c));
+                        },
                         child: Container(
+                          margin: EdgeInsets.only(left: 23),
+                          padding: EdgeInsets.all(2),
+                          width: 100,
+                          height: 30,
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Color.fromRGBO(45, 45, 45, 1),
-                          ),
-                          child: Center(
-                            child: Text(
-                              'Edytuj profil',
-                              style: TextStyle(color: Colors.white),
+                              borderRadius: BorderRadius.circular(10),
+                              gradient: LinearGradient(
+                                  begin: Alignment.topLeft,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    Color.fromRGBO(142, 223, 255, 1),
+                                    Color.fromRGBO(255, 0, 140, 1)
+                                  ])),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Color.fromRGBO(45, 45, 45, 1),
+                            ),
+                            child: Center(
+                              child: Text(
+                                'Edytuj profil',
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),
