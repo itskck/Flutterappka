@@ -18,6 +18,8 @@ class Builds{
   final String uid;
   final num minTdp,maxTdp;
   final List<String> extradisk;
-  Builds({this.coolerId,this.caseId,this.cpuId,this.driveId,this.generatedCode,this.gpuId,this.motherboardId,this.psuId,this.ramId,this.timestamp,this.uid,this.minTdp,this.maxTdp, this.extradisk});
+  final double ramNumber;
+  Builds({this.coolerId,this.caseId,this.cpuId,this.driveId,this.generatedCode,this.gpuId,this.motherboardId,this.psuId,this.ramId,this.timestamp,this.uid,this.minTdp,this.maxTdp, this.extradisk,
+    this.ramNumber});
 }
 

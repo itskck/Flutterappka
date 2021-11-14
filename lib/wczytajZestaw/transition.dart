@@ -154,11 +154,11 @@ class transition extends StatelessWidget {
                                                                         if(builds.uid!=FirebaseAuth.instance.currentUser.uid)
                                                                           return Edit(cpu: chosenCpu, cases: chosenCase, cooler: chosenCooler, drive: chosenDrive,
                                                                               gpu: chosenGpu, mtb: chosenMtb, psu: chosenPsu, ram: chosenRam, code: builds.generatedCode, diffUser: true,
-                                                                              minTdp: builds.minTdp.toDouble(), maxTdp: builds.maxTdp.toDouble(),extradisk: extradisk);
+                                                                              minTdp: builds.minTdp.toDouble(), maxTdp: builds.maxTdp.toDouble(),extradisk: extradisk, ramNumber: builds.ramNumber);
                                                                         else
                                                                           return Edit(cpu: chosenCpu, cases: chosenCase, cooler: chosenCooler, drive: chosenDrive,
                                                                               gpu: chosenGpu, mtb: chosenMtb, psu: chosenPsu, ram: chosenRam, code: builds.generatedCode, diffUser: false,
-                                                                              minTdp: builds.minTdp.toDouble(), maxTdp: builds.maxTdp.toDouble(),extradisk: extradisk);
+                                                                              minTdp: builds.minTdp.toDouble(), maxTdp: builds.maxTdp.toDouble(),extradisk: extradisk,ramNumber: builds.ramNumber);
                                                                       }
                                                                       else return Container();
                                                                     },

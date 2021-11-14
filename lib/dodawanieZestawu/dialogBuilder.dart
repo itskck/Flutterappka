@@ -45,7 +45,7 @@ class _dialogBuilder extends State<dialogBuilder> {
       cpus = Provider.of<List<Cpu>>(context) ?? [];
       print("44444444444");
       print(cpus.length);
-      
+
       print("44444444444");
       return SimpleDialog(title: Text('Wybierz procesor:'), children: [
         for (int i = 0; i < cpus.length; i++)
@@ -170,7 +170,7 @@ class _dialogBuilder extends State<dialogBuilder> {
                         Text(gpus[i].manufacturer + " " + gpus[i].model,
                             style: TextStyle(fontWeight: FontWeight.bold)),
                             Text("VRAM: "+gpus[i].VRAM + " GB"),
-                        Text('Seria: '+gpus[i].series), 
+                        Text('Seria: '+gpus[i].series),
                         Text('Rocznik: '+gpus[i].year)
                       ],
                     ),
@@ -225,9 +225,9 @@ class _dialogBuilder extends State<dialogBuilder> {
                           ],
                         )
                         ],
-                        
+
                         )
-                        
+
                       ],
                     ),
                   ],
@@ -275,7 +275,7 @@ class _dialogBuilder extends State<dialogBuilder> {
                             Text(mtbs[i].ramSlots + "x "),
                             Text(mtbs[i].ramType + ", "),
                             Text("Standard: " + mtbs[i].standard)
-                          ],                          
+                          ],
                         ),
                         Row(
                           children: [
@@ -283,11 +283,11 @@ class _dialogBuilder extends State<dialogBuilder> {
                           ],
                         ),
                         if (mtbs[i].hasNvmeSlot) Text('Obsługa dysków NVMe M.2'),
-                        
+
                             Text(mtbs[i].wifi?'Wifi: ✅' :'Wifi: ❌'),
                             Text('Przepustowość portu ethernet: \n'+ mtbs[i].ethernetSpeed+"Mb/s")
-                          
-                        
+
+
                       ],
                     ),
                   ],
@@ -301,7 +301,13 @@ class _dialogBuilder extends State<dialogBuilder> {
                   dodaj.usedNvme=false;
                 if(dodaj.chosenMtb.hasNvmeSlot==true) dodaj.slots=int.parse(dodaj.chosenMtb.sataPorts);
                 else dodaj.slots=int.parse(dodaj.chosenMtb.sataPorts)-1;
-              } else if (globals.ktoro == 1) Edit.chosenMtb = mtbs[i];
+              } else if (globals.ktoro == 1) {
+                Edit.chosenMtb = mtbs[i];
+                if(mtbs[i].hasNvmeSlot==true && Edit.chosenDrive==null)
+                  Edit.usedNvme=false;
+                if(Edit.chosenMtb.hasNvmeSlot==true) Edit.slots=int.parse(Edit.chosenMtb.sataPorts);
+                else Edit.slots=int.parse(Edit.chosenMtb.sataPorts)-1;
+              }
               Navigator.pop(context);
             },
           )
@@ -341,7 +347,7 @@ class _dialogBuilder extends State<dialogBuilder> {
                             "GB"),
 
                         Text('Typ złącza: '+drives[i].connectionType)
-                            
+
                       ],
                     ),
                   ],
@@ -352,7 +358,10 @@ class _dialogBuilder extends State<dialogBuilder> {
               if (globals.ktoro == 2) {
                 dodaj.chosenDrive = drives[i];
                 if(drives[i].connectionType=="NVMe") dodaj.usedNvme=true;
-              } else if (globals.ktoro == 1) Edit.chosenDrive = drives[i];
+              } else if (globals.ktoro == 1) {
+                Edit.chosenDrive = drives[i];
+                if(drives[i].connectionType=="NVMe") Edit.usedNvme=true;
+              }
               Navigator.pop(context);
             },
           )
@@ -393,7 +402,7 @@ class _dialogBuilder extends State<dialogBuilder> {
                         Text("Obsługiwane standardy: "),
                         Row(
                           children: [
-                            
+
                             for (int j = 0; j < cases[i].standard.length; j++)
                               Text(cases[i].standard[j] + ", ")
                           ],
@@ -489,7 +498,10 @@ class _dialogBuilder extends State<dialogBuilder> {
               if (globals.ktoro == 2) {
                     dodaj.chosenRam = rams[i];
                     dodaj.iloscRam=ram;
-                  } else if (globals.ktoro == 1) Edit.chosenRam = rams[i];
+                  } else if (globals.ktoro == 1) {
+                Edit.iloscRam=ram;
+                Edit.chosenRam = rams[i];
+              }
               Navigator.pop(context);
             },
           )
@@ -546,7 +558,17 @@ class _dialogBuilder extends State<dialogBuilder> {
                   dodaj.slots--;
                   print('O co coemone');
                   print(dodaj.slots);
-              } else if (globals.ktoro == 1) Edit.chosenDrive = drives[i];
+              } else if (globals.ktoro == 1) {
+                dodaj.extraDrives.add(drives[i]);
+                if(drives[i].connectionType=="NVMe") {
+                  Edit.usedNvme = true;
+
+                }
+                Edit.extra++;
+                Edit.slots--;
+                print('O co coemone');
+                print(Edit.slots);
+              }
               Navigator.pop(context);
             },
           )

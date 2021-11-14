@@ -101,8 +101,8 @@ class _dodaj extends State<dodaj> {
             }
 
             if (component == 'MTBRD' && dodaj.chosenMtb != null) {
-              minTdp += 40;
-              maxTdp += 60;
+              minTdp += 50;
+              maxTdp += 150;
               base.mtbRamType = dodaj.chosenMtb.ramType;
               base.mtbNvmeSlot = dodaj.chosenMtb.hasNvmeSlot;
               base.mtbSocket = dodaj.chosenMtb.socket;
@@ -304,8 +304,8 @@ class _dodaj extends State<dodaj> {
                       });
                       break;
                     case 'MTBRD':
-                      minTdp -= 40;
-                      maxTdp -= 60;
+                      minTdp -= 50;
+                      maxTdp -= 150;
                       if(dodaj.chosenRam!=null) {
                         minTdp -= 30*dodaj.iloscRam;
                         maxTdp -= 60*dodaj.iloscRam;

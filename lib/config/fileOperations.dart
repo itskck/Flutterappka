@@ -8,7 +8,7 @@ class fileReader{
     String filePath = appDocDir.path + "/" +title+".txt";
     File f = File(filePath);
     if(await exists(title)==false){
-     await f.create();
+      f.create();
     }
     f.writeAsString(data);
   }
@@ -29,7 +29,7 @@ class fileReader{
     String filePath = appDocDir.path + "/" +title+".txt";
     File f = File(filePath);
     if(await exists(title)==false){
-     await f.create();
+      f.create();
     }
     String text=await f.readAsString();
     return text;

@@ -218,8 +218,8 @@ class _Comparison extends State<Comparison> {
     }
 
     var pixelWidth = width;
-    if (pixelWidth < 0) pixelWidth = pixelWidth * (-1);
-    if (pixelWidth > 40) pixelWidth = 40;
+    if (pixelWidth < 0) pixelWidth = 5;
+    if (pixelWidth > 30) pixelWidth = 30;
     Color color;
     if (width > 0) color = Colors.green;
     if (width < 0) color = Colors.grey;
@@ -421,6 +421,7 @@ class _Comparison extends State<Comparison> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Row(
+                textDirection: TextDirection.rtl,
                 children: [
                   Container(
                     margin: EdgeInsets.all(10),
@@ -451,13 +452,13 @@ class _Comparison extends State<Comparison> {
                     centerSpaceRadius: 40,
                     sections: [
                       PieChartSectionData(
-                          titlePositionPercentageOffset: 1.5,
+                          showTitle: false,
                           value: capacity1.toDouble(),
                           radius: 20,
                           color: Colors.pink,
                           titleStyle: TextStyle(color: Colors.white,fontSize: 18)),
                       PieChartSectionData(
-                        titlePositionPercentageOffset: 1.5,
+                          showTitle: false,
                           value: capacity2.toDouble(),
                           color: Colors.lightBlue,
                           radius: 20,
@@ -479,7 +480,7 @@ class _Comparison extends State<Comparison> {
                         style: TextStyle(color: Colors.white),
                       ),
                       Text(
-                        capacity1.toString() + ' GB',
+                        capacity2.toString() + ' GB',
                         style: TextStyle(color: Colors.white),
                       )
                     ],

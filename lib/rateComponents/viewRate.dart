@@ -184,7 +184,7 @@ class _viewRateState extends State<viewRate> {
     if(double.parse(widget.psu.power)<widget.maxTdp)psuString+='Wybrany zasilacz prawdopodobnie nie dostarczy wystarczającej ilości mocy alby zasilić zestaw, '
     +'jako że, przy intensywnej pracy, pobierać może on nawet '+widget.maxTdp.toString()+' W, a nominalna moc zasilacza to jedynie '+widget.psu.power+' W';
     else
-    psuString+='Zailacz powinien poradzić sobie z dostarczeniem mocy do zestawu komputerowego, ponieważ jego nominalna moc wynosi '+widget.psu.power+
+    psuString+='Zailacz powinien poradzić sobie z dostarczeniem mocy do zestawu komputerowego, ponieważ jego nominalna moc wynosi '+widget.maxTdp.toString()+
     ' W, a zestaw szacunkowo pobierać będzie do '+widget.maxTdp.toString()+' W.';
     ///Zdania case
     String caseString='';
