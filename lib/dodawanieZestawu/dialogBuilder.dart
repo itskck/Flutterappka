@@ -35,6 +35,7 @@ class _dialogBuilder extends State<dialogBuilder> {
   bool gpuAzState = false,gpuPowerState=false,gpuYearState=false;
   bool cpuAzState = false,cpuYearState=false,cpuClockState=false;
   bool psuAzState=false,psuPowerState=false;
+  bool coolerAzState=false,coolerSocketState=false;
   @override
   initState() {
     component = widget.component;
@@ -228,15 +229,15 @@ class _dialogBuilder extends State<dialogBuilder> {
               ),
               GestureDetector(
                 onTap: () {
-                  cpuClockState = true;
-                  if (cpuClockState) {
+                  psuPowerState = true;
+                  if (psuPowerState) {
                     setState(() {
-                      cpuAzState=false;
-                      cpuYearState=false;
-                      cpus.sort((Cpu a, Cpu b) {
-                        return a.clocker
+                      psuAzState=false;
+                      
+                      psus.sort((Psu a, Psu b) {
+                        return a.power
                             .toLowerCase()
-                            .compareTo(b.clocker.toLowerCase());
+                            .compareTo(b.power.toLowerCase());
                       });
                       
                     });
@@ -245,8 +246,8 @@ class _dialogBuilder extends State<dialogBuilder> {
                 child: Container(
                   width: 20,
                   height: 20,
-                  child: Icon(Icons.alarm,
-                      color: cpuClockState ? Colors.green : Colors.grey),
+                  child: Icon(Icons.power,
+                      color: psuPowerState ? Colors.green : Colors.grey),
                 ),
               ),
              
@@ -423,6 +424,61 @@ class _dialogBuilder extends State<dialogBuilder> {
     if (widget.component == 'CSTM COOLER') {
       coolers = Provider.of<List<Cooler>>(context) ?? [];
       return SimpleDialog(title: Text('Wybierz chłodzenie'), children: [
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 40),
+          
+          child: Row(
+            
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  coolerAzState = true;
+                  if (coolerAzState) {
+                    setState(() {
+                      coolerSocketState=false;
+                      
+                      coolers.sort((Cooler a, Cooler b) {
+                        return a.manufacturer
+                            .toLowerCase()
+                            .compareTo(b.manufacturer.toLowerCase());
+                      });
+                    });
+                  } 
+                },
+                child: Container(
+                  width: 20,
+                  height: 20,
+                  child: Icon(Icons.sort_by_alpha,
+                      color: coolerAzState ? Colors.green : Colors.grey),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  coolerSocketState = true;
+                  if (coolerSocketState) {
+                    setState(() {
+                      coolerAzState=false;
+                     
+                      coolers.sort((Cooler a, Cooler b) {
+                        return a.socket.first.toString()
+                            .toLowerCase()
+                            .compareTo(b.socket.first.toString().toLowerCase());
+                      });
+                    });
+                  } 
+                },
+                child: Container(
+                  width: 20,
+                  height: 20,
+                  child: Icon(Icons.memory,
+                      color: coolerSocketState ? Colors.green : Colors.grey),
+                ),
+              ),
+              
+            ],
+          ),
+        ),
         for (int i = 0; i < coolers.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
