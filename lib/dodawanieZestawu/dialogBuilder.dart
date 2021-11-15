@@ -33,6 +33,8 @@ class _dialogBuilder extends State<dialogBuilder> {
   var cpus, psus, gpus, coolers, mtbs, drives, cases, rams;
   TextStyle style = TextStyle(overflow: TextOverflow.visible);
   bool gpuAzState = false,gpuPowerState=false,gpuYearState=false;
+  bool cpuAzState = false,cpuYearState=false,cpuClockState=false;
+  bool psuAzState=false,psuPowerState=false;
   @override
   initState() {
     component = widget.component;
@@ -48,6 +50,84 @@ class _dialogBuilder extends State<dialogBuilder> {
 
       print("44444444444");
       return SimpleDialog(title: Text('Wybierz procesor:'), children: [
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 40),
+          
+          child: Row(
+            
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  cpuAzState = true;
+                  if (cpuAzState) {
+                    setState(() {
+                      cpuClockState=false;
+                      cpuYearState=false;
+                      
+                      cpus.sort((Cpu a, Cpu b) {
+                        return a.model
+                            .toLowerCase()
+                            .compareTo(b.model.toLowerCase());
+                      });
+                      
+                    });
+                  } 
+                },
+                child: Container(
+                  width: 20,
+                  height: 20,
+                  child: Icon(Icons.sort_by_alpha,
+                      color: cpuAzState ? Colors.green : Colors.grey),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  cpuClockState = true;
+                  if (cpuClockState) {
+                    setState(() {
+                      cpuAzState=false;
+                      cpuYearState=false;
+                      cpus.sort((Cpu a, Cpu b) {
+                        return a.clocker
+                            .toLowerCase()
+                            .compareTo(b.clocker.toLowerCase());
+                      });
+                      
+                    });
+                  } 
+                },
+                child: Container(
+                  width: 20,
+                  height: 20,
+                  child: Icon(Icons.alarm,
+                      color: cpuClockState ? Colors.green : Colors.grey),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  cpuYearState = true;
+                  if (cpuYearState) {
+                    setState(() {
+                      cpuClockState=false;
+                      cpuAzState=false;
+                      cpus.sort((Cpu a, Cpu b) {
+                        return a.year
+                            .toLowerCase()
+                            .compareTo(b.year.toLowerCase());
+                      });
+                    });
+                  } 
+                },
+                child: Container(
+                  width: 20,
+                  height: 20,
+                  child: Center(child: Text('\'99',style:TextStyle(color: cpuYearState ? Colors.green : Colors.grey,fontSize: 15),)),
+                ),
+              ),
+            ],
+          ),
+        ),
         for (int i = 0; i < cpus.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
@@ -116,6 +196,63 @@ class _dialogBuilder extends State<dialogBuilder> {
     if (widget.component == 'PSU') {
       psus = Provider.of<List<Psu>>(context) ?? [];
       return SimpleDialog(title: Text('Wybierz zasilacz:'), children: [
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 40),
+          
+          child: Row(            
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GestureDetector(
+                onTap: () {
+                  psuAzState = true;
+                  if (psuAzState) {
+                    setState(() {
+                      psuPowerState=false;
+                     
+                      
+                      psus.sort((Psu a, Psu b) {
+                        return a.manufacturer
+                            .toLowerCase()
+                            .compareTo(b.manufacturer.toLowerCase());
+                      });
+                      
+                    });
+                  } 
+                },
+                child: Container(
+                  width: 20,
+                  height: 20,
+                  child: Icon(Icons.sort_by_alpha,
+                      color: psuAzState ? Colors.green : Colors.grey),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  cpuClockState = true;
+                  if (cpuClockState) {
+                    setState(() {
+                      cpuAzState=false;
+                      cpuYearState=false;
+                      cpus.sort((Cpu a, Cpu b) {
+                        return a.clocker
+                            .toLowerCase()
+                            .compareTo(b.clocker.toLowerCase());
+                      });
+                      
+                    });
+                  } 
+                },
+                child: Container(
+                  width: 20,
+                  height: 20,
+                  child: Icon(Icons.alarm,
+                      color: cpuClockState ? Colors.green : Colors.grey),
+                ),
+              ),
+             
+            ],
+          ),
+        ),
         for (int i = 0; i < psus.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
@@ -329,16 +466,17 @@ class _dialogBuilder extends State<dialogBuilder> {
                     ),
                   ],
                 ),
-              ],
-            ),
-            onPressed: () {
+                onPressed: () {
               if (globals.ktoro == 2)
                 dodaj.chosenCooler = coolers[i];
               else if (globals.ktoro == 1) Edit.chosenCooler = coolers[i];
               Navigator.pop(context);
-            },
-          )
-      ]);
+            },)
+              ],
+            
+            
+          );
+      
     }
 
     if (widget.component == 'MTBRD') {
