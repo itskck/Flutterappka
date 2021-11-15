@@ -26,6 +26,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 Future<void> main() async {
+  ErrorWidget.builder = (FlutterErrorDetails details) => Center(child: CircularProgressIndicator());
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   User _firebaseUser = FirebaseAuth.instance.currentUser;
