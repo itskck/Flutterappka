@@ -52,13 +52,13 @@ class FireBase{
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       return Gpu(
-        VRAM: doc.data().toString().contains('VRAM') ? doc.get('VRAM') : 'Error not found',
-        manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
-        model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-        year: doc.data().toString().contains('year') ? doc.get('year') : 'Error not found',
-        series: doc.data().toString().contains('series') ? doc.get('series') : 'Error not found',
-        tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : 'Error not found',
-        integra: doc.data().toString().contains('integra') ? doc.get('integra') : 'Error not found',
+        VRAM: doc.data().toString().contains('VRAM') ? doc.get('VRAM') : '1',
+        manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
+        model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
+        year: doc.data().toString().contains('year') ? doc.get('year') : '2000',
+        series: doc.data().toString().contains('series') ? doc.get('series') : 'Nieznaleziono',
+        tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : '1',
+        integra: doc.data().toString().contains('integra') ? doc.get('integra') : false,
         img: img
       );
     }).toList();
@@ -73,9 +73,9 @@ class FireBase{
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       return Case(
-          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
-          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          standard: doc.data().toString().contains('standard') ? doc.get('standard') : 'Error not found',
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
+          standard: doc.data().toString().contains('standard') ? doc.get('standard') : 'Nieznaleziono',
           img: img
       );
     }).toList();
@@ -93,9 +93,9 @@ class FireBase{
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       return Cooler(
-          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
-          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Error not found',
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
+          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Nieznaleziono',
           img: img
       );
     }).toList();
@@ -119,18 +119,18 @@ class FireBase{
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       return Cpu(
-          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
-          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          clocker: doc.data().toString().contains('clock') ? doc.get('clock') : 'Error not found',
-          cores: doc.data().toString().contains('cores') ? doc.get('cores') : 'Error not found',
-          hasGpu: doc.data().toString().contains('hasGpu') ? doc.get('hasGpu') : 'Error not found',
-          isCoolerIncluded: doc.data().toString().contains('isCoolerIncluded') ? doc.get('isCoolerIncluded') : 'Error not found',
-          isUnlocked: doc.data().toString().contains('isUnlocked') ? doc.get('isUnlocked') : 'Error not found',
-          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Error not found',
-          tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : 'Error not found',
-          threads: doc.data().toString().contains('threads') ? doc.get('threads') : 'Error not found',
-          year: doc.data().toString().contains('year') ? doc.get('year') : 'Error not found',
-          benchScore: doc.data().toString().contains('benchScore') ? doc.get('benchScore') : 'Error not found',
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
+          clocker: doc.data().toString().contains('clock') ? doc.get('clock') : '1.0',
+          cores: doc.data().toString().contains('cores') ? doc.get('cores') : '1',
+          hasGpu: doc.data().toString().contains('hasGpu') ? doc.get('hasGpu') : 'none',
+          isCoolerIncluded: doc.data().toString().contains('isCoolerIncluded') ? doc.get('isCoolerIncluded') : false,
+          isUnlocked: doc.data().toString().contains('isUnlocked') ? doc.get('isUnlocked') : false,
+          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Nieznaleziono',
+          tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : '1',
+          threads: doc.data().toString().contains('threads') ? doc.get('threads') : '1',
+          year: doc.data().toString().contains('year') ? doc.get('year') : '2000',
+          benchScore: doc.data().toString().contains('benchScore') ? doc.get('benchScore') : '1',
           img: img
       );
     }).toList();
@@ -153,11 +153,11 @@ class FireBase{
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       return Drive(
-          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
-          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          capacity: doc.data().toString().contains('capacity') ? doc.get('capacity') : 'Error not found',
-          connectionType: doc.data().toString().contains('connectionType') ? doc.get('connectionType') : 'Error not found',
-          type: doc.data().toString().contains('type') ? doc.get('type') : 'Error not found',
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
+          capacity: doc.data().toString().contains('capacity') ? doc.get('capacity') : '1',
+          connectionType: doc.data().toString().contains('connectionType') ? doc.get('connectionType') : 'Nieznaleziono',
+          type: doc.data().toString().contains('type') ? doc.get('type') : 'Nieznaleziono',
           img: img
       );
     }).toList();
@@ -185,20 +185,20 @@ class FireBase{
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       return Motherboard(
-          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
-          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          chipset: doc.data().toString().contains('chipset') ? doc.get('chipset') : 'Error not found',
-          hasNvmeSlot: doc.data().toString().contains('hasNvmeSlot') ? doc.get('hasNvmeSlot') : 'Error not found',
-          ramSlots: doc.data().toString().contains('ramSlots') ? doc.get('ramSlots') : 'Error not found',
-          ramType: doc.data().toString().contains('ramType') ? doc.get('ramType') : 'Error not found',
-          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Error not found',
-          standard: doc.data().toString().contains('standard') ? doc.get('standard') : 'Error not found',
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
+          chipset: doc.data().toString().contains('chipset') ? doc.get('chipset') : 'Nieznaleziono',
+          hasNvmeSlot: doc.data().toString().contains('hasNvmeSlot') ? doc.get('hasNvmeSlot') : false,
+          ramSlots: doc.data().toString().contains('ramSlots') ? doc.get('ramSlots') : '1',
+          ramType: doc.data().toString().contains('ramType') ? doc.get('ramType') : 'Nieznaleziono',
+          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Nieznaleziono',
+          standard: doc.data().toString().contains('standard') ? doc.get('standard') : 'Nieznaleziono',
           img: img,
           wifi: doc.data().toString().contains('wifi') ? doc.get('wifi') : false,
-          usb3: doc.data().toString().contains('usb3') ? doc.get('usb3') : 'Error not found',
-          usb2and1: doc.data().toString().contains('usb2and1') ? doc.get('usb2and1') : 'Error not found',
-          ethernetSpeed: doc.data().toString().contains('ethernetSpeed') ? doc.get('ethernetSpeed') : 'Error not found',
-          sataPorts: doc.data().toString().contains('sataPorts') ? doc.get('sataPorts') : 'Error not found'
+          usb3: doc.data().toString().contains('usb3') ? doc.get('usb3') : '1',
+          usb2and1: doc.data().toString().contains('usb2and1') ? doc.get('usb2and1') : '1',
+          ethernetSpeed: doc.data().toString().contains('ethernetSpeed') ? doc.get('ethernetSpeed') : '1',
+          sataPorts: doc.data().toString().contains('sataPorts') ? doc.get('sataPorts') : '1'
       );
     }).toList();
   }
@@ -237,9 +237,9 @@ class FireBase{
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       return Psu(
-          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
-          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          power: doc.data().toString().contains('power') ? doc.get('power') : 'Error not found',
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
+          power: doc.data().toString().contains('power') ? doc.get('power') : '1',
           img: img
       );
     }).toList();
@@ -253,11 +253,11 @@ class FireBase{
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       return Ram(
-          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
-          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          capacity: doc.data().toString().contains('capacity') ? doc.get('capacity') : 'Error not found',
-          speed: doc.data().toString().contains('speed') ? doc.get('speed') : 'Error not found',
-          type: doc.data().toString().contains('type') ? doc.get('type') : 'Error not found',
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
+          capacity: doc.data().toString().contains('capacity') ? doc.get('capacity') : '1',
+          speed: doc.data().toString().contains('speed') ? doc.get('speed') : '1',
+          type: doc.data().toString().contains('type') ? doc.get('type') : 'Nieznaleziono',
           img: img
       );
     }).toList();
@@ -303,13 +303,13 @@ class FireBase{
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       chosenGpu=Gpu(
-          VRAM: doc.data().toString().contains('VRAM') ? doc.get('VRAM') : 'Error not found',
-          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
-          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          year: doc.data().toString().contains('year') ? doc.get('year') : 'Error not found',
-          series: doc.data().toString().contains('series') ? doc.get('series') : 'Error not found',
-          tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : 'Error not found',
-          integra: doc.data().toString().contains('integra') ? doc.get('integra') : 'Error not found',
+          VRAM: doc.data().toString().contains('VRAM') ? doc.get('VRAM') : '1',
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
+          year: doc.data().toString().contains('year') ? doc.get('year') : '2000',
+          series: doc.data().toString().contains('series') ? doc.get('series') : 'Nieznaleziono',
+          tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : '1',
+          integra: doc.data().toString().contains('integra') ? doc.get('integra') : false,
           img:img
       );
     }).toList();
@@ -323,9 +323,9 @@ class FireBase{
         .get();
     snapshot.docs.map((doc){
       chosenCooler=Cooler(
-          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
-          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Error not found',
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
+          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Nieznaleziono',
           img: null
       );
     }).toList();
@@ -337,11 +337,11 @@ class FireBase{
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       return Drive(
-          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
-          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          capacity: doc.data().toString().contains('capacity') ? doc.get('capacity') : 'Error not found',
-          connectionType: doc.data().toString().contains('connectionType') ? doc.get('connectionType') : 'Error not found',
-          type: doc.data().toString().contains('type') ? doc.get('type') : 'Error not found',
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
+          capacity: doc.data().toString().contains('capacity') ? doc.get('capacity') : '1',
+          connectionType: doc.data().toString().contains('connectionType') ? doc.get('connectionType') : 'Nieznaleziono',
+          type: doc.data().toString().contains('type') ? doc.get('type') : 'Nieznaleziono',
           img: img
       );
     }).toList();
