@@ -42,12 +42,12 @@ class dodaj extends StatefulWidget with ChangeNotifier {
   static double iloscRam = 1.0;
   static double minTdp = 0.0;
   static double maxTdp = 0.0;
+  static FireBase base=FireBase();
   @override
   _dodaj createState() => _dodaj();
 }
 
 class _dodaj extends State<dodaj> {
-  final FireBase base = FireBase();
   final Logo logo = Logo();
   String pom;
 
@@ -86,26 +86,26 @@ class _dodaj extends State<dodaj> {
                   gravity: ToastGravity.BOTTOM,
                   timeInSecForIosWeb: 2);
             else
-              await dialogwidget.showPopup(context, component, base);
+              await dialogwidget.showPopup(context, component, dodaj.base);
             if (component == 'CPU' && dodaj.chosenCpu != null) {
               dodaj.minTdp += double.parse(dodaj.chosenCpu.tdp) * 0.9;
               dodaj.maxTdp += double.parse(dodaj.chosenCpu.tdp);
-              base.cpuSocket = dodaj.chosenCpu.socket;
+              dodaj.base.cpuSocket = dodaj.chosenCpu.socket;
             } else {
               if (component == 'CSTM COOLER' && dodaj.chosenCooler != null) {
                 dodaj.minTdp += 1.0;
                 dodaj.maxTdp += 2.0;
-                base.coolerSocket = dodaj.chosenCooler.socket;
+                dodaj.base.coolerSocket = dodaj.chosenCooler.socket;
               }
             }
 
             if (component == 'MTBRD' && dodaj.chosenMtb != null) {
               dodaj.minTdp += 50;
               dodaj.maxTdp += 150;
-              base.mtbRamType = dodaj.chosenMtb.ramType;
-              base.mtbNvmeSlot = dodaj.chosenMtb.hasNvmeSlot;
-              base.mtbSocket = dodaj.chosenMtb.socket;
-              base.mtbStandard = dodaj.chosenMtb.standard;
+              dodaj.base.mtbRamType = dodaj.chosenMtb.ramType;
+              dodaj.base.mtbNvmeSlot = dodaj.chosenMtb.hasNvmeSlot;
+              dodaj.base.mtbSocket = dodaj.chosenMtb.socket;
+              dodaj.base.mtbStandard = dodaj.chosenMtb.standard;
             }
             if (component == 'DRIVE' && dodaj.chosenDrive != null) {
               if (dodaj.chosenDrive.type == "HDD") {
@@ -115,17 +115,17 @@ class _dodaj extends State<dodaj> {
                 dodaj.minTdp += 0.5;
                 dodaj.maxTdp += 1;
               }
-              base.driveConnectionType = dodaj.chosenDrive.connectionType;
+              dodaj.base.driveConnectionType = dodaj.chosenDrive.connectionType;
             }
 
             if (component == 'CASE' && dodaj.chosenCase != null) {
-              base.caseStandard = dodaj.chosenCase.standard;
+              dodaj.base.caseStandard = dodaj.chosenCase.standard;
             }
 
             if (component == 'RAM' && dodaj.chosenRam != null) {
               dodaj.minTdp += dodaj.iloscRam * 30;
               dodaj.maxTdp += dodaj.iloscRam * 60;
-              base.ramRamType = dodaj.chosenRam.type;
+              dodaj.base.ramRamType = dodaj.chosenRam.type;
             }
             if (component == 'GPU' && dodaj.chosenGpu != null) {
               dodaj.minTdp += double.parse(dodaj.chosenGpu.tdp);
@@ -134,7 +134,7 @@ class _dodaj extends State<dodaj> {
             if (component == 'EXTRA DRIVE') {
               for (int i = 0; i < dodaj.extraDrives.length; i++) {
                 if (dodaj.extraDrives[i].connectionType == "NVMe")
-                  base.mtbNvmeSlot = false;
+                  dodaj.base.mtbNvmeSlot = false;
               }
             }
             setState(() {});
@@ -273,7 +273,7 @@ class _dodaj extends State<dodaj> {
                       setState(() {
                         dodaj.minTdp -= double.parse(dodaj.chosenCpu.tdp) * 0.9;
                         dodaj.maxTdp -= double.parse(dodaj.chosenCpu.tdp);
-                        base.cpuSocket = null;
+                        dodaj.base.cpuSocket = null;
                         if (dodaj.chosenGpu != null) if (dodaj
                                     .chosenCpu.hasGpu !=
                                 "none" &&
@@ -298,7 +298,7 @@ class _dodaj extends State<dodaj> {
                       dodaj.minTdp -= 1.0;
                       dodaj.maxTdp -= 2.0;
                       setState(() {
-                        base.coolerSocket = null;
+                        dodaj.base.coolerSocket = null;
                         dodaj.chosenCooler = null;
                       });
                       break;
@@ -310,12 +310,12 @@ class _dodaj extends State<dodaj> {
                         dodaj.maxTdp -= 60 * dodaj.iloscRam;
                       }
                       setState(() {
-                        base.mtbRamType = null;
-                        base.mtbNvmeSlot = null;
-                        base.mtbStandard = null;
-                        base.caseStandard = null;
+                        dodaj.base.mtbRamType = null;
+                        dodaj.base.mtbNvmeSlot = null;
+                        dodaj.base.mtbStandard = null;
+                        dodaj.base.caseStandard = null;
                         dodaj.chosenMtb = null;
-                        base.mtbSocket = null;
+                        dodaj.base.mtbSocket = null;
                         dodaj.extraDrives = new List<Drive>();
                         dodaj.extra = -1;
                         dodaj.usedNvme = true;
@@ -323,7 +323,7 @@ class _dodaj extends State<dodaj> {
                         dodaj.slots = 0;
                         if (dodaj.chosenRam != null) {
                           dodaj.iloscRam = 1;
-                          base.ramRamType = null;
+                          dodaj.base.ramRamType = null;
                           dodaj.chosenRam = null;
                         }
                       });
@@ -340,13 +340,13 @@ class _dodaj extends State<dodaj> {
                         dodaj.usedNvme = false;
                       //dodaj.slots++;
                       setState(() {
-                        base.driveConnectionType = null;
+                        dodaj.base.driveConnectionType = null;
                         dodaj.chosenDrive = null;
                       });
                       break;
                     case 'CASE':
                       setState(() {
-                        base.caseStandard = null;
+                        dodaj.base.caseStandard = null;
                         dodaj.chosenCase = null;
                       });
                       break;
@@ -354,7 +354,7 @@ class _dodaj extends State<dodaj> {
                       dodaj.minTdp -= 30 * dodaj.iloscRam;
                       dodaj.maxTdp -= 60 * dodaj.iloscRam;
                       setState(() {
-                        base.ramRamType = null;
+                        dodaj.base.ramRamType = null;
                         dodaj.chosenRam = null;
                         dodaj.iloscRam = 1;
                       });
@@ -364,7 +364,7 @@ class _dodaj extends State<dodaj> {
                         case 'DODATKOWY DYSK 10':
                           print("Ja przepraszam zabladzilem");
                           if (dodaj.extraDrives[9].connectionType == "NVMe")
-                            base.mtbNvmeSlot = true;
+                            dodaj.base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[9].type == 'HDD') {
                             dodaj.minTdp -= 1.5;
                             dodaj.maxTdp -= 2.5;
@@ -380,7 +380,7 @@ class _dodaj extends State<dodaj> {
                           break;
                         case 'DODATKOWY DYSK 1':
                           if (dodaj.extraDrives[0].connectionType == "NVMe")
-                            base.mtbNvmeSlot = true;
+                            dodaj.base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[0].type == 'HDD') {
                             dodaj.minTdp -= 1.5;
                             dodaj.maxTdp -= 2.5;
@@ -396,7 +396,7 @@ class _dodaj extends State<dodaj> {
                           break;
                         case 'DODATKOWY DYSK 2':
                           if (dodaj.extraDrives[1].connectionType == "NVMe")
-                            base.mtbNvmeSlot = true;
+                            dodaj.base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[1].type == 'HDD') {
                             dodaj.minTdp -= 1.5;
                             dodaj.maxTdp -= 2.5;
@@ -412,7 +412,7 @@ class _dodaj extends State<dodaj> {
                           break;
                         case 'DODATKOWY DYSK 3':
                           if (dodaj.extraDrives[2].connectionType == "NVMe")
-                            base.mtbNvmeSlot = true;
+                            dodaj.base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[2].type == 'HDD') {
                             dodaj.minTdp -= 1.5;
                             dodaj.maxTdp -= 2.5;
@@ -428,7 +428,7 @@ class _dodaj extends State<dodaj> {
                           break;
                         case 'DODATKOWY DYSK 4':
                           if (dodaj.extraDrives[3].connectionType == "NVMe")
-                            base.mtbNvmeSlot = true;
+                            dodaj.base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[3].type == 'HDD') {
                             dodaj.minTdp -= 1.5;
                             dodaj.maxTdp -= 2.5;
@@ -444,7 +444,7 @@ class _dodaj extends State<dodaj> {
                           break;
                         case 'DODATKOWY DYSK 5':
                           if (dodaj.extraDrives[4].connectionType == "NVMe")
-                            base.mtbNvmeSlot = true;
+                            dodaj.base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[4].type == 'HDD') {
                             dodaj.minTdp -= 1.5;
                             dodaj.maxTdp -= 2.5;
@@ -460,7 +460,7 @@ class _dodaj extends State<dodaj> {
                           break;
                         case 'DODATKOWY DYSK 6':
                           if (dodaj.extraDrives[5].connectionType == "NVMe")
-                            base.mtbNvmeSlot = true;
+                            dodaj.base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[5].type == 'HDD') {
                             dodaj.minTdp -= 1.5;
                             dodaj.maxTdp -= 2.5;
@@ -476,7 +476,7 @@ class _dodaj extends State<dodaj> {
                           break;
                         case 'DODATKOWY DYSK 7':
                           if (dodaj.extraDrives[6].connectionType == "NVMe")
-                            base.mtbNvmeSlot = true;
+                            dodaj.base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[6].type == 'HDD') {
                             dodaj.minTdp -= 1.5;
                             dodaj.maxTdp -= 2.5;
@@ -492,7 +492,7 @@ class _dodaj extends State<dodaj> {
                           break;
                         case 'DODATKOWY DYSK 8':
                           if (dodaj.extraDrives[7].connectionType == "NVMe")
-                            base.mtbNvmeSlot = true;
+                            dodaj.base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[7].type == 'HDD') {
                             dodaj.minTdp -= 1.5;
                             dodaj.maxTdp -= 2.5;
@@ -508,7 +508,7 @@ class _dodaj extends State<dodaj> {
                           break;
                         case 'DODATKOWY DYSK 9':
                           if (dodaj.extraDrives[8].connectionType == "NVMe")
-                            base.mtbNvmeSlot = true;
+                            dodaj.base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[8].type == 'HDD') {
                             dodaj.minTdp -= 1.5;
                             dodaj.maxTdp -= 2.5;
@@ -702,7 +702,7 @@ class _dodaj extends State<dodaj> {
                       timeInSecForIosWeb: 2);
                 else {
                   if (dodaj.chosenGpu == null && dodaj.chosenCpu != null)
-                    dodaj.chosenGpu = await base.addGpu(dodaj.chosenCpu.hasGpu);
+                    dodaj.chosenGpu = await dodaj.base.addGpu(dodaj.chosenCpu.hasGpu);
                   if (dodaj.chosenCpu == null ||
                       dodaj.chosenRam == null ||
                       dodaj.chosenCase == null ||
@@ -739,7 +739,7 @@ class _dodaj extends State<dodaj> {
                                   onPressed: () async {
                                     if (dodaj.chosenCooler == null)
                                       dodaj.chosenCooler =
-                                          await base.addCooler();
+                                          await dodaj.base.addCooler();
                                     addBuildToDatabse(
                                             chosenCase: dodaj.chosenCase,
                                             chosenCooler: dodaj.chosenCooler,
@@ -762,15 +762,15 @@ class _dodaj extends State<dodaj> {
                                     dodaj.chosenMtb = null;
                                     dodaj.chosenPsu = null;
                                     dodaj.chosenCpu = null;
-                                    base.caseStandard = null;
-                                    base.ramRamType = null;
-                                    base.driveConnectionType = null;
-                                    base.mtbStandard = null;
-                                    base.mtbNvmeSlot = null;
-                                    base.mtbRamType = null;
-                                    base.coolerSocket = null;
-                                    base.cpuSocket = null;
-                                    base.mtbSocket = null;
+                                    dodaj.base.caseStandard = null;
+                                    dodaj.base.ramRamType = null;
+                                    dodaj.base.driveConnectionType = null;
+                                    dodaj.base.mtbStandard = null;
+                                    dodaj.base.mtbNvmeSlot = null;
+                                    dodaj.base.mtbRamType = null;
+                                    dodaj.base.coolerSocket = null;
+                                    dodaj.base.cpuSocket = null;
+                                    dodaj.base.mtbSocket = null;
                                     dodaj.extraDrives = new List<Drive>();
                                     dodaj.extra = -1;
                                     dodaj.usedNvme = true;

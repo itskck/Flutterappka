@@ -116,6 +116,7 @@ class Skladapka extends StatefulWidget {
   // This widget is the root of your application.
 
   final Builds builds;
+  static String test="estuje";
 
   Skladapka({this.builds});
 

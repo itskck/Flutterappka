@@ -86,6 +86,7 @@ class _Edit extends State<Edit> {
   initState() {
     super.initState();
     setComponents();
+    print(Skladapka.test);
   }
 
   void setComponents(){

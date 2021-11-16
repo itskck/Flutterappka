@@ -48,6 +48,8 @@ class _Zalogowany extends State<Zalogowany> {
   @override
   void initState() {
     super.initState();
+    print(Skladapka.test);
+    Skladapka.test="bylem i zobaczylem";
   }
 
   Future<dynamic> getBuildsList() async {
