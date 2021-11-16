@@ -75,7 +75,7 @@ class _Zalogowany extends State<Zalogowany> {
 
   void logout() async {
     await _auth.wylogui();
-    file.save("czyZalogowany=false",'loginConfig');
+    file.save("czyZalogowany=false", 'loginConfig');
     globalna.czyZalogowany = "czyZalogowany=false";
     dynamic result = await _auth.Anonim();
     print(result);
@@ -239,6 +239,7 @@ class _Zalogowany extends State<Zalogowany> {
           child: Container(
             margin: EdgeInsets.fromLTRB(30, 20, 0, 50),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Column(
                   children: [
@@ -270,16 +271,22 @@ class _Zalogowany extends State<Zalogowany> {
                             if (snapshot.connectionState ==
                                 ConnectionState.done) {
                               DateTime datetime = DateTime.now();
-                              String hello='';
-                              if(datetime.hour>6 && datetime.hour<12) hello='Dzień dobry';
-                              else if(datetime.hour>=12 && datetime.hour<18) hello='Słonecznego dnia';
-                              else if(datetime.hour>=18 && datetime.hour<22) hello='Dobry wieczór';
-                              else hello='Dobrej nocy';
-                              
+                              String hello = '';
+                              if (datetime.hour > 6 && datetime.hour < 12)
+                                hello = 'Dzień dobry';
+                              else if (datetime.hour >= 12 &&
+                                  datetime.hour < 18)
+                                hello = 'Słonecznego dnia';
+                              else if (datetime.hour >= 18 &&
+                                  datetime.hour < 22)
+                                hello = 'Dobry wieczór';
+                              else
+                                hello = 'Dobrej nocy';
+
                               print(snapshot.data);
                               final username = snapshot.data;
                               return Container(
-                                width: MediaQuery.of(context).size.width * 0.65,
+                                width: MediaQuery.of(context).size.width * 0.6,
                                 child: AutoSizeText(
                                   '$hello, $username',
                                   overflow: TextOverflow.fade,
@@ -329,6 +336,30 @@ class _Zalogowany extends State<Zalogowany> {
                     )
                   ],
                 ),
+                Container(
+                  width: 30,
+                  height: 30,
+                  child: GestureDetector(
+                    onTap: () {
+                      Image icon = Image.asset(
+                        'assets/skllogo.png',
+                        height: 50,
+                        width: 50,
+                      );
+                      showAboutDialog(
+                          context: context,
+                          applicationVersion: '1.0.0',
+                          applicationName: "Składappka",
+                          applicationLegalese:
+                              'Poniżej zawarto wszystkie licjencje użytych paczek.',
+                          applicationIcon: icon);
+                    },
+                    child: Icon(
+                      Icons.more_horiz,
+                      color: Colors.white,
+                    ),
+                  ),
+                )
               ],
             ),
           ),
@@ -542,16 +573,23 @@ class _Zalogowany extends State<Zalogowany> {
                                   Text("Czy na pewno chcesz się wylogować?"),
                               actions: [
                                 TextButton(
-                                    onPressed: () async {
-                                      logout();
-                                      Navigator.pop(context);
-                                    },
-                                    child: Text('Tak',style: TextStyle(color: Colors.black),),),
+                                  onPressed: () async {
+                                    logout();
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    'Tak',
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                ),
                                 TextButton(
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    child: Text('Nie',style: TextStyle(color: Colors.black),))
+                                    child: Text(
+                                      'Nie',
+                                      style: TextStyle(color: Colors.black),
+                                    ))
                               ],
                             );
                           });
