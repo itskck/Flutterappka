@@ -555,7 +555,7 @@ class _dodaj extends State<dodaj> {
       addButton('CPU', "PROCESOR"),
       addButton('PSU', 'ZASILACZ'),
       addButton('MTBRD', 'PŁYTA GŁÓWNA'),
-      addButton('DRIVE', 'DYSK'),
+      addButton('DRIVE', 'DYSK SYSTEMOWY'),
       addButton('RAM', 'RAM'),
       addButton('CASE', 'OBUDOWA'),
       addButton('GPU', 'KARTA GRAFICZNA'),
