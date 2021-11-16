@@ -37,13 +37,13 @@ class _rateComponents extends State<rateComponents>{
         if(Glowna.connectivityResult==ConnectivityResult.none)
           Fluttertoast.showToast(msg: "Brak połączenia z internetem",
               toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
+              gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 2);
         else {
           if (await getFromCode(code: value).corrCode() == false) {
             Fluttertoast.showToast(msg: "Błędny kod",
                 toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
+                gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 2);
           } else {
             rateComponents.builds = await getFromCode(code: value).getBuild();
@@ -51,6 +51,7 @@ class _rateComponents extends State<rateComponents>{
           }
         }
       } ,
+      style: TextStyle(color: Colors.white),
       textAlign: TextAlign.center,
       decoration: InputDecoration(hintText: 'Wpisz kod zestawu',
         hintStyle: TextStyle(
@@ -109,13 +110,13 @@ class _rateComponents extends State<rateComponents>{
           if(Glowna.connectivityResult==ConnectivityResult.none)
             Fluttertoast.showToast(msg: "Brak połączenia z internetem",
                 toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
+                gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 2);
           else {
             if (globalna.czyZalogowany == "czyZalogowany=false") {
               Fluttertoast.showToast(msg: "Musisz się zalogować",
                   toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
+                  gravity: ToastGravity.BOTTOM,
                   timeInSecForIosWeb: 2);
             } else {
               await dialogWidgetForCompare().showPopup(context, 0);
@@ -142,7 +143,7 @@ class _rateComponents extends State<rateComponents>{
                 if (globalna.czyZalogowany == "czyZalogowany=false") {
                   Fluttertoast.showToast(msg: "Musisz być zalogowany",
                       toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
+                      gravity: ToastGravity.BOTTOM,
                       timeInSecForIosWeb: 2);
                 } else {
                   await dialogWidgetForCompare().showPopup(context,

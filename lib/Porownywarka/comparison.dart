@@ -4,11 +4,12 @@ import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skladappka/Firebase/Drive.dart';
 import 'package:skladappka/dodawanieZestawu/dodaj.dart';
+import '../main.dart';
 import 'Porownywarka.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
-
+import 'package:skladappka/Globalne.dart' as globalna;
 class Comparison extends StatefulWidget {
   const Comparison({Key key}) : super(key: key);
 
@@ -200,6 +201,7 @@ class _Comparison extends State<Comparison> {
       String side, bool isThere, String compType) {
     TextDirection td;
     String component = comp.manufacturer + " " + comp.model;
+    if(component.length>20)component=comp.model;
 
     Alignment al;
     CrossAxisAlignment crossAxisAlignment;
@@ -293,7 +295,8 @@ class _Comparison extends State<Comparison> {
                       AutoSizeText(
                         component,
                         maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                        overflow: TextOverflow.fade,
+                        softWrap: false,
                         style: TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.w800,
@@ -399,95 +402,111 @@ class _Comparison extends State<Comparison> {
     capacity2 += int.parse(Porownywarka.chosenDrive2.capacity);
     capacity1 > capacity2 ? max = capacity1 : max = capacity1;
 
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    return Container(
+      margin: EdgeInsets.only(top: 5),
+      child: Stack(
         children: [
-          Container(
-              child: Text(
-            'Całkowita pamięć systemów',
-            style: TextStyle(color: Colors.white),
-          )),
-          Container(
-              margin: EdgeInsets.only(bottom: 5),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width * 0.45,
-                height: 1,
-                child: Container(
-                  color: Colors.white,
-                ),
-              )),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Row(
-                textDirection: TextDirection.rtl,
-                children: [
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    width: 10,
-                    height: 10,
-                    color: Colors.pink,
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        'Lewy zestaw',
-                        style: TextStyle(color: Colors.white),
+          Center(
+            child: Container(
+              
+              width: MediaQuery.of(context).size.width * 0.45,
+              height: 30,
+              color: Color.fromRGBO(59, 55, 68, 1),
+            ),
+          ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                     margin: EdgeInsets.only(bottom: 5),
+                    child: Text(
+                  'Całkowita pamięć systemów',
+                  style: TextStyle(color: Colors.white),
+                )),
+                Container(
+                   
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.45,
+                      height: 1,
+                      child: Container(
+                        color: Colors.white,
                       ),
-                      Text(
-                        capacity1.toString() + ' GB',
-                        style: TextStyle(color: Colors.white),
-                      )
-                    ],
-                  )
-                ],
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.3,
-                height: MediaQuery.of(context).size.width * 0.3,
-                child: PieChart(PieChartData(
-                    startDegreeOffset: 55,
-                    sectionsSpace: 5,
-                    centerSpaceRadius: 40,
-                    sections: [
-                      PieChartSectionData(
-                          showTitle: false,
-                          value: capacity1.toDouble(),
-                          radius: 20,
+                    )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
+                      textDirection: TextDirection.rtl,
+                      children: [
+                        Container(
+                          margin: EdgeInsets.all(10),
+                          width: 10,
+                          height: 10,
                           color: Colors.pink,
-                          titleStyle: TextStyle(color: Colors.white,fontSize: 18)),
-                      PieChartSectionData(
-                          showTitle: false,
-                          value: capacity2.toDouble(),
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Lewy zestaw',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Text(
+                              capacity1.toString() + ' GB',
+                              style: TextStyle(color: Colors.white),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.35,
+                      height: MediaQuery.of(context).size.width * 0.35,
+                      child: PieChart(PieChartData(
+                          startDegreeOffset: 55,
+                          sectionsSpace: 5,
+                          centerSpaceRadius: 40,
+                          sections: [
+                            PieChartSectionData(
+                                showTitle: false,
+                                value: capacity1.toDouble(),
+                                radius: 20,
+                                color: Colors.pink,
+                                titleStyle: TextStyle(color: Colors.white,fontSize: 18)),
+                            PieChartSectionData(
+                                showTitle: false,
+                                value: capacity2.toDouble(),
+                                color: Colors.lightBlue,
+                                radius: 20,
+                                titleStyle: TextStyle(color: Colors.white,fontSize: 18))
+                          ])),
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.all(10),
+                          width: 10,
+                          height: 10,
                           color: Colors.lightBlue,
-                          radius: 20,
-                          titleStyle: TextStyle(color: Colors.white,fontSize: 18))
-                    ])),
-              ),
-              Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    width: 10,
-                    height: 10,
-                    color: Colors.lightBlue,
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        'Prawy zestaw',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Text(
-                        capacity2.toString() + ' GB',
-                        style: TextStyle(color: Colors.white),
-                      )
-                    ],
-                  ),
-                ],
-              )
-            ],
+                        ),
+                        Column(
+                          children: [
+                            Text(
+                              'Prawy zestaw',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            Text(
+                              capacity2.toString() + ' GB',
+                              style: TextStyle(color: Colors.white),
+                            )
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -529,7 +548,7 @@ class _Comparison extends State<Comparison> {
         Container(
           alignment: Alignment(0, -0.8),
           child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.6,
+            height: MediaQuery.of(context).size.height * 0.55,
             width: 1,
             child: Container(
               decoration: BoxDecoration(
@@ -673,26 +692,6 @@ class _Comparison extends State<Comparison> {
                       true,
                       'Dysk systemowy: '),
 
-                  /* componentBar(
-                      build1[6],
-                      Image.asset('assets/companies logo/' +
-                          build1[6].manufacturer.toString().toLowerCase() +
-                          '.png'),
-                      0,
-                      'left',
-                      true),
-                  componentBar(
-                      build1[7],
-                      build1[7].manufacturer != 'placeholder'
-                          ? Image.asset('assets/companies logo/' +
-                              build1[7].manufacturer.toString().toLowerCase() +
-                              '.png')
-                          : Image.asset('assets/companies logo/' +
-                              build1[0].manufacturer.toString().toLowerCase() +
-                              '.png'),
-                      0,
-                      'left',
-                      build1[7] != null ? true : false),*/
                 ]),
                 buildColumn('right', [
                   componentBar(
@@ -740,27 +739,6 @@ class _Comparison extends State<Comparison> {
                       'right',
                       true,
                       'Dysk systemowy: '),
-
-                  /* componentBar(
-                      build2[6],
-                      Image.asset('assets/companies logo/' +
-                          build2[6].manufacturer.toString().toLowerCase() +
-                          '.png'),
-                      0,
-                      'right',
-                      true),
-                  componentBar(
-                      build2[7],
-                      build2[7].manufacturer != 'placeholder'
-                          ? Image.asset('assets/companies logo/' +
-                              build2[7].manufacturer.toString().toLowerCase() +
-                              '.png')
-                          : Image.asset('assets/companies logo/' +
-                              build2[0].manufacturer.toString().toLowerCase() +
-                              '.png'),
-                      0,
-                      'right',
-                      build2[7] != null ? true : false),*/
                 ])
               ],
             ),
@@ -818,6 +796,35 @@ class _Comparison extends State<Comparison> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(100)),
                     child: Icon(Icons.info,
+                        color: Color.fromRGBO(59, 55, 68, 1), size: 40)),
+              ],
+            ),
+          ),
+        ),
+        GestureDetector(
+          onTap: () {
+              Porownywarka(); 
+              inicjalizuj(null);
+              
+          },
+          child: Align(
+            alignment: Alignment(-1, 0.95),
+            child: Stack(
+              alignment: AlignmentDirectional.centerStart,
+              children: [
+                Container(
+                  width: 20,
+                  height: 40,
+                  color: Colors.white,                 
+                ),
+                Container(
+                    width: 50,
+                    height: 40,
+                    alignment: Alignment(1, 0),
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(100)),
+                    child: Icon(Icons.arrow_back,
                         color: Color.fromRGBO(59, 55, 68, 1), size: 40)),
               ],
             ),

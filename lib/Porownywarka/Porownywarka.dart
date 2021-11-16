@@ -92,13 +92,13 @@ class _Porownywarka extends State<Porownywarka> {
           if(Glowna.connectivityResult==ConnectivityResult.none)
             Fluttertoast.showToast(msg: "Brak połączenia z internetem",
                 toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
+                gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 2);
           else {
             if (await getFromCode(code: value).corrCode() == false) {
               Fluttertoast.showToast(msg: "Błędny kod",
                   toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
+                  gravity: ToastGravity.BOTTOM,
                   timeInSecForIosWeb: 2);
             } else {
               print('dobry kodzik lewo');
@@ -110,11 +110,13 @@ class _Porownywarka extends State<Porownywarka> {
             }
           }
         },
+        style: TextStyle(color: Colors.white),
         textAlign: TextAlign.center,
         decoration: InputDecoration(
           hintText: 'Wpisz kod zestawu',
           counterText: "",
-          hintStyle: TextStyle(
+          
+          hintStyle: TextStyle(            
             fontFamily: GoogleFonts.workSans().fontFamily,
             color: Colors.white,
             fontSize: 17,
@@ -165,13 +167,13 @@ class _Porownywarka extends State<Porownywarka> {
                     if(Glowna.connectivityResult==ConnectivityResult.none)
                       Fluttertoast.showToast(msg: "Brak połączenia z internetem",
                           toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
+                          gravity: ToastGravity.BOTTOM,
                           timeInSecForIosWeb: 2);
                     else {
                       if (globalna.czyZalogowany == "czyZalogowany=false") {
                         Fluttertoast.showToast(msg: "Musisz się zalogować",
                             toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.CENTER,
+                            gravity: ToastGravity.BOTTOM,
                             timeInSecForIosWeb: 2);
                       } else {
                         await dialogWidgetForCompare().showPopup(context,
@@ -278,13 +280,13 @@ class _Porownywarka extends State<Porownywarka> {
           if(Glowna.connectivityResult==ConnectivityResult.none)
             Fluttertoast.showToast(msg: "Brak połączenia z internetem",
                 toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
+                gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 2);
           else {
             if (await getFromCode(code: value).corrCode() == false) {
               Fluttertoast.showToast(msg: "Błędny kod",
                   toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
+                  gravity: ToastGravity.BOTTOM,
                   timeInSecForIosWeb: 2);
             } else {
               print('dobry kodzik prawo');
@@ -351,13 +353,13 @@ class _Porownywarka extends State<Porownywarka> {
                     if(Glowna.connectivityResult==ConnectivityResult.none)
                       Fluttertoast.showToast(msg: "Brak połączenia z internetem",
                           toastLength: Toast.LENGTH_SHORT,
-                          gravity: ToastGravity.CENTER,
+                          gravity: ToastGravity.BOTTOM,
                           timeInSecForIosWeb: 2);
                     else {
                       if (globalna.czyZalogowany == "czyZalogowany=false") {
                         Fluttertoast.showToast(msg: "Musisz się zalogować",
                             toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.CENTER,
+                            gravity: ToastGravity.BOTTOM,
                             timeInSecForIosWeb: 2);
                       } else {
                         await dialogWidgetForCompare().showPopup(context,

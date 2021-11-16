@@ -39,14 +39,14 @@ class dodaj extends StatefulWidget with ChangeNotifier {
   static bool usedNvme = true;
   static int pom1 = 8;
   static int slots = 0;
-  static double iloscRam=1.0;
+  static double iloscRam = 1.0;
+  static double minTdp = 0.0;
+  static double maxTdp = 0.0;
   @override
   _dodaj createState() => _dodaj();
 }
 
 class _dodaj extends State<dodaj> {
-  var minTdp = 0.0, maxTdp = 0.0;
-
   final FireBase base = FireBase();
   final Logo logo = Logo();
   String pom;
@@ -54,7 +54,7 @@ class _dodaj extends State<dodaj> {
   @override
   initState() {
     print("raz dwa trzy");
-    if(dodaj.chosenMtb==null) {
+    if (dodaj.chosenMtb == null) {
       dodaj.extraDrives = new List<Drive>();
       dodaj.extra = -1;
       dodaj.usedNvme = true;
@@ -65,7 +65,6 @@ class _dodaj extends State<dodaj> {
   }
 
   dialogWidget dialogwidget = new dialogWidget();
-
 
   Widget componentsList(String component) {
     return Container(
@@ -80,29 +79,29 @@ class _dodaj extends State<dodaj> {
           if (Glowna.connectivityResult != ConnectivityResult.none) {
             if (dodaj.chosenGpu != null) if (dodaj.chosenGpu.integra == true)
               dodaj.chosenGpu = null;
-            if(component=="RAM" && dodaj.chosenMtb==null)
+            if (component == "RAM" && dodaj.chosenMtb == null)
               Fluttertoast.showToast(
                   msg: "Wybierz najpierw płytę główną",
                   toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
+                  gravity: ToastGravity.BOTTOM,
                   timeInSecForIosWeb: 2);
             else
               await dialogwidget.showPopup(context, component, base);
             if (component == 'CPU' && dodaj.chosenCpu != null) {
-              minTdp += double.parse(dodaj.chosenCpu.tdp) * 0.9;
-              maxTdp += double.parse(dodaj.chosenCpu.tdp);
+              dodaj.minTdp += double.parse(dodaj.chosenCpu.tdp) * 0.9;
+              dodaj.maxTdp += double.parse(dodaj.chosenCpu.tdp);
               base.cpuSocket = dodaj.chosenCpu.socket;
             } else {
               if (component == 'CSTM COOLER' && dodaj.chosenCooler != null) {
-                minTdp += 1.0;
-                maxTdp += 2.0;
+                dodaj.minTdp += 1.0;
+                dodaj.maxTdp += 2.0;
                 base.coolerSocket = dodaj.chosenCooler.socket;
               }
             }
 
             if (component == 'MTBRD' && dodaj.chosenMtb != null) {
-              minTdp += 50;
-              maxTdp += 150;
+              dodaj.minTdp += 50;
+              dodaj.maxTdp += 150;
               base.mtbRamType = dodaj.chosenMtb.ramType;
               base.mtbNvmeSlot = dodaj.chosenMtb.hasNvmeSlot;
               base.mtbSocket = dodaj.chosenMtb.socket;
@@ -110,11 +109,11 @@ class _dodaj extends State<dodaj> {
             }
             if (component == 'DRIVE' && dodaj.chosenDrive != null) {
               if (dodaj.chosenDrive.type == "HDD") {
-                minTdp += 1.5;
-                maxTdp += 2.5;
+                dodaj.minTdp += 1.5;
+                dodaj.maxTdp += 2.5;
               } else {
-                minTdp += 0.5;
-                maxTdp += 1;
+                dodaj.minTdp += 0.5;
+                dodaj.maxTdp += 1;
               }
               base.driveConnectionType = dodaj.chosenDrive.connectionType;
             }
@@ -124,18 +123,18 @@ class _dodaj extends State<dodaj> {
             }
 
             if (component == 'RAM' && dodaj.chosenRam != null) {
-              minTdp += dodaj.iloscRam*30;
-              maxTdp += dodaj.iloscRam*60;
+              dodaj.minTdp += dodaj.iloscRam * 30;
+              dodaj.maxTdp += dodaj.iloscRam * 60;
               base.ramRamType = dodaj.chosenRam.type;
             }
             if (component == 'GPU' && dodaj.chosenGpu != null) {
-              minTdp += double.parse(dodaj.chosenGpu.tdp);
-              maxTdp += double.parse(dodaj.chosenGpu.tdp);
+              dodaj.minTdp += double.parse(dodaj.chosenGpu.tdp);
+              dodaj.maxTdp += double.parse(dodaj.chosenGpu.tdp);
             }
-            if(component == 'EXTRA DRIVE'){
-              for(int i=0;i<dodaj.extraDrives.length;i++){
-                if(dodaj.extraDrives[i].connectionType=="NVMe")
-                  base.mtbNvmeSlot=false;
+            if (component == 'EXTRA DRIVE') {
+              for (int i = 0; i < dodaj.extraDrives.length; i++) {
+                if (dodaj.extraDrives[i].connectionType == "NVMe")
+                  base.mtbNvmeSlot = false;
               }
             }
             setState(() {});
@@ -143,7 +142,7 @@ class _dodaj extends State<dodaj> {
             Fluttertoast.showToast(
                 msg: "Brak połączenia z internetem",
                 toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
+                gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 2);
         },
         child: Container(
@@ -272,8 +271,8 @@ class _dodaj extends State<dodaj> {
                   switch (component) {
                     case 'CPU':
                       setState(() {
-                        minTdp -= double.parse(dodaj.chosenCpu.tdp) * 0.9;
-                        maxTdp -= double.parse(dodaj.chosenCpu.tdp);
+                        dodaj.minTdp -= double.parse(dodaj.chosenCpu.tdp) * 0.9;
+                        dodaj.maxTdp -= double.parse(dodaj.chosenCpu.tdp);
                         base.cpuSocket = null;
                         if (dodaj.chosenGpu != null) if (dodaj
                                     .chosenCpu.hasGpu !=
@@ -289,26 +288,26 @@ class _dodaj extends State<dodaj> {
                       });
                       break;
                     case 'GPU':
-                      minTdp -= double.parse(dodaj.chosenGpu.tdp);
-                      maxTdp -= double.parse(dodaj.chosenGpu.tdp);
+                      dodaj.minTdp -= double.parse(dodaj.chosenGpu.tdp);
+                      dodaj.maxTdp -= double.parse(dodaj.chosenGpu.tdp);
                       setState(() {
                         dodaj.chosenGpu = null;
                       });
                       break;
                     case 'CSTM COOLER':
-                      minTdp -= 1.0;
-                      maxTdp -= 2.0;
+                      dodaj.minTdp -= 1.0;
+                      dodaj.maxTdp -= 2.0;
                       setState(() {
                         base.coolerSocket = null;
                         dodaj.chosenCooler = null;
                       });
                       break;
                     case 'MTBRD':
-                      minTdp -= 50;
-                      maxTdp -= 150;
-                      if(dodaj.chosenRam!=null) {
-                        minTdp -= 30*dodaj.iloscRam;
-                        maxTdp -= 60*dodaj.iloscRam;
+                      dodaj.minTdp -= 50;
+                      dodaj.maxTdp -= 150;
+                      if (dodaj.chosenRam != null) {
+                        dodaj.minTdp -= 30 * dodaj.iloscRam;
+                        dodaj.maxTdp -= 60 * dodaj.iloscRam;
                       }
                       setState(() {
                         base.mtbRamType = null;
@@ -322,8 +321,8 @@ class _dodaj extends State<dodaj> {
                         dodaj.usedNvme = true;
                         dodaj.pom1 = 8;
                         dodaj.slots = 0;
-                        if(dodaj.chosenRam!=null){
-                          dodaj.iloscRam=1;
+                        if (dodaj.chosenRam != null) {
+                          dodaj.iloscRam = 1;
                           base.ramRamType = null;
                           dodaj.chosenRam = null;
                         }
@@ -331,14 +330,14 @@ class _dodaj extends State<dodaj> {
                       break;
                     case 'DRIVE':
                       if (dodaj.chosenDrive.type == "HDD") {
-                        minTdp -= 1.5;
-                        maxTdp -= 2.5;
+                        dodaj.minTdp -= 1.5;
+                        dodaj.maxTdp -= 2.5;
                       } else {
-                        minTdp -= 0.5;
-                        maxTdp -= 1;
+                        dodaj.minTdp -= 0.5;
+                        dodaj.maxTdp -= 1;
                       }
-                      if(dodaj.chosenDrive.connectionType=="NVMe")
-                        dodaj.usedNvme=false;
+                      if (dodaj.chosenDrive.connectionType == "NVMe")
+                        dodaj.usedNvme = false;
                       //dodaj.slots++;
                       setState(() {
                         base.driveConnectionType = null;
@@ -352,163 +351,173 @@ class _dodaj extends State<dodaj> {
                       });
                       break;
                     case 'RAM':
-                      minTdp -= 30*dodaj.iloscRam;
-                      maxTdp -= 60*dodaj.iloscRam;
+                      dodaj.minTdp -= 30 * dodaj.iloscRam;
+                      dodaj.maxTdp -= 60 * dodaj.iloscRam;
                       setState(() {
                         base.ramRamType = null;
                         dodaj.chosenRam = null;
-                        dodaj.iloscRam=1;
+                        dodaj.iloscRam = 1;
                       });
                       break;
                     case 'EXTRA DRIVE':
                       switch (background) {
                         case 'DODATKOWY DYSK 10':
                           print("Ja przepraszam zabladzilem");
-                          if(dodaj.extraDrives[9].connectionType=="NVMe")
-                            base.mtbNvmeSlot=true;
+                          if (dodaj.extraDrives[9].connectionType == "NVMe")
+                            base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[9].type == 'HDD') {
-                            minTdp -= 1.5;
-                            maxTdp -= 2.5;
+                            dodaj.minTdp -= 1.5;
+                            dodaj.maxTdp -= 2.5;
                           } else {
-                            minTdp -= 0.5;
-                            maxTdp -= 1;
+                            dodaj.minTdp -= 0.5;
+                            dodaj.maxTdp -= 1;
                           }
-                          if(dodaj.extraDrives[9].connectionType=="NVMe") dodaj.usedNvme=false;
+                          if (dodaj.extraDrives[9].connectionType == "NVMe")
+                            dodaj.usedNvme = false;
                           setState(() {
                             dodaj.extraDrives.removeAt(9);
                           });
                           break;
                         case 'DODATKOWY DYSK 1':
-                          if(dodaj.extraDrives[0].connectionType=="NVMe")
-                            base.mtbNvmeSlot=true;
+                          if (dodaj.extraDrives[0].connectionType == "NVMe")
+                            base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[0].type == 'HDD') {
-                            minTdp -= 1.5;
-                            maxTdp -= 2.5;
+                            dodaj.minTdp -= 1.5;
+                            dodaj.maxTdp -= 2.5;
                           } else {
-                            minTdp -= 0.5;
-                            maxTdp -= 1;
+                            dodaj.minTdp -= 0.5;
+                            dodaj.maxTdp -= 1;
                           }
-                          if(dodaj.extraDrives[0].connectionType=="NVMe") dodaj.usedNvme=false;
+                          if (dodaj.extraDrives[0].connectionType == "NVMe")
+                            dodaj.usedNvme = false;
                           setState(() {
                             dodaj.extraDrives.removeAt(0);
                           });
                           break;
                         case 'DODATKOWY DYSK 2':
-                          if(dodaj.extraDrives[1].connectionType=="NVMe")
-                            base.mtbNvmeSlot=true;
+                          if (dodaj.extraDrives[1].connectionType == "NVMe")
+                            base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[1].type == 'HDD') {
-                            minTdp -= 1.5;
-                            maxTdp -= 2.5;
+                            dodaj.minTdp -= 1.5;
+                            dodaj.maxTdp -= 2.5;
                           } else {
-                            minTdp -= 0.5;
-                            maxTdp -= 1;
+                            dodaj.minTdp -= 0.5;
+                            dodaj.maxTdp -= 1;
                           }
-                          if(dodaj.extraDrives[1].connectionType=="NVMe") dodaj.usedNvme=false;
+                          if (dodaj.extraDrives[1].connectionType == "NVMe")
+                            dodaj.usedNvme = false;
                           setState(() {
                             dodaj.extraDrives.removeAt(1);
                           });
                           break;
                         case 'DODATKOWY DYSK 3':
-                          if(dodaj.extraDrives[2].connectionType=="NVMe")
-                            base.mtbNvmeSlot=true;
+                          if (dodaj.extraDrives[2].connectionType == "NVMe")
+                            base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[2].type == 'HDD') {
-                            minTdp -= 1.5;
-                            maxTdp -= 2.5;
+                            dodaj.minTdp -= 1.5;
+                            dodaj.maxTdp -= 2.5;
                           } else {
-                            minTdp -= 0.5;
-                            maxTdp -= 1;
+                            dodaj.minTdp -= 0.5;
+                            dodaj.maxTdp -= 1;
                           }
-                          if(dodaj.extraDrives[2].connectionType=="NVMe") dodaj.usedNvme=false;
+                          if (dodaj.extraDrives[2].connectionType == "NVMe")
+                            dodaj.usedNvme = false;
                           setState(() {
                             dodaj.extraDrives.removeAt(2);
                           });
                           break;
                         case 'DODATKOWY DYSK 4':
-                          if(dodaj.extraDrives[3].connectionType=="NVMe")
-                            base.mtbNvmeSlot=true;
+                          if (dodaj.extraDrives[3].connectionType == "NVMe")
+                            base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[3].type == 'HDD') {
-                            minTdp -= 1.5;
-                            maxTdp -= 2.5;
+                            dodaj.minTdp -= 1.5;
+                            dodaj.maxTdp -= 2.5;
                           } else {
-                            minTdp -= 0.5;
-                            maxTdp -= 1;
+                            dodaj.minTdp -= 0.5;
+                            dodaj.maxTdp -= 1;
                           }
-                          if(dodaj.extraDrives[3].connectionType=="NVMe") dodaj.usedNvme=false;
+                          if (dodaj.extraDrives[3].connectionType == "NVMe")
+                            dodaj.usedNvme = false;
                           setState(() {
                             dodaj.extraDrives.removeAt(3);
                           });
                           break;
                         case 'DODATKOWY DYSK 5':
-                          if(dodaj.extraDrives[4].connectionType=="NVMe")
-                            base.mtbNvmeSlot=true;
+                          if (dodaj.extraDrives[4].connectionType == "NVMe")
+                            base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[4].type == 'HDD') {
-                            minTdp -= 1.5;
-                            maxTdp -= 2.5;
+                            dodaj.minTdp -= 1.5;
+                            dodaj.maxTdp -= 2.5;
                           } else {
-                            minTdp -= 0.5;
-                            maxTdp -= 1;
+                            dodaj.minTdp -= 0.5;
+                            dodaj.maxTdp -= 1;
                           }
-                          if(dodaj.extraDrives[4].connectionType=="NVMe") dodaj.usedNvme=false;
+                          if (dodaj.extraDrives[4].connectionType == "NVMe")
+                            dodaj.usedNvme = false;
                           setState(() {
                             dodaj.extraDrives.removeAt(4);
                           });
                           break;
                         case 'DODATKOWY DYSK 6':
-                          if(dodaj.extraDrives[5].connectionType=="NVMe")
-                            base.mtbNvmeSlot=true;
+                          if (dodaj.extraDrives[5].connectionType == "NVMe")
+                            base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[5].type == 'HDD') {
-                            minTdp -= 1.5;
-                            maxTdp -= 2.5;
+                            dodaj.minTdp -= 1.5;
+                            dodaj.maxTdp -= 2.5;
                           } else {
-                            minTdp -= 0.5;
-                            maxTdp -= 1;
+                            dodaj.minTdp -= 0.5;
+                            dodaj.maxTdp -= 1;
                           }
-                          if(dodaj.extraDrives[5].connectionType=="NVMe") dodaj.usedNvme=false;
+                          if (dodaj.extraDrives[5].connectionType == "NVMe")
+                            dodaj.usedNvme = false;
                           setState(() {
                             dodaj.extraDrives.removeAt(5);
                           });
                           break;
                         case 'DODATKOWY DYSK 7':
-                          if(dodaj.extraDrives[6].connectionType=="NVMe")
-                            base.mtbNvmeSlot=true;
+                          if (dodaj.extraDrives[6].connectionType == "NVMe")
+                            base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[6].type == 'HDD') {
-                            minTdp -= 1.5;
-                            maxTdp -= 2.5;
+                            dodaj.minTdp -= 1.5;
+                            dodaj.maxTdp -= 2.5;
                           } else {
-                            minTdp -= 0.5;
-                            maxTdp -= 1;
+                            dodaj.minTdp -= 0.5;
+                            dodaj.maxTdp -= 1;
                           }
-                          if(dodaj.extraDrives[6].connectionType=="NVMe") dodaj.usedNvme=false;
+                          if (dodaj.extraDrives[6].connectionType == "NVMe")
+                            dodaj.usedNvme = false;
                           setState(() {
                             dodaj.extraDrives.removeAt(6);
                           });
                           break;
                         case 'DODATKOWY DYSK 8':
-                          if(dodaj.extraDrives[7].connectionType=="NVMe")
-                            base.mtbNvmeSlot=true;
+                          if (dodaj.extraDrives[7].connectionType == "NVMe")
+                            base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[7].type == 'HDD') {
-                            minTdp -= 1.5;
-                            maxTdp -= 2.5;
+                            dodaj.minTdp -= 1.5;
+                            dodaj.maxTdp -= 2.5;
                           } else {
-                            minTdp -= 0.5;
-                            maxTdp -= 1;
+                            dodaj.minTdp -= 0.5;
+                            dodaj.maxTdp -= 1;
                           }
-                          if(dodaj.extraDrives[7].connectionType=="NVMe") dodaj.usedNvme=false;
+                          if (dodaj.extraDrives[7].connectionType == "NVMe")
+                            dodaj.usedNvme = false;
                           setState(() {
                             dodaj.extraDrives.removeAt(7);
                           });
                           break;
                         case 'DODATKOWY DYSK 9':
-                          if(dodaj.extraDrives[8].connectionType=="NVMe")
-                            base.mtbNvmeSlot=true;
+                          if (dodaj.extraDrives[8].connectionType == "NVMe")
+                            base.mtbNvmeSlot = true;
                           if (dodaj.extraDrives[8].type == 'HDD') {
-                            minTdp -= 1.5;
-                            maxTdp -= 2.5;
+                            dodaj.minTdp -= 1.5;
+                            dodaj.maxTdp -= 2.5;
                           } else {
-                            minTdp -= 0.5;
-                            maxTdp -= 1;
+                            dodaj.minTdp -= 0.5;
+                            dodaj.maxTdp -= 1;
                           }
-                          if(dodaj.extraDrives[8].connectionType=="NVMe") dodaj.usedNvme=false;
+                          if (dodaj.extraDrives[8].connectionType == "NVMe")
+                            dodaj.usedNvme = false;
                           setState(() {
                             dodaj.extraDrives.removeAt(8);
                           });
@@ -636,7 +645,7 @@ class _dodaj extends State<dodaj> {
       print('wykonuje sie');
       setState(() {
         for (int i = 0; i < dodaj.extra + 1; i++) {
-          var pom=i+1;
+          var pom = i + 1;
           dodaj.panelsGrid[i + 8] = itemFrame(dodaj.extraDrives[i].model,
               'EXTRA DRIVE', dodaj.extraDrives[i].img, 'DODATKOWY DYSK $pom');
         }
@@ -683,13 +692,13 @@ class _dodaj extends State<dodaj> {
                   Fluttertoast.showToast(
                       msg: "Brak połączenia z internetem",
                       toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
+                      gravity: ToastGravity.BOTTOM,
                       timeInSecForIosWeb: 2);
                 else if (globalna.czyZalogowany == "czyZalogowany=false")
                   Fluttertoast.showToast(
                       msg: "Musisz być zalogowany",
                       toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.CENTER,
+                      gravity: ToastGravity.BOTTOM,
                       timeInSecForIosWeb: 2);
                 else {
                   if (dodaj.chosenGpu == null && dodaj.chosenCpu != null)
@@ -741,8 +750,8 @@ class _dodaj extends State<dodaj> {
                                             chosenPsu: dodaj.chosenPsu,
                                             chosenRam: dodaj.chosenRam,
                                             extraDrive: dodaj.extraDrives,
-                                            minTdp: minTdp,
-                                            maxTdp: maxTdp,
+                                            minTdp: dodaj.minTdp,
+                                            maxTdp: dodaj.maxTdp,
                                             iloscRam: dodaj.iloscRam)
                                         .addBuildData();
                                     dodaj.chosenCooler = null;
@@ -796,8 +805,8 @@ class _dodaj extends State<dodaj> {
                     dodaj.chosenMtb = null;
                     dodaj.chosenPsu = null;
                     dodaj.chosenRam = null;
-                    minTdp = 0.0;
-                    maxTdp = 0.0;
+                    dodaj.minTdp = 0.0;
+                    dodaj.maxTdp = 0.0;
                     dodaj.extraDrives = new List<Drive>();
                     dodaj.extra = -1;
                     dodaj.usedNvme = true;
@@ -807,9 +816,9 @@ class _dodaj extends State<dodaj> {
                 }),
             SpeedDialChild(
                 label: 'Szacowane zużycie mocy:\n' +
-                    minTdp.toStringAsFixed(1) +
+                    dodaj.minTdp.toStringAsFixed(1) +
                     "W - " +
-                    maxTdp.toStringAsFixed(1) +
+                    dodaj.maxTdp.toStringAsFixed(1) +
                     "W")
           ],
         ),

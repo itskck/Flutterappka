@@ -37,13 +37,13 @@ class _choices extends State<choices>{
           if(Glowna.connectivityResult==ConnectivityResult.none)
             Fluttertoast.showToast(msg: "Brak połączenia z internetem",
                 toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
+                gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 2);
           else {
           if (await getFromCode(code: value).corrCode() == false) {
             Fluttertoast.showToast(msg: "Błędny kod",
                 toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
+                gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 2);
           } else {
             choices.builds = await getFromCode(code: value).getBuild();
@@ -52,7 +52,9 @@ class _choices extends State<choices>{
         }
       } ,
         textAlign: TextAlign.center,
+        style: TextStyle(color: Colors.white),
         decoration: InputDecoration(hintText: 'Wpisz kod zestawu',
+        
         hintStyle: TextStyle(
           fontFamily: GoogleFonts.workSans().fontFamily,    
           color: Colors.white,
@@ -109,13 +111,13 @@ class _choices extends State<choices>{
         if(Glowna.connectivityResult==ConnectivityResult.none)
           Fluttertoast.showToast(msg: "Brak połączenia z internetem",
               toastLength: Toast.LENGTH_SHORT,
-              gravity: ToastGravity.CENTER,
+              gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 2);
         else {
             if (globalna.czyZalogowany == "czyZalogowany=false") {
               Fluttertoast.showToast(msg: "Musisz się zalogować",
                   toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
+                  gravity: ToastGravity.BOTTOM,
                   timeInSecForIosWeb: 2);
             } else {
               await dialogWidgetForCompare().showPopup(context, 0);

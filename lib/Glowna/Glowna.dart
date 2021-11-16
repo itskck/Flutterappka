@@ -242,6 +242,9 @@ class _Glowna extends State<Glowna> {
           ),
           GestureDetector(
             onTap: () {
+              if(isChecked==true){
+                      filereader.save('tutorial=false','tutorialConfig');
+                    }   
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Skladapka()));
             },
@@ -288,9 +291,7 @@ class _Glowna extends State<Glowna> {
                 onChanged:(bool value){            
                   setState(()  {
                     isChecked=value;    
-                    if(value==true){
-                      filereader.save('tutorial=false','tutorialConfig');
-                    }          
+                           
                   });
                 }
                 ),

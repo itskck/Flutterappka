@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -267,12 +269,19 @@ class _Zalogowany extends State<Zalogowany> {
                           builder: (context, snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.done) {
+                              DateTime datetime = DateTime.now();
+                              String hello='';
+                              if(datetime.hour>6 && datetime.hour<12) hello='Dzień dobry';
+                              else if(datetime.hour>=12 && datetime.hour<18) hello='Słonecznego dnia';
+                              else if(datetime.hour>=18 && datetime.hour<22) hello='Dobry wieczór';
+                              else hello='Dobrej nocy';
+                              
                               print(snapshot.data);
                               final username = snapshot.data;
                               return Container(
-                                width: MediaQuery.of(context).size.width * 0.7,
+                                width: MediaQuery.of(context).size.width * 0.65,
                                 child: AutoSizeText(
-                                  'Witaj, $username',
+                                  '$hello, $username',
                                   overflow: TextOverflow.fade,
                                   style: TextStyle(
                                       fontSize: 25,

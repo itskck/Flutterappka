@@ -149,7 +149,7 @@ class _SkladapkaState extends State<Skladapka> {
     rateComponents(),
     wczytajZestaw(czyWczytuje: false, builds: null),
     dodaj(),
-    Porownywarka(title: 'dodawanie'),
+    Porownywarka(),
     Logowanie(),
   ];
   final List<Image> avatarList = [
