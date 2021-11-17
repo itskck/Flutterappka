@@ -71,7 +71,7 @@ Future<void> main() async {
 
 void glowna() {
   return runApp(Container(
-    child: Glowna(title: 'Skladapka'),
+    child: Glowna(title: 'Składappka'),
   ));
 }
 
@@ -166,7 +166,7 @@ class _SkladapkaState extends State<Skladapka> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: appTheme(),
-        title: 'Skladapka',
+        title: 'Składappka',
         home: Scaffold(
           resizeToAvoidBottomInset: false,
           backgroundColor: appTheme().primaryColor,

@@ -543,294 +543,298 @@ class _Comparison extends State<Comparison> {
     print(Porownywarka.chosenCpu.benchScore.toString() +
         Porownywarka.chosenCpu2.benchScore.toString());
 
-    return Stack(
-      children: [
-        Container(
-          alignment: Alignment(0, -0.8),
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height * 0.55,
-            width: 1,
-            child: Container(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                colors: [
-                  Color.fromRGBO(142, 223, 255, 1),
-                  Color.fromRGBO(255, 0, 140, 1)
-                ],
-                end: Alignment.topCenter,
-                begin: Alignment.bottomCenter,
-              )),
-            ),
-          ),
-        ),
-        Column(
-          children: [
-            Container(
-                margin: EdgeInsets.symmetric(vertical: 15),
-                height: 30,
-                width: MediaQuery.of(context).size.width,
-                child: FutureBuilder<void>(
-                    future: getUserData(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.done)
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 2,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ClipRRect(
-                                      child: avatarList[avatarid1],
-                                      borderRadius: BorderRadius.circular(100)),
-                                  AutoSizeText(
-                                    'Zestaw użytkownika \n $username ',
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w800,
-                                        fontFamily:
-                                            GoogleFonts.workSans().fontFamily,
-                                        color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width / 2,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ClipRRect(
-                                      child: avatarList[avatarid2],
-                                      borderRadius: BorderRadius.circular(100)),
-                                  AutoSizeText(
-                                    'Zestaw użytkownika \n $username2',
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w800,
-                                        fontFamily:
-                                            GoogleFonts.workSans().fontFamily,
-                                        color: Colors.white),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        );
-                      if (snapshot.hasError)
-                        return Container();
-                      else
-                        return CircularProgressIndicator();
-                    })),
-            SizedBox(
-              height: 1,
-              width: MediaQuery.of(context).size.width * 0.95,
+    return SingleChildScrollView(
+      child: Stack(
+        children: [
+          Container(
+            alignment: Alignment(0, -0.8),
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.55,
+              width: 1,
               child: Container(
-                  child: Container(
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
                   colors: [
                     Color.fromRGBO(142, 223, 255, 1),
                     Color.fromRGBO(255, 0, 140, 1)
                   ],
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
+                  end: Alignment.topCenter,
+                  begin: Alignment.bottomCenter,
                 )),
-              )),
+              ),
             ),
-            Row(
-              children: [
-                buildColumn('left', [
-                  componentBar(
-                      build1[0],
-                      Image.asset('assets/companies logo/' +
-                          build1[0].manufacturer.toString().toLowerCase() +
-                          '.png'),
-                      cpuScore1,
-                      'left',
-                      true,
-                      'Procesor: '),
-                  componentBar(
-                      build1[1],
-                      Image.asset('assets/companies logo/' +
-                          build1[1].manufacturer.toString().toLowerCase() +
-                          '.png'),
-                      gpuScore1,
-                      'left',
-                      true,
-                      'Karta graficzna: '),
-                  componentBar(
-                      build1[2],
-                      Image.asset('assets/companies logo/' +
-                          build1[2].manufacturer.toString().toLowerCase() +
-                          '.png'),
-                      ramScore1,
-                      'left',
-                      true,
-                      'Ram: '),
-                  componentBar(
-                      build1[3],
-                      Image.asset('assets/companies logo/' +
-                          build1[3].manufacturer.toString().toLowerCase() +
-                          '.png'),
-                      psuScore1,
-                      'left',
-                      true,
-                      'Zasilacz: '),
-                  componentBar(
-                      build1[4],
-                      Image.asset('assets/companies logo/' +
-                          build1[4].manufacturer.toString().toLowerCase() +
-                          '.png'),
-                      driveScore1,
-                      'left',
-                      true,
-                      'Dysk systemowy: '),
-
-                ]),
-                buildColumn('right', [
-                  componentBar(
-                      build2[0],
-                      Image.asset('assets/companies logo/' +
-                          build2[0].manufacturer.toString().toLowerCase() +
-                          '.png'),
-                      cpuScore2,
-                      'right',
-                      true,
-                      'Procesor: '),
-                  componentBar(
-                      build2[1],
-                      Image.asset('assets/companies logo/' +
-                          build2[1].manufacturer.toString().toLowerCase() +
-                          '.png'),
-                      gpuScore2,
-                      'right',
-                      true,
-                      'Karta graficzna: '),
-                  componentBar(
-                      build2[2],
-                      Image.asset('assets/companies logo/' +
-                          build2[2].manufacturer.toString().toLowerCase() +
-                          '.png'),
-                      ramScore2,
-                      'right',
-                      true,
-                      'Ram: '),
-                  componentBar(
-                      build2[3],
-                      Image.asset('assets/companies logo/' +
-                          build2[3].manufacturer.toString().toLowerCase() +
-                          '.png'),
-                      psuScore2,
-                      'right',
-                      true,
-                      'Zasilacz: '),
-                  componentBar(
-                      build2[4],
-                      Image.asset('assets/companies logo/' +
-                          build2[4].manufacturer.toString().toLowerCase() +
-                          '.png'),
-                      driveScore2,
-                      'right',
-                      true,
-                      'Dysk systemowy: '),
-                ])
-              ],
-            ),
-            totalMem(),
-          ],
-        ),
-        GestureDetector(
-          onTap: () {
-            showDialog(
-                context: context,
-                builder: (BuildContext conctext) {
-                  return AlertDialog(
-                    title: Text('Jak działa porównywanie'),
-                    content: Wrap(
-                      children: [
-                        Text(
-                            'Ta strona określa szacowaną moc na postawie średnich wyników popularnych testów wydajności poszczególnych komponentów\n'),
-                        Text(
-                            'Dane te są szacunkowe i nie powinny decydować o ostatecznej ocenie komponentu\n\n\n\n'),
-                        Text('Legenda: SM - Szacunkowa moc')
-                      ],
-                    ),
-                    actions: [
-                      TextButton(
-                          onPressed: () {
-                            print('aaaaa 111');
-                            Navigator.pop(context);
-                          },
-                          child: Text(
-                            'Zrozumiano',
-                            style: TextStyle(
-                                color: Colors.black,
-                                decoration: TextDecoration.underline),
-                          ))
+          ),
+          Column(
+            children: [
+              Container(
+                  margin: EdgeInsets.symmetric(vertical: 15),
+                  height: 30,
+                  width: MediaQuery.of(context).size.width,
+                  child: FutureBuilder<void>(
+                      future: getUserData(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.done)
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 2,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ClipRRect(
+                                        child: avatarList[avatarid1],
+                                        borderRadius: BorderRadius.circular(100)),
+                                    AutoSizeText(
+                                      'Zestaw użytkownika \n $username ',
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w800,
+                                          fontFamily:
+                                              GoogleFonts.workSans().fontFamily,
+                                          color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 2,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ClipRRect(
+                                        child: avatarList[avatarid2],
+                                        borderRadius: BorderRadius.circular(100)),
+                                    AutoSizeText(
+                                      'Zestaw użytkownika \n $username2',
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w800,
+                                          fontFamily:
+                                              GoogleFonts.workSans().fontFamily,
+                                          color: Colors.white),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        if (snapshot.hasError)
+                          return Container();
+                        else
+                          return CircularProgressIndicator();
+                      })),
+              SizedBox(
+                height: 1,
+                width: MediaQuery.of(context).size.width * 0.95,
+                child: Container(
+                    child: Container(
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                    colors: [
+                      Color.fromRGBO(142, 223, 255, 1),
+                      Color.fromRGBO(255, 0, 140, 1)
                     ],
-                  );
-                });
-          },
-          child: Align(
-            alignment: Alignment(1, 0.95),
-            child: Stack(
-              alignment: AlignmentDirectional.centerEnd,
-              children: [
-                Container(
-                  width: 20,
-                  height: 40,
-                  color: Colors.white,
-                  alignment: Alignment(1, 0),
-                ),
-                Container(
-                    width: 50,
-                    height: 40,
-                    alignment: Alignment(-1, 0),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(100)),
-                    child: Icon(Icons.info,
-                        color: Color.fromRGBO(59, 55, 68, 1), size: 40)),
-              ],
-            ),
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                  )),
+                )),
+              ),
+              Row(
+                children: [
+                  buildColumn('left', [
+                    componentBar(
+                        build1[0],
+                        Image.asset('assets/companies logo/' +
+                            build1[0].manufacturer.toString().toLowerCase() +
+                            '.png'),
+                        cpuScore1,
+                        'left',
+                        true,
+                        'Procesor: '),
+                    componentBar(
+                        build1[1],
+                        Image.asset('assets/companies logo/' +
+                            build1[1].manufacturer.toString().toLowerCase() +
+                            '.png'),
+                        gpuScore1,
+                        'left',
+                        true,
+                        'Karta graficzna: '),
+                    componentBar(
+                        build1[2],
+                        Image.asset('assets/companies logo/' +
+                            build1[2].manufacturer.toString().toLowerCase() +
+                            '.png'),
+                        ramScore1,
+                        'left',
+                        true,
+                        'Ram: '),
+                    componentBar(
+                        build1[3],
+                        Image.asset('assets/companies logo/' +
+                            build1[3].manufacturer.toString().toLowerCase() +
+                            '.png'),
+                        psuScore1,
+                        'left',
+                        true,
+                        'Zasilacz: '),
+                    componentBar(
+                        build1[4],
+                        Image.asset('assets/companies logo/' +
+                            build1[4].manufacturer.toString().toLowerCase() +
+                            '.png'),
+                        driveScore1,
+                        'left',
+                        true,
+                        'Dysk systemowy: '),
+
+                  ]),
+                  buildColumn('right', [
+                    componentBar(
+                        build2[0],
+                        Image.asset('assets/companies logo/' +
+                            build2[0].manufacturer.toString().toLowerCase() +
+                            '.png'),
+                        cpuScore2,
+                        'right',
+                        true,
+                        'Procesor: '),
+                    componentBar(
+                        build2[1],
+                        Image.asset('assets/companies logo/' +
+                            build2[1].manufacturer.toString().toLowerCase() +
+                            '.png'),
+                        gpuScore2,
+                        'right',
+                        true,
+                        'Karta graficzna: '),
+                    componentBar(
+                        build2[2],
+                        Image.asset('assets/companies logo/' +
+                            build2[2].manufacturer.toString().toLowerCase() +
+                            '.png'),
+                        ramScore2,
+                        'right',
+                        true,
+                        'Ram: '),
+                    componentBar(
+                        build2[3],
+                        Image.asset('assets/companies logo/' +
+                            build2[3].manufacturer.toString().toLowerCase() +
+                            '.png'),
+                        psuScore2,
+                        'right',
+                        true,
+                        'Zasilacz: '),
+                    componentBar(
+                        build2[4],
+                        Image.asset('assets/companies logo/' +
+                            build2[4].manufacturer.toString().toLowerCase() +
+                            '.png'),
+                        driveScore2,
+                        'right',
+                        true,
+                        'Dysk systemowy: '),
+                  ])
+                ],
+              ),
+              totalMem(),
+            ],
           ),
-        ),
-        GestureDetector(
-          onTap: () {
-              Porownywarka(); 
-              inicjalizuj(null);
-              
-          },
-          child: Align(
-            alignment: Alignment(-1, 0.95),
-            child: Stack(
-              alignment: AlignmentDirectional.centerStart,
-              children: [
-                Container(
-                  width: 20,
-                  height: 40,
-                  color: Colors.white,                 
-                ),
-                Container(
-                    width: 50,
+          GestureDetector(
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext conctext) {
+                    return AlertDialog(
+                      title: Text('Jak działa porównywanie'),
+                      content: Wrap(
+                        children: [
+                          Text(
+                              'Ta strona określa szacowaną moc na postawie średnich wyników popularnych testów wydajności poszczególnych komponentów\n'),
+                          Text(
+                              'Dane te są szacunkowe i nie powinny decydować o ostatecznej ocenie komponentu\n\n\n\n'),
+                          Text('Legenda: SM - Szacunkowa moc')
+                        ],
+                      ),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              print('aaaaa 111');
+                              Navigator.pop(context);
+                            },
+                            child: Text(
+                              'Zrozumiano',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  decoration: TextDecoration.underline),
+                            ))
+                      ],
+                    );
+                  });
+            },
+            child: Align(
+              alignment: Alignment(1, 0.95),
+              child: Stack(
+                alignment: AlignmentDirectional.centerEnd,
+                children: [
+                  Container(
+                    width: 20,
                     height: 40,
+                    color: Colors.white,
                     alignment: Alignment(1, 0),
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(100)),
-                    child: Icon(Icons.arrow_back,
-                        color: Color.fromRGBO(59, 55, 68, 1), size: 40)),
-              ],
+                  ),
+                  Container(
+                      width: 50,
+                      height: 40,
+                      alignment: Alignment(-1, 0),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(100)),
+                      child: Icon(Icons.info,
+                          color: Color.fromRGBO(59, 55, 68, 1), size: 40)),
+                ],
+              ),
             ),
           ),
-        )
-      ],
+          GestureDetector(
+            onTap: () {
+                Porownywarka(); 
+                inicjalizuj(null);
+                
+            },
+            child: Positioned(
+              left: 30.0,
+              
+              top: 10,
+              child: Stack(
+                alignment: AlignmentDirectional.centerStart,
+                children: [
+                  Container(
+                    width: 20,
+                    height: 40,
+                    color: Colors.white,                 
+                  ),
+                  Container(
+                      width: 50,
+                      height: 40,
+                      alignment: Alignment(1, 0),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(100)),
+                      child: Icon(Icons.arrow_back,
+                          color: Color.fromRGBO(59, 55, 68, 1), size: 40)),
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
