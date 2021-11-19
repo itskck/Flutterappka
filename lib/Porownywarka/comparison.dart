@@ -79,8 +79,9 @@ class _Comparison extends State<Comparison> {
           num.parse(Porownywarka.chosenCpu.benchScore) *
           100;
     print(cpu);
+    cpu-=100;
     cpuScore1 = cpu;
-    cpuScore2 = (-1) * cpu;
+    cpuScore2 = (-1) * (cpu);
     if (num.parse(Porownywarka.chosenCpu.benchScore) <
         num.parse(Porownywarka.chosenCpu2.benchScore)) {
       cpuScore2 = cpu;
@@ -104,6 +105,7 @@ class _Comparison extends State<Comparison> {
       gpu = (num.parse(Porownywarka.chosenGpu2.benchScore) /
               num.parse(Porownywarka.chosenGpu.benchScore)) *
           100;
+    gpu-=100;
     gpuScore1 = gpu;
     gpuScore2 = (-1) * gpu;
     if (num.parse(Porownywarka.chosenGpu.benchScore) <
@@ -127,6 +129,7 @@ class _Comparison extends State<Comparison> {
       ram = num.parse(Porownywarka.chosenRam2.benchScore) /
           num.parse(Porownywarka.chosenRam.benchScore) *
           100;
+    ram-=100;
     ramScore1 = ram;
     ramScore2 = (-1) * ram;
     if (num.parse(Porownywarka.chosenRam.benchScore) <
@@ -150,6 +153,7 @@ class _Comparison extends State<Comparison> {
       psu = num.parse(Porownywarka.chosenPsu2.power) /
           num.parse(Porownywarka.chosenPsu.power) *
           100;
+    psu-=100;
     psuScore1 = psu;
     psuScore2 = (-1) * psu;
     if (num.parse(Porownywarka.chosenPsu.power) <
@@ -171,7 +175,7 @@ class _Comparison extends State<Comparison> {
     else
       drive = num.parse(Porownywarka.chosenDrive2.capacity).toDouble() -
           num.parse(Porownywarka.chosenDrive.capacity).toDouble();
-
+    drive-=100;
     driveScore1 = drive;
     driveScore2 = (-1) * drive;
     if (num.parse(Porownywarka.chosenDrive.capacity) <
