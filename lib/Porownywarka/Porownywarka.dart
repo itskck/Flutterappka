@@ -2,11 +2,6 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:skladappka/Glowna/Glowna.dart';
-import 'package:skladappka/main.dart';
-import 'package:skladappka/Firebase/Builds.dart';
-import 'package:skladappka/Globalne.dart' as globalna;
-import 'package:skladappka/Firebase/getFromDatabase/getFromCode.dart';
 import 'package:skladappka/Firebase/Case.dart';
 import 'package:skladappka/Firebase/Cooler.dart';
 import 'package:skladappka/Firebase/Cpu.dart';
@@ -15,9 +10,12 @@ import 'package:skladappka/Firebase/Gpu.dart';
 import 'package:skladappka/Firebase/Motherboard.dart';
 import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Ram.dart';
+import 'package:skladappka/Firebase/getFromDatabase/getFromCode.dart';
+import 'package:skladappka/Globalne.dart' as globalna;
+import 'package:skladappka/Glowna/Glowna.dart';
+import 'package:skladappka/Porownywarka/comparison.dart';
 import 'package:skladappka/Porownywarka/dialogBuilderForCompare.dart';
 import 'package:skladappka/Porownywarka/dialogWidgetForCompare.dart';
-import 'package:skladappka/Porownywarka/comparison.dart';
 
 class Porownywarka extends StatefulWidget {
   Porownywarka({Key key, this.title}) : super(key: key);

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skladappka/main.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
@@ -25,8 +26,12 @@ class _Wylogowany extends State<Wylogowany> {
   String error = '';
   final file = fileReader();
 
+    TextEditingController passwordc = TextEditingController();
+  TextEditingController confirmpasswordc = TextEditingController();
+
   String email = '';
   String password = '';
+  String passwordconfirm='';
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -106,12 +111,56 @@ class _Wylogowany extends State<Wylogowany> {
                         color: Color.fromRGBO(45, 45, 45, 1),
                         borderRadius: BorderRadius.circular(5)),
                     child: TextFormField(
+                      controller: passwordc,
                       obscureText: true,
                       validator: (val) => val.length < 8
                           ? 'Wprowadz haslo conajmniej 8 znakow'
                           : null,
                       onChanged: (val) {
                         setState(() => password = val);
+                      },
+                      keyboardType: TextInputType.emailAddress,
+                      style: style,
+                      decoration: InputDecoration(
+                          hintText: "Wprowadź hasło",
+                          hintStyle: style,
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.fromLTRB(15, 14, 0, 0),
+                          prefixIcon: Icon(Icons.lock, color: Colors.white)),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 20.0),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Powtórz hasło', style: style),
+                Container(
+                  margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                  padding: EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color.fromRGBO(142, 223, 255, 1),
+                            Color.fromRGBO(255, 0, 140, 1)
+                          ])),
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Color.fromRGBO(45, 45, 45, 1),
+                        borderRadius: BorderRadius.circular(5)),
+                    child: TextFormField(
+                      controller: confirmpasswordc,
+                      obscureText: true,
+                      validator: (val) => val.length < 8
+                          ? 'Wprowadz haslo conajmniej 8 znakow'
+                          : null,
+                      onChanged: (val) {
+                        setState(() => passwordconfirm = val);
                       },
                       keyboardType: TextInputType.emailAddress,
                       style: style,
@@ -154,13 +203,16 @@ class _Wylogowany extends State<Wylogowany> {
                 ),
                 onTap: () async {
                   if (_formKey.currentState.validate()) {
+                   
                     await _auth.deleteAnonym();
                     dynamic result = await _auth.registerWithEmailAndPassword(
                         email, password);
+                    if(password!=passwordconfirm){                      
+                      result = null;
+                      Fluttertoast.showToast(msg: 'Hasła nie są identyczne.',toastLength: Toast.LENGTH_SHORT);
+                    }
                     if (result == null) {
-                      setState(() {
-                        error = 'Please supply a valid email';
-                      });
+                      //Fluttertoast.showToast(msg: "Rejestracja nie powiodła się.", toastLength: Toast.LENGTH_SHORT);
                       result = await _auth.Anonim();
                       globalna.czyZalogowany = "czyZalogowany=false";
                     } else {

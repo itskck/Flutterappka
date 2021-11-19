@@ -1,21 +1,20 @@
-import 'dart:math';
+import 'dart:core';
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:skladappka/Firebase/Case.dart';
 import 'package:skladappka/Firebase/Cooler.dart';
 import 'package:skladappka/Firebase/Cpu.dart';
-import 'package:provider/provider.dart';
 import 'package:skladappka/Firebase/Drive.dart';
 import 'package:skladappka/Firebase/Gpu.dart';
 import 'package:skladappka/Firebase/Motherboard.dart';
 import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Ram.dart';
-import 'dart:core';
-import 'dodaj.dart';
 import 'package:skladappka/Globalne.dart' as globals;
 import 'package:skladappka/wczytajZestaw/Edit.dart';
+
+import 'dodaj.dart';
 
 class dialogBuilder extends StatefulWidget {
   final String component;

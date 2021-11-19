@@ -1,15 +1,15 @@
+import 'dart:math';
+
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skladappka/Firebase/Drive.dart';
-import 'package:skladappka/dodawanieZestawu/dodaj.dart';
+
 import '../main.dart';
 import 'Porownywarka.dart';
-import 'package:auto_size_text/auto_size_text.dart';
-import 'dart:math';
-import 'package:fl_chart/fl_chart.dart';
-import 'package:skladappka/Globalne.dart' as globalna;
 class Comparison extends StatefulWidget {
   const Comparison({Key key}) : super(key: key);
 

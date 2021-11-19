@@ -42,7 +42,7 @@ class dodaj extends StatefulWidget with ChangeNotifier {
   static double iloscRam = 1.0;
   static double minTdp = 0.0;
   static double maxTdp = 0.0;
-  static FireBase base=FireBase();
+  static FireBase base = FireBase();
   @override
   _dodaj createState() => _dodaj();
 }
@@ -702,7 +702,8 @@ class _dodaj extends State<dodaj> {
                       timeInSecForIosWeb: 2);
                 else {
                   if (dodaj.chosenGpu == null && dodaj.chosenCpu != null)
-                    dodaj.chosenGpu = await dodaj.base.addGpu(dodaj.chosenCpu.hasGpu);
+                    dodaj.chosenGpu =
+                        await dodaj.base.addGpu(dodaj.chosenCpu.hasGpu);
                   if (dodaj.chosenCpu == null ||
                       dodaj.chosenRam == null ||
                       dodaj.chosenCase == null ||

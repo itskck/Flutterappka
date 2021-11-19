@@ -53,6 +53,7 @@ dependencies:
   page_transition: "^2.0.4"
   fl_chart: ^0.40.2
   flutter_launcher_icons: ^0.9.2
+  flutter_trianglify: ^0.0.7
 dev_dependencies:
   flutter_native_splash: ^1.2.4
   flutter_test:

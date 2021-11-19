@@ -49,7 +49,7 @@ class _Zalogowany extends State<Zalogowany> {
   void initState() {
     super.initState();
     print(Skladapka.test);
-    Skladapka.test="bylem i zobaczylem";
+    Skladapka.test = "bylem i zobaczylem";
   }
 
   Future<dynamic> getBuildsList() async {
@@ -206,15 +206,14 @@ class _Zalogowany extends State<Zalogowany> {
                     color: Colors.white,
                     fontSize: 15),
               ),
-              GradientText(
+              Text(
                 compList[i] + " ",
-                colors: [
-                  Color.fromRGBO(142, 223, 255, 1),
-                  Color.fromRGBO(142, 223, 255, 1),
-                ],
                 style: TextStyle(
+                    color: Color.fromRGBO(142, 223, 255, 1),
                     fontFamily: GoogleFonts.workSans().fontFamily,
                     fontSize: 18),
+                overflow: TextOverflow.ellipsis,
+                softWrap: false,
               ),
             ])
         ],
@@ -367,7 +366,7 @@ class _Zalogowany extends State<Zalogowany> {
           ),
         ),
         Align(
-          alignment: Alignment(-0.80, 0),
+          alignment: Alignment(-0.90, 0),
           child: Text(
             'Twoje zestawy: ',
             style: TextStyle(
@@ -375,8 +374,8 @@ class _Zalogowany extends State<Zalogowany> {
           ),
         ),
         Container(
-            padding: EdgeInsets.all(5),
-            margin: EdgeInsets.all(20),
+            padding: EdgeInsets.all(2),
+            margin: EdgeInsets.all(10),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 gradient: LinearGradient(
@@ -386,7 +385,7 @@ class _Zalogowany extends State<Zalogowany> {
                       Color.fromRGBO(142, 223, 255, 1),
                       Color.fromRGBO(255, 0, 140, 1)
                     ])),
-            height: MediaQuery.of(context).size.height * 0.5,
+            height: MediaQuery.of(context).size.height * 0.53,
             child: Container(
                 padding: EdgeInsets.symmetric(vertical: 10),
                 decoration: BoxDecoration(
