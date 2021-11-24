@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skladappka/config/fileOperations.dart';
 import 'package:skladappka/main.dart';
+import 'package:skladappka/Glowna/dodawajka(do usuniecia)/coDodajesz.dart';
 
 class Glowna extends StatefulWidget {
   Glowna({Key key, this.title}) : super(key: key);
@@ -275,6 +276,45 @@ class _Glowna extends State<Glowna> {
               ),
             )
           ),
+          //OD TEGO MIEJSCA ZACZYNA SIE DODAWAJKA ############################################################################################################################################
+          GestureDetector(
+              onTap: () {
+                print("hello?");
+                runApp(MaterialApp(
+                    debugShowCheckedModeBanner: false,
+                    theme: appTheme(),
+                    title: 'Skladapka',
+                    home: coDodajesz()));
+              },
+              child: Container(
+                width: 120,
+                height: 30,
+                margin: EdgeInsets.all(10),
+                padding: EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color.fromRGBO(142, 223, 255, 1),
+                          Color.fromRGBO(255, 0, 140, 1)
+                        ])),
+                child: Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(45, 45, 45, 1),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Center(
+                    child: Text('DODAWAJKA',
+                      style: TextStyle(color: Colors.white,fontSize: 15),
+
+                      textAlign: TextAlign.center,),
+                  ),
+                ),
+              )
+          ),
+          //TUTAJ KONCZY SIE DODAWAJKA ##############################################################################################################################################################
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             
