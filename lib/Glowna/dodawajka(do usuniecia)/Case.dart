@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:skladappka/Glowna/dodawajka(do usuniecia)/dodawajka.dart';
 
 class Case extends StatefulWidget {
   @override
@@ -8,11 +9,13 @@ class Case extends StatefulWidget {
 
 class _CaseState extends State<Case> {
   TextEditingController manufacturerControl = TextEditingController();
-  TextEditingController standardControl = TextEditingController();
+  TextEditingController modelControl = TextEditingController();
+  List<TextEditingController> standardControl;
   String manufacturer = '';
   String model = '';
   String standardText = '';
   double iloscStandard = 1;
+  final dodawajka dodaj=dodawajka();
   List<String> stanard;
   final TextStyle style = TextStyle(
       color: Colors.white, fontFamily: GoogleFonts.workSans().fontFamily);
@@ -21,9 +24,12 @@ class _CaseState extends State<Case> {
   initState() {
     super.initState();
     stanard = new List<String>();
+    standardControl=new List<TextEditingController>();
+    for(int i=0;i<3;i++)
+    standardControl.add(TextEditingController());
   }
 
-  Widget addStandard() {
+  Widget addStandard(int i) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -50,15 +56,15 @@ class _CaseState extends State<Case> {
                   color: Color.fromRGBO(45, 45, 45, 1),
                   borderRadius: BorderRadius.circular(5)),
               child: TextFormField(
-                controller: standardControl,
-                onChanged: (val) {
-                  setState(() => standardText = val);
+                controller: standardControl[i],
+                onChanged: (i) {
+                  setState(() => standardText = i);
                 },
-                onFieldSubmitted: (val) {
-                  stanard.add(val);
+                onFieldSubmitted: (i) {
+                  stanard.add(i);
                   print(stanard.length);
                   standardText = '';
-                  val = 'jest git';
+                  i = 'jest git';
                 },
                 style: style,
                 decoration: InputDecoration(
@@ -112,12 +118,6 @@ class _CaseState extends State<Case> {
                     onChanged: (val) {
                       setState(() => manufacturer = val);
                     },
-                    onFieldSubmitted: (val) {
-                      stanard.add(val);
-                      print(stanard.length);
-                      standardText = '';
-                      val = 'jest git';
-                    },
                     style: style,
                     decoration: InputDecoration(
                         border: InputBorder.none,
@@ -154,15 +154,9 @@ class _CaseState extends State<Case> {
                       color: Color.fromRGBO(45, 45, 45, 1),
                       borderRadius: BorderRadius.circular(5)),
                     child: TextFormField(
-                      controller: manufacturerControl,
+                      controller: modelControl,
                       onChanged: (val) {
                         setState(() => model = val);
-                      },
-                      onFieldSubmitted: (val) {
-                        stanard.add(val);
-                        print(stanard.length);
-                        standardText = '';
-                        val = 'jest git';
                       },
                       style: style,
                       decoration: InputDecoration(
@@ -176,7 +170,7 @@ class _CaseState extends State<Case> {
           ),
           Text(
             iloscStandard.toString(),
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.white),
             textAlign: TextAlign.center,
           ),
           Slider(
@@ -192,7 +186,43 @@ class _CaseState extends State<Case> {
             max: 3,
             divisions: 2,
           ),
-          for (int i = 0; i < iloscStandard.toInt(); i++) addStandard(),
+          for (int i = 0; i < iloscStandard.toInt(); i++) addStandard(i),
+          GestureDetector(
+              onTap: () async{
+                print(stanard.length);
+                await dodaj.dodajCase(manufacturer, model, stanard);
+                manufacturer="";
+                model="";
+                stanard = new List<String>();
+              },
+              child: Container(
+                width: 120,
+                height: 30,
+                margin: EdgeInsets.all(10),
+                padding: EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color.fromRGBO(142, 223, 255, 1),
+                          Color.fromRGBO(255, 0, 140, 1)
+                        ])),
+                child: Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(45, 45, 45, 1),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Center(
+                    child: Text('Dodaj',
+                      style: TextStyle(color: Colors.white,fontSize: 15),
+
+                      textAlign: TextAlign.center,),
+                  ),
+                ),
+              )
+          ),
         ],
       ),
     );
