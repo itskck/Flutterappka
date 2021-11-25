@@ -44,7 +44,7 @@ class _MotherboardState extends State<Motherboard> {
     return Scaffold(
       body: SingleChildScrollView(
       child:Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        //mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
