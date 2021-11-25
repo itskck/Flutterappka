@@ -35,7 +35,7 @@ class _CaseState extends State<Case> {
       children: [
         Text(
           'Stanard: ',
-          style: TextStyle(color: Colors.black),
+          style: TextStyle(color: Colors.white),
           textAlign: TextAlign.center,
         ),
         Container(
@@ -92,7 +92,7 @@ class _CaseState extends State<Case> {
                 alignment: Alignment.topLeft,
                 child:Text(
                 'Manufactuer: ',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.white),
                 textAlign: TextAlign.left,
               ),
               ),
@@ -133,7 +133,7 @@ class _CaseState extends State<Case> {
             children: [
               Text(
                 'Model: ',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.white),
                 textAlign: TextAlign.center,
               ),
               Container(

@@ -2,6 +2,13 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:skladappka/Glowna/dodawajka(do usuniecia)/Case.dart';
+import 'package:skladappka/Glowna/dodawajka(do usuniecia)/Cooler.dart';
+import 'package:skladappka/Glowna/dodawajka(do usuniecia)/Cpu.dart';
+import 'package:skladappka/Glowna/dodawajka(do usuniecia)/Drive.dart';
+import 'package:skladappka/Glowna/dodawajka(do usuniecia)/Gpu.dart';
+import 'package:skladappka/Glowna/dodawajka(do usuniecia)/Motherboard.dart';
+import 'package:skladappka/Glowna/dodawajka(do usuniecia)/Psu.dart';
+import 'package:skladappka/Glowna/dodawajka(do usuniecia)/Ram.dart';
 import 'package:skladappka/main.dart';
 
 class coDodajesz extends StatelessWidget{
@@ -52,7 +59,11 @@ class coDodajesz extends StatelessWidget{
             ),
             GestureDetector(
                 onTap: () {
-                //  return cooler;
+                  runApp(MaterialApp(
+                      debugShowCheckedModeBanner: false,
+                      theme: appTheme(),
+                      title: 'Skladapka',
+                      home: Cooler()));
                 },
                 child: Container(
                   width: 60,
@@ -84,7 +95,11 @@ class coDodajesz extends StatelessWidget{
             ),
             GestureDetector(
                 onTap: () {
-                //  return cpu;
+                  runApp(MaterialApp(
+                      debugShowCheckedModeBanner: false,
+                      theme: appTheme(),
+                      title: 'Skladapka',
+                      home: Cpu()));
                 },
                 child: Container(
                   width: 60,
@@ -116,7 +131,11 @@ class coDodajesz extends StatelessWidget{
             ),
             GestureDetector(
                 onTap: () {
-               //   return drive;
+                  runApp(MaterialApp(
+                      debugShowCheckedModeBanner: false,
+                      theme: appTheme(),
+                      title: 'Skladapka',
+                      home: Drive()));
                 },
                 child: Container(
                   width: 60,
@@ -153,7 +172,11 @@ class coDodajesz extends StatelessWidget{
           children: [
             GestureDetector(
                 onTap: () {
-                //  return gpu;
+                  runApp(MaterialApp(
+                      debugShowCheckedModeBanner: false,
+                      theme: appTheme(),
+                      title: 'Skladapka',
+                      home: Gpu()));
                 },
                 child: Container(
                   width: 60,
@@ -185,7 +208,11 @@ class coDodajesz extends StatelessWidget{
             ),
             GestureDetector(
                 onTap: () {
-               //   return motherboard;
+                  runApp(MaterialApp(
+                      debugShowCheckedModeBanner: false,
+                      theme: appTheme(),
+                      title: 'Skladapka',
+                      home: Motherboard()));
                 },
                 child: Container(
                   width: 60,
@@ -217,7 +244,11 @@ class coDodajesz extends StatelessWidget{
             ),
             GestureDetector(
                 onTap: () {
-              //    return psu;
+                  runApp(MaterialApp(
+                      debugShowCheckedModeBanner: false,
+                      theme: appTheme(),
+                      title: 'Skladapka',
+                      home: Psu()));
                 },
                 child: Container(
                   width: 60,
@@ -249,7 +280,11 @@ class coDodajesz extends StatelessWidget{
             ),
             GestureDetector(
                 onTap: () {
-                 // return rams;
+                  runApp(MaterialApp(
+                      debugShowCheckedModeBanner: false,
+                      theme: appTheme(),
+                      title: 'Skladapka',
+                      home: Ram()));
                 },
                 child: Container(
                   width: 60,

@@ -40,95 +40,95 @@ class dodawajka{
     });
   }
 
-  Future<void> dodajCooler() async {
+  Future<void> dodajCooler(String manufacturer, String model, List<String> standard) async {
     code=await generateRandomString();
     return await coolers.doc(code).set({
-      "manufacturer": "manufacturer",
-      "model": "model",
-     // "socket": FieldValue.arrayUnion("tutaj lista jakas"),
+      "manufacturer": manufacturer,
+      "model": model,
+     "socket": FieldValue.arrayUnion(standard),
     });
   }
 
-  Future<void> dodajCpu() async {
+  Future<void> dodajCpu(String benchscore,String clock,String cores,String hasGpu,String manufacturer,String model,String socket,String tdp,String threads,String year,bool isUnlocked,bool isCooler) async {
     code=await generateRandomString();
     return await cpus.doc(code).set({
-      "benchscore": "benchscore",
-      "clock": "clock",
-      "cores": "cores",
-      "hasGpu": "tu jakies gpu",
-      "isCoolerIncluded": "tuj jakis bool",
-      "isUnlocked": "tuj jakis bool",
-      "manufacturer": "manu",
-      "model": "model",
-      "socket": "socket",
-      "tdp": "tdp",
-      "threads": "threads",
-      "year": "year",
+      "benchscore": benchscore,
+      "clock": clock,
+      "cores": cores,
+      "hasGpu": hasGpu,
+      "isCoolerIncluded": isCooler,
+      "isUnlocked": isUnlocked,
+      "manufacturer": manufacturer,
+      "model": model,
+      "socket": socket,
+      "tdp": tdp,
+      "threads": threads,
+      "year": year,
     });
   }
 
-  Future<void> dodajDrive() async {
+  Future<void> dodajDrive(String manufacturer,String model,String capacity,String connectionType,String type) async {
     code=await generateRandomString();
     return await drives.doc(code).set({
-      "manufacturer": "manufacturer",
-      "model": "model",
-      "capacity": "capacity",
-      "connectionType": "connectionType",
-      "type": "type",
+      "manufacturer": manufacturer,
+      "model": model,
+      "capacity": capacity,
+      "connectionType": connectionType,
+      "type": type,
     });
   }
 
-  Future<void> dodajGpu() async {
+  Future<void> dodajGpu(String manufacturer,String model,String Vram,bool integra,String series, String tdp, String year,String benchscore) async {
     code=await generateRandomString();
     return await gpus.doc(code).set({
-      "manufacturer": "manufacturer",
-      "model": "model",
-      "VRAM": "Vram",
-      "integra": "tu jakis bool",
-      "series": "series",
-      "tdp": "tdp",
-      "year": "year",
-      "benchScore": "benchscore",
+      "manufacturer": manufacturer,
+      "model": model,
+      "VRAM": Vram,
+      "integra": integra,
+      "series": series,
+      "tdp": tdp,
+      "year": year,
+      "benchScore": benchscore,
     });
   }
 
-  Future<void> dodajMotherboard() async {
+  Future<void> dodajMotherboard(String manufacturer,String model,String chipset, String ethernetSpeen,bool hasNvme,String ramSlots,String ramType,String sataPorts,String socket, String standard, String usb2,String usb3,bool wifi) async {
     code=await generateRandomString();
     return await motherboard.doc(code).set({
-      "manufacturer": "manufacturer",
-      "model": "model",
-      "chipset": "chipset",
-      "ethernetSpeed": "ethernetSpeed",
-      "hasNvmeSlot": "bool",
-      "ramSlots": "Ramslots",
-      "ramType": "ramType",
-      "sataPorts": "ramSlots",
-      "socket": "socket",
-      "standard": "standard",
-      "usb2and1": "8",
-      "usb3": "3",
-      "wifi": "jakisbool",
+      "manufacturer": manufacturer,
+      "model": model,
+      "chipset": chipset,
+      "ethernetSpeed": ethernetSpeen,
+      "hasNvmeSlot": hasNvme,
+      "ramSlots": ramSlots,
+      "ramType": ramType,
+      "sataPorts": sataPorts,
+      "socket": socket,
+      "standard": standard,
+      "usb2and1": usb2,
+      "usb3": usb3,
+      "wifi": wifi,
     });
   }
 
-  Future<void> dodajPsu() async {
+  Future<void> dodajPsu(String manufacturer,String model,String power) async {
     code=await generateRandomString();
     return await psus.doc(code).set({
-      "manufacturer": "manufacturer",
-      "model": "model",
-      "power": "power",
+      "manufacturer": manufacturer,
+      "model": model,
+      "power": power,
     });
   }
 
-  Future<void> dodajRam() async {
+  Future<void> dodajRam(String manufacturer,String model,String capacity, String benchScore,String speed, String type) async {
     code=await generateRandomString();
     return await rams.doc(code).set({
-      "manufacturer": "manufacturer",
-      "model": "model",
-      "capacity": "capacity",
-      "benchScore": "benchScore",
-      "speed": "speed",
-      "type": "type",
+      "manufacturer": manufacturer,
+      "model": model,
+      "capacity": capacity,
+      "benchScore": benchScore,
+      "speed": speed,
+      "type": type,
     });
   }
 }
