@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skladappka/Glowna/dodawajka(do usuniecia)/dodawajka.dart';
 
+import '../../main.dart';
+import 'coDodajesz.dart';
+
 class Motherboard extends StatefulWidget {
 
   @override
@@ -39,7 +42,8 @@ class _MotherboardState extends State<Motherboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      body: SingleChildScrollView(
+      child:Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
@@ -516,40 +520,94 @@ class _MotherboardState extends State<Motherboard> {
                   })
             ],
           ),
-          GestureDetector(
-              onTap: () async{
-                await dodaj.dodajMotherboard(manufacturer,model,chipset, ethernetSpeed,hasNvme,ramSlots,ramType,sataPort,socket, standard, usb2,usb3,wifi);
-              },
-              child: Container(
-                width: 120,
-                height: 30,
-                margin: EdgeInsets.all(10),
-                padding: EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color.fromRGBO(142, 223, 255, 1),
-                          Color.fromRGBO(255, 0, 140, 1)
-                        ])),
-                child: Container(
-                  height: 40,
-                  decoration: BoxDecoration(
-                      color: Color.fromRGBO(45, 45, 45, 1),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Center(
-                    child: Text('Dodaj',
-                      style: TextStyle(color: Colors.white,fontSize: 15),
+         Row(
+           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+           children: [
+             GestureDetector(
+                 onTap: () async{
+                   await dodaj.dodajMotherboard(manufacturer,model,chipset, ethernetSpeed,hasNvme,ramSlots,ramType,sataPort,socket, standard, usb2,usb3,wifi);
+                   setState(() {
+                     manufacturerControl.clear();
+                     modelControl.clear();
+                     chipsetControl.clear();
+                     ethernetSpeedControl.clear();
+                     ramSlotsControl.clear();
+                     ramTypeControl.clear();
+                     sataPortControl.clear();
+                     socketControl.clear();
+                     standardControl.clear();
+                     usb2Control.clear();
+                     usb3Control.clear();
+                   });
+                 },
+                 child: Container(
+                   width: 120,
+                   height: 30,
+                   margin: EdgeInsets.all(10),
+                   padding: EdgeInsets.all(2),
+                   decoration: BoxDecoration(
+                       borderRadius: BorderRadius.circular(10),
+                       gradient: LinearGradient(
+                           begin: Alignment.topLeft,
+                           end: Alignment.bottomRight,
+                           colors: [
+                             Color.fromRGBO(142, 223, 255, 1),
+                             Color.fromRGBO(255, 0, 140, 1)
+                           ])),
+                   child: Container(
+                     height: 40,
+                     decoration: BoxDecoration(
+                         color: Color.fromRGBO(45, 45, 45, 1),
+                         borderRadius: BorderRadius.circular(10)),
+                     child: Center(
+                       child: Text('Dodaj',
+                         style: TextStyle(color: Colors.white,fontSize: 15),
 
-                      textAlign: TextAlign.center,),
-                  ),
-                ),
-              )
-          ),
+                         textAlign: TextAlign.center,),
+                     ),
+                   ),
+                 )
+             ),
+             GestureDetector(
+                 onTap: () {
+                   return runApp(MaterialApp(
+                       debugShowCheckedModeBanner: false,
+                       theme: appTheme(),
+                       title: 'Skladapka',
+                       home: coDodajesz()));
+                 },
+                 child: Container(
+                   width: 120,
+                   height: 30,
+                   margin: EdgeInsets.all(10),
+                   padding: EdgeInsets.all(2),
+                   decoration: BoxDecoration(
+                       borderRadius: BorderRadius.circular(10),
+                       gradient: LinearGradient(
+                           begin: Alignment.topLeft,
+                           end: Alignment.bottomRight,
+                           colors: [
+                             Color.fromRGBO(142, 223, 255, 1),
+                             Color.fromRGBO(255, 0, 140, 1)
+                           ])),
+                   child: Container(
+                     height: 40,
+                     decoration: BoxDecoration(
+                         color: Color.fromRGBO(45, 45, 45, 1),
+                         borderRadius: BorderRadius.circular(10)),
+                     child: Center(
+                       child: Text('Cofnij',
+                         style: TextStyle(color: Colors.white,fontSize: 15),
+
+                         textAlign: TextAlign.center,),
+                     ),
+                   ),
+                 )
+             ),
+           ],
+         )
         ],
-      ),
+      ),)
     );
   }
 }

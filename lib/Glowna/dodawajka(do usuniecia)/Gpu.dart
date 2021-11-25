@@ -1,6 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:skladappka/main.dart';
+import 'Case.dart';
+import 'coDodajesz.dart';
 import 'dodawajka.dart';
 
 class Gpu extends StatefulWidget {
@@ -362,6 +365,20 @@ class _GpuState extends State<Gpu> {
           GestureDetector(
               onTap: () async{
                 await dodaj.dodajGpu(manufacturer, model, vRam,integra,series,tdp,year,benchScore);
+                setState(() {
+                  manufacturerControl.clear();
+                  modelControl.clear();
+                  vRamControl.clear();
+                  seriesControl.clear();
+                  tdpControl.clear();
+                  yearControl.clear();
+                  benchScoreControl.clear();
+                });
+                runApp(MaterialApp(
+                    debugShowCheckedModeBanner: false,
+                    theme: appTheme(),
+                    title: 'Skladapka',
+                    home: Gpu()));
 
               },
               child: Container(
@@ -385,6 +402,42 @@ class _GpuState extends State<Gpu> {
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                     child: Text('Dodaj',
+                      style: TextStyle(color: Colors.white,fontSize: 15),
+
+                      textAlign: TextAlign.center,),
+                  ),
+                ),
+              )
+          ),
+          GestureDetector(
+              onTap: () {
+                runApp(MaterialApp(
+                    debugShowCheckedModeBanner: false,
+                    theme: appTheme(),
+                    title: 'Skladapka',
+                    home: coDodajesz()));
+              },
+              child: Container(
+                width: 120,
+                height: 30,
+                margin: EdgeInsets.all(10),
+                padding: EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color.fromRGBO(142, 223, 255, 1),
+                          Color.fromRGBO(255, 0, 140, 1)
+                        ])),
+                child: Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(45, 45, 45, 1),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Center(
+                    child: Text('Cofnij',
                       style: TextStyle(color: Colors.white,fontSize: 15),
 
                       textAlign: TextAlign.center,),

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skladappka/Glowna/dodawajka(do usuniecia)/dodawajka.dart';
+import 'package:skladappka/main.dart';
+
+import 'Ram.dart';
+import 'coDodajesz.dart';
 
 class Cooler extends StatefulWidget {
   @override
@@ -189,11 +193,14 @@ class _CoolerState extends State<Cooler> {
           for (int i = 0; i < iloscStandard.toInt(); i++) addStandard(i),
           GestureDetector(
               onTap: () async{
-                print(stanard.length);
-                await dodaj.dodajCooler(manufacturer, model, stanard);
-                manufacturer="";
-                model="";
-                stanard = new List<String>();
+                dodaj.dodajCooler(manufacturer, model, stanard);
+                setState(() {
+                  stanard = new List<String>();
+                  standardControl=new List<TextEditingController>();
+                  manufacturerControl.clear();
+                  modelControl.clear();
+                  iloscStandard=1;
+                });
               },
               child: Container(
                 width: 120,
@@ -216,6 +223,42 @@ class _CoolerState extends State<Cooler> {
                       borderRadius: BorderRadius.circular(10)),
                   child: Center(
                     child: Text('Dodaj',
+                      style: TextStyle(color: Colors.white,fontSize: 15),
+
+                      textAlign: TextAlign.center,),
+                  ),
+                ),
+              )
+          ),
+          GestureDetector(
+              onTap: () {
+                runApp(MaterialApp(
+                    debugShowCheckedModeBanner: false,
+                    theme: appTheme(),
+                    title: 'Skladapka',
+                    home: coDodajesz()));
+              },
+              child: Container(
+                width: 120,
+                height: 30,
+                margin: EdgeInsets.all(10),
+                padding: EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          Color.fromRGBO(142, 223, 255, 1),
+                          Color.fromRGBO(255, 0, 140, 1)
+                        ])),
+                child: Container(
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: Color.fromRGBO(45, 45, 45, 1),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Center(
+                    child: Text('Cofnij',
                       style: TextStyle(color: Colors.white,fontSize: 15),
 
                       textAlign: TextAlign.center,),
