@@ -192,13 +192,17 @@ class _CoolerState extends State<Cooler> {
           ),
           for (int i = 0; i < iloscStandard.toInt(); i++) addStandard(i),
           GestureDetector(
+
               onTap: () async{
+                for(int i=0;i<iloscStandard.toInt();i++)
+                  stanard.add(standardControl[i].text);
                 dodaj.dodajCooler(manufacturer, model, stanard);
                 setState(() {
                   stanard = new List<String>();
-                  standardControl=new List<TextEditingController>();
                   manufacturerControl.clear();
                   modelControl.clear();
+                  for(int i=0;i<iloscStandard.toInt();i++)
+                    standardControl[i].clear();
                   iloscStandard=1;
                 });
               },

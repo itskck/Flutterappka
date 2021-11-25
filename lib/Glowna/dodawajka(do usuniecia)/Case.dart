@@ -37,7 +37,7 @@ class _CaseState extends State<Case> {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Text(
-          'Stanard: ',
+          'Standard: ',
           style: TextStyle(color: Colors.white),
           textAlign: TextAlign.center,
         ),
@@ -62,12 +62,6 @@ class _CaseState extends State<Case> {
                 controller: standardControl[i],
                 onChanged: (i) {
                   setState(() => standardText = i);
-                },
-                onFieldSubmitted: (i) {
-                  stanard.add(i);
-                  print(stanard.length);
-                  standardText = '';
-                  i = 'jest git';
                 },
                 style: style,
                 decoration: InputDecoration(
@@ -192,13 +186,16 @@ class _CaseState extends State<Case> {
           for (int i = 0; i < iloscStandard.toInt(); i++) addStandard(i),
           GestureDetector(
               onTap: () async{
+                for(int i=0;i<iloscStandard.toInt();i++)
+                  stanard.add(standardControl[i].text);
                 await dodaj.dodajCase(manufacturer, model, stanard);
                 setState(() {
                   manufacturerControl.clear();
                   modelControl.clear();
                   stanard = new List<String>();
-                  standardControl=new List<TextEditingController>();
                   iloscStandard=1;
+                  for(int i=0;i<3;i++)
+                    standardControl[i].clear();
                 });
               },
               child: Container(
