@@ -11,6 +11,8 @@ import 'package:skladappka/Glowna/dodawajka(do usuniecia)/Psu.dart';
 import 'package:skladappka/Glowna/dodawajka(do usuniecia)/Ram.dart';
 import 'package:skladappka/main.dart';
 
+import '../Glowna.dart';
+
 class coDodajesz extends StatelessWidget{
 
   @override
@@ -315,7 +317,43 @@ class coDodajesz extends StatelessWidget{
                 )
             ),
           ],
-        )
+        ),
+        GestureDetector(
+            onTap: () {
+              runApp(MaterialApp(
+                  debugShowCheckedModeBanner: false,
+                  theme: appTheme(),
+                  title: 'Skladapka',
+                  home: Glowna()));
+            },
+            child: Container(
+              width: 60,
+              height: 30,
+              margin: EdgeInsets.all(10),
+              padding: EdgeInsets.all(2),
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: [
+                        Color.fromRGBO(142, 223, 255, 1),
+                        Color.fromRGBO(255, 0, 140, 1)
+                      ])),
+              child: Container(
+                height: 40,
+                decoration: BoxDecoration(
+                    color: Color.fromRGBO(45, 45, 45, 1),
+                    borderRadius: BorderRadius.circular(10)),
+                child: Center(
+                  child: Text('Cofnij',
+                    style: TextStyle(color: Colors.white,fontSize: 15),
+
+                    textAlign: TextAlign.center,),
+                ),
+              ),
+            )
+        ),
       ],
     );
   }
