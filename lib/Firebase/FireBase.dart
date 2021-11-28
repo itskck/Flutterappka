@@ -50,7 +50,9 @@ class FireBase{
 
     return snapshot.docs.map((doc){
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      if(url.toLowerCase()=='amd')url='radeon';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
+      print('gpuuuuuuuuuuuuu'+url);
       return Gpu(
         VRAM: doc.data().toString().contains('VRAM') ? doc.get('VRAM') : '1',
         manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
@@ -301,9 +303,9 @@ class FireBase{
         .where('model', isEqualTo: model).get();
     snapshot.docs.map((doc){
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
-      if(url=='AMD')url='radeon';
+      if(url.toLowerCase()=='amd')url='radeon';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
-      
+      print('gpuuuuuuuuuuuuu'+url);
       chosenGpu=Gpu(
           VRAM: doc.data().toString().contains('VRAM') ? doc.get('VRAM') : '1',
           manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',

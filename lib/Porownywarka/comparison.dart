@@ -748,9 +748,7 @@ class _Comparison extends State<Comparison> {
                 ],
               ),
               totalMem(),
-            ],
-          ),
-          GestureDetector(
+              GestureDetector(
             onTap: () {
               showDialog(
                   context: context,
@@ -783,7 +781,7 @@ class _Comparison extends State<Comparison> {
                   });
             },
             child: Align(
-              alignment: Alignment(1, 0.95),
+              alignment: Alignment(1, -0.95),
               child: Stack(
                 alignment: AlignmentDirectional.centerEnd,
                 children: [
@@ -806,37 +804,10 @@ class _Comparison extends State<Comparison> {
               ),
             ),
           ),
-          GestureDetector(
-            onTap: () {
-                Porownywarka(); 
-                inicjalizuj(null);
-                
-            },
-            child: Positioned(
-              left: 30.0,
-              
-              top: 10,
-              child: Stack(
-                alignment: AlignmentDirectional.centerStart,
-                children: [
-                  Container(
-                    width: 20,
-                    height: 40,
-                    color: Colors.white,                 
-                  ),
-                  Container(
-                      width: 50,
-                      height: 40,
-                      alignment: Alignment(1, 0),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(100)),
-                      child: Icon(Icons.arrow_back,
-                          color: Color.fromRGBO(59, 55, 68, 1), size: 40)),
-                ],
-              ),
-            ),
-          )
+            ],
+          ),
+          
+          
         ],
       ),
     );
