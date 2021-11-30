@@ -30,12 +30,17 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   User _firebaseUser = FirebaseAuth.instance.currentUser;
+
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.portraitDown]);
+
   final file = fileReader();
   List<String> data;
   String pom="";
   int licznik=0;
   bool sprawdzacz=false;
   data = new List<String>();
+
+
   if (_firebaseUser == null) {
     print("nie no blagam");
     file.save("czyZalogowany=false",'loginConfig');
