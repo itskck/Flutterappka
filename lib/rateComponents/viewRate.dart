@@ -23,7 +23,7 @@ class viewRate extends StatefulWidget {
   final Cooler cooler;
   final String code;
   final List<Drive> extradisk;
-  final double minTdp, maxTdp;
+  final double minTdp, maxTdp, ramNumber;
   
   viewRate({
     this.cpu,
@@ -38,6 +38,7 @@ class viewRate extends StatefulWidget {
     this.extradisk,
     this.minTdp,
     this.maxTdp,
+    this.ramNumber,
   });
 
   @override
@@ -60,7 +61,7 @@ class _viewRateState extends State<viewRate> {
     super.initState();
     print(widget.extradisk.length);
     print(widget.maxTdp);
-    print(widget.minTdp);
+    print(widget.ramNumber);
 
   }
   Widget buildItems() {

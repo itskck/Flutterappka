@@ -11,6 +11,7 @@ import 'package:skladappka/Glowna/dodawajka(do usuniecia)/coDodajesz.dart';
 
 class Glowna extends StatefulWidget {
   Glowna({Key key, this.title}) : super(key: key);
+  //Zmienne do sprawdzenia połączenia
   static StreamSubscription<ConnectivityResult> connectivitySubscription;
   static Connectivity _connectivity = Connectivity();
   static ConnectivityResult connectivityResult = ConnectivityResult.none;
@@ -27,19 +28,17 @@ class _Glowna extends State<Glowna> {
   @override
   void initState() {
     super.initState();
-    print('ao');
     Glowna.connectivitySubscription = Glowna._connectivity.onConnectivityChanged
-        .listen(_updateConnectionStatus);
-    print('object');
+        .listen(_updateConnectionStatus); //ustawienie subskrybcji
   }
 
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     setState(() {
-      Glowna.connectivityResult = result;
+      Glowna.connectivityResult = result; //zmiana rezultatu połączenia
     });
   }
 
-  bool internetIcon() {
+  bool internetIcon() { //zmiana ikonny
     if (Glowna.connectivityResult == ConnectivityResult.none)
       return false;
     else

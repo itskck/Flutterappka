@@ -151,7 +151,7 @@ class transition extends StatelessWidget {
                                                           extradisk=extradisks.data;
                                                           return viewRate(cpu: chosenCpu, cases: chosenCase, cooler: chosenCooler, drive: chosenDrive,
                                                               gpu: chosenGpu, mtb: chosenMtb, psu: chosenPsu, ram: chosenRam, code: builds.generatedCode, extradisk: extradisk,
-                                                              minTdp: builds.minTdp, maxTdp: builds.maxTdp);
+                                                              minTdp: builds.minTdp, maxTdp: builds.maxTdp, ramNumber: builds.ramNumber,);
                                                         }
                                                         else return Container();
                                                       },
