@@ -297,6 +297,7 @@ class _Porownywarka extends State<Porownywarka> {
           }
         },
         textAlign: TextAlign.center,
+        style: TextStyle(color: Colors.white),
         decoration: InputDecoration(
           hintText: 'Wpisz kod zestawu',
           counterText: "",

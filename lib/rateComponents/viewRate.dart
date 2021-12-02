@@ -24,7 +24,7 @@ class viewRate extends StatefulWidget {
   final String code;
   final List<Drive> extradisk;
   final double minTdp, maxTdp;
-
+  
   viewRate({
     this.cpu,
     this.psu,
@@ -158,7 +158,7 @@ class _viewRateState extends State<viewRate> {
     if(widget.gpu.integra)gpuString+='System nie posiada dedykowanej karty graficznej, przez co system może sobie nie radzić sobie z zaawansowanymi obliczeniami 3D. Trudne może być granie w bardziej wymagające gry, a także praca nad obróbką obrazów lub wideo.';
     else{
       gpuString+="System posiada dedykowaną kartę graficzną firmy "+widget.gpu.manufacturer+', wyposażoną w '+widget.gpu.VRAM+'GB pamięci. ';
-      if(int.parse(widget.gpu.VRAM)<4) gpuString+='Może to być niestety niewystarczająco na dzisiejsze standardy. Często gry i programy graficzne zalecają posiadanie minimuj 4GB VRAMU. ';
+      if(int.parse(widget.gpu.VRAM)<4) gpuString+='Może to być niestety niewystarczająco na dzisiejsze standardy. Często gry i programy graficzne zalecają posiadanie minimum 4GB VRAMU. ';
       else gpuString+='Powinno to być wystarczająco dużo, dla użyć graficznych i growych. ';
       if (int.parse(now.toString().substring(0, 3)) - int.parse(widget.gpu.year) > 4) gpuString+='Karta jest niestety starsza niż 4 lata, przez co odstawać może pod kątem obliczeniowym, od nowszych modeli dostępnych na rynku';
       else gpuString+='Karta została wydana w '+widget.gpu.year+' roku, więc wsparcie techniczne oraz sterowniki powinny być aktualne. ';
@@ -168,13 +168,14 @@ class _viewRateState extends State<viewRate> {
     if(widget.ram.type=='DDR4'){
       if(int.parse(widget.ram.speed)<3200)ramString+='Wybrane kości ramu firmy '+widget.ram.manufacturer +' nie są wyborem najbardziej optymalnym, ponieważ ich prękość zegaru wyosni'
       +widget.ram.speed+' MHz. W przypadku kości DDR4, optymalną prędkością jest 3200 MHz. ';
-      else ramString+='Wybrane kości ramu firmy '+widget.ram.manufacturer +' są dobrym wyborem. Z nominalną prędkością '+widget.ram.speed+' MHz, zestaw będzie wspierany przez solidną pamięć operacyjną. ';
+      else ramString+='Wybrane kości ramu firmy '+widget.ram.manufacturer +' powinny być dobrym wyborem. Z nominalną prędkością '+widget.ram.speed+' MHz, zestaw będzie wspierany przez solidną pamięć operacyjną. ';
     }
     if(widget.ram.type=='DDR3'){
-      if(int.parse(widget.ram.speed)<1600)ramString+='Wybrane kości ramu firmy '+widget.ram.manufacturer +' nie są wyborem najbardziej optymalnym, ponieważ ich prękość zegaru wyosni'
-      +widget.ram.speed+' MHz. W przypadku kości DDR4, optymalną prędkością jest 1600 MHz. ';
-      else ramString+='ybrane kości ramu firmy '+widget.ram.manufacturer +' są dobrym wyborem. Z nominalną prędkością '+widget.ram.speed+' MHz, zestaw będzie wspierany przez solidną pamięć operacyjną. ';
+      if(int.parse(widget.ram.speed)<1600)ramString+='Wybrane kości ramu firmy '+widget.ram.manufacturer +' nie są wyborem najbardziej optymalnym, ponieważ ich prękość zegara wynosi '
+      +widget.ram.speed+' MHz. W przypadku kości DDR3, optymalną prędkością jest 1600 MHz. ';
+      else ramString+='Wybrane kości ramu firmy '+widget.ram.manufacturer +' powinny być dobrym wyborem. Z nominalną prędkością '+widget.ram.speed+' MHz, zestaw będzie wspierany przez solidną pamięć operacyjną. ';
     }
+    
     //////////////////////Zdania dysku
     String diskString='';
     if(widget.drive.type=='SSD') diskString+='Dysk systemowy jest szybkim dyskiem SSD, który powinien uruchamiać system dużo szybciej niż klasyczne dyski HDD. ';
@@ -184,7 +185,7 @@ class _viewRateState extends State<viewRate> {
     if(double.parse(widget.psu.power)<widget.maxTdp)psuString+='Wybrany zasilacz prawdopodobnie nie dostarczy wystarczającej ilości mocy alby zasilić zestaw, '
     +'jako że, przy intensywnej pracy, pobierać może on nawet '+widget.maxTdp.toString()+' W, a nominalna moc zasilacza to jedynie '+widget.psu.power+' W';
     else
-    psuString+='Zailacz powinien poradzić sobie z dostarczeniem mocy do zestawu komputerowego, ponieważ jego nominalna moc wynosi '+widget.maxTdp.toString()+
+    psuString+='Zailacz powinien poradzić sobie z dostarczeniem mocy do zestawu komputerowego, ponieważ jego nominalna moc wynosi '+widget.psu.power.toString()+
     ' W, a zestaw szacunkowo pobierać będzie do '+widget.maxTdp.toString()+' W.';
     ///Zdania case
     String caseString='';

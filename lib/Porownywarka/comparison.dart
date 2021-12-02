@@ -760,7 +760,9 @@ class _Comparison extends State<Comparison> {
                           Text(
                               'Ta strona określa szacowaną moc na postawie średnich wyników popularnych testów wydajności poszczególnych komponentów\n'),
                           Text(
-                              'Dane te są szacunkowe i nie powinny decydować o ostatecznej ocenie komponentu\n\n\n\n'),
+                              'Dane te są szacunkowe i nie powinny decydować o ostatecznej ocenie komponentu\n\n'),
+                              Text(
+                              'Użyte testy:\nCPU: Cinnebench R23\nGPU: 3DMark CouldGate\nRAM: UserBenchmark\n'),
                           Text('Legenda: SM - Szacunkowa moc')
                         ],
                       ),
