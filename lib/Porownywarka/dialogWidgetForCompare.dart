@@ -23,6 +23,7 @@ class dialogWidgetForCompare {
   }
 
   Widget popupWindow(BuildContext context, int ktoro) {
+    //Stream z buildami użytkownika
     return StreamProvider<List<Builds>>.value(
       value: FireBase().builds,
       initialData: [],

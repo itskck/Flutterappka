@@ -100,7 +100,7 @@ class _Glowna extends State<Glowna> {
 
     Color wifiColor;
     String wifiStatus;
-    if (internetIcon()) {
+    if (internetIcon()) { //zmiana ikony ciag dalszy
       wifiColor = Colors.green;
       wifiStatus = "Połączono z siecią!";
     } else {

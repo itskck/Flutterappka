@@ -46,6 +46,7 @@ class _rateComponents extends State<rateComponents>{
                 gravity: ToastGravity.BOTTOM,
                 timeInSecForIosWeb: 2);
           } else {
+            //wczytywanie bulda z kodu
             rateComponents.builds = await getFromCode(code: value).getBuild();
             return inicjalizuj(rateComponents.builds);
           }

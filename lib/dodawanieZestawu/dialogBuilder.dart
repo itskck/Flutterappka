@@ -632,50 +632,57 @@ class _dialogBuilder extends State<dialogBuilder> {
         for (int i = 0; i < mtbs.length; i++)
           SimpleDialogOption(
             padding: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                        padding: EdgeInsets.all(5),
-                        margin: EdgeInsets.only(right: 20),
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(100),
-                            border: Border.all(width: 1)),
-                        child: mtbs[i].img),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(mtbs[i].manufacturer + " " + mtbs[i].model,
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        Row(
-                          children: [
-                            Text(mtbs[i].ramSlots + "x "),
-                            Text(mtbs[i].ramType + ", "),
-                            Text("Standard: " + mtbs[i].standard)
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(mtbs[i].sataPorts + 'x SATA, '),
-                            Text(mtbs[i].usb3 + 'x USB v3')
-                          ],
-                        ),
-                        if (mtbs[i].hasNvmeSlot)
-                          Text('Obsługa dysków NVMe M.2'),
-                        Text(mtbs[i].wifi ? 'Wifi: ✅' : 'Wifi: ❌'),
-                        Text('Przepustowość portu ethernet: \n' +
-                            mtbs[i].ethernetSpeed +
-                            "Mb/s")
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                          padding: EdgeInsets.all(5),
+                          margin: EdgeInsets.only(right: 20),
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              border: Border.all(width: 1)),
+                          child: mtbs[i].img),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.8,
+                            child: Text(mtbs[i].manufacturer + " " + mtbs[i].model,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                          ),
+                          Row(
+                            children: [
+                              Text(mtbs[i].ramSlots + "x "),
+                              Text(mtbs[i].ramType + ", "),
+                              Text("Standard: " + mtbs[i].standard)
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Text(mtbs[i].sataPorts + 'x SATA, '),
+                              Text(mtbs[i].usb3 + 'x USB v3')
+                            ],
+                          ),
+                          if (mtbs[i].hasNvmeSlot)
+                            Text('Obsługa dysków NVMe M.2'),
+                          Text(mtbs[i].wifi ? 'Wifi: ✅' : 'Wifi: ❌'),
+                          Text('Przepustowość portu ethernet: \n' +
+                              mtbs[i].ethernetSpeed +
+                              "Mb/s")
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
             onPressed: () {
               if (globals.ktoro == 2) {

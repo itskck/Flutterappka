@@ -68,6 +68,7 @@ class _Comparison extends State<Comparison> {
   void setScores() {
     print(Porownywarka.extradisk.length);
     print(Porownywarka.extradisk2.length);
+    //punkty procesora
     var cpu;
     if (num.parse(Porownywarka.chosenCpu.benchScore) >
         num.parse(Porownywarka.chosenCpu2.benchScore))
@@ -78,7 +79,6 @@ class _Comparison extends State<Comparison> {
       cpu = num.parse(Porownywarka.chosenCpu2.benchScore) /
           num.parse(Porownywarka.chosenCpu.benchScore) *
           100;
-    print(cpu);
     cpu-=100;
     cpuScore1 = cpu;
     cpuScore2 = (-1) * (cpu);
@@ -89,8 +89,6 @@ class _Comparison extends State<Comparison> {
     }
     if (num.parse(Porownywarka.chosenCpu.benchScore) ==
         num.parse(Porownywarka.chosenCpu2.benchScore)) {
-      print('if');
-
       cpuScore1 = 0;
       cpuScore2 = 0;
     }

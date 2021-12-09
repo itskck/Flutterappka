@@ -303,6 +303,7 @@ class getFromCode {
     });
     return ktoro;
   }
+  //pobieranie builda
   Future<Builds> getBuild() async{
     var snapshot= await FirebaseFirestore.instance
         .collection("builds")

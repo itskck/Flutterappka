@@ -807,6 +807,7 @@ class _dodaj extends State<dodaj> {
                     dodaj.usedNvme = true;
                     dodaj.pom1 = 8;
                     dodaj.slots = 0;
+                    dodaj.base=new FireBase();
                   });
                 }),
             SpeedDialChild(

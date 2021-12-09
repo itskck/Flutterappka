@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:skladappka/Firebase/doLogowanie/doRejestracji.dart';
-import 'package:skladappka/Globalne.dart' as globalna;
+import 'package:skladappka/Globalne.dart' as cache;
 import 'package:skladappka/config/fileOperations.dart';
 
 class doLogowanie {
@@ -15,7 +15,7 @@ class doLogowanie {
   final User _firebaseUser = FirebaseAuth.instance.currentUser;
 
   //anon
-  Future Anonim() async {
+  Future Anonim() async { //logowanie jako anonim
     try {
       UserCredential result = await _autoryzacja.signInAnonymously();
       User user = result.user;
@@ -26,18 +26,19 @@ class doLogowanie {
     }
   }
 
-  //rejestracja
+  //funkcja przydzielająca id użytkownika
   doRejestracji _uzytkownik(User user) {
     return user != null ? doRejestracji(uid: user.uid) : null;
   }
 
-  //stream
+  //metoda nasłuchująca strumienia danych w poszukiwaniu zmian id użytkownika
   Stream<doRejestracji> get user {
     return _autoryzacja
         .authStateChanges()
         .map((User user) => _uzytkownik(user));
   }
 
+  //wylogowanie
   Future wylogui() async {
     try {
       return await _autoryzacja.signOut();
@@ -46,7 +47,7 @@ class doLogowanie {
       return null;
     }
   }
-
+  //rejestracja e-mailem i hasłem
   Future registerWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential result = await _autoryzacja.createUserWithEmailAndPassword(
@@ -63,6 +64,7 @@ class doLogowanie {
     }
   }
 
+  //logowanie z użyciem e-maila i hasła
   Future signInWithEmailAndPassword(String email, String password) async {
     try {
       UserCredential result = await _autoryzacja.signInWithEmailAndPassword(
@@ -70,15 +72,11 @@ class doLogowanie {
       User user = result.user;
       return user;
     } catch (error) {
-
       return null;
     }
   }
 
-  Future deleteAccFromUsers() async {
-    return userCollection.doc(_autoryzacja.currentUser.uid).delete();
-  }
-
+  //usuwanie zestawów użytkownika
   Future deleteUserBuilds() async {
     var collection = FirebaseFirestore.instance
         .collection("builds")
@@ -87,6 +85,7 @@ class doLogowanie {
     for (var document in snapshot.docs) await document.reference.delete();
   }
 
+  //usuwanie użytkownika
   Future removeUser() async {
     var collection = FirebaseFirestore.instance
         .collection("users")
@@ -95,6 +94,7 @@ class doLogowanie {
     for (var document in snapshot.docs) await document.reference.delete();
   }
 
+  //usunięcie
   Future deleteUser() async {
     await deleteUserBuilds();
     await removeUser();
@@ -102,8 +102,8 @@ class doLogowanie {
 
     await Anonim();
     print(_firebaseUser.uid);
-    globalna.czyZalogowany = "czyZalogowany=false";
-    file.save(globalna.czyZalogowany,'loginConfig');
+    cache.czyZalogowany = "czyZalogowany=false";
+    file.save(cache.czyZalogowany,'loginConfig');
   }
 
   Future deleteAnonym() async {
