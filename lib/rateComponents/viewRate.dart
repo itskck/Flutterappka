@@ -176,6 +176,7 @@ class _viewRateState extends State<viewRate> {
       +widget.ram.speed+' MHz. W przypadku kości DDR3, optymalną prędkością jest 1600 MHz. ';
       else ramString+='Wybrane kości ramu firmy '+widget.ram.manufacturer +' powinny być dobrym wyborem. Z nominalną prędkością '+widget.ram.speed+' MHz, zestaw będzie wspierany przez solidną pamięć operacyjną. ';
     }
+    if(widget.ramNumber%2!=0) ramString+='Przez to że zestaw posiada nieparzystą liczbę kości ram, będzie on chodzić w trybie single channel, więc nie osiągnie on oczekiwanej prędkości. ';
     
     //////////////////////Zdania dysku
     String diskString='';

@@ -196,12 +196,6 @@ class _dodaj extends State<dodaj> {
         ));
   }
 
-  Widget emptyBar() {
-    return Opacity(
-        opacity: 0,
-        child: Container(height: 50, width: MediaQuery.of(context).size.width));
-  }
-
   Widget styledTextBar(String content) {
     return Container(
       height: 50,

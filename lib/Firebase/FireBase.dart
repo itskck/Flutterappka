@@ -213,20 +213,20 @@ class FireBase{
           'socket', isEqualTo: cpuSocket).snapshots().map(motherboardListFromSnapshot);
     }
     else if((driveConnectionType==null || driveConnectionType=="SATA") && caseStandard==null) {
-      print("was");
+     
       return FirebaseFirestore.instance.collection('motherboard')
           .where('ramType', isEqualTo: ramRamType).where(
           'socket', isEqualTo: cpuSocket)
           .snapshots().map(motherboardListFromSnapshot);
     }
     else if(caseStandard!=null) {
-      print("o3o");
+      
       return FirebaseFirestore.instance
             .collection('motherboard').where('standard', whereIn: caseStandard).where('ramType', isEqualTo: ramRamType)
             .where('socket', isEqualTo: cpuSocket).where('hasNvmeSlot', isEqualTo: true).snapshots().map(motherboardListFromSnapshot);
 
     } else
-      print("o4o");
+   
       return FirebaseFirestore.instance.collection('motherboard')
           .where('ramType', isEqualTo: ramRamType).where('socket', isEqualTo: cpuSocket)
           .where('hasNvmeSlot', isEqualTo: true)
