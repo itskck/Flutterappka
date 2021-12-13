@@ -13,7 +13,7 @@ class Glowna extends StatefulWidget {
   Glowna({Key key, this.title}) : super(key: key);
   //Zmienne do sprawdzenia połączenia
   static StreamSubscription<ConnectivityResult> connectivitySubscription;
-  static Connectivity _connectivity = Connectivity();
+  static Connectivity connectivity = Connectivity();
   static ConnectivityResult connectivityResult = ConnectivityResult.none;
   final String title;
 
@@ -28,11 +28,12 @@ class _Glowna extends State<Glowna> {
   @override
   void initState() {
     super.initState();
-    Glowna.connectivitySubscription = Glowna._connectivity.onConnectivityChanged
-        .listen(_updateConnectionStatus); //ustawienie subskrybcji
+    Glowna.connectivitySubscription = Glowna.connectivity.onConnectivityChanged
+        .listen(updateConnectionStatus); //ustawienie subskrybcji
   }
 
-  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+  Future<void> updateConnectionStatus(ConnectivityResult result) async {
+    print("Zmiana statusu internetu");
     setState(() {
       Glowna.connectivityResult = result; //zmiana rezultatu połączenia
     });

@@ -11,7 +11,7 @@ import 'package:skladappka/Glowna/dodawajka(do usuniecia)/Psu.dart';
 import 'package:skladappka/Glowna/dodawajka(do usuniecia)/Ram.dart';
 import 'package:skladappka/main.dart';
 
-import '../Glowna.dart';
+import 'package:skladappka/Glowna/Glowna.dart';
 
 class coDodajesz extends StatelessWidget{
 

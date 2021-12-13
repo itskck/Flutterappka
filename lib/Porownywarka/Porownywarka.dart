@@ -12,7 +12,7 @@ import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Ram.dart';
 import 'package:skladappka/Firebase/getFromDatabase/getFromCode.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
-import 'package:skladappka/Glowna/Glowna.dart';
+import 'package:skladappka/main.dart';
 import 'package:skladappka/Porownywarka/comparison.dart';
 import 'package:skladappka/Porownywarka/dialogBuilderForCompare.dart';
 import 'package:skladappka/Porownywarka/dialogWidgetForCompare.dart';
@@ -87,7 +87,7 @@ class _Porownywarka extends State<Porownywarka> {
       ),
       TextField(
         onSubmitted: (String value) async {
-          if(Glowna.connectivityResult==ConnectivityResult.none)
+          if(Skladapka.connectivityResult==ConnectivityResult.none)
             Fluttertoast.showToast(msg: "Brak połączenia z internetem",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
@@ -162,7 +162,7 @@ class _Porownywarka extends State<Porownywarka> {
               ),
               GestureDetector(
                   onTap: () async {
-                    if(Glowna.connectivityResult==ConnectivityResult.none)
+                    if(Skladapka.connectivityResult==ConnectivityResult.none)
                       Fluttertoast.showToast(msg: "Brak połączenia z internetem",
                           toastLength: Toast.LENGTH_SHORT,
                           gravity: ToastGravity.BOTTOM,
@@ -275,7 +275,7 @@ class _Porownywarka extends State<Porownywarka> {
       ),
       TextField(
         onSubmitted: (String value) async {
-          if(Glowna.connectivityResult==ConnectivityResult.none)
+          if(Skladapka.connectivityResult==ConnectivityResult.none)
             Fluttertoast.showToast(msg: "Brak połączenia z internetem",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
@@ -349,7 +349,7 @@ class _Porownywarka extends State<Porownywarka> {
               ),
               GestureDetector(
                   onTap: () async {
-                    if(Glowna.connectivityResult==ConnectivityResult.none)
+                    if(Skladapka.connectivityResult==ConnectivityResult.none)
                       Fluttertoast.showToast(msg: "Brak połączenia z internetem",
                           toastLength: Toast.LENGTH_SHORT,
                           gravity: ToastGravity.BOTTOM,

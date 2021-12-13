@@ -24,7 +24,6 @@ import 'package:skladappka/dodawanieZestawu/Logo.dart';
 import 'package:skladappka/Logowanie/Zalogowany.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
 import 'package:skladappka/main.dart';
-import 'package:skladappka/Glowna/Glowna.dart';
 
 class Edit extends StatefulWidget with ChangeNotifier {
   static Cpu chosenCpu;
@@ -148,7 +147,7 @@ class _Edit extends State<Edit> {
   Widget addButton(String component, String background) {
     return GestureDetector(
         onTap: () async {
-          if (Glowna.connectivityResult != ConnectivityResult.none) {
+          if (Skladapka.connectivityResult != ConnectivityResult.none) {
             if (Edit.chosenGpu != null) if (Edit.chosenGpu.integra == true)
               Edit.chosenGpu = null;
             if(component=="RAM" && Edit.chosenMtb==null)

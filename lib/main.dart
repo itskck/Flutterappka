@@ -74,12 +74,6 @@ Future<void> main() async {
       home: Glowna(title: data[1])));
 }
 
-void glowna() {
-  return runApp(Container(
-    child: Glowna(title: 'Składappka'),
-  ));
-}
-
 void inicjalizuj(Builds builds) {
   return runApp(Container(
     child: Skladapka(builds: builds),
@@ -119,7 +113,9 @@ ThemeData appTheme() {
 
 class Skladapka extends StatefulWidget {
   // This widget is the root of your application.
-
+  static StreamSubscription<ConnectivityResult> connectivitySubscription;
+  static Connectivity connectivity = Connectivity();
+  static ConnectivityResult connectivityResult = ConnectivityResult.none;
   final Builds builds;
   static String test="estuje";
 
@@ -132,8 +128,21 @@ class Skladapka extends StatefulWidget {
 class _SkladapkaState extends State<Skladapka> {
   final doLogowanie _anonim = doLogowanie();
 
+  @override
+  void initState() {
+    super.initState();
+    Skladapka.connectivitySubscription = Skladapka.connectivity.onConnectivityChanged
+        .listen(_updateConnectionStatus); //ustawienie subskrybcji
+  }
+  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+    print("Zmiana statusu internetu");
+    setState(() {
+      Skladapka.connectivityResult = result; //zmiana rezultatu połączenia
+    });
+  }
+
   void _onItemTapped(int index) {
-    if (globalna.ktoro == 2) Glowna.connectivitySubscription.cancel();
+    if (globalna.ktoro == 2) Skladapka.connectivitySubscription.cancel();
     globalna.ktoro = index;
     inicjalizuj(null);
   }

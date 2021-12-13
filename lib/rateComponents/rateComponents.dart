@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:skladappka/Glowna/Glowna.dart';
 import 'package:skladappka/Porownywarka/dialogWidgetForCompare.dart';
 import 'package:skladappka/main.dart';
 import 'package:skladappka/Globalne.dart' as globalna;
@@ -34,7 +33,7 @@ class _rateComponents extends State<rateComponents>{
       ),),
     TextField(
       onSubmitted: (String value) async{
-        if(Glowna.connectivityResult==ConnectivityResult.none)
+        if(Skladapka.connectivityResult==ConnectivityResult.none)
           Fluttertoast.showToast(msg: "Brak połączenia z internetem",
               toastLength: Toast.LENGTH_SHORT,
               gravity: ToastGravity.BOTTOM,
@@ -108,7 +107,7 @@ class _rateComponents extends State<rateComponents>{
   {
     return GestureDetector(
         onTap: () async{
-          if(Glowna.connectivityResult==ConnectivityResult.none)
+          if(Skladapka.connectivityResult==ConnectivityResult.none)
             Fluttertoast.showToast(msg: "Brak połączenia z internetem",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
