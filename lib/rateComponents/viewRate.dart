@@ -24,7 +24,7 @@ class viewRate extends StatefulWidget {
   final String code;
   final List<Drive> extradisk;
   final double minTdp, maxTdp, ramNumber;
-  
+
   viewRate({
     this.cpu,
     this.psu,
@@ -56,14 +56,15 @@ class _viewRateState extends State<viewRate> {
     var rand = new Random();
     return min + rand.nextInt(max - min) + 1;
   }
+
   @override
   initState() {
     super.initState();
     print(widget.extradisk.length);
     print(widget.maxTdp);
     print(widget.ramNumber);
-
   }
+
   Widget buildItems() {
     List<String> compList = [
       widget.cpu.model,
@@ -88,7 +89,15 @@ class _viewRateState extends State<viewRate> {
       'Ten model procesora ',
       'Twój procesor ',
     ];
-
+    Widget styledText(String content) {
+      return Text(
+        "\n"+content,
+        style: TextStyle(
+            fontFamily: GoogleFonts.workSans().fontFamily,
+            color: Color.fromRGBO(142, 223, 255, 1),
+            fontSize: 18),
+      );
+    }
 
     //////////////////////////////// Zdania procesora
     String cpuString = '';
@@ -137,63 +146,142 @@ class _viewRateState extends State<viewRate> {
           ' GHz' +
           ', ale ma też odblokowany mnożnik, co pozwala na zwiększenie tego parametru. ';
 
-  //////////////////////////////// Zdania płyty głównej
-  String mtbString = '';
-    if(int.parse(widget.mtb.ethernetSpeed.toString())<200){
-      mtbString+='Port ethernetowy w płycie głównej jest niskiej prędkości, bo osiąga tylko ' +widget.mtb.ethernetSpeed+' mb/s. Może to być problem przy podpięciu się do sieci swiatłowodowej. ';
-      if(widget.mtb.wifi)mtbString+='Komensuje to jednak fakt, że w wybraną płyte główną, wbudowany jest moduł Wi-Fi. ';
-    }
-    else {
-      mtbString+=' Port ethernetowy w płycie głównej powinien poradzić sobie z przepustowością większości łącz, ponieważ osiąga on '+widget.mtb.ethernetSpeed+ ' mb/s. ';
-      if(widget.mtb.wifi)mtbString+='Problemem nie będzie też podpięcie komputera do sieci bezprzewodowej, ponieważ płyta wyposażona jest w moduł Wi-Fi. ';
+    //////////////////////////////// Zdania płyty głównej
+    String mtbString = '';
+    if (int.parse(widget.mtb.ethernetSpeed.toString()) < 200) {
+      mtbString +=
+          'Port ethernetowy w płycie głównej jest niskiej prędkości, bo osiąga tylko ' +
+              widget.mtb.ethernetSpeed +
+              ' mb/s. Może to być problem przy podpięciu się do sieci swiatłowodowej. ';
+      if (widget.mtb.wifi)
+        mtbString +=
+            'Komensuje to jednak fakt, że w wybraną płyte główną, wbudowany jest moduł Wi-Fi. ';
+    } else {
+      mtbString +=
+          'Port ethernetowy w płycie głównej powinien poradzić sobie z przepustowością większości łącz, ponieważ osiąga on ' +
+              widget.mtb.ethernetSpeed +
+              ' mb/s. ';
+      if (widget.mtb.wifi)
+        mtbString +=
+            'Problemem nie będzie też podpięcie komputera do sieci bezprzewodowej, ponieważ płyta wyposażona jest w moduł Wi-Fi. ';
     }
 
-    if(int.parse(widget.mtb.ramSlots)<=2) mtbString+='Płyta, posiadając tylko '+widget.mtb.ramSlots+ ' miejsca na kości ramu, nie oferuje zbyt dużej opcji rozbudowy. ';
-    else  mtbString+= 'Płyta, posiadając '+widget.mtb.ramSlots+ ' miejsca na kości ramu, pozwala na ewentualną rozbudowe systemu. ';
+    if (int.parse(widget.mtb.ramSlots) <= 2)
+      mtbString += 'Płyta, posiadając tylko ' +
+          widget.mtb.ramSlots +
+          ' miejsca na kości ramu, nie oferuje zbyt dużej opcji rozbudowy. ';
+    else
+      mtbString += 'Płyta, posiadając ' +
+          widget.mtb.ramSlots +
+          ' miejsca na kości ramu, pozwala na ewentualną rozbudowe systemu. ';
 
-    if(int.parse(widget.mtb.usb3)>4) mtbString+='Warto dodać, że na płycie możemy znaleźć ' +widget.mtb.usb3+' portów USB 3.0, co umożliwi na podłączenie urządzeń wymagających dużej przepustowości danych. ';
-    else if(int.parse(widget.mtb.usb3)>0) mtbString+='Warto dodać, że na płycie możemy znaleźć ' +widget.mtb.usb3+' porty USB 3.0, co umożliwi na podłączenie urządzeń wymagających dużej przepustowości danych. ';
-    else mtbString+= 'Niestety, płyta nie posiada żadnych portów USB 3.0, więc podłączenie niektórych urządeń do komputera, może być problematyczne.';
+    if (int.parse(widget.mtb.usb3) > 4)
+      mtbString += 'Warto dodać, że na płycie możemy znaleźć ' +
+          widget.mtb.usb3 +
+          ' portów USB 3.0, co umożliwi na podłączenie urządzeń wymagających dużej przepustowości danych. ';
+    else if (int.parse(widget.mtb.usb3) > 0)
+      mtbString += 'Warto dodać, że na płycie możemy znaleźć ' +
+          widget.mtb.usb3 +
+          ' porty USB 3.0, co umożliwi na podłączenie urządzeń wymagających dużej przepustowości danych. ';
+    else
+      mtbString +=
+          'Niestety, płyta nie posiada żadnych portów USB 3.0, więc podłączenie niektórych urządeń do komputera, może być problematyczne.';
     //////////////////////////// Zdania karty graficznej
-    String gpuString='';
-    if(widget.gpu.integra)gpuString+='System nie posiada dedykowanej karty graficznej, przez co system może sobie nie radzić sobie z zaawansowanymi obliczeniami 3D. Trudne może być granie w bardziej wymagające gry, a także praca nad obróbką obrazów lub wideo.';
-    else{
-      gpuString+="System posiada dedykowaną kartę graficzną firmy "+widget.gpu.manufacturer+', wyposażoną w '+widget.gpu.VRAM+'GB pamięci. ';
-      if(int.parse(widget.gpu.VRAM)<4) gpuString+='Może to być niestety niewystarczająco na dzisiejsze standardy. Często gry i programy graficzne zalecają posiadanie minimum 4GB VRAMU. ';
-      else gpuString+='Powinno to być wystarczająco dużo, dla użyć graficznych i growych. ';
-      if (int.parse(now.toString().substring(0, 3)) - int.parse(widget.gpu.year) > 4) gpuString+='Karta jest niestety starsza niż 4 lata, przez co odstawać może pod kątem obliczeniowym, od nowszych modeli dostępnych na rynku';
-      else gpuString+='Karta została wydana w '+widget.gpu.year+' roku, więc wsparcie techniczne oraz sterowniki powinny być aktualne. ';
+    String gpuString = '';
+    if (widget.gpu.integra)
+      gpuString +=
+          'System nie posiada dedykowanej karty graficznej, przez co system może sobie nie radzić sobie z zaawansowanymi obliczeniami 3D. Trudne może być granie w bardziej wymagające gry, a także praca nad obróbką obrazów lub wideo.';
+    else {
+      gpuString += "System posiada dedykowaną kartę graficzną firmy " +
+          widget.gpu.manufacturer +
+          ', wyposażoną w ' +
+          widget.gpu.VRAM +
+          'GB pamięci. ';
+      if (int.parse(widget.gpu.VRAM) < 4)
+        gpuString +=
+            'Może to być niestety niewystarczająco na dzisiejsze standardy. Często gry i programy graficzne zalecają posiadanie minimum 4GB VRAMU. ';
+      else
+        gpuString +=
+            'Powinno to być wystarczająco dużo, dla użyć graficznych i growych. ';
+      if (int.parse(now.toString().substring(0, 3)) -
+              int.parse(widget.gpu.year) >
+          4)
+        gpuString +=
+            'Karta jest niestety starsza niż 4 lata, przez co odstawać może pod kątem obliczeniowym, od nowszych modeli dostępnych na rynku';
+      else
+        gpuString += 'Karta została wydana w ' +
+            widget.gpu.year +
+            ' roku, więc wsparcie techniczne oraz sterowniki powinny być aktualne. ';
     }
     ///////////////////////Zdania ramu
-    String ramString='';
-    if(widget.ram.type=='DDR4'){
-      if(int.parse(widget.ram.speed)<3200)ramString+='Wybrane kości ramu firmy '+widget.ram.manufacturer +' nie są wyborem najbardziej optymalnym, ponieważ ich prękość zegaru wyosni'
-      +widget.ram.speed+' MHz. W przypadku kości DDR4, optymalną prędkością jest 3200 MHz. ';
-      else ramString+='Wybrane kości ramu firmy '+widget.ram.manufacturer +' powinny być dobrym wyborem. Z nominalną prędkością '+widget.ram.speed+' MHz, zestaw będzie wspierany przez solidną pamięć operacyjną. ';
+    String ramString = '';
+    if (widget.ram.type == 'DDR4') {
+      if (int.parse(widget.ram.speed) < 3200)
+        ramString += 'Wybrane kości ramu firmy ' +
+            widget.ram.manufacturer +
+            ' nie są wyborem najbardziej optymalnym, ponieważ ich prękość zegaru wyosni' +
+            widget.ram.speed +
+            ' MHz. W przypadku kości DDR4, optymalną prędkością jest 3200 MHz. ';
+      else
+        ramString += 'Wybrane kości ramu firmy ' +
+            widget.ram.manufacturer +
+            ' powinny być dobrym wyborem. Z nominalną prędkością ' +
+            widget.ram.speed +
+            ' MHz, zestaw będzie wspierany przez solidną pamięć operacyjną. ';
     }
-    if(widget.ram.type=='DDR3'){
-      if(int.parse(widget.ram.speed)<1600)ramString+='Wybrane kości ramu firmy '+widget.ram.manufacturer +' nie są wyborem najbardziej optymalnym, ponieważ ich prękość zegara wynosi '
-      +widget.ram.speed+' MHz. W przypadku kości DDR3, optymalną prędkością jest 1600 MHz. ';
-      else ramString+='Wybrane kości ramu firmy '+widget.ram.manufacturer +' powinny być dobrym wyborem. Z nominalną prędkością '+widget.ram.speed+' MHz, zestaw będzie wspierany przez solidną pamięć operacyjną. ';
+    if (widget.ram.type == 'DDR3') {
+      if (int.parse(widget.ram.speed) < 1600)
+        ramString += 'Wybrane kości ramu firmy ' +
+            widget.ram.manufacturer +
+            ' nie są wyborem najbardziej optymalnym, ponieważ ich prękość zegara wynosi ' +
+            widget.ram.speed +
+            ' MHz. W przypadku kości DDR3, optymalną prędkością jest 1600 MHz. ';
+      else
+        ramString += 'Wybrane kości ramu firmy ' +
+            widget.ram.manufacturer +
+            ' powinny być dobrym wyborem. Z nominalną prędkością ' +
+            widget.ram.speed +
+            ' MHz, zestaw będzie wspierany przez solidną pamięć operacyjną. ';
     }
-    if(widget.ramNumber%2!=0) ramString+='Przez to że zestaw posiada nieparzystą liczbę kości ram, będzie on chodzić w trybie single channel, więc nie osiągnie on oczekiwanej prędkości. ';
-    
+    if (widget.ramNumber % 2 != 0)
+      ramString +=
+          'Przez to że zestaw posiada nieparzystą liczbę kości ram, będzie on chodzić w trybie single channel, więc nie osiągnie on oczekiwanej prędkości. ';
+
     //////////////////////Zdania dysku
-    String diskString='';
-    if(widget.drive.type=='SSD') diskString+='Dysk systemowy jest szybkim dyskiem SSD, który powinien uruchamiać system dużo szybciej niż klasyczne dyski HDD. ';
-    else diskString+='Dysk systemowy jest dyskiem HDD, który nie jest zalecany do bycia dyskiem systemowym. Prawdopodobnym jest, że system będzie chodził na nim powoli, a aplikacje mogą niekiedy się zacinać.';
-    //////////////////////Zdania psu
-    String psuString='';
-    if(double.parse(widget.psu.power)<widget.maxTdp)psuString+='Wybrany zasilacz prawdopodobnie nie dostarczy wystarczającej ilości mocy alby zasilić zestaw, '
-    +'jako że, przy intensywnej pracy, pobierać może on nawet '+widget.maxTdp.toString()+' W, a nominalna moc zasilacza to jedynie '+widget.psu.power+' W';
+    String diskString = '';
+    if (widget.drive.type == 'SSD')
+      diskString +=
+          'Dysk systemowy jest szybkim dyskiem SSD, który powinien uruchamiać system dużo szybciej niż klasyczne dyski HDD. ';
     else
-    psuString+='Zailacz powinien poradzić sobie z dostarczeniem mocy do zestawu komputerowego, ponieważ jego nominalna moc wynosi '+widget.psu.power.toString()+
-    ' W, a zestaw szacunkowo pobierać będzie do '+widget.maxTdp.toString()+' W.';
+      diskString +=
+          'Dysk systemowy jest dyskiem HDD, który nie jest zalecany do bycia dyskiem systemowym. Prawdopodobnym jest, że system będzie chodził na nim powoli, a aplikacje mogą niekiedy się zacinać.';
+    //////////////////////Zdania psu
+    String psuString = '';
+    if (double.parse(widget.psu.power) < widget.maxTdp)
+      psuString +=
+          'Wybrany zasilacz prawdopodobnie nie dostarczy wystarczającej ilości mocy alby zasilić zestaw, ' +
+              'jako że, przy intensywnej pracy, pobierać może on nawet ' +
+              widget.maxTdp.toString() +
+              ' W, a nominalna moc zasilacza to jedynie ' +
+              widget.psu.power +
+              ' W';
+    else
+      psuString +=
+          'Zailacz powinien poradzić sobie z dostarczeniem mocy do zestawu komputerowego, ponieważ jego nominalna moc wynosi ' +
+              widget.psu.power.toString() +
+              ' W, a zestaw szacunkowo pobierać będzie do ' +
+              widget.maxTdp.toString() +
+              ' W.';
+
     ///Zdania case
-    String caseString='';
-    if(!widget.cases.standard.contains("ATX"))caseString+='Obudowa w tym zestawie nie pozwala na ewentualne rozbudowy systemu do największych standardów płyt głównych. Należy także pamiętać, że w mniejszych obudowach, z reguły można spodziewać się gorszego przepływu powietrza, a co za tym idzie, wyższych temperatur komponentów podczas pracy.';
-    else caseString+='Obudowa w tym zestawie wspiera standard ATX który zapewnia kompatybilność ze znaczną większością płyt głównych i zasilaczy na rynku. Ponadto od takiej dużej obudowy, można spodziewać się dobrego przepływu powietrza, potrzebnego do utrzymania optymalnych temperatur w środu zestawu.';
-    
+    String caseString = '';
+    if (!widget.cases.standard.contains("ATX"))
+      caseString +=
+          'Obudowa w tym zestawie nie pozwala na ewentualne rozbudowy systemu do największych standardów płyt głównych. Należy także pamiętać, że w mniejszych obudowach, z reguły można spodziewać się gorszego przepływu powietrza, a co za tym idzie, wyższych temperatur komponentów podczas pracy.';
+    else
+      caseString +=
+          'Obudowa w tym zestawie wspiera standard ATX który zapewnia kompatybilność ze znaczną większością płyt głównych i zasilaczy na rynku. Ponadto od takiej dużej obudowy, można spodziewać się dobrego przepływu powietrza, potrzebnego do utrzymania optymalnych temperatur w środu zestawu.';
+
     return Container(
       padding: EdgeInsets.fromLTRB(10, 0, 0, 10),
       child: Column(
@@ -253,11 +341,23 @@ class _viewRateState extends State<viewRate> {
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: [                    
-                    Text(
-                      cpuString+'\n\n'+mtbString+'\n\n'+gpuString+'\n\n'+ramString+'\n\n'+diskString+'\n\n'+psuString+'\n\n'+caseString,
-                      style: style,
-                    ),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    styledText('O procesorze:'),
+                    Text(cpuString,style: style,),
+                    styledText('O płycie głównej:'),
+                    Text(mtbString,style: style,),
+                    styledText('O karcie graficznej:'),
+                    Text(gpuString,style: style,),
+                    styledText('O ramie:'),
+                    Text(ramString,style: style,),
+                    styledText('O dysku:'),
+                    Text(diskString,style: style,),
+                    styledText('O zasilaczu:'),
+                    Text(psuString,style: style,),
+                    styledText('O obudowie:'),
+                    Text(caseString,style: style,),
+
                   ],
                 ),
               ),

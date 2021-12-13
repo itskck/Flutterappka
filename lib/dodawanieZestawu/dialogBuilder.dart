@@ -653,7 +653,7 @@ class _dialogBuilder extends State<dialogBuilder> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width*0.8,
+                            
                             child: Text(mtbs[i].manufacturer + " " + mtbs[i].model,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(fontWeight: FontWeight.bold)),

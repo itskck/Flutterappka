@@ -30,7 +30,7 @@ class dialogBuilderForCompare extends StatelessWidget {
         title: Text(
           'Wybierz swój zestaw',
           style: TextStyle(
-              fontFamily: GoogleFonts.workSans().fontFamily, fontSize: 17),
+              fontFamily: GoogleFonts.workSans().fontFamily, fontSize: 20),
         ),
         children: [
           for (int i = 0; i < builds.length; i++)
@@ -39,11 +39,19 @@ class dialogBuilderForCompare extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'Zestaw z ' + builds[i].timestamp.substring(0, 10),
-                    style: TextStyle(
-                        fontFamily: GoogleFonts.workSans().fontFamily,
-                        fontSize: 18),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Zestaw z ' + builds[i].timestamp.substring(0, 10),
+                        style: TextStyle(
+                            fontFamily: GoogleFonts.workSans().fontFamily,
+                            fontSize: 18),
+                      ),
+                      Text('Kod: '+builds[i].generatedCode,style: TextStyle(
+                            fontFamily: GoogleFonts.workSans().fontFamily,
+                            fontSize: 18),)
+                    ],
                   ),
                   Text(builds[i].cpuId +", "+builds[i].gpuId+', '+builds[i].motherboardId,
                   maxLines: 1

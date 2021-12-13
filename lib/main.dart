@@ -193,9 +193,7 @@ class _SkladapkaState extends State<Skladapka> {
                 statusBarColor: appTheme().primaryColor,
                 statusBarIconBrightness: Brightness.light),
             backgroundColor: appTheme().primaryColor,
-            //backgroundColor: appTheme().canvasColor,
 
-            //leading: Icon(Icons.computer),
             title: GradientText(
               'składappka',
               colors: [Colors.lightBlue[300], Color.fromRGBO(178, 150, 255, 1)],
