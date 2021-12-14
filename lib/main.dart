@@ -142,7 +142,13 @@ class _SkladapkaState extends State<Skladapka> {
   }
 
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
-    print("Zmiana statusu internetu");
+    if(result==ConnectivityResult.none){
+      setState(() {
+        globalna.ktoro=2;
+        Skladapka.connectivityResult = result; //zmiana rezultatu połączenia
+      });
+    }
+    else
     setState(() {
       Skladapka.connectivityResult = result; //zmiana rezultatu połączenia
     });
