@@ -2,7 +2,7 @@
 import 'package:skladappka/Logowanie/Zalogowany.dart';
 import 'package:skladappka/Logowanie/Wylogowany.dart';
 import 'package:flutter/material.dart';
-import 'package:skladappka/Logowanie/haveAcc.dart';
+import 'package:skladappka/Logowanie/MaKonto.dart';
 
 class Status extends StatefulWidget {
   @override

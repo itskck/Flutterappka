@@ -14,7 +14,7 @@ import 'package:skladappka/Firebase/Code.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:async/async.dart' show StreamGroup;
 import 'Builds.dart';
-import 'package:skladappka/dodawanieZestawu/dodaj.dart';
+import 'package:skladappka/dodawanieZestawu/Dodaj.dart';
 
 class FireBase{
 

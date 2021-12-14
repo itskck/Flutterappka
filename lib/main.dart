@@ -6,22 +6,22 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:skladappka/Firebase/doLogowanie/doLogowanie.dart';
-import 'package:skladappka/rateComponents/whichSite.dart';
-import 'dodawanieZestawu/dodaj.dart';
-import 'Glowna/Glowna.dart';
+import 'package:skladappka/Firebase/DoLogowania/DoLogowania.dart';
+import 'package:skladappka/OcenKomponenty/KtoraStrona.dart';
+import 'dodawanieZestawu/Dodaj.dart';
+import 'Poradnik//Poradnik.dart';
 import 'Logowanie/Logowanie.dart';
 import 'Porownywarka/Porownywarka.dart';
-import 'wczytajZestaw/wczytajZestaw.dart';
+import 'wczytajZestaw/WczytajZestaw.dart';
 import 'package:skladappka/Firebase/Builds.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'Firebase/doLogowanie/doLogowanie.dart';
-import 'Globalne.dart' as globalna;
-import 'config/fileOperations.dart';
+import 'Firebase/DoLogowania/DoLogowania.dart';
+import 'Cache.dart' as globalna;
+import 'config/OperacjePliki.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:skladappka/rateComponents/rateComponents.dart';
+import 'package:skladappka/OcenKomponenty/OcenKomponenty.dart';
 import 'package:flutter/services.dart';
-
+import 'package:skladappka/OcenKomponenty/Przejscie.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
@@ -149,6 +149,7 @@ class _SkladapkaState extends State<Skladapka> {
 
   Widget viewReturner(int ktoro) {
     if (widget.builds != null) {
+      print("tak, tak");
       setState(() {
         globalna.ktoro = ktoro;
       });

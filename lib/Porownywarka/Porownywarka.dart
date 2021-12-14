@@ -10,12 +10,12 @@ import 'package:skladappka/Firebase/Gpu.dart';
 import 'package:skladappka/Firebase/Motherboard.dart';
 import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Ram.dart';
-import 'package:skladappka/Firebase/getFromDatabase/getFromCode.dart';
-import 'package:skladappka/Globalne.dart' as globalna;
+import 'package:skladappka/Firebase/PobierzBazeDanych/PobierzKod.dart';
+import 'package:skladappka/Cache.dart' as globalna;
 import 'package:skladappka/main.dart';
-import 'package:skladappka/Porownywarka/comparison.dart';
-import 'package:skladappka/Porownywarka/dialogBuilderForCompare.dart';
-import 'package:skladappka/Porownywarka/dialogWidgetForCompare.dart';
+import 'package:skladappka/Porownywarka/Porownanie.dart';
+import 'package:skladappka/Porownywarka/OknoDialogoweBuilder.dart';
+import 'package:skladappka/Porownywarka/OknoDialogoweWidget.dart';
 
 class Porownywarka extends StatefulWidget {
   Porownywarka({Key key, this.title}) : super(key: key);

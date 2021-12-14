@@ -1,7 +1,7 @@
 import 'dart:async';
-import 'package:skladappka/Firebase/doLogowanie/doRejestracji.dart';
-import 'package:skladappka/Firebase/doLogowanie/doLogowanie.dart';
-import 'package:skladappka/Globalne.dart' as globalna;
+import 'package:skladappka/Firebase/DoLogowania/doRejestracji.dart';
+import 'package:skladappka/Firebase/DoLogowania/DoLogowania.dart';
+import 'package:skladappka/Cache.dart' as globalna;
 import 'package:flutter/material.dart';
 import 'package:skladappka/main.dart';
 import 'package:skladappka/Firebase/FireBase.dart';
@@ -10,8 +10,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:skladappka/Firebase/Gpu.dart';
 import 'dart:core';
 import 'package:skladappka/Logowanie/Status.dart';
-import 'package:skladappka/Logowanie/isLogged.dart';
-import 'package:skladappka/dodawanieZestawu/dodaj.dart';
+import 'package:skladappka/Logowanie/JestZalogowany.dart';
+import 'package:skladappka/dodawanieZestawu/Dodaj.dart';
 class Logowanie extends StatefulWidget {
   final Function callback;
 
