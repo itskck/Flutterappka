@@ -41,12 +41,18 @@ class _Porownywarka extends State<Porownywarka> {
   List<Object> components;
   List<double> ranking;
   List<Widget> list1, list2;
-  bool isLeftChosen = false, isRightChosen = false;
+  bool isLeftChosen, isRightChosen;
   String code;
 
   final dialogBuilderForCompare compare = dialogBuilderForCompare();
   int currentChild = 0;
 
+  @override
+  initState() {
+    isLeftChosen=false;
+    isRightChosen=false;
+    super.initState();
+  }
   Future<void> setValues(int lp, String value) async {
     if (lp == 0) {
       Porownywarka.chosenCpu = await getFromCode(code: value).getCpu();

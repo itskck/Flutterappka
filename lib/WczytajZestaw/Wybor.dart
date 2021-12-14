@@ -5,7 +5,6 @@ import 'package:skladappka/Porownywarka/OknoDialogoweWidget.dart';
 import 'package:skladappka/main.dart';
 import 'package:skladappka/Cache.dart' as globalna;
 import 'WczytajZestaw.dart';
-import 'package:skladappka/main.dart';
 import 'package:skladappka/Firebase/Builds.dart';
 import 'Edytuj.dart';
 import 'package:skladappka/Firebase/PobierzBazeDanych/PobierzKod.dart';
@@ -139,38 +138,23 @@ class _choices extends State<choices>{
         )
       ),
       padding: EdgeInsets.all(2),
-      child: GestureDetector(
-        onTap: () async{
-          if (globalna.czyZalogowany == "czyZalogowany=false") {
-            Fluttertoast.showToast(msg: "Musisz być zalogowany",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.CENTER,
-                timeInSecForIosWeb: 2);
-          } else {
-            await dialogWidgetForCompare().showPopup(context,
-                0);
-           // Navigator.pop(context);//W zaleznosci czy bedzie wybrana lewa czy prawa wartosc bedzie sie zmieniala z 0 na 1
-            return inicjalizuj(choices.builds);
-
-          }
-        },
-        child: Container(      
-        height: 50,
-        width: 200,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: Color.fromRGBO(45, 45, 45,1),
-          borderRadius: BorderRadius.circular(5)
-        ),
-        child: Text('Wczytaj zapisany zestaw',
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontFamily: GoogleFonts.workSans().fontFamily,    
-          color: Colors.white,
-          fontSize: 17,
-          fontWeight: FontWeight.w100
-        ),),
-      )),
+      child: Container(
+      height: 50,
+      width: 200,
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        color: Color.fromRGBO(45, 45, 45,1),
+        borderRadius: BorderRadius.circular(5)
+      ),
+      child: Text('Wczytaj zapisany zestaw',
+      textAlign: TextAlign.center,
+      style: TextStyle(
+        fontFamily: GoogleFonts.workSans().fontFamily,
+        color: Colors.white,
+        fontSize: 17,
+        fontWeight: FontWeight.w100
+      ),),
+      ),
     ));
   }
   @override

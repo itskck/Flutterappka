@@ -244,7 +244,8 @@ class _Glowna extends State<Glowna> {
             onTap: () {
               if(isChecked==true){
                       filereader.save('tutorial=false','tutorialConfig');
-                    }   
+                    }
+              Glowna.connectivitySubscription.cancel();
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Skladapka()));
             },
