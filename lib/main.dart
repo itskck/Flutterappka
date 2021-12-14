@@ -6,10 +6,11 @@ import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:skladappka/Firebase/DoLogowania/DoLogowania.dart';
 import 'package:skladappka/OcenKomponenty/KtoraStrona.dart';
+import 'package:skladappka/Poradnik/Poradnik.dart';
 import 'dodawanieZestawu/Dodaj.dart';
-import 'Poradnik//Poradnik.dart';
 import 'Logowanie/Logowanie.dart';
 import 'Porownywarka/Porownywarka.dart';
 import 'wczytajZestaw/WczytajZestaw.dart';
@@ -143,8 +144,16 @@ class _SkladapkaState extends State<Skladapka> {
 
   void _onItemTapped(int index) {
     if (globalna.ktoro == 2) Skladapka.connectivitySubscription.cancel();
-    globalna.ktoro = index;
-    inicjalizuj(null);
+    if(Skladapka.connectivityResult==ConnectivityResult.none && index==4){
+      Fluttertoast.showToast(msg: "Brak połączenia z internetem",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 2);
+    }
+    else {
+      globalna.ktoro = index;
+      inicjalizuj(null);
+    }
   }
 
   Widget viewReturner(int ktoro) {
@@ -246,7 +255,7 @@ class _SkladapkaState extends State<Skladapka> {
               Icon(Icons.edit, color: Colors.white),
               Icon(Icons.add, color: Colors.white),
               Icon(Icons.leaderboard, color: Colors.white),
-              if (globalna.czyZalogowany == "czyZalogowany=false")
+              if (globalna.czyZalogowany == "czyZalogowany=false" && Skladapka.connectivityResult!=ConnectivityResult.none)
                 Icon(Icons.account_circle_rounded, color: Colors.white)
               else
                 Container(

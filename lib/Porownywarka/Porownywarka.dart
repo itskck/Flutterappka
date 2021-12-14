@@ -51,6 +51,26 @@ class _Porownywarka extends State<Porownywarka> {
   initState() {
     isLeftChosen=false;
     isRightChosen=false;
+    Porownywarka.chosenCpu = null;
+    Porownywarka.chosenPsu = null;
+    Porownywarka.chosenMtb = null;
+    Porownywarka.chosenDrive = null;
+    Porownywarka.chosenRam = null;
+    Porownywarka.chosenCase = null;
+    Porownywarka.chosenGpu = null;
+    Porownywarka.chosenCooler = null;
+    Porownywarka.uid = null;
+    Porownywarka.extradisk= null;
+    Porownywarka.chosenCpu2 = null;
+    Porownywarka.chosenPsu2 = null;
+    Porownywarka.chosenMtb2 = null;
+    Porownywarka.chosenDrive2 = null;
+    Porownywarka.chosenRam2 = null;
+    Porownywarka.chosenCase2 = null;
+    Porownywarka.chosenGpu2 = null;
+    Porownywarka.chosenCooler2 = null;
+    Porownywarka.uid2 = null;
+    Porownywarka.extradisk2=null;
     super.initState();
   }
   Future<void> setValues(int lp, String value) async {
@@ -195,15 +215,7 @@ class _Porownywarka extends State<Porownywarka> {
                           isLeftChosen = true;
                         });
                     }
-                    if ((isRightChosen == true &&
-                            (Porownywarka.chosenCpu != null &&
-                                Porownywarka.chosenCpu2 != null)) ||
-                        (isRightChosen == false &&
-                            (Porownywarka.chosenCpu != null ||
-                                Porownywarka.chosenCpu2 != null)))
-                      setState(() {
-                        isLeftChosen = true;
-                      });
+
                   },
                   child: Container(
                     padding: EdgeInsets.all(2),
@@ -381,15 +393,6 @@ class _Porownywarka extends State<Porownywarka> {
                           isRightChosen = true;
                         });
                     }
-                    if ((isLeftChosen == true &&
-                            (Porownywarka.chosenCpu != null &&
-                                Porownywarka.chosenCpu2 != null)) ||
-                        (isLeftChosen == false &&
-                            (Porownywarka.chosenCpu != null ||
-                                Porownywarka.chosenCpu2 != null)))
-                      setState(() {
-                        isRightChosen = true;
-                      });
                   },
                   child:  Container(
                     padding: EdgeInsets.all(2),
