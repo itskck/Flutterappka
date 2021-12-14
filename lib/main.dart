@@ -27,24 +27,25 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 
 Future<void> main() async {
-  ErrorWidget.builder = (FlutterErrorDetails details) => Center(child: CircularProgressIndicator());
+  ErrorWidget.builder = (FlutterErrorDetails details) =>
+      Center(child: CircularProgressIndicator());
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   User _firebaseUser = FirebaseAuth.instance.currentUser;
 
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp,DeviceOrientation.portraitDown]);
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
   final file = fileReader();
   List<String> data;
-  String pom="";
-  int licznik=0;
-  bool sprawdzacz=false;
+  String pom = "";
+  int licznik = 0;
+  bool sprawdzacz = false;
   data = new List<String>();
-
 
   if (_firebaseUser == null) {
     print("nie no blagam");
-    file.save("czyZalogowany=false",'loginConfig');
+    file.save("czyZalogowany=false", 'loginConfig');
     final doLogowanie _anonim = doLogowanie();
     dynamic result = await _anonim.Anonim();
     if (result == null)
@@ -53,7 +54,7 @@ Future<void> main() async {
       print(result.uid);
   } else
     print(_firebaseUser.uid);
-  if(await file.exists('tutorialConfig')==false){
+  if (await file.exists('tutorialConfig') == false) {
     print("her");
     file.save('tutorial=true', 'tutorialConfig');
   }
@@ -66,8 +67,7 @@ Future<void> main() async {
 
   globalna.czyZalogowany = data[0];
   print(data[1]);
-  if(data[1]=="tutorial=false")
-    sprawdzacz=true;
+  if (data[1] == "tutorial=false") sprawdzacz = true;
   runApp(MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: appTheme(),
@@ -118,7 +118,7 @@ class Skladapka extends StatefulWidget {
   static Connectivity connectivity = Connectivity();
   static ConnectivityResult connectivityResult = ConnectivityResult.none;
   final Builds builds;
-  static String test="estuje";
+  static String test = "estuje";
 
   Skladapka({this.builds});
 
@@ -128,32 +128,25 @@ class Skladapka extends StatefulWidget {
 
 class _SkladapkaState extends State<Skladapka> {
   final doLogowanie _anonim = doLogowanie();
+  void _onItemTapped(int index) {
+   
+    globalna.ktoro = index;
+    inicjalizuj(null);
+  }
 
   @override
   void initState() {
     super.initState();
-    Skladapka.connectivitySubscription = Skladapka.connectivity.onConnectivityChanged
+    Skladapka.connectivitySubscription = Skladapka
+        .connectivity.onConnectivityChanged
         .listen(_updateConnectionStatus); //ustawienie subskrybcji
   }
+
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     print("Zmiana statusu internetu");
     setState(() {
       Skladapka.connectivityResult = result; //zmiana rezultatu połączenia
     });
-  }
-
-  void _onItemTapped(int index) {
-    if (globalna.ktoro == 2) Skladapka.connectivitySubscription.cancel();
-    if(Skladapka.connectivityResult==ConnectivityResult.none && index==4){
-      Fluttertoast.showToast(msg: "Brak połączenia z internetem",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.BOTTOM,
-          timeInSecForIosWeb: 2);
-    }
-    else {
-      globalna.ktoro = index;
-      inicjalizuj(null);
-    }
   }
 
   Widget viewReturner(int ktoro) {
@@ -187,6 +180,7 @@ class _SkladapkaState extends State<Skladapka> {
 
   @override
   Widget build(BuildContext context) {
+    print(globalna.ktoro.toString() + "############");
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: appTheme(),
@@ -203,7 +197,6 @@ class _SkladapkaState extends State<Skladapka> {
                 statusBarColor: appTheme().primaryColor,
                 statusBarIconBrightness: Brightness.light),
             backgroundColor: appTheme().primaryColor,
-
             title: GradientText(
               'składappka',
               colors: [Colors.lightBlue[300], Color.fromRGBO(178, 150, 255, 1)],
@@ -255,7 +248,8 @@ class _SkladapkaState extends State<Skladapka> {
               Icon(Icons.edit, color: Colors.white),
               Icon(Icons.add, color: Colors.white),
               Icon(Icons.leaderboard, color: Colors.white),
-              if (globalna.czyZalogowany == "czyZalogowany=false" && Skladapka.connectivityResult!=ConnectivityResult.none)
+              if (globalna.czyZalogowany == "czyZalogowany=false" ||
+                  Skladapka.connectivityResult == ConnectivityResult.none)
                 Icon(Icons.account_circle_rounded, color: Colors.white)
               else
                 Container(
@@ -275,7 +269,24 @@ class _SkladapkaState extends State<Skladapka> {
                   ),
                 )
             ],
-            onTap: _onItemTapped,
+            onTap: (int index) {
+              print(index.toString() +
+                  ' indeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeex  ');
+              if (Skladapka.connectivityResult == ConnectivityResult.none &&
+                  index == 4) {
+                Fluttertoast.showToast(
+                    msg: "Brak połączenia z internetem",
+                    toastLength: Toast.LENGTH_SHORT,
+                    gravity: ToastGravity.BOTTOM,
+                    timeInSecForIosWeb: 2);
+                setState(() {
+                  print(globalna.ktoro.toString() + ' onTapped globalna');
+                  _onItemTapped(globalna.ktoro);
+                });
+              } else {
+                _onItemTapped(index);
+              }
+            },
           ),
         ));
   }
