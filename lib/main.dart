@@ -129,7 +129,6 @@ class Skladapka extends StatefulWidget {
 class _SkladapkaState extends State<Skladapka> {
   final doLogowanie _anonim = doLogowanie();
   void _onItemTapped(int index) {
-   
     globalna.ktoro = index;
     inicjalizuj(null);
   }
@@ -269,9 +268,7 @@ class _SkladapkaState extends State<Skladapka> {
                   ),
                 )
             ],
-            onTap: (int index) {
-              print(index.toString() +
-                  ' indeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeex  ');
+            letIndexChange: (int index) {
               if (Skladapka.connectivityResult == ConnectivityResult.none &&
                   index == 4) {
                 Fluttertoast.showToast(
@@ -279,13 +276,12 @@ class _SkladapkaState extends State<Skladapka> {
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.BOTTOM,
                     timeInSecForIosWeb: 2);
-                setState(() {
-                  print(globalna.ktoro.toString() + ' onTapped globalna');
-                  _onItemTapped(globalna.ktoro);
-                });
-              } else {
-                _onItemTapped(index);
-              }
+                return false;
+              } else
+                return true;
+            },
+            onTap: (int index) {
+             _onItemTapped(index);
             },
           ),
         ));
