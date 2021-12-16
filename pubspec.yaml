@@ -105,10 +105,17 @@ flutter:
   - assets/companies logo/biostar.png
   - assets/companies logo/gigabyte.png
   - assets/companies logo/msi.png
-  - assets/companies logo/gskill.png
+  - assets/companies logo/g.skill.png
   - assets/companies logo/goodram.png
   - assets/companies logo/seasonic.png
   - assets/companies logo/kingston.png
+  - assets/companies logo/hyperx.png
+  - assets/companies logo/crucial.png
+  - assets/companies logo/be quiet!.png
+  - assets/companies logo/evga.png
+  - assets/companies logo/natec.png
+  - assets/companies logo/crux.png
+  - assets/companies logo/sandisk.png
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   fonts:  
