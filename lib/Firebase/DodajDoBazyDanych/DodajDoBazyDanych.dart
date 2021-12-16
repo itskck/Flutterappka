@@ -15,14 +15,13 @@ import 'package:skladappka/Firebase/Ram.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-class addNickToDatabase {
+class addUserToDatabase {
   final CollectionReference userCollection =
-      FirebaseFirestore.instance.collection("users");
+      FirebaseFirestore.instance.collection("users"); //odwołanie do kolekcji w Firebase
 
-  Future<void> updateUserData(String nick, String uid) async {
-    var aid = Random().nextInt(5);
-    print('id zarejstrowanego: ' + uid);
-    return await userCollection
+  Future<void> updateUserData(String nick, String uid) async { //metoda dodania dokumentu
+    var aid = Random().nextInt(5); //ustawienie losowego awatara
+    return await userCollection //stworzenie dokumentu i zapisanie do niego wartosci
         .doc(uid)
         .set({'aid': aid, 'nick': nick, 'uid': uid});
   }
@@ -88,7 +87,6 @@ class addBuildToDatabse {
   Future<void> addBuildData() async {
     pom = "pcqxs";
     while (await checkexist() == true) {
-      print("cos tam");
       pom = await generateRandomString();
     }
     List<String> extra_drives;
@@ -107,7 +105,6 @@ class addBuildToDatabse {
       else
         extra_drives.add("Brak");
     }
-    print(extra_drives.length);
     return await buildCollection.doc(pom + " " + uid).set({
       "cpuId": chosenCpu.model,
       "caseId": chosenCase.model,

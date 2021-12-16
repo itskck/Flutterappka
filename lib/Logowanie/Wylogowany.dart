@@ -19,7 +19,7 @@ class Wylogowany extends StatefulWidget {
 class _Wylogowany extends State<Wylogowany> {
   final doLogowanie _auth = doLogowanie();
   final _formKey = GlobalKey<FormState>();
-  final addNickToDatabase _add = addNickToDatabase();
+  final addUserToDatabase _add = addUserToDatabase();
   final TextStyle style = TextStyle(
       color: Colors.white, fontFamily: GoogleFonts.workSans().fontFamily);
   String nick = '';
