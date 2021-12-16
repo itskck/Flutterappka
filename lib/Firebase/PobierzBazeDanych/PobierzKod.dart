@@ -34,10 +34,10 @@ class getFromCode {
         .collection("builds")
         .where("generatedCode", isEqualTo: code)
         .limit(1)
-        .get();
+        .get(); //pobranie dokumentu o odpowiednim kodzie z bazy
     final List<DocumentSnapshot> documents=result.docs;
-    if(documents.length==1) return true;
-    else return false;
+    if(documents.length==1) return true; //jesli lista dokumentow jest rowna 1 to dokument istnieje
+    else return false; //w przeciwnym wypadku dokument nie istnieje
   }
 
   Future<Cpu> getCpu() async{

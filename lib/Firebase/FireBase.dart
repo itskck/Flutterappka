@@ -10,7 +10,6 @@ import 'package:skladappka/Firebase/Motherboard.dart';
 import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Ram.dart';
 import 'dart:core';
-import 'package:skladappka/Firebase/Code.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:async/async.dart' show StreamGroup;
 import 'Builds.dart';
