@@ -10,12 +10,12 @@ import 'package:skladappka/Firebase/Gpu.dart';
 import 'package:skladappka/Firebase/Motherboard.dart';
 import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Ram.dart';
-import 'package:skladappka/Firebase/getFromDatabase/getFromCode.dart';
-import 'package:skladappka/Globalne.dart' as globalna;
-import 'package:skladappka/Glowna/Glowna.dart';
-import 'package:skladappka/Porownywarka/comparison.dart';
-import 'package:skladappka/Porownywarka/dialogBuilderForCompare.dart';
-import 'package:skladappka/Porownywarka/dialogWidgetForCompare.dart';
+import 'package:skladappka/Firebase/PobierzBazeDanych/PobierzKod.dart';
+import 'package:skladappka/Cache.dart' as globalna;
+import 'package:skladappka/main.dart';
+import 'package:skladappka/Porownywarka/Porownanie.dart';
+import 'package:skladappka/Porownywarka/OknoDialogoweBuilder.dart';
+import 'package:skladappka/Porownywarka/OknoDialogoweWidget.dart';
 
 class Porownywarka extends StatefulWidget {
   Porownywarka({Key key, this.title}) : super(key: key);
@@ -41,12 +41,38 @@ class _Porownywarka extends State<Porownywarka> {
   List<Object> components;
   List<double> ranking;
   List<Widget> list1, list2;
-  bool isLeftChosen = false, isRightChosen = false;
+  bool isLeftChosen, isRightChosen;
   String code;
 
   final dialogBuilderForCompare compare = dialogBuilderForCompare();
   int currentChild = 0;
 
+  @override
+  initState() {
+    isLeftChosen=false;
+    isRightChosen=false;
+    Porownywarka.chosenCpu = null;
+    Porownywarka.chosenPsu = null;
+    Porownywarka.chosenMtb = null;
+    Porownywarka.chosenDrive = null;
+    Porownywarka.chosenRam = null;
+    Porownywarka.chosenCase = null;
+    Porownywarka.chosenGpu = null;
+    Porownywarka.chosenCooler = null;
+    Porownywarka.uid = null;
+    Porownywarka.extradisk= null;
+    Porownywarka.chosenCpu2 = null;
+    Porownywarka.chosenPsu2 = null;
+    Porownywarka.chosenMtb2 = null;
+    Porownywarka.chosenDrive2 = null;
+    Porownywarka.chosenRam2 = null;
+    Porownywarka.chosenCase2 = null;
+    Porownywarka.chosenGpu2 = null;
+    Porownywarka.chosenCooler2 = null;
+    Porownywarka.uid2 = null;
+    Porownywarka.extradisk2=null;
+    super.initState();
+  }
   Future<void> setValues(int lp, String value) async {
     if (lp == 0) {
       Porownywarka.chosenCpu = await getFromCode(code: value).getCpu();
@@ -87,7 +113,7 @@ class _Porownywarka extends State<Porownywarka> {
       ),
       TextField(
         onSubmitted: (String value) async {
-          if(Glowna.connectivityResult==ConnectivityResult.none)
+          if(Skladapka.connectivityResult==ConnectivityResult.none)
             Fluttertoast.showToast(msg: "Brak połączenia z internetem",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
@@ -162,7 +188,7 @@ class _Porownywarka extends State<Porownywarka> {
               ),
               GestureDetector(
                   onTap: () async {
-                    if(Glowna.connectivityResult==ConnectivityResult.none)
+                    if(Skladapka.connectivityResult==ConnectivityResult.none)
                       Fluttertoast.showToast(msg: "Brak połączenia z internetem",
                           toastLength: Toast.LENGTH_SHORT,
                           gravity: ToastGravity.BOTTOM,
@@ -189,15 +215,7 @@ class _Porownywarka extends State<Porownywarka> {
                           isLeftChosen = true;
                         });
                     }
-                    if ((isRightChosen == true &&
-                            (Porownywarka.chosenCpu != null &&
-                                Porownywarka.chosenCpu2 != null)) ||
-                        (isRightChosen == false &&
-                            (Porownywarka.chosenCpu != null ||
-                                Porownywarka.chosenCpu2 != null)))
-                      setState(() {
-                        isLeftChosen = true;
-                      });
+
                   },
                   child: Container(
                     padding: EdgeInsets.all(2),
@@ -275,7 +293,7 @@ class _Porownywarka extends State<Porownywarka> {
       ),
       TextField(
         onSubmitted: (String value) async {
-          if(Glowna.connectivityResult==ConnectivityResult.none)
+          if(Skladapka.connectivityResult==ConnectivityResult.none)
             Fluttertoast.showToast(msg: "Brak połączenia z internetem",
                 toastLength: Toast.LENGTH_SHORT,
                 gravity: ToastGravity.BOTTOM,
@@ -349,7 +367,7 @@ class _Porownywarka extends State<Porownywarka> {
               ),
               GestureDetector(
                   onTap: () async {
-                    if(Glowna.connectivityResult==ConnectivityResult.none)
+                    if(Skladapka.connectivityResult==ConnectivityResult.none)
                       Fluttertoast.showToast(msg: "Brak połączenia z internetem",
                           toastLength: Toast.LENGTH_SHORT,
                           gravity: ToastGravity.BOTTOM,
@@ -375,15 +393,6 @@ class _Porownywarka extends State<Porownywarka> {
                           isRightChosen = true;
                         });
                     }
-                    if ((isLeftChosen == true &&
-                            (Porownywarka.chosenCpu != null &&
-                                Porownywarka.chosenCpu2 != null)) ||
-                        (isLeftChosen == false &&
-                            (Porownywarka.chosenCpu != null ||
-                                Porownywarka.chosenCpu2 != null)))
-                      setState(() {
-                        isRightChosen = true;
-                      });
                   },
                   child:  Container(
                     padding: EdgeInsets.all(2),
