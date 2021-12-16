@@ -308,7 +308,7 @@ class getFromCode {
     var snapshot= await FirebaseFirestore.instance
         .collection("builds")
         .where("generatedCode", isEqualTo: code)
-        .get();
+        .get(); //pobranie odpowiedniego dokumentu
     snapshot.docs.map((doc){
       builds=Builds(
           cpuId: doc.data().toString().contains('cpuId') ? doc.get('cpuId') : 'Error not found',
@@ -327,8 +327,8 @@ class getFromCode {
           extradisk: List.from(doc.data().toString().contains('extradisk') ? doc.get('extradisk') : 'Error not found'),
           ramNumber: doc.data().toString().contains('ramNumber') ? doc.get('ramNumber') : 'Error not found',
       );
-    }).toList();
-    return builds;
+    }).toList(); //stworzenie obiektu typu Builds na podstawie pobranego dokumentu
+    return builds; //zwrocenie tego obiektu
   }
 
   Future<List<Drive>> setExtra() async{
