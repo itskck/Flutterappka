@@ -77,7 +77,7 @@ class Edit extends StatefulWidget with ChangeNotifier {
 
 class _Edit extends State<Edit> {
   double minTdp, maxTdp;
-  final FireBase base = FireBase();
+  FireBase base = FireBase();
   String pom;
   @override
   initState() {
@@ -755,7 +755,7 @@ class _Edit extends State<Edit> {
                     Edit.chosenDrive == null ||
                     Edit.chosenMtb == null ||
                     Edit.chosenPsu == null ||
-                    Edit.chosenGpu == null)
+                    Edit.chosenGpu == null || (Edit.chosenCooler==null && Edit.chosenCpu.isCoolerIncluded==false))
                   showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -836,6 +836,12 @@ class _Edit extends State<Edit> {
                     Edit.chosenRam=null;
                     minTdp=0.0;
                     maxTdp=0.0;
+                    Edit.extraDrives=new List<Drive>();
+                    Edit.extra=-1;
+                    Edit.usedNvme=true;
+                    Edit.pom1=8;
+                    Edit.slots=0;
+                    base=new FireBase();
                   });
                 }
             ),
