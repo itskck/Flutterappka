@@ -703,7 +703,7 @@ class _dodaj extends State<dodaj> {
                       dodaj.chosenDrive == null ||
                       dodaj.chosenMtb == null ||
                       dodaj.chosenPsu == null ||
-                      dodaj.chosenGpu == null) && (dodaj.chosenCooler==null && dodaj.chosenCpu.isCoolerIncluded==false))
+                      dodaj.chosenGpu == null) || (dodaj.chosenCooler==null && dodaj.chosenCpu.isCoolerIncluded==false))
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {
