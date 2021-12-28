@@ -697,13 +697,13 @@ class _dodaj extends State<dodaj> {
                   if (dodaj.chosenGpu == null && dodaj.chosenCpu != null)
                     dodaj.chosenGpu =
                         await dodaj.base.addGpu(dodaj.chosenCpu.hasGpu);
-                  if (dodaj.chosenCpu == null ||
+                  if ((dodaj.chosenCpu == null ||
                       dodaj.chosenRam == null ||
                       dodaj.chosenCase == null ||
                       dodaj.chosenDrive == null ||
                       dodaj.chosenMtb == null ||
                       dodaj.chosenPsu == null ||
-                      dodaj.chosenGpu == null)
+                      dodaj.chosenGpu == null) && (dodaj.chosenCooler==null && dodaj.chosenCpu.isCoolerIncluded==false))
                     showDialog(
                         context: context,
                         builder: (BuildContext context) {

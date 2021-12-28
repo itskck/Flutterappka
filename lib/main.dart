@@ -44,14 +44,9 @@ Future<void> main() async {
   data = new List<String>();
 
   if (_firebaseUser == null) {
-    print("nie no blagam");
     file.save("czyZalogowany=false", 'loginConfig');
     final doLogowanie _anonim = doLogowanie();
     dynamic result = await _anonim.Anonim();
-    if (result == null)
-      print('Nie jestes w bazie');
-    else
-      print(result.uid);
   } else
     print(_firebaseUser.uid);
   if (await file.exists('tutorialConfig') == false) {
