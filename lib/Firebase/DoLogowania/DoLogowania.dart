@@ -20,8 +20,7 @@ class doLogowanie {
       UserCredential result = await _autoryzacja.signInAnonymously();
       User user = result.user;
       return _uzytkownik(user);
-    } catch (e) {
-      print(e.toString());
+    } catch (e) {     
       return null;
     }
   }
@@ -42,8 +41,7 @@ class doLogowanie {
   Future wylogui() async {
     try {
       return await _autoryzacja.signOut();
-    } catch (error) {
-      print(error.toString());
+    } catch (error) {      
       return null;
     }
   }

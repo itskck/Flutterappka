@@ -5,8 +5,8 @@ import 'dart:io';
 class fileReader {
   void save(String data, String title) async {
     Directory appDocDir = Platform.isAndroid
-        ? await getExternalStorageDirectory() //FOR ANDROID
-        : await getApplicationSupportDirectory();
+        ? await getExternalStorageDirectory() //Android
+        : await getApplicationSupportDirectory(); //ios
     ;
     String filePath = appDocDir.path + "/" + title + ".txt";
     File f = File(filePath);
@@ -31,7 +31,7 @@ class fileReader {
 
   Future<String> read(String title) async {
     Directory appDocDir = Platform.isAndroid
-        ? await getExternalStorageDirectory() //FOR ANDROID
+        ? await getExternalStorageDirectory() 
         : await getApplicationSupportDirectory();
     ;
     String filePath = appDocDir.path + "/" + title + ".txt";

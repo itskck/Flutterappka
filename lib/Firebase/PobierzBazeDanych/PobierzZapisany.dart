@@ -43,18 +43,18 @@ class getFromSaved {
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       chosenCpu=Cpu(
-          benchScore: doc.data().toString().contains('benchScore') ? doc.get('benchScore') : 'Error not found',
-          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
-          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          clocker: doc.data().toString().contains('clock') ? doc.get('clock') : 'Error not found',
-          cores: doc.data().toString().contains('cores') ? doc.get('cores') : 'Error not found',
-          hasGpu: doc.data().toString().contains('hasGpu') ? doc.get('hasGpu') : 'Error not found',
-          isCoolerIncluded: doc.data().toString().contains('isCoolerIncluded') ? doc.get('isCoolerIncluded') : 'Error not found',
-          isUnlocked: doc.data().toString().contains('isUnlocked') ? doc.get('isUnlocked') : 'Error not found',
-          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Error not found',
-          tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : 'Error not found',
-          threads: doc.data().toString().contains('threads') ? doc.get('threads') : 'Error not found',
-          year: doc.data().toString().contains('year') ? doc.get('year') : 'Error not found',
+          benchScore: doc.data().toString().contains('benchScore') ? doc.get('benchScore') : 'Nieznaleziono',
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
+          clocker: doc.data().toString().contains('clock') ? doc.get('clock') : 'Nieznaleziono',
+          cores: doc.data().toString().contains('cores') ? doc.get('cores') : 'Nieznaleziono',
+          hasGpu: doc.data().toString().contains('hasGpu') ? doc.get('hasGpu') : 'Nieznaleziono',
+          isCoolerIncluded: doc.data().toString().contains('isCoolerIncluded') ? doc.get('isCoolerIncluded') : 'Nieznaleziono',
+          isUnlocked: doc.data().toString().contains('isUnlocked') ? doc.get('isUnlocked') : 'Nieznaleziono',
+          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Nieznaleziono',
+          tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : 'Nieznaleziono',
+          threads: doc.data().toString().contains('threads') ? doc.get('threads') : 'Nieznaleziono',
+          year: doc.data().toString().contains('year') ? doc.get('year') : 'Nieznaleziono',
           img:img
       );
     }).toList();
@@ -71,13 +71,13 @@ class getFromSaved {
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       chosenGpu=Gpu(
-        benchScore: doc.data().toString().contains('benchScore') ? doc.get('benchScore') : 'Error not found',
-          VRAM: doc.data().toString().contains('VRAM') ? doc.get('VRAM') : 'Error not found',
-          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
-          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          year: doc.data().toString().contains('year') ? doc.get('year') : 'Error not found',
-          series: doc.data().toString().contains('series') ? doc.get('series') : 'Error not found',
-          tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : 'Error not found',
+        benchScore: doc.data().toString().contains('benchScore') ? doc.get('benchScore') : 'Nieznaleziono',
+          VRAM: doc.data().toString().contains('VRAM') ? doc.get('VRAM') : 'Nieznaleziono',
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
+          year: doc.data().toString().contains('year') ? doc.get('year') : 'Nieznaleziono',
+          series: doc.data().toString().contains('series') ? doc.get('series') : 'Nieznaleziono',
+          tdp: doc.data().toString().contains('tdp') ? doc.get('tdp') : 'Nieznaleziono',
           integra: doc.data().toString().contains('integra')? doc.get('integra'): 'Error',
           img:img
       );
@@ -96,9 +96,9 @@ class getFromSaved {
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       chosenCase=Case(
-          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
-          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          standard: doc.data().toString().contains('standard') ? doc.get('standard') : 'Error not found',
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
+          standard: doc.data().toString().contains('standard') ? doc.get('standard') : 'Nieznaleziono',
           img:img
       );
     }).toList();
@@ -116,9 +116,9 @@ class getFromSaved {
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       chosenCooler=Cooler(
-          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
-          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Error not found',
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
+          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Nieznaleziono',
           img:img
       );
     }).toList();
@@ -135,11 +135,11 @@ class getFromSaved {
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       chosenDrive=Drive(
-          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
-          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          capacity: doc.data().toString().contains('capacity') ? doc.get('capacity') : 'Error not found',
-          connectionType: doc.data().toString().contains('connectionType') ? doc.get('connectionType') : 'Error not found',
-          type: doc.data().toString().contains('type') ? doc.get('type') : 'Error not found',
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
+          capacity: doc.data().toString().contains('capacity') ? doc.get('capacity') : 'Nieznaleziono',
+          connectionType: doc.data().toString().contains('connectionType') ? doc.get('connectionType') : 'Nieznaleziono',
+          type: doc.data().toString().contains('type') ? doc.get('type') : 'Nieznaleziono',
           img:img
       );
     }).toList();
@@ -156,20 +156,20 @@ class getFromSaved {
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       chosenMtb=Motherboard(
-          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
-          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          chipset: doc.data().toString().contains('chipset') ? doc.get('chipset') : 'Error not found',
-          hasNvmeSlot: doc.data().toString().contains('hasNvmeSlot') ? doc.get('hasNvmeSlot') : 'Error not found',
-          ramSlots: doc.data().toString().contains('ramSlots') ? doc.get('ramSlots') : 'Error not found',
-          ramType: doc.data().toString().contains('ramType') ? doc.get('ramType') : 'Error not found',
-          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Error not found',
-          standard: doc.data().toString().contains('standard') ? doc.get('standard') : 'Error not found',
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
+          chipset: doc.data().toString().contains('chipset') ? doc.get('chipset') : 'Nieznaleziono',
+          hasNvmeSlot: doc.data().toString().contains('hasNvmeSlot') ? doc.get('hasNvmeSlot') : 'Nieznaleziono',
+          ramSlots: doc.data().toString().contains('ramSlots') ? doc.get('ramSlots') : 'Nieznaleziono',
+          ramType: doc.data().toString().contains('ramType') ? doc.get('ramType') : 'Nieznaleziono',
+          socket: doc.data().toString().contains('socket') ? doc.get('socket') : 'Nieznaleziono',
+          standard: doc.data().toString().contains('standard') ? doc.get('standard') : 'Nieznaleziono',
           img:img,
           wifi: doc.data().toString().contains('wifi') ? doc.get('wifi') : false,
-          usb3: doc.data().toString().contains('usb3') ? doc.get('usb3') : 'Error not found',
-          usb2and1: doc.data().toString().contains('usb2and1') ? doc.get('usb2and1') : 'Error not found',
-          ethernetSpeed: doc.data().toString().contains('ethernetSpeed') ? doc.get('ethernetSpeed') : 'Error not found',
-          sataPorts: doc.data().toString().contains('sataPorts') ? doc.get('sataPorts') : 'Error not found'
+          usb3: doc.data().toString().contains('usb3') ? doc.get('usb3') : 'Nieznaleziono',
+          usb2and1: doc.data().toString().contains('usb2and1') ? doc.get('usb2and1') : 'Nieznaleziono',
+          ethernetSpeed: doc.data().toString().contains('ethernetSpeed') ? doc.get('ethernetSpeed') : 'Nieznaleziono',
+          sataPorts: doc.data().toString().contains('sataPorts') ? doc.get('sataPorts') : 'Nieznaleziono'
       );
     }).toList();
     return chosenMtb;
@@ -185,9 +185,9 @@ class getFromSaved {
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       chosenPsu=Psu(
-          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
-          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          power: doc.data().toString().contains('power') ? doc.get('power') : 'Error not found',
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
+          power: doc.data().toString().contains('power') ? doc.get('power') : 'Nieznaleziono',
           img:img
       );
     }).toList();
@@ -206,12 +206,12 @@ class getFromSaved {
       String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       chosenRam=Ram(
-          benchScore: doc.data().toString().contains('benchScore') ? doc.get('benchScore') : 'Error not found',
-          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Error not found',
-          model: doc.data().toString().contains('model') ? doc.get('model') : 'Error not found',
-          capacity: doc.data().toString().contains('capacity') ? doc.get('capacity') : 'Error not found',
-          speed: doc.data().toString().contains('speed') ? doc.get('speed') : 'Error not found',
-          type: doc.data().toString().contains('type') ? doc.get('type') : 'Error not found',
+          benchScore: doc.data().toString().contains('benchScore') ? doc.get('benchScore') : 'Nieznaleziono',
+          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
+          model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
+          capacity: doc.data().toString().contains('capacity') ? doc.get('capacity') : 'Nieznaleziono',
+          speed: doc.data().toString().contains('speed') ? doc.get('speed') : 'Nieznaleziono',
+          type: doc.data().toString().contains('type') ? doc.get('type') : 'Nieznaleziono',
           img:img
       );
     }).toList();
