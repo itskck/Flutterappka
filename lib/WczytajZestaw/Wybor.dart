@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skladappka/Porownywarka/OknoDialogoweWidget.dart';
 import 'package:skladappka/main.dart';
-import 'package:skladappka/Cache.dart' as globalna;
+import 'package:skladappka/Cache.dart' as cache;
 import 'WczytajZestaw.dart';
 import 'package:skladappka/main.dart';
 import 'package:skladappka/Firebase/Builds.dart';
@@ -114,14 +114,13 @@ class _choices extends State<choices>{
               gravity: ToastGravity.BOTTOM,
               timeInSecForIosWeb: 2);
         else {
-            if (globalna.czyZalogowany == "czyZalogowany=false") {
+            if (cache.czyZalogowany == "czyZalogowany=false") {
               Fluttertoast.showToast(msg: "Musisz się zalogować",
                   toastLength: Toast.LENGTH_SHORT,
                   gravity: ToastGravity.BOTTOM,
                   timeInSecForIosWeb: 2);
             } else {
-              await dialogWidgetForCompare().showPopup(context, 0);
-              // Navigator.pop(context);//W zaleznosci czy bedzie wybrana lewa czy prawa wartosc bedzie sie zmieniala z 0 na 1
+              await dialogWidgetForCompare().showPopup(context, 0);              
               return inicjalizuj(choices.builds);
             }
           }

@@ -710,8 +710,8 @@ class _dodaj extends State<dodaj> {
                           return AlertDialog(
                               title: Text('Błąd'),
                               content: Text(
-                                  'Nie wybrano ktoregoś z niezbędnych komponentów lub wybrany procesor '
-                                  'nie posiada zintegrowanej karty graficznej'),
+                                  'Nie wybrano ktoregoś z niezbędnych komponentów lub wybrany procesor nie posiada karty graficznej lub chłodzenia'
+                                  ),
                               actions: [
                                 TextButton(
                                     onPressed: () {

@@ -249,12 +249,16 @@ class getFromCode {
         .where("model", isEqualTo: ktoro)
         .get();
     snapshot.docs.map((doc){
-      String url=doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'placeholder';
+      String url=doc.data().toString().contains('manufacturer') ? 
+      doc.get('manufacturer') : 'placeholder';
       Image img=Image.asset("assets/companies logo/"+url.toLowerCase()+".png");
       chosenPsu=Psu(
-          manufacturer: doc.data().toString().contains('manufacturer') ? doc.get('manufacturer') : 'Nieznaleziono',
-          model: doc.data().toString().contains('model') ? doc.get('model') : 'Nieznaleziono',
-          power: doc.data().toString().contains('power') ? doc.get('power') : 'Nieznaleziono',
+          manufacturer: doc.data().toString().contains('manufacturer') ? 
+          doc.get('manufacturer') : 'Nieznaleziono',
+          model: doc.data().toString().contains('model') ? 
+          doc.get('model') : 'Nieznaleziono',
+          power: doc.data().toString().contains('power') ? 
+          doc.get('power') : 'Nieznaleziono',
           img: img
       );
     }).toList();
@@ -311,21 +315,36 @@ class getFromCode {
         .get(); //pobranie odpowiedniego dokumentu
     snapshot.docs.map((doc){
       builds=Builds(
-          cpuId: doc.data().toString().contains('cpuId') ? doc.get('cpuId') : 'Nieznaleziono',
-          caseId: doc.data().toString().contains('caseId') ? doc.get('caseId') : 'Nieznaleziono',
-          coolerId: doc.data().toString().contains('coolerId') ? doc.get('coolerId') : 'Nieznaleziono',
-          driveId: doc.data().toString().contains('driveId') ? doc.get('driveId') : 'Nieznaleziono',
-          generatedCode: doc.data().toString().contains('generatedCode') ? doc.get('generatedCode') : 'Nieznaleziono',
-          gpuId: doc.data().toString().contains('gpuId') ? doc.get('gpuId') : 'Nieznaleziono',
-          motherboardId: doc.data().toString().contains('motherboardId') ? doc.get('motherboardId') : 'Nieznaleziono',
-          psuId: doc.data().toString().contains('psuId') ? doc.get('psuId') : 'Nieznaleziono',
-          ramId: doc.data().toString().contains('ramId') ? doc.get('ramId') : 'Nieznaleziono',
-          timestamp: doc.data().toString().contains('timestamp') ? doc.get('timestamp') : 'Nieznaleziono',
-          uid: doc.data().toString().contains('uid') ? doc.get('uid') : 'Nieznaleziono',
-          minTdp: doc.data().toString().contains('minTdp') ? doc.get('minTdp') : 'Nieznaleziono',
-          maxTdp: doc.data().toString().contains('maxTdp') ? doc.get('maxTdp') : 'Nieznaleziono',
-          extradisk: List.from(doc.data().toString().contains('extradisk') ? doc.get('extradisk') : 'Nieznaleziono'),
-          ramNumber: doc.data().toString().contains('ramNumber') ? doc.get('ramNumber') : 'Nieznaleziono',
+          cpuId: doc.data().toString().contains('cpuId') ? 
+          doc.get('cpuId') : 'Nieznaleziono',
+          caseId: doc.data().toString().contains('caseId') ? 
+          doc.get('caseId') : 'Nieznaleziono',
+          coolerId: doc.data().toString().contains('coolerId') ?
+          doc.get('coolerId') : 'Nieznaleziono',
+          driveId: doc.data().toString().contains('driveId') ? 
+          doc.get('driveId') : 'Nieznaleziono',
+          generatedCode: doc.data().toString().contains('generatedCode') ? 
+          doc.get('generatedCode') : 'Nieznaleziono',
+          gpuId: doc.data().toString().contains('gpuId') ? 
+          doc.get('gpuId') : 'Nieznaleziono',
+          motherboardId: doc.data().toString().contains('motherboardId') ? 
+          doc.get('motherboardId') : 'Nieznaleziono',
+          psuId: doc.data().toString().contains('psuId') ? 
+          doc.get('psuId') : 'Nieznaleziono',
+          ramId: doc.data().toString().contains('ramId') ? 
+          doc.get('ramId') : 'Nieznaleziono',
+          timestamp: doc.data().toString().contains('timestamp') ?
+          doc.get('timestamp') : 'Nieznaleziono',
+          uid: doc.data().toString().contains('uid') ? 
+          doc.get('uid') : 'Nieznaleziono',
+          minTdp: doc.data().toString().contains('minTdp') ? 
+          doc.get('minTdp') : 'Nieznaleziono',
+          maxTdp: doc.data().toString().contains('maxTdp') ? 
+          doc.get('maxTdp') : 'Nieznaleziono',
+          extradisk: List.from(doc.data().toString().contains('extradisk') ? 
+          doc.get('extradisk') : 'Nieznaleziono'),
+          ramNumber: doc.data().toString().contains('ramNumber') ? 
+          doc.get('ramNumber') : 'Nieznaleziono',
       );
     }).toList(); //stworzenie obiektu typu Builds na podstawie pobranego dokumentu
     return builds; //zwrocenie tego obiektu

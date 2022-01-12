@@ -221,8 +221,10 @@ class FireBase{
     else if(caseStandard!=null) {
       
       return FirebaseFirestore.instance
-            .collection('motherboard').where('standard', whereIn: caseStandard).where('ramType', isEqualTo: ramRamType)
-            .where('socket', isEqualTo: cpuSocket).where('hasNvmeSlot', isEqualTo: true).snapshots().map(motherboardListFromSnapshot);
+            .collection('motherboard').where('standard', whereIn: caseStandard)
+            .where('ramType', isEqualTo: ramRamType)
+            .where('socket', isEqualTo: cpuSocket)
+            .where('hasNvmeSlot', isEqualTo: true).snapshots().map(motherboardListFromSnapshot);
 
     } else
    
