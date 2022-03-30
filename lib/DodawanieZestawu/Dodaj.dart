@@ -22,7 +22,7 @@ import 'package:skladappka/Firebase/FireBase.dart';
 import 'package:skladappka/main.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:skladappka/Cache.dart' as globalna;
+import 'package:skladappka/Cache.dart' as cache;
 
 class dodaj extends StatefulWidget with ChangeNotifier {
   static Cpu chosenCpu;
@@ -687,7 +687,7 @@ class _dodaj extends State<dodaj> {
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.BOTTOM,
                       timeInSecForIosWeb: 2);
-                else if (globalna.czyZalogowany == "czyZalogowany=false")
+                else if (cache.czyZalogowany == "czyZalogowany=false")
                   Fluttertoast.showToast(
                       msg: "Musisz być zalogowany",
                       toastLength: Toast.LENGTH_SHORT,

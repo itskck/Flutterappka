@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skladappka/main.dart';
-import 'package:skladappka/Cache.dart' as globalna;
+import 'package:skladappka/Cache.dart' as cache;
 import 'package:skladappka/Firebase/DoLogowania/DoLogowania.dart';
 import 'package:skladappka/config/OperacjePliki.dart';
 
@@ -161,7 +161,7 @@ class _haveAcc extends State<haveAcc> {
                       result = await _auth.Anonim();
                     } else {
                       file.save("czyZalogowany=true",'loginConfig');
-                      globalna.czyZalogowany = "czyZalogowany=true";
+                      cache.czyZalogowany = "czyZalogowany=true";
                     }
                   }
                 }),

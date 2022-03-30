@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:skladappka/Firebase/DoLogowania/doRejestracji.dart';
 import 'package:skladappka/Firebase/DoLogowania/DoLogowania.dart';
-import 'package:skladappka/Cache.dart' as globalna;
+import 'package:skladappka/Cache.dart' as cache;
 import 'package:flutter/material.dart';
 import 'package:skladappka/Logowanie/Zalogowany.dart';
 import 'package:skladappka/main.dart';
@@ -22,7 +22,7 @@ class isLogged extends StatelessWidget {
     final user = Provider.of<doRejestracji>(context);
 
     // return either the Home or Authenticate widget
-    if (globalna.czyZalogowany=="czyZalogowany=false"){
+    if (cache.czyZalogowany=="czyZalogowany=false"){
       return Status();
     } else {
       return StreamProvider<List<Builds>>.value(

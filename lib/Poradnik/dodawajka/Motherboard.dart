@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:skladappka/Poradnik/dodawajka(do usuniecia)/dodawajka.dart';
+import 'package:skladappka/Poradnik/dodawajka/dodawajka.dart';
 
 import '../../main.dart';
 import 'coDodajesz.dart';

@@ -1,14 +1,14 @@
 import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:skladappka/Poradnik/dodawajka(do usuniecia)/Case.dart';
-import 'package:skladappka/Poradnik/dodawajka(do usuniecia)/Cooler.dart';
-import 'package:skladappka/Poradnik/dodawajka(do usuniecia)/Cpu.dart';
-import 'package:skladappka/Poradnik/dodawajka(do usuniecia)/Drive.dart';
-import 'package:skladappka/Poradnik/dodawajka(do usuniecia)/Gpu.dart';
-import 'package:skladappka/Poradnik/dodawajka(do usuniecia)/Motherboard.dart';
-import 'package:skladappka/Poradnik/dodawajka(do usuniecia)/Psu.dart';
-import 'package:skladappka/Poradnik/dodawajka(do usuniecia)/Ram.dart';
+import 'package:skladappka/Poradnik/dodawajka/Case.dart';
+import 'package:skladappka/Poradnik/dodawajka/Cooler.dart';
+import 'package:skladappka/Poradnik/dodawajka/Cpu.dart';
+import 'package:skladappka/Poradnik/dodawajka/Drive.dart';
+import 'package:skladappka/Poradnik/dodawajka/Gpu.dart';
+import 'package:skladappka/Poradnik/dodawajka/Motherboard.dart';
+import 'package:skladappka/Poradnik/dodawajka/Psu.dart';
+import 'package:skladappka/Poradnik/dodawajka/Ram.dart';
 import 'package:skladappka/main.dart';
 
 import 'package:skladappka/Poradnik/Poradnik.dart';

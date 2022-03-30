@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skladappka/config/OperacjePliki.dart';
 import 'package:skladappka/main.dart';
-import 'package:skladappka/Poradnik/dodawajka(do usuniecia)/coDodajesz.dart';
+import 'package:skladappka/Poradnik/dodawajka/coDodajesz.dart';
 
 class Glowna extends StatefulWidget {
   Glowna({Key key, this.title}) : super(key: key);

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:skladappka/Firebase/DoLogowania/doRejestracji.dart';
 import 'package:skladappka/Firebase/DoLogowania/DoLogowania.dart';
-import 'package:skladappka/Cache.dart' as globalna;
+import 'package:skladappka/Cache.dart' as cache;
 import 'package:flutter/material.dart';
 import 'package:skladappka/main.dart';
 import 'package:skladappka/Firebase/FireBase.dart';

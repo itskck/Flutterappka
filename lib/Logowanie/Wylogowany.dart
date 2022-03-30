@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skladappka/main.dart';
-import 'package:skladappka/Cache.dart' as globalna;
+import 'package:skladappka/Cache.dart' as cache;
 import 'package:skladappka/Firebase/DoLogowania/DoLogowania.dart';
 import 'package:skladappka/config/OperacjePliki.dart';
 import 'package:skladappka/Firebase/DodajDoBazyDanych/DodajDoBazyDanych.dart';
@@ -214,7 +214,7 @@ class _Wylogowany extends State<Wylogowany> {
                     if (result == null) {
                       //Fluttertoast.showToast(msg: "Rejestracja nie powiodła się.", toastLength: Toast.LENGTH_SHORT);
                       result = await _auth.Anonim();
-                      globalna.czyZalogowany = "czyZalogowany=false";
+                      cache.czyZalogowany = "czyZalogowany=false";
                     } else {
                       file.save("czyZalogowany=true",'loginConfig');
                       email.runes.forEach((int element) {
@@ -226,7 +226,7 @@ class _Wylogowany extends State<Wylogowany> {
                           nick += character;
                         }
                       });
-                      globalna.czyZalogowany = "czyZalogowany=true";
+                      cache.czyZalogowany = "czyZalogowany=true";
                     }
                   }
                 }),

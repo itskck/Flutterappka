@@ -1,32 +1,28 @@
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:skladappka/Poradnik/dodawajka(do usuniecia)/dodawajka.dart';
-import 'package:skladappka/main.dart';
+import 'package:skladappka/Poradnik/dodawajka/dodawajka.dart';
 
+import '../../main.dart';
 import 'coDodajesz.dart';
 
-class Drive extends StatefulWidget {
+class Psu extends StatefulWidget {
+
 
   @override
-  _DriveState createState() => _DriveState();
+  _PsuState createState() => _PsuState();
 }
 
-class _DriveState extends State<Drive> {
-  TextEditingController capacityControl = TextEditingController();
-  TextEditingController modelControl = TextEditingController();
+class _PsuState extends State<Psu> {
   TextEditingController manufacturerControl = TextEditingController();
-  TextEditingController connectionTypeControl = TextEditingController();
-  TextEditingController typeControl = TextEditingController();
-  String capacity='';
-  String connectionType='';
-  String manufacturer='';
-  String model='';
-  String type='';
+  TextEditingController modelControl = TextEditingController();
+  TextEditingController powerControl = TextEditingController();
+
+  String manufacturer = '';
+  String model = '';
+  String power = '';
   final dodawajka dodaj=dodawajka();
   final TextStyle style = TextStyle(
       color: Colors.white, fontFamily: GoogleFonts.workSans().fontFamily);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,10 +33,13 @@ class _DriveState extends State<Drive> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
 
             children: [
-              Text(
-                'Manufacturer: ',
-                style: TextStyle(color: Colors.white),
-                textAlign: TextAlign.center,
+              Align(
+                alignment: Alignment.topLeft,
+                child:Text(
+                  'Manufactuer: ',
+                  style: TextStyle(color: Colors.white),
+                  textAlign: TextAlign.left,
+                ),
               ),
               Container(
                 width: 200,
@@ -76,7 +75,6 @@ class _DriveState extends State<Drive> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
             children: [
               Text(
                 'Model: ',
@@ -117,10 +115,9 @@ class _DriveState extends State<Drive> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
             children: [
               Text(
-                'Capacity: ',
+                'Power: ',
                 style: TextStyle(color: Colors.white),
                 textAlign: TextAlign.center,
               ),
@@ -142,91 +139,9 @@ class _DriveState extends State<Drive> {
                         color: Color.fromRGBO(45, 45, 45, 1),
                         borderRadius: BorderRadius.circular(5)),
                     child: TextFormField(
-                      controller: capacityControl,
+                      controller: powerControl,
                       onChanged: (val) {
-                        setState(() => capacity = val);
-                      },
-                      style: style,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.fromLTRB(15, 14, 0, 0),
-                          prefixIcon: Icon(Icons.lock, color: Colors.white)),
-                    )
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-            children: [
-              Text(
-                'ConnectionType: ',
-                style: TextStyle(color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
-              Container(
-                width: 200,
-                margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                padding: EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color.fromRGBO(142, 223, 255, 1),
-                          Color.fromRGBO(255, 0, 140, 1)
-                        ])),
-                child: Container(
-                    decoration: BoxDecoration(
-                        color: Color.fromRGBO(45, 45, 45, 1),
-                        borderRadius: BorderRadius.circular(5)),
-                    child: TextFormField(
-                      controller: connectionTypeControl,
-                      onChanged: (val) {
-                        setState(() => connectionType = val);
-                      },
-                      style: style,
-                      decoration: InputDecoration(
-                          border: InputBorder.none,
-                          contentPadding: EdgeInsets.fromLTRB(15, 14, 0, 0),
-                          prefixIcon: Icon(Icons.lock, color: Colors.white)),
-                    )
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-            children: [
-              Text(
-                'Type: ',
-                style: TextStyle(color: Colors.white),
-                textAlign: TextAlign.center,
-              ),
-              Container(
-                width: 200,
-                margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                padding: EdgeInsets.all(2),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Color.fromRGBO(142, 223, 255, 1),
-                          Color.fromRGBO(255, 0, 140, 1)
-                        ])),
-                child: Container(
-                    decoration: BoxDecoration(
-                        color: Color.fromRGBO(45, 45, 45, 1),
-                        borderRadius: BorderRadius.circular(5)),
-                    child: TextFormField(
-                      controller: typeControl,
-                      onChanged: (val) {
-                        setState(() => type = val);
+                        setState(() => power = val);
                       },
                       style: style,
                       decoration: InputDecoration(
@@ -240,19 +155,17 @@ class _DriveState extends State<Drive> {
           ),
           GestureDetector(
               onTap: () async{
-                await dodaj.dodajDrive(manufacturer, model, capacity,connectionType,type);
+                await dodaj.dodajPsu(manufacturer, model, power);
                 setState(() {
                   manufacturerControl.clear();
                   modelControl.clear();
-                  capacityControl.clear();
-                  connectionTypeControl.clear();
-                  typeControl.clear();
+                  powerControl.clear();
                 });
                 runApp(MaterialApp(
                     debugShowCheckedModeBanner: false,
                     theme: appTheme(),
                     title: 'Skladapka',
-                    home: Drive()));
+                    home: Psu()));
               },
               child: Container(
                 width: 120,

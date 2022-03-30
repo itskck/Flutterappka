@@ -13,7 +13,7 @@ import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Builds.dart';
 import 'dart:core';
 import 'package:skladappka/Firebase/PobierzBazeDanych/PobierzZapisany.dart';
-import 'package:skladappka/Cache.dart' as globalna;
+import 'package:skladappka/Cache.dart' as cache;
 import 'package:skladappka/wczytajZestaw/Wybor.dart';
 import 'package:skladappka/OcenKomponenty/OcenKomponenty.dart';
 
@@ -60,7 +60,7 @@ class dialogBuilderForCompare extends StatelessWidget {
                 ],
               ),
               onPressed: () async {
-                if (ktoro == 0) if (globalna.ktoro == 3) {
+                if (ktoro == 0) if (cache.ktoro == 3) {
                   Porownywarka.chosenCpu =
                       await getFromSaved(id: builds[i].cpuId).getCpu();
                   Porownywarka.chosenPsu =
@@ -81,7 +81,7 @@ class dialogBuilderForCompare extends StatelessWidget {
                   Porownywarka.uid = builds[i].uid;
                   Porownywarka.extradisk =
                       await getFromSaved(builds: builds[i]).setExtra();
-                } else if (globalna.ktoro == 1) {
+                } else if (cache.ktoro == 1) {
                   choices.builds = builds[i];
                 } else
                   rateComponents.builds = builds[i];

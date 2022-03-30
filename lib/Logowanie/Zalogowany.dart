@@ -13,7 +13,7 @@ import 'package:skladappka/Firebase/DoLogowania/DoLogowania.dart';
 import 'package:skladappka/Logowanie/Logowanie.dart';
 import 'package:skladappka/Logowanie/Wylogowany.dart';
 import 'package:skladappka/config/OperacjePliki.dart';
-import 'package:skladappka/Cache.dart' as globalna;
+import 'package:skladappka/Cache.dart' as cache;
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:uuid/uuid.dart';
@@ -78,7 +78,7 @@ class _Zalogowany extends State<Zalogowany> {
   void logout() async {
     await _auth.wylogui();
     file.save("czyZalogowany=false", 'loginConfig');
-    globalna.czyZalogowany = "czyZalogowany=false";
+    cache.czyZalogowany = "czyZalogowany=false";
     dynamic result = await _auth.Anonim();
     print(result);
   }
@@ -421,7 +421,7 @@ class _Zalogowany extends State<Zalogowany> {
                                     ))),
                             onDismissed: (DismissDirection direction) {
                               if (direction == DismissDirection.startToEnd) {
-                                globalna.ktoro = 1;
+                                cache.ktoro = 1;
                                 return inicjalizuj(item);
                               } else {
                                 setState(() {

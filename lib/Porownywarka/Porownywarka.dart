@@ -11,7 +11,7 @@ import 'package:skladappka/Firebase/Motherboard.dart';
 import 'package:skladappka/Firebase/Psu.dart';
 import 'package:skladappka/Firebase/Ram.dart';
 import 'package:skladappka/Firebase/PobierzBazeDanych/PobierzKod.dart';
-import 'package:skladappka/Cache.dart' as globalna;
+import 'package:skladappka/Cache.dart' as cache;
 import 'package:skladappka/main.dart';
 import 'package:skladappka/Porownywarka/Porownanie.dart';
 import 'package:skladappka/Porownywarka/OknoDialogoweBuilder.dart';
@@ -194,7 +194,7 @@ class _Porownywarka extends State<Porownywarka> {
                           gravity: ToastGravity.BOTTOM,
                           timeInSecForIosWeb: 2);
                     else {
-                      if (globalna.czyZalogowany == "czyZalogowany=false") {
+                      if (cache.czyZalogowany == "czyZalogowany=false") {
                         Fluttertoast.showToast(msg: "Musisz się zalogować",
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.BOTTOM,
@@ -373,7 +373,7 @@ class _Porownywarka extends State<Porownywarka> {
                           gravity: ToastGravity.BOTTOM,
                           timeInSecForIosWeb: 2);
                     else {
-                      if (globalna.czyZalogowany == "czyZalogowany=false") {
+                      if (cache.czyZalogowany == "czyZalogowany=false") {
                         Fluttertoast.showToast(msg: "Musisz się zalogować",
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.BOTTOM,

@@ -21,7 +21,7 @@ import 'package:skladappka/dodawanieZestawu/OknoDialogoweWidget.dart';
 import 'package:skladappka/Firebase/DodajDoBazyDanych/DodajDoBazyDanych.dart';
 import 'package:skladappka/Firebase/FireBase.dart';
 import 'package:skladappka/Logowanie/Zalogowany.dart';
-import 'package:skladappka/Cache.dart' as globalna;
+import 'package:skladappka/Cache.dart' as cache;
 import 'package:skladappka/main.dart';
 
 class Edit extends StatefulWidget with ChangeNotifier {
@@ -806,7 +806,7 @@ class _Edit extends State<Edit> {
                                       chosenRam: Edit.chosenRam)
                                       .addBuildData();
                                   Navigator.of(context).pop();
-                                  globalna.ktoro=4;
+                                  cache.ktoro=4;
                                   inicjalizuj(null);
                                 },
                                 child: Text('Tak')),

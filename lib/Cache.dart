@@ -1,4 +1,4 @@
-library Flutterappka.globalna;
+library Flutterappka.cache;
 
 int currentTheme=0;
 int ktoro=2;

@@ -17,7 +17,7 @@ import 'wczytajZestaw/WczytajZestaw.dart';
 import 'package:skladappka/Firebase/Builds.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'Firebase/DoLogowania/DoLogowania.dart';
-import 'Cache.dart' as globalna;
+import 'Cache.dart' as cache;
 import 'config/OperacjePliki.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:skladappka/OcenKomponenty/OcenKomponenty.dart';
@@ -60,7 +60,7 @@ Future<void> main() async {
     data.add(tekst);
   });
 
-  globalna.czyZalogowany = data[0];
+  cache.czyZalogowany = data[0];
   print(data[1]);
   if (data[1] == "tutorial=false") sprawdzacz = true;
   runApp(MaterialApp(
@@ -124,7 +124,7 @@ class Skladapka extends StatefulWidget {
 class _SkladapkaState extends State<Skladapka> {
   final doLogowanie _anonim = doLogowanie();
   void _onItemTapped(int index) {
-    globalna.ktoro = index;
+    cache.ktoro = index;
     inicjalizuj(null);
   }
 
@@ -139,7 +139,7 @@ class _SkladapkaState extends State<Skladapka> {
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     if(result==ConnectivityResult.none){
       setState(() {
-        globalna.ktoro=2;
+        cache.ktoro=2;
         Skladapka.connectivityResult = result; //zmiana rezultatu połączenia
       });
     }
@@ -153,7 +153,7 @@ class _SkladapkaState extends State<Skladapka> {
     if (widget.builds != null) {
       print("tak, tak");
       setState(() {
-        globalna.ktoro = ktoro;
+        cache.ktoro = ktoro;
       });
       if (ktoro == 1)
         return wczytajZestaw(czyWczytuje: true, builds: widget.builds);
@@ -180,7 +180,7 @@ class _SkladapkaState extends State<Skladapka> {
 
   @override
   Widget build(BuildContext context) {
-    print(globalna.ktoro.toString() + "############");
+    print(cache.ktoro.toString() + "############");
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: appTheme(),
@@ -212,14 +212,14 @@ class _SkladapkaState extends State<Skladapka> {
             onHorizontalDragEnd: (details) {
               if (details.primaryVelocity > 0) {
                 //w prawo
-                globalna.ktoro -= 1;
-                if (globalna.ktoro < 0) globalna.ktoro = 0;
+                cache.ktoro -= 1;
+                if (cache.ktoro < 0) cache.ktoro = 0;
                 setState(() {});
               }
               if (details.primaryVelocity < 0) {
                 //w lewo
-                globalna.ktoro += 1;
-                if (globalna.ktoro > 4) globalna.ktoro = 4;
+                cache.ktoro += 1;
+                if (cache.ktoro > 4) cache.ktoro = 4;
                 setState(() {});
               }
             },
@@ -235,10 +235,10 @@ class _SkladapkaState extends State<Skladapka> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(50),
                         topRight: Radius.circular(50))),
-                child: viewReturner(globalna.ktoro)),
+                child: viewReturner(cache.ktoro)),
           ),
           bottomNavigationBar: CurvedNavigationBar(
-            index: globalna.ktoro,
+            index: cache.ktoro,
             color: Colors.lightBlue[300],
             backgroundColor: Color.fromRGBO(59, 55, 68, 1),
             animationDuration: Duration(milliseconds: 300),
@@ -248,7 +248,7 @@ class _SkladapkaState extends State<Skladapka> {
               Icon(Icons.edit, color: Colors.white),
               Icon(Icons.add, color: Colors.white),
               Icon(Icons.leaderboard, color: Colors.white),
-              if (globalna.czyZalogowany == "czyZalogowany=false" ||
+              if (cache.czyZalogowany == "czyZalogowany=false" ||
                   Skladapka.connectivityResult == ConnectivityResult.none)
                 Icon(Icons.account_circle_rounded, color: Colors.white)
               else
